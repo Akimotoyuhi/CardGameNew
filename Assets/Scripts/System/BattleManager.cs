@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] EnemyManager m_enemyManager;
+    [SerializeField] Player m_playerPrefab;
+    private Player m_currentPlayer;
 
-    // Update is called once per frame
-    void Update()
+    public void Setup()
     {
-        
+        m_enemyManager.Setup();
+        m_currentPlayer = Instantiate(m_playerPrefab);
+        m_currentPlayer.Setup();
     }
 }
