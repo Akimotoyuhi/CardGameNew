@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField] EnemyManager m_enemyManager;
-    [SerializeField] Player m_playerPrefab;
-    private Player m_currentPlayer;
+    [SerializeField] CardData m_cardData;
+    [SerializeField] Card m_cardPrefab;
+    [SerializeField] Transform m_hand;
+    [SerializeField] CharactorManager m_enemyManager;
+    private List<Card> m_currentCard = new List<Card>();
+    public CardData CardData => m_cardData;
 
     public void Setup()
     {
         m_enemyManager.Setup();
-        m_currentPlayer = Instantiate(m_playerPrefab);
-        m_currentPlayer.Setup();
+        Create();
+    }
+
+    private void Create()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            Card c = Instantiate(m_cardPrefab);
+            c.Setup(m_cardData.DataBases[0]);//とりあえず
+            c.transform.SetParent(m_hand, false);
+        }
     }
 }

@@ -9,19 +9,23 @@ using UnityEngine.UI;
 public class Charactor : MonoBehaviour
 {
     #region field
+    [SerializeField] protected Image m_image;
     [SerializeField] Slider m_lifeSlider;
     [SerializeField] Slider m_blockSlider;
     [SerializeField] Text m_text;
+    protected string m_name;
     protected int m_maxLife;
     protected ReactiveProperty<int> m_currentLife = new ReactiveProperty<int>();
     protected ReactiveProperty<int> m_currentBlock = new ReactiveProperty<int>();
+    private Subject<Unit> m_deadSubject = new Subject<Unit>();
     #endregion
     #region property
     public IObservable<int> CurrentLifeObservable => m_currentLife;
     public IObservable<int> CurrentBlockObservable => m_currentBlock;
+    public IObservable<Unit> DeadSubject => m_deadSubject;
     #endregion
 
-    public virtual void Setup()
+    protected virtual void Setup()
     {
         m_lifeSlider.maxValue = m_maxLife;
         CurrentLifeObservable.Subscribe(life =>
@@ -34,6 +38,7 @@ public class Charactor : MonoBehaviour
             m_blockSlider.value = block;
             SetText();
         }).AddTo(this);
+        m_currentBlock.Value = 0;
     }
 
     protected virtual void SetText()
@@ -46,6 +51,6 @@ public class Charactor : MonoBehaviour
 
     protected virtual void Dead()
     {
-
+        m_deadSubject.OnNext(Unit.Default);
     }
 }
