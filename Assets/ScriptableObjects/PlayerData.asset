@@ -18,3 +18,4 @@ MonoBehaviour:
       m_name: "\u30DE\u30BC\u30E9\u30F3"
       m_maxLife: 70
       m_sprite: {fileID: 21300000, guid: f5272c85f20091f46b65267649657bd1, type: 3}
+      m_imageScaling: 1.5

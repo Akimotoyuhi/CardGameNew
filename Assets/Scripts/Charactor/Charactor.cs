@@ -17,11 +17,13 @@ public class Charactor : MonoBehaviour
     protected int m_maxLife;
     protected ReactiveProperty<int> m_currentLife = new ReactiveProperty<int>();
     protected ReactiveProperty<int> m_currentBlock = new ReactiveProperty<int>();
+    protected bool m_isPlayer;
     private Subject<Unit> m_deadSubject = new Subject<Unit>();
     #endregion
     #region property
     public IObservable<int> CurrentLifeObservable => m_currentLife;
     public IObservable<int> CurrentBlockObservable => m_currentBlock;
+    public bool IsPlayer => m_isPlayer;
     public IObservable<Unit> DeadSubject => m_deadSubject;
     #endregion
 
@@ -35,10 +37,21 @@ public class Charactor : MonoBehaviour
         }).AddTo(this);
         CurrentBlockObservable.Subscribe(block =>
         {
+            if (m_currentBlock.Value < 0)
+                m_currentBlock.Value = 0;
             m_blockSlider.value = block;
             SetText();
         }).AddTo(this);
         m_currentBlock.Value = 0;
+    }
+
+    protected void SetData(CharactorDataBase dataBase)
+    {
+        m_name = dataBase.Name;
+        m_image.sprite = dataBase.Sprite;
+        m_maxLife = dataBase.MaxLife;
+        m_currentLife.Value = dataBase.MaxLife;
+        m_image.transform.localScale *= dataBase.ImageScaling;
     }
 
     protected virtual void SetText()
@@ -47,6 +60,16 @@ public class Charactor : MonoBehaviour
             m_text.text = $"{m_currentLife.Value}+{m_currentBlock} / {m_maxLife}";
         else
             m_text.text = $"{m_currentLife.Value} / {m_maxLife}";
+    }
+
+    public virtual void Damage(Command cmd)
+    {
+        if (cmd.Power > 0)
+        {
+            int dmg = m_currentBlock.Value -= cmd.Power;
+            m_currentLife.Value += dmg;
+        }
+        m_currentBlock.Value += cmd.Block;
     }
 
     protected virtual void Dead()

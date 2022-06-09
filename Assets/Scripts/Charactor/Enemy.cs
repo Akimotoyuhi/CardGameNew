@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Enemy : Charactor
 {
-
+    private int m_index;
+    public int Index => m_index;
 
     protected override void Setup()
     {

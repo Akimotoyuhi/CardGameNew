@@ -15,7 +15,8 @@ public class CardDataBase
     [SerializeField] string m_name;
     [SerializeField] Sprite m_icon;
     [SerializeField] string m_cost;
-    [SerializeField, TextArea] string m_tooltip;
+    [SerializeField, TextArea, Tooltip("攻撃力に置き換える場合は{pow0}\nブロック値の場合は{blk0}\nの様に記述すること")]
+    string m_tooltip;
     [SerializeField] UseType m_cardUseType = UseType.None;
     [SerializeField] CommandSelect m_cardCommands;
     public string Name => m_name;
@@ -45,7 +46,7 @@ public interface ICommand
 
 public class AttackCommand : ICommand
 {
-    [SerializeField] UseType m_useType;
+    [SerializeField] UseType m_useType = UseType.None;
     [SerializeField] int m_power;
     [SerializeField] bool m_isTrueDamage;
 

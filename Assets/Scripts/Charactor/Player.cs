@@ -14,10 +14,15 @@ public class Player : Charactor, IDrop
 
     public void SetBaseData(PlayerDataBase dataBase)
     {
-        m_image.sprite = dataBase.CharactorData.Sprite;
-        m_maxLife = dataBase.CharactorData.MaxLife;
-        m_currentLife.Value = dataBase.CharactorData.MaxLife;
+        SetData(dataBase.CharactorData);
         Setup();
+    }
+
+    public override void Damage(Command cmd)
+    {
+        if (cmd.UseType != UseType.Player)
+            return;
+        base.Damage(cmd);
     }
 
     protected override void Dead()
@@ -25,7 +30,9 @@ public class Player : Charactor, IDrop
         base.Dead();
     }
 
-    public bool GetDrop(ref List<Command> commands)
+    //以下インターフェース
+
+    public bool GetDrop(ref List<Command> commands, ref Enemy enemy)
     {
         Debug.Log("GetDrop");
         commands.ForEach(c => Debug.Log($"{c.UseType}, {c.Power}, {c.Block}"));

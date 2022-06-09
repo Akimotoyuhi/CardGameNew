@@ -40,6 +40,9 @@ public class CharactorManager : MonoBehaviour
     /// <param name="cmds"></param>
     public void CommandExecutor(List<Command> cmds)
     {
-
+        cmds.ForEach(c =>
+        {
+            CurrentPlayer.Damage(c);
+        });
     }
 }

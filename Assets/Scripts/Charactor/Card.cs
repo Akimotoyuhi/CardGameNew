@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UniRx;
+using System.Text.RegularExpressions;
 
 public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
@@ -15,6 +16,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private bool m_isDrag;
     private UseType m_useType;
     private CardDataBase m_database;
+    private List<Command> m_cardCommands;
     private Vector2 m_defPos;
     private Player m_player;
     private Subject<List<Command>> m_cardUsed = new Subject<List<Command>>();
@@ -24,6 +26,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     {
         m_player = player;
         SetBaseData(dataBase);
+        SetTooltip(m_tooltipText.text);
     }
 
     private void SetBaseData(CardDataBase database)
@@ -34,6 +37,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_tooltipText.text = database.Tooltip;
         m_costText.text = database.Cost;
         m_useType = database.CardUseType;
+        m_cardCommands = database.CardCommands.Execute();
     }
 
     /// <summary>
@@ -47,9 +51,29 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             return;
         List<Command> cmds = new List<Command>();
         m_database.CardCommands.Execute().ForEach(c => cmds.Add(c));
-        target.GetDrop(ref cmds);
+        Enemy e = default;
+        target.GetDrop(ref cmds, ref e);
+        //Ç±Ç±Ç≈égópèåèï]âø
         m_cardUsed.OnNext(cmds);
         Used();
+    }
+
+    public void SetTooltip(string text)
+    {
+        string s = text;
+        MatchCollection matchs = Regex.Matches(s, "{pow([0-9]*)}");
+        foreach (Match m in matchs)
+        {
+            int index = int.Parse(m.Groups[1].Value);
+            s = s.Replace(m.Value, m_cardCommands[index].Power.ToString());
+        }
+        matchs = Regex.Matches(s, "{blk([0-9]*)}");
+        foreach (Match m in matchs)
+        {
+            int index = int.Parse(m.Groups[1].Value);
+            s = s.Replace(m.Value, m_cardCommands[index].Block.ToString());
+        }
+        m_tooltipText.text = s;
     }
 
     /// <summary>

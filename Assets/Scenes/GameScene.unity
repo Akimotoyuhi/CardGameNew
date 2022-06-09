@@ -401,7 +401,7 @@ MonoBehaviour:
   m_cardData: {fileID: 11400000, guid: 45683c5d06b8fd6459aedc5ecd14457d, type: 2}
   m_cardPrefab: {fileID: 4872266847705153434, guid: 53cdd5dad5abda744a41f972f573349d, type: 3}
   m_hand: {fileID: 883396538}
-  m_enemyManager: {fileID: 1312891806}
+  m_charactorManager: {fileID: 1312891806}
 --- !u!114 &1312891808
 MonoBehaviour:
   m_ObjectHideFlags: 0
