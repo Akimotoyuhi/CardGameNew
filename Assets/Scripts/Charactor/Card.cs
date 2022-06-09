@@ -65,13 +65,13 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         foreach (Match m in matchs)
         {
             int index = int.Parse(m.Groups[1].Value);
-            s = s.Replace(m.Value, m_cardCommands[index].Power.ToString());
+            s = s.Replace(m.Value, $"{m_cardCommands[index].Power}ダメージ");
         }
         matchs = Regex.Matches(s, "{blk([0-9]*)}");
         foreach (Match m in matchs)
         {
             int index = int.Parse(m.Groups[1].Value);
-            s = s.Replace(m.Value, m_cardCommands[index].Block.ToString());
+            s = s.Replace(m.Value, $"{m_cardCommands[index].Block}ブロック");
         }
         m_tooltipText.text = s;
     }

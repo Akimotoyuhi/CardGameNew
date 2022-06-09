@@ -34,8 +34,6 @@ public class Player : Charactor, IDrop
 
     public bool GetDrop(ref List<Command> commands, ref Enemy enemy)
     {
-        Debug.Log("GetDrop");
-        commands.ForEach(c => Debug.Log($"{c.UseType}, {c.Power}, {c.Block}"));
         return true;
     }
 

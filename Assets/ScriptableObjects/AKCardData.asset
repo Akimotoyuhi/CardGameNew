@@ -10,21 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 662d077d79248da49b700f9212b2f43f, type: 3}
-  m_Name: CardData
+  m_Name: AKCardData
   m_EditorClassIdentifier: 
+  m_cardClassType: 2
   m_dataBases:
   - m_name: "\u30B9\u30C8\u30E9\u30A4\u30AF"
     m_icon: {fileID: 21300000, guid: e2608cc84aad21e44833f50a91815884, type: 3}
     m_cost: 1
-    m_tooltip: "\u6575\u4E00\u4F53\u306B{pow0}\u30C0\u30E1\u30FC\u30B8"
-    m_cardUseType: 0
+    m_tooltip: "\u6575\u4E00\u4F53\u306B{pow0}"
+    m_cardUseType: 1
     m_cardCommands:
       m_commands:
       - rid: 2058801646637940739
   - m_name: "\u9632\u5FA1"
     m_icon: {fileID: 21300000, guid: 578a90c4fa2866a47aab0b5cddece5c7, type: 3}
     m_cost: 1
-    m_tooltip: "\u81EA\u8EAB\u306B{blk0}\u30D6\u30ED\u30C3\u30AF"
+    m_tooltip: "\u81EA\u8EAB\u306B{blk0}"
     m_cardUseType: 0
     m_cardCommands:
       m_commands:

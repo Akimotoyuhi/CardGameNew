@@ -5,7 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardData")]
 public class CardData : ScriptableObject
 {
+    [SerializeField] CardClassType m_cardClassType;
     [SerializeField] List<CardDataBase> m_dataBases;
+    public CardClassType CardClassType => m_cardClassType;
     public List<CardDataBase> DataBases => m_dataBases;
 }
 
@@ -74,6 +76,29 @@ public class BlockCommand : ICommand
     }
 }
 
+#region enums
+/// <summary>全キャラ共通のカードのID</summary>
+public enum CommonCardID
+{
+
+}
+/// <summary>オリジナルキャラのカードID</summary>
+public enum OriginalCardID
+{
+    /// <summary>斬撃</summary>
+    Slashing,
+    /// <summary>防御</summary>
+    Defence,
+}
+/// <summary></summary>
+public enum AKCardID
+{
+    /// <summary>ストライク</summary>
+    Strike,
+    /// <summary>防御</summary>
+    Defence,
+}
+
 public enum UseType
 {
     None = -1,
@@ -82,3 +107,4 @@ public enum UseType
     AllEnemies,
     System,
 }
+#endregion

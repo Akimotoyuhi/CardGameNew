@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84dccf3261c06b44caf79e0934a958a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_usePlayerID: 1
   m_playerData: {fileID: 11400000, guid: f648e49eaddc252478160cf2e0077e69, type: 2}
   m_playerPrefab: {fileID: 3798794422098093892, guid: 5fdf2a4bc238daa4295da48e3fa45b2b, type: 3}
   m_playerParent: {fileID: 2142557766}
@@ -398,7 +399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287d91f8ad999b848aa34828ae6f134d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_cardData: {fileID: 11400000, guid: 45683c5d06b8fd6459aedc5ecd14457d, type: 2}
+  m_commonCardData: {fileID: 11400000, guid: 6068bc350c5dc6d41b08a116083c5d1d, type: 2}
+  m_originalCardData: {fileID: 11400000, guid: 25ce34f5850765f46aedcd7ac8dc95eb, type: 2}
+  m_akCardData: {fileID: 11400000, guid: 45683c5d06b8fd6459aedc5ecd14457d, type: 2}
   m_cardPrefab: {fileID: 4872266847705153434, guid: 53cdd5dad5abda744a41f972f573349d, type: 3}
   m_hand: {fileID: 883396538}
   m_charactorManager: {fileID: 1312891806}
