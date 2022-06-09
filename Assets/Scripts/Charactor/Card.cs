@@ -13,11 +13,16 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     [SerializeField] Text m_costText;
     [SerializeField] RectTransform m_rectTransform;
     private bool m_isDrag;
+    private UseType m_useType;
     private CardDataBase m_database;
     private Vector2 m_defPos;
+    private Player m_player;
+    private Subject<List<Command>> m_cardUsed = new Subject<List<Command>>();
+    public System.IObservable<List<Command>> CardUsed => m_cardUsed;
 
-    public void Setup(CardDataBase dataBase)
+    public void Setup(CardDataBase dataBase, Player player)
     {
+        m_player = player;
         SetBaseData(dataBase);
     }
 
@@ -28,11 +33,31 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_icon.sprite = database.Icon;
         m_tooltipText.text = database.Tooltip;
         m_costText.text = database.Cost;
+        m_useType = database.CardUseType;
     }
 
-    private void CardExecute(IDrop target)
+    /// <summary>
+    /// カード効果の実行
+    /// </summary>
+    /// <param name="target"></param>
+    private void Execute(IDrop target)
     {
-        target.GetDrop();
+        UseType ut = target.GetUseType();
+        if (ut != m_useType)
+            return;
+        List<Command> cmds = new List<Command>();
+        m_database.CardCommands.Execute().ForEach(c => cmds.Add(c));
+        target.GetDrop(ref cmds);
+        m_cardUsed.OnNext(cmds);
+        Used();
+    }
+
+    /// <summary>
+    /// 使用された後の処理
+    /// </summary>
+    private void Used()
+    {
+
     }
 
     //以下インターフェース
@@ -54,7 +79,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void OnDrag(PointerEventData eventData)
     {
-        m_rectTransform.anchoredPosition = new Vector2(eventData.position.x, eventData.position.y - 100);//カーソルがカード中央に来るように調整
+        m_rectTransform.anchoredPosition = new Vector2(eventData.position.x, eventData.position.y - 150);//カーソルがカード中央に来るように調整
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -79,8 +104,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         {
             IDrop target = hit.gameObject.GetComponent<IDrop>();
             if (target == null)
-                return;
-            CardExecute(target);
+                continue;
+            Execute(target);
         }
     }
 }

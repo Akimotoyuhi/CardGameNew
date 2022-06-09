@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
-public class Player : Charactor
+public class Player : Charactor, IDrop
 {
-
+    private int m_cost;
 
     protected override void Setup()
     {
@@ -23,4 +24,13 @@ public class Player : Charactor
     {
         base.Dead();
     }
+
+    public bool GetDrop(ref List<Command> commands)
+    {
+        Debug.Log("GetDrop");
+        commands.ForEach(c => Debug.Log($"{c.UseType}, {c.Power}, {c.Block}"));
+        return true;
+    }
+
+    public UseType GetUseType() => UseType.Player;
 }

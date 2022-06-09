@@ -14,6 +14,8 @@ public class CharactorManager : MonoBehaviour
     [SerializeField] Enemy m_enemyPrefab;
     [SerializeField] Transform m_enemisParent;
     private List<Enemy> m_currentEnemies = new List<Enemy>();
+    public Player CurrentPlayer => m_currentPlayer;
+    public List<Enemy> Enemies => m_currentEnemies;
 
     public void Setup()
     {
@@ -30,5 +32,14 @@ public class CharactorManager : MonoBehaviour
         e.transform.SetParent(m_enemisParent, false);
         e.SetBaseData(m_enemyData.Databases[0]); //とりあえず
         m_currentEnemies.Add(e);
+    }
+
+    /// <summary>
+    /// コマンドを各キャラクターに対し実行する
+    /// </summary>
+    /// <param name="cmds"></param>
+    public void CommandExecutor(List<Command> cmds)
+    {
+
     }
 }
