@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using Cysharp.Threading.Tasks;
 
 public class CharactorManager : MonoBehaviour
 {
@@ -20,8 +21,9 @@ public class CharactorManager : MonoBehaviour
     [SerializeField] Enemy m_enemyPrefab;
     [SerializeField] Transform m_enemisParent;
     private List<Enemy> m_currentEnemies = new List<Enemy>();
+
     public Player CurrentPlayer => m_currentPlayer;
-    public List<Enemy> Enemies => m_currentEnemies;
+    public List<Enemy> CurrentEnemies => m_currentEnemies;
     public CardClass CardClass => m_cardClass;
     public CardClassType CardClassType => m_cardClassType;
 
@@ -46,6 +48,20 @@ public class CharactorManager : MonoBehaviour
         m_currentEnemies.Add(e);
     }
 
+    public async UniTask TurnBegin(int turn)
+    {
+        await UniTask.Yield();
+    }
+
+    public async UniTask TurnEnd(int turn)
+    {
+        foreach (var e in m_currentEnemies)
+        {
+            await e.Action();
+        }
+        Debug.Log("ターン終了");
+    }
+
     /// <summary>
     /// コマンドを各キャラクターに対し実行する
     /// </summary>
@@ -54,7 +70,24 @@ public class CharactorManager : MonoBehaviour
     {
         cmds.ForEach(c =>
         {
-            CurrentPlayer.Damage(c);
+            switch (c.UseType)
+            {
+                case UseType.None:
+                    break;
+                case UseType.Player:
+                    CurrentPlayer.Damage(c);
+                    break;
+                case UseType.Enemy:
+                    m_currentEnemies[c.TargetEnemyIndex].Damage(c);
+                    break;
+                case UseType.AllEnemies:
+                    m_currentEnemies.ForEach(e => e.Damage(c));
+                    break;
+                case UseType.System:
+                    break;
+                default:
+                    break;
+            }
         });
     }
 }

@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine.UI;
 
-public class Charactor : MonoBehaviour
+public abstract class Charactor : MonoBehaviour
 {
     #region field
     [SerializeField] protected Image m_image;
@@ -34,6 +34,8 @@ public class Charactor : MonoBehaviour
         {
             m_lifeSlider.value = life;
             SetText();
+            if (m_lifeSlider.value <= 0)
+                m_deadSubject.OnNext(Unit.Default);
         }).AddTo(this);
         CurrentBlockObservable.Subscribe(block =>
         {
@@ -61,6 +63,9 @@ public class Charactor : MonoBehaviour
         else
             m_text.text = $"{m_currentLife.Value} / {m_maxLife}";
     }
+
+    public abstract void TurnBegin(int turn);
+    public abstract void TurnEnd(int turn);
 
     public virtual void Damage(Command cmd)
     {

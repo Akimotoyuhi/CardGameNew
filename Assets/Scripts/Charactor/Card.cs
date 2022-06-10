@@ -51,9 +51,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             return;
         List<Command> cmds = new List<Command>();
         m_database.CardCommands.Execute().ForEach(c => cmds.Add(c));
-        Enemy e = default;
-        target.GetDrop(ref cmds, ref e);
-        //‚±‚±‚Åg—pğŒ•]‰¿
+        target.GetDrop(ref cmds);
         m_cardUsed.OnNext(cmds);
         Used();
     }

@@ -18,6 +18,14 @@ public class Player : Charactor, IDrop
         Setup();
     }
 
+    public override void TurnBegin(int turn)
+    {
+    }
+
+    public override void TurnEnd(int turn)
+    {
+    }
+
     public override void Damage(Command cmd)
     {
         if (cmd.UseType != UseType.Player)
@@ -32,7 +40,7 @@ public class Player : Charactor, IDrop
 
     //以下インターフェース
 
-    public bool GetDrop(ref List<Command> commands, ref Enemy enemy)
+    public bool GetDrop(ref List<Command> commands)
     {
         return true;
     }

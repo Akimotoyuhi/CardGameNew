@@ -12,6 +12,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Card m_cardPrefab;
     [SerializeField] Transform m_hand;
     [SerializeField] CharactorManager m_charactorManager;
+    private int m_currentTurn;
     private List<Card> m_currentCard = new List<Card>();
     private CardData m_useCardData;
     public CardData CardData => m_akCardData;
@@ -19,6 +20,8 @@ public class BattleManager : MonoBehaviour
     public void Setup()
     {
         m_charactorManager.Setup();
+        m_charactorManager.CurrentEnemies.ForEach(e => 
+        e.ActionSubject.Subscribe(c => CommandExecutor(c)).AddTo(e));
         Create();
     }
 
@@ -47,9 +50,16 @@ public class BattleManager : MonoBehaviour
         {
             Card c = Instantiate(m_cardPrefab);
             c.Setup(m_akCardData.DataBases[i], m_charactorManager.CurrentPlayer);//とりあえず
-            c.CardUsed.Subscribe(cmds => CommandExecutor(cmds)).AddTo(this);
+            c.CardUsed.Subscribe(cmds => CommandExecutor(cmds)).AddTo(c);
             c.transform.SetParent(m_hand, false);
+            m_currentCard.Add(c);
         });
+    }
+
+    public async void OnBattle()
+    {
+        Debug.Log("ボタンが押された");
+        await m_charactorManager.TurnEnd(m_currentTurn);
     }
 
     /// <summary>
