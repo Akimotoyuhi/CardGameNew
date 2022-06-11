@@ -19,6 +19,8 @@ MonoBehaviour:
     m_cost: 1
     m_tooltip: 
     m_cardUseType: 1
+    m_rarity: 4
+    m_cardType: 0
     m_cardCommands:
       m_commands:
       - rid: 2058801646637940741
@@ -27,6 +29,8 @@ MonoBehaviour:
     m_cost: 1
     m_tooltip: 
     m_cardUseType: 0
+    m_rarity: 4
+    m_cardType: 1
     m_cardCommands:
       m_commands:
       - rid: 2058801646637940742

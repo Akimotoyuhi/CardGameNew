@@ -19,6 +19,8 @@ MonoBehaviour:
     m_cost: 1
     m_tooltip: "\u6575\u4E00\u4F53\u306B{pow0}"
     m_cardUseType: 1
+    m_rarity: 4
+    m_cardType: 0
     m_cardCommands:
       m_commands:
       - rid: 2058801646637940739
@@ -27,6 +29,8 @@ MonoBehaviour:
     m_cost: 1
     m_tooltip: "\u81EA\u8EAB\u306B{blk0}"
     m_cardUseType: 0
+    m_rarity: 4
+    m_cardType: 1
     m_cardCommands:
       m_commands:
       - rid: 2058801646637940738

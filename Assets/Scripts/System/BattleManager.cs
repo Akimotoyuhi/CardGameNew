@@ -10,7 +10,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] CardData m_originalCardData;
     [SerializeField] CardData m_akCardData;
     [SerializeField] Card m_cardPrefab;
-    [SerializeField] Transform m_hand;
+    [SerializeField] Hand m_hand;
+    [SerializeField] Deck m_deck;
+    [SerializeField] Discard m_discard;
     [SerializeField] CharactorManager m_charactorManager;
     private int m_currentTurn;
     private List<Card> m_currentCard = new List<Card>();
@@ -56,7 +58,7 @@ public class BattleManager : MonoBehaviour
             Card c = Instantiate(m_cardPrefab);
             c.Setup(m_useCardData.DataBases[i], m_charactorManager.CurrentPlayer);
             c.CardUsed.Subscribe(cmds => CommandExecutor(cmds)).AddTo(c);
-            c.transform.SetParent(m_hand, false);
+            c.transform.SetParent(m_hand.CardParent, false);
             m_currentCard.Add(c);
         });
     }

@@ -12,10 +12,23 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     [SerializeField] Image m_icon;
     [SerializeField] Text m_tooltipText;
     [SerializeField] Text m_costText;
+    [SerializeField] Image m_cardTypeImage;
     [SerializeField] RectTransform m_rectTransform;
+    [SerializeField, Tooltip("CardTypeに基づいたカード右上のアイコンの画像\n要素順に攻撃\n防御\nバフ\nデバフ\n自傷\nの順")]
+    private List<CardTypeSpriteSettings> m_cardTypeSpriteSettings;
+    [System.Serializable]
+    public class CardTypeSpriteSettings
+    {
+        [SerializeField] Sprite m_sprite;
+        [SerializeField] Color m_color = Color.white;
+        public Sprite Sprite => m_sprite;
+        public Color Color => m_color;
+    }
     private int m_cost;
     private bool m_isDrag;
     private UseType m_useType;
+    private Rarity m_rarity;
+    private CardType m_cardType;
     private CardDataBase m_database;
     private List<Command> m_cardCommands;
     private Vector2 m_defPos;
@@ -37,6 +50,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_icon.sprite = database.Icon;
         m_tooltipText.text = database.Tooltip;
         m_costText.text = database.Cost;
+        m_rarity = database.Rarity;
+        m_cardType = database.CardType;
+        m_cardTypeImage.sprite = m_cardTypeSpriteSettings[(int)m_cardType].Sprite;
+        m_cardTypeImage.color = m_cardTypeSpriteSettings[(int)m_cardType].Color;
         try
         {
             m_cost = int.Parse(database.Cost);
