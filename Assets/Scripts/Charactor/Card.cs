@@ -13,6 +13,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     [SerializeField] Text m_tooltipText;
     [SerializeField] Text m_costText;
     [SerializeField] RectTransform m_rectTransform;
+    private int m_cost;
     private bool m_isDrag;
     private UseType m_useType;
     private CardDataBase m_database;
@@ -36,6 +37,15 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_icon.sprite = database.Icon;
         m_tooltipText.text = database.Tooltip;
         m_costText.text = database.Cost;
+        try
+        {
+            m_cost = int.Parse(database.Cost);
+        }
+        catch
+        {
+            Debug.LogError("キャスト不可な値が検出されたので、適当な値が設定されました");
+            m_cost = m_player.MaxCost;
+        }
         m_useType = database.CardUseType;
         m_cardCommands = database.CardCommands.Execute();
     }
@@ -49,10 +59,16 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         UseType ut = target.GetUseType();
         if (ut != m_useType)
             return;
+        if (m_player.CurrentCost < m_cost)
+        {
+            Debug.Log("コスト足りない");
+            return;
+        }
         List<Command> cmds = new List<Command>();
         m_database.CardCommands.Execute().ForEach(c => cmds.Add(c));
         target.GetDrop(ref cmds);
         m_cardUsed.OnNext(cmds);
+        m_player.CurrentCost -= m_cost;
         Used();
     }
 
@@ -128,6 +144,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             if (target == null)
                 continue;
             Execute(target);
+            return;
         }
     }
 }

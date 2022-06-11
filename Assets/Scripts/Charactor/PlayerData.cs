@@ -13,8 +13,10 @@ public class PlayerData : ScriptableObject
 public class PlayerDataBase
 {
     [SerializeField] string m_label;
+    [SerializeField] int m_maxCost;
     [SerializeField] CharactorDataBase m_characterData;
     [SerializeField] CardClassSelector m_cardClassSelector;
+    public int MaxCost => m_maxCost;
     public CharactorDataBase CharactorData => m_characterData;
     public CardClassSelector CardClassSelector => m_cardClassSelector;
 }

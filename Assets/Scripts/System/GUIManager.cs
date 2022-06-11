@@ -9,7 +9,9 @@ public class GUIManager : MonoBehaviour
 {
     [Header("í“¬‰æ–Ê")]
     [SerializeField] BattleManager m_battleManager;
+    [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] Button m_turnEndButton;
+    [SerializeField] Text m_costText;
 
     public void Setup()
     {
@@ -22,6 +24,12 @@ public class GUIManager : MonoBehaviour
                 else
                     m_turnEndButton.interactable = false;
             })
-            .AddTo(this);
+            .AddTo(m_battleManager);
+        m_charactorManager.CurrentPlayer.CurrentCostObservable
+            .Subscribe(c =>
+            {
+                m_costText.text = $"{c}/{m_charactorManager.CurrentPlayer.MaxCost}";
+            })
+            .AddTo(m_charactorManager.CurrentPlayer);
     }
 }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dataBase:
   - m_label: 0
+    m_maxCost: 0
     m_characterData:
       m_name: 0
       m_maxLife: 70
@@ -23,6 +24,7 @@ MonoBehaviour:
       m_cardClassSelector:
         rid: 2058801646637940746
   - m_label: "\u30DE\u30BC\u30E9\u30F3"
+    m_maxCost: 3
     m_characterData:
       m_name: "\u30DE\u30BC\u30E9\u30F3"
       m_maxLife: 70

@@ -6,7 +6,11 @@ using Cysharp.Threading.Tasks;
 
 public class Player : Charactor, IDrop
 {
-    private int m_cost;
+    private int m_maxCost = 3;
+    private ReactiveProperty<int> m_currentCost = new ReactiveProperty<int>();
+    public int MaxCost => m_maxCost;
+    public int CurrentCost { get => m_currentCost.Value; set => m_currentCost.Value = value; }
+    public System.IObservable<int> CurrentCostObservable => m_currentCost;
 
     protected override void Setup()
     {
@@ -15,12 +19,14 @@ public class Player : Charactor, IDrop
 
     public void SetBaseData(PlayerDataBase dataBase)
     {
+        m_maxCost = dataBase.MaxCost;
         SetData(dataBase.CharactorData);
         Setup();
     }
 
     public override async UniTask TurnBegin(int turn)
     {
+        m_currentCost.Value = m_maxCost;
         await UniTask.Yield();
     }
 

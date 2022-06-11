@@ -23,10 +23,11 @@ public class BattleManager : MonoBehaviour
     public void Setup()
     {
         m_charactorManager.Setup();
-        m_charactorManager.CurrentEnemies.ForEach(e => 
+        m_charactorManager.CurrentEnemies.ForEach(e =>
         e.ActionSubject.Subscribe(c => CommandExecutor(c)).AddTo(e));
-        m_battleState.Value = BattleState.PlayerFaze;
         Create();
+        m_battleState.Value = BattleState.PlayerFaze;
+        m_charactorManager.TurnBegin(m_currentTurn).Forget();
     }
 
     private void Create()
@@ -66,6 +67,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("ボタンが押された");
         await m_charactorManager.TurnEnd(m_currentTurn);
         m_battleState.Value = BattleState.PlayerFaze;
+        m_currentTurn++;
     }
 
     /// <summary>

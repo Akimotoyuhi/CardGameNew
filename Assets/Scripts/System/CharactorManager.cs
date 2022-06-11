@@ -50,15 +50,16 @@ public class CharactorManager : MonoBehaviour
 
     public async UniTask TurnBegin(int turn)
     {
-        await UniTask.Yield();
+        Debug.Log("ターン開始");
+        foreach (var e in m_currentEnemies)
+            await e.TurnBegin(turn);
+        await CurrentPlayer.TurnBegin(turn);
     }
 
     public async UniTask TurnEnd(int turn)
     {
         foreach (var e in m_currentEnemies)
-        {
             await e.TurnEnd(turn);
-        }
         await CurrentPlayer.TurnEnd(turn);
         Debug.Log("ターン終了");
     }
