@@ -14,5 +14,14 @@ public class GUIManager : MonoBehaviour
     public void Setup()
     {
         m_turnEndButton.onClick.AddListener(() => m_battleManager.OnBattle());
+        m_battleManager.BattleStateObservable
+            .Subscribe(s =>
+            {
+                if (s == BattleState.PlayerFaze)
+                    m_turnEndButton.interactable = true;
+                else
+                    m_turnEndButton.interactable = false;
+            })
+            .AddTo(this);
     }
 }

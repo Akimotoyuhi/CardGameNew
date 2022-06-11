@@ -31,19 +31,19 @@ public class Enemy : Charactor, IDrop
         Setup();
     }
 
-    public override void TurnBegin(int turn)
+    public override async UniTask TurnBegin(int turn)
     {
+        await UniTask.Yield();
     }
 
-    public override void TurnEnd(int turn)
+    public override async UniTask TurnEnd(int turn)
     {
+        await Action();
     }
 
-    public async UniTask Action()
+    private async UniTask Action()
     {
-        Debug.Log("âΩÇ©ÇµÇÁÇÃçsìÆ");
-        var v = m_dataBase.Action(new Field(), null, null);
-        m_action.OnNext(v);
+        m_action.OnNext(m_dataBase.Action(new Field(), null, null));
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
     }
 

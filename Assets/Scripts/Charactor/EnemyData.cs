@@ -26,7 +26,6 @@ public class EnemyDataBase
     {
         foreach (var ai in m_enemyAi)
         {
-            Debug.Log(ai);
             if (ai.Conditional.Evaluation(field, player, enemy))
                 return ai.EnemyCommands.Execute();
         }

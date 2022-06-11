@@ -15,13 +15,17 @@ public class BattleManager : MonoBehaviour
     private int m_currentTurn;
     private List<Card> m_currentCard = new List<Card>();
     private CardData m_useCardData;
+    private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
     public CardData CardData => m_akCardData;
+    /// <summary>バトルの状態遷移を通知する</summary>
+    public System.IObservable<BattleState> BattleStateObservable => m_battleState;
 
     public void Setup()
     {
         m_charactorManager.Setup();
         m_charactorManager.CurrentEnemies.ForEach(e => 
         e.ActionSubject.Subscribe(c => CommandExecutor(c)).AddTo(e));
+        m_battleState.Value = BattleState.PlayerFaze;
         Create();
     }
 
@@ -49,7 +53,7 @@ public class BattleManager : MonoBehaviour
         list.ForEach(i =>
         {
             Card c = Instantiate(m_cardPrefab);
-            c.Setup(m_akCardData.DataBases[i], m_charactorManager.CurrentPlayer);//とりあえず
+            c.Setup(m_useCardData.DataBases[i], m_charactorManager.CurrentPlayer);
             c.CardUsed.Subscribe(cmds => CommandExecutor(cmds)).AddTo(c);
             c.transform.SetParent(m_hand, false);
             m_currentCard.Add(c);
@@ -58,8 +62,10 @@ public class BattleManager : MonoBehaviour
 
     public async void OnBattle()
     {
+        m_battleState.Value = BattleState.EnemyFaze;
         Debug.Log("ボタンが押された");
         await m_charactorManager.TurnEnd(m_currentTurn);
+        m_battleState.Value = BattleState.PlayerFaze;
     }
 
     /// <summary>
@@ -70,4 +76,11 @@ public class BattleManager : MonoBehaviour
     {
         m_charactorManager.CommandExecutor(cmds);
     }
+}
+
+public enum BattleState
+{
+    None,
+    EnemyFaze,
+    PlayerFaze,
 }

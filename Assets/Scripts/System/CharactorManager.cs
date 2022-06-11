@@ -57,8 +57,9 @@ public class CharactorManager : MonoBehaviour
     {
         foreach (var e in m_currentEnemies)
         {
-            await e.Action();
+            await e.TurnEnd(turn);
         }
+        await CurrentPlayer.TurnEnd(turn);
         Debug.Log("ƒ^[ƒ“I—¹");
     }
 
