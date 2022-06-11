@@ -29,53 +29,6 @@ public class CardDataBase
     public CommandSelect CardCommands => m_cardCommands;
 }
 
-[System.Serializable]
-public class CommandSelect
-{
-    [SerializeReference, SubclassSelector] List<ICommand> m_commands;
-    public List<Command> Execute()
-    {
-        var ret = new List<Command>();
-        m_commands.ForEach(c => ret.Add(c.Execute()));
-        return ret;
-    }
-}
-
-public interface ICommand
-{
-    Command Execute();
-}
-
-public class AttackCommand : ICommand
-{
-    [SerializeField] UseType m_useType = UseType.None;
-    [SerializeField] int m_power;
-    [SerializeField] bool m_isTrueDamage;
-
-    public Command Execute()
-    {
-        Command ret = new Command();
-        ret.Power = m_power;
-        ret.UseType = m_useType;
-        return ret;
-    }
-}
-
-public class BlockCommand : ICommand
-{
-    [SerializeField] UseType m_useType;
-    [SerializeField] int m_block;
-    [SerializeField] bool isTrueBlock;
-
-    public Command Execute()
-    {
-        Command ret = new Command();
-        ret.Block = m_block;
-        ret.UseType = m_useType;
-        return ret;
-    }
-}
-
 #region enums
 /// <summary>全キャラ共通のカードのID</summary>
 public enum CommonCardID

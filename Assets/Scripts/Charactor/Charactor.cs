@@ -21,6 +21,9 @@ public abstract class Charactor : MonoBehaviour
     private Subject<Unit> m_deadSubject = new Subject<Unit>();
     #endregion
     #region property
+    public int MaxLife => m_maxLife;
+    public int CurrentLife => m_currentLife.Value;
+    public int CurrentBlock => m_currentBlock.Value;
     public IObservable<int> CurrentLifeObservable => m_currentLife;
     public IObservable<int> CurrentBlockObservable => m_currentBlock;
     public bool IsPlayer => m_isPlayer;

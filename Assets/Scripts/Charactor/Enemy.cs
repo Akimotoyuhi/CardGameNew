@@ -7,8 +7,13 @@ using Cysharp.Threading.Tasks;
 public class Enemy : Charactor, IDrop
 {
     private int m_index;
+    private EnemyDataBase m_dataBase;
+    private EnemyID m_enemyID;
     private Subject<List<Command>> m_action = new Subject<List<Command>>();
+    /// <summary>敵グループでの所属index</summary>
     public int Index { set => m_index = value; }
+    /// <summary>この敵のID</summary>
+    public EnemyID EnemyID => m_enemyID;
     /// <summary>敵行動時に発行されるイベント</summary>
     public System.IObservable<List<Command>> ActionSubject => m_action;
 
@@ -19,6 +24,7 @@ public class Enemy : Charactor, IDrop
 
     public void SetBaseData(EnemyDataBase dataBase)
     {
+        m_dataBase = dataBase;
         m_image.sprite = dataBase.CharactorData.Sprite;
         m_maxLife = dataBase.CharactorData.MaxLife;
         m_currentLife.Value = dataBase.CharactorData.MaxLife;
@@ -36,6 +42,8 @@ public class Enemy : Charactor, IDrop
     public async UniTask Action()
     {
         Debug.Log("何かしらの行動");
+        var v = m_dataBase.Action(new Field(), null, null);
+        m_action.OnNext(v);
         await UniTask.Delay(System.TimeSpan.FromSeconds(1));
     }
 
@@ -43,6 +51,8 @@ public class Enemy : Charactor, IDrop
     {
         base.Dead();
     }
+
+    //以下インターフェース
 
     public bool GetDrop(ref List<Command> commands)
     {
