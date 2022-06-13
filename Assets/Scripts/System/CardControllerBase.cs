@@ -8,10 +8,7 @@ using UnityEngine;
 public class CardControllerBase : MonoBehaviour
 {
     [SerializeField] Transform m_cardParent;
+    protected List<Card> m_card = new List<Card>();
     public Transform CardParent => m_cardParent;
     public int ChildCount => m_cardParent.childCount;
-    public virtual void Setup()
-    {
-
-    }
 }

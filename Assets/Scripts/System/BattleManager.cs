@@ -53,18 +53,23 @@ public class BattleManager : MonoBehaviour
 
         //生成
         List<int> list = m_charactorManager.CardClass.GetCardID(cct);
+        List<Card> toDeckCards = new List<Card>();
         list.ForEach(i =>
         {
             Card c = Instantiate(m_cardPrefab);
             c.Setup(m_useCardData.DataBases[i], m_charactorManager.CurrentPlayer);
             c.CardUsed.Subscribe(cmds => CommandExecutor(cmds)).AddTo(c);
-            c.transform.SetParent(m_hand.CardParent, false);
+            //c.transform.SetParent(m_hand.CardParent, false);
+            toDeckCards.Add(c);
             m_currentCard.Add(c);
         });
+        m_deck.SetCard = toDeckCards;
+        m_deck.Draw(3);
     }
 
     public async void OnBattle()
     {
+        m_hand.ConvartToDiscard();
         m_battleState.Value = BattleState.EnemyFaze;
         Debug.Log("ボタンが押された");
         await m_charactorManager.TurnEnd(m_currentTurn);

@@ -8,9 +8,13 @@ public class Player : Charactor, IDrop
 {
     private int m_maxCost = 3;
     private ReactiveProperty<int> m_currentCost = new ReactiveProperty<int>();
+    private int m_maxDrowNum = 5;
+    private int m_currentDrowNum;
     public int MaxCost => m_maxCost;
     public int CurrentCost { get => m_currentCost.Value; set => m_currentCost.Value = value; }
     public System.IObservable<int> CurrentCostObservable => m_currentCost;
+    public int MaxDrow => m_maxDrowNum;
+    public int CurrentDrowNum => m_currentDrowNum;
 
     protected override void Setup()
     {

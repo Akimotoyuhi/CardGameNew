@@ -34,6 +34,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private Vector2 m_defPos;
     private Player m_player;
     private Subject<List<Command>> m_cardUsed = new Subject<List<Command>>();
+    public string Name { get; private set; }
+    public CardState CardState { get; set; }
     public System.IObservable<List<Command>> CardUsed => m_cardUsed;
 
     public void Setup(CardDataBase dataBase, Player player)
@@ -46,6 +48,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private void SetBaseData(CardDataBase database)
     {
         m_database = database;
+        Name = database.Name;
         m_nameText.text = database.Name;
         m_icon.sprite = database.Icon;
         m_tooltipText.text = database.Tooltip;
@@ -164,4 +167,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             return;
         }
     }
+}
+
+public enum CardState
+{
+    None,
+    Play,
 }
