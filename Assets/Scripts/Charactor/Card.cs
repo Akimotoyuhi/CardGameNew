@@ -156,6 +156,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void OnDrop(PointerEventData eventData)
     {
+        m_isDrag = false;
         var result = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, result);
         foreach (var hit in result)

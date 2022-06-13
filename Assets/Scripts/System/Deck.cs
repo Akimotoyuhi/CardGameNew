@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 /// <summary>
 /// ŽRŽD‚Ì§Œä
@@ -34,7 +35,6 @@ public class Deck : CardControllerBase
                 value[vs[i]].transform.SetParent(CardParent, false);
                 m_card.Add(value[vs[i]]);
             }
-            m_card.ForEach(c => Debug.Log(c.Name));
         }
     }
 
