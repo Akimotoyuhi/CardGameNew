@@ -7,8 +7,13 @@ using UnityEngine;
 /// </summary>
 public class Hand : CardControllerBase
 {
-    public override void Setup()
+    [SerializeField] Discard m_discard;
+
+    public void ConvartToDiscard()
     {
-        base.Setup();
+        for (int i = CardParent.childCount - 1; i >= 0; i--)
+        {
+            CardParent.GetChild(i).SetParent(m_discard.CardParent, false);
+        }
     }
 }

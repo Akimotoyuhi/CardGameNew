@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
 public class BattleManager : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class BattleManager : MonoBehaviour
         Create();
         m_battleState.Value = BattleState.PlayerFaze;
         m_charactorManager.TurnBegin(m_currentTurn).Forget();
+        m_deck.SetParentActive = false;
+        m_discard.SetParentActive = false;
     }
 
     private void Create()
@@ -64,7 +67,7 @@ public class BattleManager : MonoBehaviour
             m_currentCard.Add(c);
         });
         m_deck.SetCard = toDeckCards;
-        m_deck.Draw(3);
+        m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
     }
 
     public async void OnBattle()
@@ -75,6 +78,7 @@ public class BattleManager : MonoBehaviour
         await m_charactorManager.TurnEnd(m_currentTurn);
         m_battleState.Value = BattleState.PlayerFaze;
         m_currentTurn++;
+        m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
     }
 
     /// <summary>

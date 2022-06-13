@@ -7,8 +7,19 @@ using UnityEngine;
 /// </summary>
 public class Discard : CardControllerBase
 {
-    public override void Setup()
+    [SerializeField] Deck m_deck;
+
+    public void ConvartToDeck()
     {
-        base.Setup();
+        List<Card> cards = new List<Card>();
+        for (int i = 0; i < CardParent.childCount; i++)
+        {
+            cards.Add(CardParent.GetChild(i).gameObject.GetComponent<Card>());
+        }
+        m_deck.SetCard = cards;
+        //for (int i = CardParent.childCount - 1; i >= 0; i--)
+        //{
+        //    CardParent.GetChild(i).SetParent(m_deck.CardParent, false);
+        //}
     }
 }

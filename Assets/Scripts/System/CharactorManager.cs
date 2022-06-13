@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
 public class CharactorManager : MonoBehaviour
 {
@@ -58,10 +59,10 @@ public class CharactorManager : MonoBehaviour
 
     public async UniTask TurnEnd(int turn)
     {
+        Debug.Log("ターン終了");
         foreach (var e in m_currentEnemies)
             await e.TurnEnd(turn);
         await CurrentPlayer.TurnEnd(turn);
-        Debug.Log("ターン終了");
     }
 
     /// <summary>
