@@ -17,9 +17,5 @@ public class Discard : CardControllerBase
             cards.Add(CardParent.GetChild(i).gameObject.GetComponent<Card>());
         }
         m_deck.SetCard = cards;
-        //for (int i = CardParent.childCount - 1; i >= 0; i--)
-        //{
-        //    CardParent.GetChild(i).SetParent(m_deck.CardParent, false);
-        //}
     }
 }

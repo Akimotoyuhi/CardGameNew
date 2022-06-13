@@ -61,9 +61,12 @@ public class BattleManager : MonoBehaviour
         {
             Card c = Instantiate(m_cardPrefab);
             c.Setup(m_useCardData.DataBases[i], m_charactorManager.CurrentPlayer);
-            c.CardUsed.Subscribe(cmds => CommandExecutor(cmds)).AddTo(c);
-            c.CardUsed.Subscribe(_ => c.transform.SetParent(m_discard.CardParent, false)).AddTo(c);
-            //c.transform.SetParent(m_hand.CardParent, false);
+            c.CardUsed.Subscribe(cmds =>
+            {
+                CommandExecutor(cmds);
+                c.transform.SetParent(m_discard.CardParent, false);
+            })
+            .AddTo(c);
             toDeckCards.Add(c);
             m_currentCard.Add(c);
         });
@@ -71,6 +74,7 @@ public class BattleManager : MonoBehaviour
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
     }
 
+    /// <summary>ボタンが押された後の一連の流れ</summary>
     public async void OnBattle()
     {
         m_hand.ConvartToDiscard();
