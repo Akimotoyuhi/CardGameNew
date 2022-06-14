@@ -16,4 +16,5 @@ MonoBehaviour:
   - m_name: "\u30E4\u30DE\u30C0\u96FB\u6A5F"
     m_mapID: 0
     m_act: 0
-    m_chip: []
+    m_chip:
+    - m_type: 00000000
