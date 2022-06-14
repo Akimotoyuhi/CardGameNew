@@ -65,17 +65,28 @@ public class MapChip
     {
         get
         {
-            int r = Random.Range(0, m_type.Count);
-            return m_type[r];
+            CellType ret = CellType.None;
+            for (int i = 0; i < m_type.Count; i++)
+            {
+                ret = m_type[i].Lottery;
+                if (ret != CellType.None || i == m_type.Count - 1)
+                    break;
+            }
+            return ret;
         }
     }
 }
 #region Enums
 public enum MapID
 {
+    /// <summary>黒銅遺跡</summary>
     BlackCopperRuins,
+    /// <summary>さわやか川</summary>
     FreshRiver,
+    /// <summary>スーパーエデン</summary>
     SuperEden,
+    /// <summary>アウトエリアX11</summary>
+    OutEriaX11,
 }
 public enum Act
 {

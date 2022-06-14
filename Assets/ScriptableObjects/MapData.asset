@@ -13,8 +13,15 @@ MonoBehaviour:
   m_Name: MapData
   m_EditorClassIdentifier: 
   m_mapDataBase:
-  - m_name: "\u30E4\u30DE\u30C0\u96FB\u6A5F"
+  - m_name: "\u9ED2\u9285\u907A\u8DE1"
     m_mapID: 0
     m_act: 0
     m_chip:
-    - m_type: 00000000
+    - m_type:
+      - m_cellType: 0
+        m_probability: 100
+    - m_type:
+      - m_cellType: 0
+        m_probability: 50
+      - m_cellType: 4
+        m_probability: 50
