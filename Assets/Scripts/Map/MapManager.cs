@@ -9,7 +9,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] Column m_columnPrefab;
     [SerializeField] Cell m_cellPrefab;
     [SerializeField] Transform m_columnParent;
-    [SerializeField] int m_maxCell;
+    //[SerializeField] int m_maxCell;
     /// <summary>現在act</summary>
     private int m_act = 1;
     /// <summary>現在マップ</summary>
@@ -23,7 +23,7 @@ public class MapManager : MonoBehaviour
 
     public void Create()
     {
-        List<MapDataBase> databases = m_mapData.GetDataBases((Act)m_act-1);
+        List<MapDataBase> databases = m_mapData.GetDataBases((Act)m_act - 1);
         int r = Random.Range(0, databases.Count);//とりあえずマップランダム抽選　後に選択できるようにする
         Debug.Log($"Count {databases.Count}, 抽選された数値{r}");
         m_nowMap = databases[r];
@@ -32,13 +32,22 @@ public class MapManager : MonoBehaviour
             Column col = Instantiate(m_columnPrefab);
             col.transform.SetParent(m_columnParent);
             col.SetFloor = i;
-            for (int n = 0; n < m_maxCell; n++)
+            int cellIndex;
+            if (i == 0 || i == m_nowMap.MaxColumn - 1)
+                cellIndex = 1;
+            else
+                cellIndex = Random.Range(m_nowMap.Chip.MinCellNum, m_nowMap.Chip.MaxCellNum + 1);
+            for (int n = 0; n < cellIndex; n++)
             {
                 Cell cell = Instantiate(m_cellPrefab);
                 col.AddCell = cell;
                 cell.transform.SetParent(col.transform);
-                //cell.SetCellType = m_nowMap.Chip[n].GetMapType;
+                if (i == m_nowMap.MaxColumn - 1)
+                    cell.SetCellType = CellType.Boss;
+                else
+                    cell.SetCellType = m_nowMap.Chip.Lottery(i);
                 cell.CellSubject.Subscribe(c => CellClick(c)).AddTo(cell);
+                cell.Setup();
             }
             m_columns.Add(col);
         }

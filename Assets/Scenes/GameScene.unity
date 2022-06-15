@@ -281,7 +281,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2111020399}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.051097803
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1264,8 +1264,8 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 500}
   m_Spacing: {x: 150, y: 0}
-  m_Constraint: 1
-  m_ConstraintCount: 100
+  m_Constraint: 2
+  m_ConstraintCount: 1
 --- !u!1 &1254566393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1555,7 +1555,6 @@ MonoBehaviour:
   m_columnPrefab: {fileID: 3352385438186324962, guid: e3551830820a3314eb2002f02fae0e9a, type: 3}
   m_cellPrefab: {fileID: 4145602547475124240, guid: 0c0f42af224035944b6e6d372d1eafc4, type: 3}
   m_columnParent: {fileID: 1163102343}
-  m_maxCell: 3
 --- !u!1 &1324358105
 GameObject:
   m_ObjectHideFlags: 0
@@ -2109,7 +2108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1163102343}
   m_Horizontal: 1
-  m_Vertical: 1
+  m_Vertical: 0
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1

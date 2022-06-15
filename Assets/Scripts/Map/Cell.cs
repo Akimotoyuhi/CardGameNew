@@ -14,7 +14,7 @@ public class Cell : MonoBehaviour
     [SerializeField] Sprite m_eliteSprite;
     [SerializeField] Sprite m_bossSprite;
     private CellType m_cellType;
-    private Subject<CellType> m_cellSubject;
+    private Subject<CellType> m_cellSubject = new Subject<CellType>();
     public CellType SetCellType
     {
         set

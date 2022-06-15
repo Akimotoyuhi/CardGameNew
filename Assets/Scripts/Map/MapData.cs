@@ -33,12 +33,13 @@ public class MapDataBase
     [SerializeField] string m_name;
     [SerializeField] MapID m_mapID;
     [SerializeField] Act m_act;
-    [SerializeField] List<MapChip> m_chip;
+    [SerializeField] int m_maxColumn;
+    [SerializeField] MapChip m_chip;
     public string Name => m_name;
     public MapID MapID => m_mapID;
     public Act Act => m_act;
-    public int MaxColumn => m_chip.Count;
-    public List<MapChip> Chip => m_chip;
+    public int MaxColumn => m_maxColumn;
+    public MapChip Chip => m_chip;
 }
 [System.Serializable]
 public class MapChip
@@ -60,13 +61,31 @@ public class MapChip
         [SerializeField, Tooltip("エリートマスを絶対に生成する位置\n無ければ-1と入力")] int m_eliteAbsoluteIndex;
         public bool RestCellLottery(int index)
         {
+            if (m_restAbsoluteIndex == index)
+                return true;
+            if (index >= m_restMinIndex && index <= m_restMaxIndex)
+            {
+                int r = Random.Range(0, 100);
+                if (r <= m_restProbability)
+                    return true;
+            }
             return false;
         }
         public bool EliteCellLottery(int index)
         {
+            if (m_eliteAbsoluteIndex == index)
+                return true;
+            if (index >= m_eliteMinIndex && index <= m_eliteMaxIndex)
+            {
+                int r = Random.Range(0, 100);
+                if (r <= m_eliteProbability)
+                    return true;
+            }
             return false;
         }
     }
+    public int MinCellNum => m_minCellNum;
+    public int MaxCellNum => m_maxCellNum;
     /// <summary>
     /// マス抽選
     /// </summary>
