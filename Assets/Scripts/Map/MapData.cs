@@ -43,37 +43,44 @@ public class MapDataBase
 [System.Serializable]
 public class MapChip
 {
-    [SerializeField] List<DeteilSetting> m_type;
+    [SerializeField, Tooltip("セル生成の最小数")] int m_minCellNum = 1;
+    [SerializeField, Tooltip("セル生成の最大数")] int m_maxCellNum = 3;
+    [SerializeField, Tooltip("どのindexから後半とするか")] int m_secondHalfIndex;
+    [SerializeField] DetailSetting m_detailSetting;
     [System.Serializable]
-    public class DeteilSetting
+    public class DetailSetting
     {
-        [SerializeField] CellType m_cellType;
-        [SerializeField, Range(0, 100)] int m_probability;
-        public CellType Lottery
+        [SerializeField, Tooltip("休憩マスを生成する最小位置"), Header("休憩マスの詳細設定")] int m_restMinIndex;
+        [SerializeField, Tooltip("休憩マスを生成する最大位置")] int m_restMaxIndex;
+        [SerializeField, Tooltip("休憩マスの生成確立"), Range(0, 100)] int m_restProbability;
+        [SerializeField, Tooltip("休憩マスを絶対に生成する位置\n無ければ-1と入力")] int m_restAbsoluteIndex;
+        [SerializeField, Tooltip("エリートマスを生成する最小位置"), Header("エリートマスの詳細設定")] int m_eliteMinIndex;
+        [SerializeField, Tooltip("エリートマスを生成する最大位置")] int m_eliteMaxIndex;
+        [SerializeField, Tooltip("エリートマスの生成確立"), Range(0, 100)] int m_eliteProbability;
+        [SerializeField, Tooltip("エリートマスを絶対に生成する位置\n無ければ-1と入力")] int m_eliteAbsoluteIndex;
+        public bool RestCellLottery(int index)
         {
-            get
-            {
-                int r = Random.Range(0, 100);
-                if (r >= m_probability)
-                    return m_cellType;
-                else
-                    return CellType.None;
-            }
+            return false;
+        }
+        public bool EliteCellLottery(int index)
+        {
+            return false;
         }
     }
-    public CellType GetMapType
+    /// <summary>
+    /// マス抽選
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public CellType Lottery(int index)
     {
-        get
-        {
-            CellType ret = CellType.None;
-            for (int i = 0; i < m_type.Count; i++)
-            {
-                ret = m_type[i].Lottery;
-                if (ret != CellType.None || i == m_type.Count - 1)
-                    break;
-            }
-            return ret;
-        }
+        if (m_detailSetting.RestCellLottery(index))
+            return CellType.Rest;
+        if (m_detailSetting.EliteCellLottery(index))
+            return CellType.Elite;
+        if (index >= m_secondHalfIndex)
+            return CellType.SecondHalfBattle;
+        return CellType.FirstHalfBattle;
     }
 }
 #region Enums

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class MapManager : MonoBehaviour
 {
@@ -36,7 +37,8 @@ public class MapManager : MonoBehaviour
                 Cell cell = Instantiate(m_cellPrefab);
                 col.AddCell = cell;
                 cell.transform.SetParent(col.transform);
-                cell.SetCellType = m_nowMap.Chip[n].GetMapType;
+                //cell.SetCellType = m_nowMap.Chip[n].GetMapType;
+                cell.CellSubject.Subscribe(c => CellClick(c)).AddTo(cell);
             }
             m_columns.Add(col);
         }

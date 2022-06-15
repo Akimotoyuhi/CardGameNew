@@ -25,3 +25,13 @@ MonoBehaviour:
         m_probability: 50
       - m_cellType: 4
         m_probability: 50
+    - m_type:
+      - m_cellType: 0
+        m_probability: 50
+      - m_cellType: 4
+        m_probability: 50
+    - m_type:
+      - m_cellType: 0
+        m_probability: 50
+      - m_cellType: 4
+        m_probability: 50
