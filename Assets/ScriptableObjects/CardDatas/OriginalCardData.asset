@@ -15,7 +15,7 @@ MonoBehaviour:
   m_cardClassType: 1
   m_dataBases:
   - m_name: "\u65AC\u6483"
-    m_icon: {fileID: 21300000, guid: aca9b8679dc29124eae7553ee4731c07, type: 3}
+    m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
     m_cost: 1
     m_tooltip: 
     m_cardUseType: 1
@@ -25,7 +25,7 @@ MonoBehaviour:
       m_commands:
       - rid: 2058801646637940741
   - m_name: "\u9632\u8B77"
-    m_icon: {fileID: 21300000, guid: b78b2d767c8e0164b97504379f1567b1, type: 3}
+    m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
     m_cost: 1
     m_tooltip: 
     m_cardUseType: 0

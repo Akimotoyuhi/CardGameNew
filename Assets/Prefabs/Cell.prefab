@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_image: {fileID: 4145602547475124242}
   m_button: {fileID: 4145602547475124241}
-  m_battleSprite: {fileID: 21300000, guid: b11ac203f6f70e649a4c7be5d8df957f, type: 3}
-  m_restSprite: {fileID: 21300000, guid: e210c62e479fc794b8c1aa1c7b0bf452, type: 3}
-  m_eliteSprite: {fileID: 21300000, guid: a04e6117b8cac2748a46a5928f8eac4d, type: 3}
-  m_bossSprite: {fileID: 21300000, guid: c27803bc027d86b4f92cdf2ca5b90fc1, type: 3}
+  m_battleSprite: {fileID: 21300000, guid: d6f2a9d41fca5b64c9e4aecc231925ba, type: 3}
+  m_restSprite: {fileID: 21300000, guid: 113188da2004ff14b868b6b35727973a, type: 3}
+  m_eliteSprite: {fileID: 21300000, guid: 2fcbf32efaa143849b233d0421cb366a, type: 3}
+  m_bossSprite: {fileID: 21300000, guid: 4de7d7fcab4d2f34bad0b7b7fa60abe0, type: 3}
