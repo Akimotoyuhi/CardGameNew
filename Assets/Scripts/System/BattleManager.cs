@@ -95,6 +95,11 @@ public class BattleManager : MonoBehaviour
     {
         m_charactorManager.CommandExecutor(cmds);
     }
+
+    public void Encount(CellType cellType)
+    {
+
+    }
 }
 
 public enum BattleState

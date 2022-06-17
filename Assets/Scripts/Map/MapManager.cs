@@ -9,18 +9,22 @@ public class MapManager : MonoBehaviour
     [SerializeField] Column m_columnPrefab;
     [SerializeField] Cell m_cellPrefab;
     [SerializeField] Transform m_columnParent;
-    //[SerializeField] int m_maxCell;
+    private Subject<CellType> m_encount;
     /// <summary>現在act</summary>
     private int m_act = 1;
     /// <summary>現在マップ</summary>
     private MapDataBase m_nowMap;
     private List<Column> m_columns = new List<Column>();
+    public System.IObservable<CellType> EncountObservable => m_encount;
 
     public void Setup()
     {
         Create();
     }
 
+    /// <summary>
+    /// マップ生成
+    /// </summary>
     public void Create()
     {
         List<MapDataBase> databases = m_mapData.GetDataBases((Act)m_act - 1);
@@ -33,10 +37,10 @@ public class MapManager : MonoBehaviour
             col.transform.SetParent(m_columnParent);
             col.SetFloor = i;
             int cellIndex;
-            if (i == 0 || i == m_nowMap.MaxColumn - 1)
+            if (i == 0 || i == m_nowMap.MaxColumn - 1)//最初と最後はセル１つ
                 cellIndex = 1;
             else
-                cellIndex = Random.Range(m_nowMap.Chip.MinCellNum, m_nowMap.Chip.MaxCellNum + 1);
+                cellIndex = Random.Range(m_nowMap.Chip.MinCellNum, m_nowMap.Chip.MaxCellNum);
             for (int n = 0; n < cellIndex; n++)
             {
                 Cell cell = Instantiate(m_cellPrefab);
@@ -55,6 +59,6 @@ public class MapManager : MonoBehaviour
 
     public void CellClick(CellType cellType)
     {
-        Debug.Log($"{cellType}がクリックされた");
+        m_encount.OnNext(cellType);
     }
 }

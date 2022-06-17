@@ -85,7 +85,7 @@ public class MapChip
         }
     }
     public int MinCellNum => m_minCellNum;
-    public int MaxCellNum => m_maxCellNum;
+    public int MaxCellNum => m_maxCellNum + 1;
     /// <summary>
     /// ƒ}ƒX’Š‘I
     /// </summary>
