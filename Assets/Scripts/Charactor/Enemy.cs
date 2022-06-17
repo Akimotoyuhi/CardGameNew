@@ -24,6 +24,8 @@ public class Enemy : Charactor, IDrop
 
     public void SetBaseData(EnemyDataBase dataBase)
     {
+        if (dataBase == null)
+            return;
         m_dataBase = dataBase;
         m_image.sprite = dataBase.CharactorData.Sprite;
         m_maxLife = dataBase.CharactorData.MaxLife;

@@ -1489,6 +1489,7 @@ MonoBehaviour:
   m_originalCardData: {fileID: 11400000, guid: 25ce34f5850765f46aedcd7ac8dc95eb, type: 2}
   m_akCardData: {fileID: 11400000, guid: 45683c5d06b8fd6459aedc5ecd14457d, type: 2}
   m_cardPrefab: {fileID: 4872266847705153434, guid: 53cdd5dad5abda744a41f972f573349d, type: 3}
+  m_encountData: {fileID: 11400000, guid: c0d7a35f6fbdb724abe99658354b3899, type: 2}
   m_hand: {fileID: 1391730529}
   m_deck: {fileID: 1391730531}
   m_discard: {fileID: 1391730530}

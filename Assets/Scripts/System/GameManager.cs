@@ -30,6 +30,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("‹xŒeƒ}ƒX–¢À‘•");
             return;
         }
-        m_battleManager.Encount(cellType);
+        m_battleManager.Encount(m_mapManager.NowMapID, cellType);
     }
 }

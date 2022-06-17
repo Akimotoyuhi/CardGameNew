@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] CardData m_originalCardData;
     [SerializeField] CardData m_akCardData;
     [SerializeField] Card m_cardPrefab;
+    [SerializeField] EncountData m_encountData;
     [SerializeField] Hand m_hand;
     [SerializeField] Deck m_deck;
     [SerializeField] Discard m_discard;
@@ -19,7 +20,6 @@ public class BattleManager : MonoBehaviour
     private List<Card> m_currentCard = new List<Card>();
     private CardData m_useCardData;
     private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
-    public CardData CardData => m_akCardData;
     /// <summary>バトルの状態遷移を通知する</summary>
     public System.IObservable<BattleState> BattleStateObservable => m_battleState;
 
@@ -28,9 +28,6 @@ public class BattleManager : MonoBehaviour
         m_charactorManager.Setup();
         m_charactorManager.CurrentEnemies.ForEach(e =>
         e.ActionSubject.Subscribe(c => CommandExecutor(c)).AddTo(e));
-        Create();
-        m_battleState.Value = BattleState.PlayerFaze;
-        m_charactorManager.TurnBegin(m_currentTurn).Forget();
         m_deck.SetParentActive = false;
         m_discard.SetParentActive = false;
     }
@@ -96,9 +93,13 @@ public class BattleManager : MonoBehaviour
         m_charactorManager.CommandExecutor(cmds);
     }
 
-    public void Encount(CellType cellType)
+    public void Encount(MapID mapID, CellType cellType)
     {
-
+        List<EnemyID> e = m_encountData.GetEncountData(mapID).GetEnemies(cellType);
+        m_charactorManager.Create(e);
+        Create();
+        m_battleState.Value = BattleState.PlayerFaze;
+        m_charactorManager.TurnBegin(m_currentTurn).Forget();
     }
 }
 

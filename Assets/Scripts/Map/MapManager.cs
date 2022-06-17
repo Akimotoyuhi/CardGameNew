@@ -9,12 +9,13 @@ public class MapManager : MonoBehaviour
     [SerializeField] Column m_columnPrefab;
     [SerializeField] Cell m_cellPrefab;
     [SerializeField] Transform m_columnParent;
-    private Subject<CellType> m_encount;
+    private Subject<CellType> m_encount = new Subject<CellType>();
     /// <summary>現在act</summary>
     private int m_act = 1;
     /// <summary>現在マップ</summary>
     private MapDataBase m_nowMap;
     private List<Column> m_columns = new List<Column>();
+    public MapID NowMapID => m_nowMap.MapID;
     public System.IObservable<CellType> EncountObservable => m_encount;
 
     public void Setup()
@@ -29,7 +30,6 @@ public class MapManager : MonoBehaviour
     {
         List<MapDataBase> databases = m_mapData.GetDataBases((Act)m_act - 1);
         int r = Random.Range(0, databases.Count);//とりあえずマップランダム抽選　後に選択できるようにする
-        Debug.Log($"Count {databases.Count}, 抽選された数値{r}");
         m_nowMap = databases[r];
         for (int i = 0; i < m_nowMap.MaxColumn; i++)
         {
