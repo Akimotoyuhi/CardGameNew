@@ -26,8 +26,14 @@ public class BattleManager : MonoBehaviour
     public void Setup()
     {
         m_charactorManager.Setup();
-        m_charactorManager.CurrentEnemies.ForEach(e =>
-        e.ActionSubject.Subscribe(c => CommandExecutor(c)).AddTo(e));
+        m_charactorManager.NewEnemyCreateSubject
+            .Subscribe(e =>
+            {
+                e.ActionSubject
+                .Subscribe(cmd => CommandExecutor(cmd))
+                .AddTo(e);
+            })
+            .AddTo(m_charactorManager);
         m_deck.SetParentActive = false;
         m_discard.SetParentActive = false;
     }
@@ -75,10 +81,10 @@ public class BattleManager : MonoBehaviour
     public async void OnBattle()
     {
         m_hand.ConvartToDiscard();
-        m_battleState.Value = BattleState.EnemyFaze;
+        m_battleState.Value = global::BattleState.EnemyFaze;
         Debug.Log("ボタンが押された");
         await m_charactorManager.TurnEnd(m_currentTurn);
-        m_battleState.Value = BattleState.PlayerFaze;
+        m_battleState.Value = global::BattleState.PlayerFaze;
         m_currentTurn++;
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
         await m_charactorManager.TurnBegin(m_currentTurn);
@@ -98,7 +104,7 @@ public class BattleManager : MonoBehaviour
         List<EnemyID> e = m_encountData.GetEncountData(mapID).GetEnemies(cellType);
         m_charactorManager.Create(e);
         Create();
-        m_battleState.Value = BattleState.PlayerFaze;
+        m_battleState.Value = global::BattleState.PlayerFaze;
         m_charactorManager.TurnBegin(m_currentTurn).Forget();
     }
 }

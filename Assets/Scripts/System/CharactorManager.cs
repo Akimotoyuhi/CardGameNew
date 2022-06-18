@@ -22,14 +22,16 @@ public class CharactorManager : MonoBehaviour
     [SerializeField] Enemy m_enemyPrefab;
     [SerializeField] Transform m_enemisParent;
     private List<Enemy> m_currentEnemies = new List<Enemy>();
+    private Subject<Enemy> m_newEnemyCreateSubject = new Subject<Enemy>();
     /// <summary>現在のプレイヤーのインスタンス</summary>
     public Player CurrentPlayer => m_currentPlayer;
     /// <summary>敵たち</summary>
-    public List<Enemy> CurrentEnemies => m_currentEnemies;
+    //public List<Enemy> CurrentEnemies => m_currentEnemies;
     /// <summary>このゲーム中使用しているのカードクラス</summary>
     public CardClass CardClass => m_cardClass;
     /// <summary>このゲーム中使用しているのカードクラス(Enum)</summary>
     public CardClassType CardClassType => m_cardClassType;
+    public System.IObservable<Enemy> NewEnemyCreateSubject => m_newEnemyCreateSubject;
 
     public void Setup()
     {
@@ -38,7 +40,10 @@ public class CharactorManager : MonoBehaviour
 
     public void Create(List<EnemyID> enemies = null)
     {
-        m_currentPlayer = Instantiate(m_playerPrefab);
+        if (m_currentPlayer == null)
+        {
+            m_currentPlayer = Instantiate(m_playerPrefab);
+        }
         m_currentPlayer.transform.SetParent(m_playerParent, false);
         m_currentPlayer.SetBaseData(m_playerData.DataBase[(int)m_usePlayerID]);
         m_cardClass = m_playerData.DataBase[(int)m_usePlayerID].CardClassSelector.CardClass;
@@ -53,6 +58,7 @@ public class CharactorManager : MonoBehaviour
             e.transform.SetParent(m_enemisParent, false);
             e.SetBaseData(m_enemyData.Databases[(int)id]); //とりあえず
             e.DeadSubject.Subscribe(_ => Debug.Log("敵倒した")).AddTo(this);
+            m_newEnemyCreateSubject.OnNext(e);
             m_currentEnemies.Add(e);
         });
     }

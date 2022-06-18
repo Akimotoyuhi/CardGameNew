@@ -44,5 +44,5 @@ public class EnemyAI
 
 public enum EnemyID
 {
-    OriginiumSlag,
+    Slime,
 }

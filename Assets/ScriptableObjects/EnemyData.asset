@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: EnemyData
   m_EditorClassIdentifier: 
   m_databases:
-  - m_label: "\u30AA\u30EA\u30B8\u30E0\u30B7"
+  - m_label: "\u30B9\u30E9\u30A4\u30E0"
     m_id: 0
     m_characterData:
-      m_name: "\u30AA\u30EA\u30B8\u30E0\u30B7"
+      m_name: "\u30B9\u30E9\u30A4\u30E0"
       m_maxLife: 30
-      m_sprite: {fileID: 21300000, guid: d9290ebdf23d5244f8f1259a1259b6df, type: 3}
+      m_sprite: {fileID: 21300000, guid: 5678199d677832a4ebacd5a8521635aa, type: 3}
       m_imageScaling: 1
     m_enemyAi:
     - m_conditional:

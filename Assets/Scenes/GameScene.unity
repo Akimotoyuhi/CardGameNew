@@ -1536,6 +1536,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec71fd1d55470143adbf8e4e6e537d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_mapPanel: {fileID: 756372268}
+  m_battlePanel: {fileID: 1519845697}
   m_battleManager: {fileID: 1312891807}
   m_charactorManager: {fileID: 1312891806}
   m_turnEndButton: {fileID: 2068859252}

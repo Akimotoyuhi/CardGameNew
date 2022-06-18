@@ -7,7 +7,9 @@ using Cysharp.Threading.Tasks;
 
 public class GUIManager : MonoBehaviour
 {
+    [SerializeField] GameObject m_mapPanel;
     [Header("í“¬‰æ–Ê")]
+    [SerializeField] GameObject m_battlePanel;
     [SerializeField] BattleManager m_battleManager;
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] Button m_turnEndButton;
@@ -16,6 +18,24 @@ public class GUIManager : MonoBehaviour
     public void Setup()
     {
         m_turnEndButton.onClick.AddListener(() => m_battleManager.OnBattle());
+        GameManager.Instance.GameStateObservable
+            .Subscribe(s =>
+            {
+                switch (s)
+                {
+                    case GameState.MapSelect:
+                        m_mapPanel.SetActive(true);
+                        m_battlePanel.SetActive(false);
+                        break;
+                    case GameState.Battle:
+                        m_mapPanel.SetActive(false);
+                        m_battlePanel.SetActive(true);
+                        break;
+                    default:
+                        break;
+                }
+            })
+            .AddTo(this);
         m_battleManager.BattleStateObservable
             .Subscribe(s =>
             {
