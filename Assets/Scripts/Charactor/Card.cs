@@ -33,10 +33,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private List<Command> m_cardCommands;
     private Vector2 m_defPos;
     private Player m_player;
-    private Subject<List<Command>> m_cardUsed = new Subject<List<Command>>();
+    private Subject<List<Command>> m_cardExecute = new Subject<List<Command>>();
     public string Name { get; private set; }
     public CardState CardState { get; set; }
-    public System.IObservable<List<Command>> CardUsed => m_cardUsed;
+    public System.IObservable<List<Command>> CardExecute => m_cardExecute;
 
     public void Setup(CardDataBase dataBase, Player player)
     {
@@ -87,9 +87,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         List<Command> cmds = new List<Command>();
         m_database.CardCommands.Execute().ForEach(c => cmds.Add(c));
         target.GetDrop(ref cmds);
-        m_cardUsed.OnNext(cmds);
+        m_cardExecute.OnNext(cmds);
         m_player.CurrentCost -= m_cost;
-        Used();
     }
 
     public void SetTooltip(string text)
@@ -108,14 +107,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             s = s.Replace(m.Value, $"{m_cardCommands[index].Block}ブロック");
         }
         m_tooltipText.text = s;
-    }
-
-    /// <summary>
-    /// 使用された後の処理
-    /// </summary>
-    private void Used()
-    {
-
     }
 
     //以下インターフェース

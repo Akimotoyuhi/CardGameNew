@@ -64,7 +64,7 @@ public class BattleManager : MonoBehaviour
         {
             Card c = Instantiate(m_cardPrefab);
             c.Setup(m_useCardData.DataBases[i], m_charactorManager.CurrentPlayer);
-            c.CardUsed.Subscribe(cmds =>
+            c.CardExecute.Subscribe(cmds =>
             {
                 CommandExecutor(cmds);
                 c.transform.SetParent(m_discard.CardParent, false);
