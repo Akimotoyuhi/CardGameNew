@@ -21,9 +21,7 @@ public class Weekness : EffectBase
     public override EffectID GetEffectID => EffectID.Weekness;
     public override Command Effect(List<ConditionalParametor> evaluationParametors)
     {
-        Command ret = new Command();
-
-        if ()
+        throw new System.NotImplementedException();
     }
 }
 public class Frail : EffectBase
