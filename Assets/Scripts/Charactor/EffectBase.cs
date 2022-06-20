@@ -32,7 +32,15 @@ public class EffectSelector
     {
         get
         {
-            return null;
+            switch (m_effectID)
+            {
+                case EffectID.Weakness:
+                    return new Weakness();
+                case EffectID.Frail:
+                    return new Frail();
+                default:
+                    throw new System.Exception("存在しないエフェクトが選択された");
+            }
         }
     }
 }
@@ -49,7 +57,7 @@ public struct ConditionalParametor
 public enum EffectID
 {
     /// <summary>脱力</summary>
-    Weekness,
+    Weakness,
     /// <summary>虚弱</summary>
     Frail,
 }
@@ -59,8 +67,8 @@ public enum EffectID
 public enum EvaluationParamType
 {
     Life,
-    Power,
-    Defence,
+    Attack,
+    Block,
     Effect,
     Turn,
 }
