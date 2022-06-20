@@ -8,13 +8,25 @@ using Cysharp.Threading.Tasks;
 public class GUIManager : MonoBehaviour
 {
     [SerializeField] GameObject m_mapPanel;
+    [SerializeField] static GameObject m_infoPanel;
+    [SerializeField] static Text m_infoText;
     [Header("í“¬‰æ–Ê")]
     [SerializeField] GameObject m_battlePanel;
     [SerializeField] BattleManager m_battleManager;
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] Button m_turnEndButton;
     [SerializeField] Text m_costText;
-
+    public static string InfoText
+    {
+        set
+        {
+            m_infoText.text = value;
+            if (value.Length == 0)
+                m_infoPanel.SetActive(false);
+            else
+                m_infoPanel.SetActive(true);
+        }
+    }
     public void Setup()
     {
         m_turnEndButton.onClick.AddListener(() => m_battleManager.OnBattle());
