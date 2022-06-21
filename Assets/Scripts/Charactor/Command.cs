@@ -61,6 +61,19 @@ public class BlockCommand : ICommand
         return ret;
     }
 }
+public class EffectCommand : ICommand
+{
+    [SerializeField] UseType m_useType;
+    [SerializeField] List<EffectSelector> m_effectSelector;
+    public Command Execute()
+    {
+        Command ret = new Command();
+        List<EffectBase> effects = new List<EffectBase>();
+        m_effectSelector.ForEach(e => effects.Add(e.GetEffect));
+        ret.Effect = effects;
+        return ret;
+    }
+}
 #endregion
 #region コマンド実行条件系
 [System.Serializable]

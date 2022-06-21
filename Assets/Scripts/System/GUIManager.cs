@@ -16,17 +16,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] Button m_turnEndButton;
     [SerializeField] Text m_costText;
-    public static string InfoText
-    {
-        set
-        {
-            m_infoText.text = value;
-            if (value.Length == 0)
-                m_infoPanel.SetActive(false);
-            else
-                m_infoPanel.SetActive(true);
-        }
-    }
+    public static ReactiveProperty<string> ReactiveText { get; } = new ReactiveProperty<string>();
     public void Setup()
     {
         m_turnEndButton.onClick.AddListener(() => m_battleManager.OnBattle());

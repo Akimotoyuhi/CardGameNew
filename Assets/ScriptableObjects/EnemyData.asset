@@ -28,18 +28,19 @@ MonoBehaviour:
         - rid: 2058801694920146944
       m_enemyCommands:
         m_commands:
-        - rid: 2058801674822352896
+        - rid: 2058801917908484096
   references:
     version: 2
     RefIds:
-    - rid: 2058801674822352896
-      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
-      data:
-        m_useType: 0
-        m_power: 10
-        m_isTrueDamage: 0
     - rid: 2058801694920146944
       type: {class: EnemyLifeConditional, ns: , asm: Assembly-CSharp}
       data:
         m_life: 0
         m_evaluationType: 2
+    - rid: 2058801917908484096
+      type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 0
+        m_effectSelector:
+        - m_effectID: 0
+          m_turn: 5

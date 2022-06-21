@@ -81,10 +81,10 @@ public class BattleManager : MonoBehaviour
     public async void OnBattle()
     {
         m_hand.ConvartToDiscard();
-        m_battleState.Value = global::BattleState.EnemyFaze;
+        m_battleState.Value = BattleState.EnemyFaze;
         Debug.Log("ボタンが押された");
         await m_charactorManager.TurnEnd(m_currentTurn);
-        m_battleState.Value = global::BattleState.PlayerFaze;
+        m_battleState.Value = BattleState.PlayerFaze;
         m_currentTurn++;
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
         await m_charactorManager.TurnBegin(m_currentTurn);
