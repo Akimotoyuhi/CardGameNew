@@ -8,8 +8,8 @@ using Cysharp.Threading.Tasks;
 public class GUIManager : MonoBehaviour
 {
     [SerializeField] GameObject m_mapPanel;
-    [SerializeField] static GameObject m_infoPanel;
-    [SerializeField] static Text m_infoText;
+    [SerializeField] GameObject m_infoPanel;
+    [SerializeField] Text m_infoText;
     [Header("í“¬‰æ–Ê")]
     [SerializeField] GameObject m_battlePanel;
     [SerializeField] BattleManager m_battleManager;
@@ -21,37 +21,42 @@ public class GUIManager : MonoBehaviour
     {
         m_turnEndButton.onClick.AddListener(() => m_battleManager.OnBattle());
         GameManager.Instance.GameStateObservable
-            .Subscribe(s =>
-            {
-                switch (s)
-                {
-                    case GameState.MapSelect:
-                        m_mapPanel.SetActive(true);
-                        m_battlePanel.SetActive(false);
-                        break;
-                    case GameState.Battle:
-                        m_mapPanel.SetActive(false);
-                        m_battlePanel.SetActive(true);
-                        break;
-                    default:
-                        break;
-                }
-            })
-            .AddTo(this);
+            .Subscribe(s => SwitchGameState(s)).AddTo(this);
         m_battleManager.BattleStateObservable
-            .Subscribe(s =>
-            {
-                if (s == BattleState.PlayerFaze)
-                    m_turnEndButton.interactable = true;
-                else
-                    m_turnEndButton.interactable = false;
-            })
-            .AddTo(m_battleManager);
+            .Subscribe(s => SwitchBattleState(s)).AddTo(m_battleManager);
         m_charactorManager.CurrentPlayer.CurrentCostObservable
             .Subscribe(c =>
             {
                 m_costText.text = $"{c}/{m_charactorManager.CurrentPlayer.MaxCost}";
             })
             .AddTo(m_charactorManager.CurrentPlayer);
+    }
+
+    /// <summary>GameState‚É‰‚¶‚ÄUI‚ğØ‚è‘Ö‚¦‚é</summary>
+    private void SwitchGameState(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.MapSelect:
+                m_mapPanel.SetActive(true);
+                m_battlePanel.SetActive(false);
+                break;
+            case GameState.Battle:
+                m_mapPanel.SetActive(false);
+                m_battlePanel.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /// <summary>BattleState‚É‰‚¶‚ÄUI‚ğØ‚è‘Ö‚¦‚é</summary>
+    /// <param name="battleState"></param>
+    private void SwitchBattleState(BattleState battleState)
+    {
+        if (battleState == BattleState.PlayerFaze)
+            m_turnEndButton.interactable = true;
+        else
+            m_turnEndButton.interactable = false;
     }
 }
