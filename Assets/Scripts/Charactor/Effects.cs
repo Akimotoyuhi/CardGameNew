@@ -6,7 +6,7 @@ using UnityEngine;
 public class Effects { }
 public class Weakness : EffectBase
 {
-    public override string Tooltip => $"脱力\n与えるダメージが<color=#ff0000>25%低下</color>。<color=#ffff00>{Turn}</color>ターン持続";
+    public override string Tooltip => $"脱力\n与えるダメージが<color=#ff0000>25%低下</color>。{Turn}ターン持続";
     public override bool IsRemove
     {
         get
@@ -51,7 +51,7 @@ public class Weakness : EffectBase
 }
 public class Frail : EffectBase
 {
-    public override string Tooltip => $"虚弱\n得るブロックが<color=#ff0000>25%低下</color>。<color=#ffff00>{Turn}</color>ターン持続";
+    public override string Tooltip => $"虚弱\n得るブロックが<color=#ff0000>25%低下</color>。{Turn}ターン持続";
     public override bool IsRemove
     {
         get
