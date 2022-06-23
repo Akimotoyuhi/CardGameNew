@@ -48,7 +48,7 @@ public class CharactorManager : MonoBehaviour
         m_currentPlayer.SetBaseData(m_playerData.DataBase[(int)m_usePlayerID]);
         m_cardClass = m_playerData.DataBase[(int)m_usePlayerID].CardClassSelector.CardClass;
         m_cardClassType = m_playerData.DataBase[(int)m_usePlayerID].CardClassSelector.CardClass.CardClassType;
-        m_currentPlayer.DeadSubject.Subscribe(_ => Debug.Log("ゲームオーバー")).AddTo(this);
+        m_currentPlayer.DeadSubject.Subscribe(_ => Debug.Log("ゲームオーバー")).AddTo(m_currentPlayer);
 
         if (enemies == null)
             return;

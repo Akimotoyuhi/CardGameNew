@@ -9,8 +9,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GUIManager m_guiManager;
     [SerializeField] MapManager m_mapManager;
     private ReactiveProperty<GameState> m_gameState = new ReactiveProperty<GameState>();
+    private ReactiveProperty<string> m_infoText = new ReactiveProperty<string>();
     public static GameManager Instance { get; private set; }
     public System.IObservable<GameState> GameStateObservable => m_gameState;
+    public string SetInfoText { set => m_infoText.Value = value; }
+    public System.IObservable<string> InfoTextUpdate => m_infoText;
 
     private void Awake()
     {

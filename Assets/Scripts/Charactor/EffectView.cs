@@ -43,11 +43,11 @@ public class EffectView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //GUIManager.InfoText = m_tooltip;
+        GameManager.Instance.SetInfoText = m_tooltip;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        //GUIManager.InfoText = "";
+        GameManager.Instance.SetInfoText = "";
     }
 }

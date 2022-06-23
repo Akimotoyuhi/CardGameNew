@@ -32,15 +32,20 @@ public class EffectSelector
     {
         get
         {
+            EffectBase ret = null;
             switch (m_effectID)
             {
                 case EffectID.Weakness:
-                    return new Weakness();
+                    ret = new Weakness();
+                    break;
                 case EffectID.Frail:
-                    return new Frail();
+                    ret = new Frail();
+                    break;
                 default:
                     throw new System.Exception("存在しないエフェクトが選択された");
             }
+            ret.Turn = m_turn;
+            return ret;
         }
     }
 }

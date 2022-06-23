@@ -16,7 +16,6 @@ public class GUIManager : MonoBehaviour
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] Button m_turnEndButton;
     [SerializeField] Text m_costText;
-    public static ReactiveProperty<string> ReactiveText { get; } = new ReactiveProperty<string>();
     public void Setup()
     {
         m_turnEndButton.onClick.AddListener(() => m_battleManager.OnBattle());
@@ -30,6 +29,9 @@ public class GUIManager : MonoBehaviour
                 m_costText.text = $"{c}/{m_charactorManager.CurrentPlayer.MaxCost}";
             })
             .AddTo(m_charactorManager.CurrentPlayer);
+        GameManager.Instance.InfoTextUpdate
+            .Subscribe(s => SetInfoTextPanels(s)).AddTo(this);
+        m_infoPanel.SetActive(false);
     }
 
     /// <summary>GameState‚É‰‚¶‚ÄUI‚ğØ‚è‘Ö‚¦‚é</summary>
@@ -58,5 +60,14 @@ public class GUIManager : MonoBehaviour
             m_turnEndButton.interactable = true;
         else
             m_turnEndButton.interactable = false;
+    }
+
+    private void SetInfoTextPanels(string text)
+    {
+        m_infoText.text = text;
+        if (text == "")
+            m_infoPanel.SetActive(false);
+        else
+            m_infoPanel.SetActive(true);
     }
 }
