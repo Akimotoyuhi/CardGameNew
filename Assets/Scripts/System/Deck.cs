@@ -52,10 +52,10 @@ public class Deck : CardControllerBase
                     return;
                 }
             }
-            Card b = CardParent.GetChild(0).GetComponent<Card>();
-            b.CardState = CardState.Play;
-            //b.GetPlayerEffect
-            b.transform.SetParent(m_hand.CardParent, false);
+            Card c = CardParent.GetChild(0).GetComponent<Card>();
+            c.CardState = CardState.Play;
+            c.GetPlayerEffect();
+            c.transform.SetParent(m_hand.CardParent, false);
         }
     }
 }

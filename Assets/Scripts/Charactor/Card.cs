@@ -25,6 +25,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         public Color Color => m_color;
     }
     private int m_cost;
+    private string m_tooltip;
     private bool m_isDrag;
     private UseType m_useType;
     private Rarity m_rarity;
@@ -42,7 +43,12 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     {
         m_player = player;
         SetBaseData(dataBase);
-        SetTooltip(m_tooltipText.text);
+        GetPlayerEffect();
+    }
+
+    public void Init()
+    {
+        m_cardCommands = m_database.CardCommands.Execute();
     }
 
     private void SetBaseData(CardDataBase database)
@@ -51,7 +57,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         Name = database.Name;
         m_nameText.text = database.Name;
         m_icon.sprite = database.Icon;
-        m_tooltipText.text = database.Tooltip;
+        m_tooltip = database.Tooltip;
         m_costText.text = database.Cost;
         m_rarity = database.Rarity;
         m_cardType = database.CardType;
@@ -91,13 +97,22 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_player.CurrentCost -= m_cost;
     }
 
-    public void SetTooltip(string text)
+    public void GetPlayerEffect()
     {
-        string s = text;
+        string s = m_tooltip;
         MatchCollection matchs = Regex.Matches(s, "{pow([0-9]*)}");
         foreach (Match m in matchs)
         {
             int index = int.Parse(m.Groups[1].Value);
+            List<ConditionalParametor> cps = new List<ConditionalParametor>();
+            ConditionalParametor cp = new ConditionalParametor();
+            cp.Parametor = m_cardCommands[index].Power;
+            cp.EffectTiming = EffectTiming.Attacked;
+            cp.EvaluationParamType = EvaluationParamType.Attack;
+            cps.Add(cp);
+            Command c = m_cardCommands[index];
+            c.Power = m_player.EffectExecute(cps).Power;
+            m_cardCommands[index] = c;
             s = s.Replace(m.Value, $"{m_cardCommands[index].Power}É_ÉÅÅ[ÉW");
         }
         matchs = Regex.Matches(s, "{blk([0-9]*)}");

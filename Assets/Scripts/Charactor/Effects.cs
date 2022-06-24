@@ -29,11 +29,15 @@ public class Weakness : EffectBase
         {
             if (ep.EffectTiming == EffectTiming.Attacked && ep.EvaluationParamType == EvaluationParamType.Attack)
             {
+                Debug.Log("a");
                 power = ep.Parametor;
                 continue;
             }
             else
+            {
+                power = ep.Parametor;
                 powerDecFlag = false;
+            }
             if (ep.EffectTiming == EffectTiming.TurnEnd)
                 continue;
             else
@@ -41,7 +45,9 @@ public class Weakness : EffectBase
         }
         if (powerDecFlag)
         {
+            Debug.Log($"•]‰¿‘O{power}");
             float f = power * (1 - 0.25f);
+            Debug.Log($"•]‰¿g‚¨{f}");
             ret.Power = (int)f;
         }
         if (turnDecFlag)
