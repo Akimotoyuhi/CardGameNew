@@ -19,7 +19,7 @@ public abstract class Charactor : MonoBehaviour
     protected int m_maxLife;
     protected ReactiveProperty<int> m_currentLife = new ReactiveProperty<int>();
     protected ReactiveProperty<int> m_currentBlock = new ReactiveProperty<int>();
-    protected ReactiveProperty<List<EffectBase>> m_effects = new ReactiveProperty<List<EffectBase>>();
+    protected List<EffectBase> m_effects = new List<EffectBase>();
     protected bool m_isPlayer;
     private Subject<Unit> m_deadSubject = new Subject<Unit>();
     #endregion
@@ -29,6 +29,7 @@ public abstract class Charactor : MonoBehaviour
     public int CurrentBlock => m_currentBlock.Value;
     public IObservable<int> CurrentLifeObservable => m_currentLife;
     public IObservable<int> CurrentBlockObservable => m_currentBlock;
+    public List<EffectBase> Effects => new List<EffectBase>();
     public bool IsPlayer => m_isPlayer;
     public IObservable<Unit> DeadSubject => m_deadSubject;
     #endregion
@@ -51,7 +52,6 @@ public abstract class Charactor : MonoBehaviour
             SetText();
         }).AddTo(this);
         m_currentBlock.Value = 0;
-        m_effects.Subscribe(e => AddEffect(e)).AddTo(this);
     }
 
     protected void SetData(CharactorDataBase dataBase)
@@ -80,7 +80,7 @@ public abstract class Charactor : MonoBehaviour
     {
         Debug.Log($"Command {cmd}");
         if (cmd.Effect != null)
-            m_effects.Value = cmd.Effect;
+            cmd.Effect.ForEach(e => AddEffect(e));
         if (cmd.Power > 0)
         {
             int dmg = m_currentBlock.Value -= cmd.Power;
@@ -89,21 +89,39 @@ public abstract class Charactor : MonoBehaviour
         m_currentBlock.Value += cmd.Block;
     }
 
-    protected void AddEffect(List<EffectBase> effects)
+    public void AddEffect(EffectBase effect)
+    {
+        for (int i = 0; i < m_effects.Count; i++)
+        {
+            if (m_effects[i].GetEffectID == effect.GetEffectID)
+            {
+                m_effects[i].Turn += effect.Copy.Turn;
+            }
+        }
+        m_effects.Add(effect.Copy);
+        SetViewEffectUI();
+    }
+
+    protected void SetViewEffectUI()
     {
         for (int i = 0; i < m_effectViewParent.childCount; i++)
         {
             Destroy(m_effectViewParent.GetChild(i).gameObject);
         }
-        if (effects == null)
-            return;
-        effects.ForEach(e =>
+        m_effects.ForEach(e =>
         {
             Debug.Log($"e {e}");
             EffectView ev = Instantiate(m_effectViewPrefab);
             ev.Setup(e);
             ev.transform.SetParent(m_effectViewParent.transform, false);
         });
+    }
+
+    public Command EffectExecute(List<ConditionalParametor> conditionalParametors)
+    {
+        Command ret = new Command();
+        m_effects.ForEach(e => ret = e.Effect(conditionalParametors));
+        return ret;
     }
 
     /// <summary>éÄñSèàóù</summary>
