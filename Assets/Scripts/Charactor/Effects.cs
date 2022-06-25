@@ -27,9 +27,9 @@ public class Weakness : EffectBase
         int power = 0;
         foreach (var ep in evaluationParametors)
         {
+            ret.SetCommand(ep);
             if (ep.EffectTiming == EffectTiming.Attacked && ep.EvaluationParamType == EvaluationParamType.Attack)
             {
-                Debug.Log("a");
                 power = ep.Parametor;
                 continue;
             }
@@ -76,13 +76,17 @@ public class Frail : EffectBase
         int block = 0;
         foreach (var ep in evaluationParametors)
         {
+            ret.SetCommand(ep);
             if (ep.EffectTiming == EffectTiming.Attacked && ep.EvaluationParamType == EvaluationParamType.Block)
             {
                 block = ep.Parametor;
                 continue;
             }
             else
+            {
+                block = ep.Parametor;
                 blockDecFlag = false;
+            }
             if (ep.EffectTiming == EffectTiming.TurnEnd)
                 continue;
             else

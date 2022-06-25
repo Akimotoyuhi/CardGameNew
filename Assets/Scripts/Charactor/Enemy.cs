@@ -46,7 +46,7 @@ public class Enemy : Charactor, IDrop
     private async UniTask Action()
     {
         m_action.OnNext(m_dataBase.Action(new Field(), null, null));
-        await UniTask.Delay(System.TimeSpan.FromSeconds(1));
+        await UniTask.Delay(1);
     }
 
     protected override void Dead()

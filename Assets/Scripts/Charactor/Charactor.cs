@@ -71,14 +71,44 @@ public abstract class Charactor : MonoBehaviour
             m_text.text = $"{m_currentLife.Value} / {m_maxLife}";
     }
 
-    public abstract UniTask TurnBegin(int turn);
-    public abstract UniTask TurnEnd(int turn);
+    /// <summary>
+    /// ターン開始
+    /// </summary>
+    /// <param name="turn"></param>
+    /// <returns></returns>
+    public virtual async UniTask TurnBegin(int turn)
+    {
+        ConditionalParametor cp = new ConditionalParametor();
+        cp.EffectTiming = EffectTiming.TurnBegin;
+        cp.EvaluationParamType = EvaluationParamType.Turn;
+        cp.Parametor = turn;
+        List<ConditionalParametor> cps = new List<ConditionalParametor>();
+        cps.Add(cp);
+        EffectExecute(cps);
+        await UniTask.Yield();
+    }
+
+    /// <summary>
+    /// ターン終了
+    /// </summary>
+    /// <param name="turn"></param>
+    /// <returns></returns>
+    public virtual async UniTask TurnEnd(int turn)
+    {
+        ConditionalParametor cp = new ConditionalParametor();
+        cp.EffectTiming = EffectTiming.TurnEnd;
+        cp.EvaluationParamType = EvaluationParamType.Turn;
+        cp.Parametor = turn;
+        List<ConditionalParametor> cps = new List<ConditionalParametor>();
+        cps.Add(cp);
+        EffectExecute(cps);
+        await UniTask.Yield();
+    }
 
     /// <summary>被ダメージ処理</summary>
     /// <param name="cmd"></param>
     public virtual void Damage(Command cmd)
     {
-        Debug.Log($"Command {cmd}");
         if (cmd.Effect != null)
             cmd.Effect.ForEach(e => AddEffect(e));
         if (cmd.Power > 0)
@@ -91,14 +121,19 @@ public abstract class Charactor : MonoBehaviour
 
     public void AddEffect(EffectBase effect)
     {
+        bool addFlag = true;
         for (int i = 0; i < m_effects.Count; i++)
         {
             if (m_effects[i].GetEffectID == effect.GetEffectID)
             {
                 m_effects[i].Turn += effect.Copy.Turn;
+                addFlag = false;
             }
         }
-        m_effects.Add(effect.Copy);
+        if (addFlag)
+        {
+            m_effects.Add(effect.Copy);
+        }
         SetViewEffectUI();
     }
 
@@ -110,7 +145,6 @@ public abstract class Charactor : MonoBehaviour
         }
         m_effects.ForEach(e =>
         {
-            Debug.Log($"e {e}");
             EffectView ev = Instantiate(m_effectViewPrefab);
             ev.Setup(e);
             ev.transform.SetParent(m_effectViewParent.transform, false);
@@ -120,37 +154,18 @@ public abstract class Charactor : MonoBehaviour
     public Command EffectExecute(List<ConditionalParametor> conditionalParametors)
     {
         Command ret = new Command();
-        Debug.Log($"param{conditionalParametors[0].Parametor}");
         if (m_effects.Count == 0)
         {
             conditionalParametors.ForEach(cp =>
             {
-                switch (cp.EvaluationParamType)
-                {
-                    case EvaluationParamType.Life:
-                        break;
-                    case EvaluationParamType.Attack:
-                        ret.Power += cp.Parametor;
-                        break;
-                    case EvaluationParamType.Block:
-                        ret.Block += cp.Parametor;
-                        break;
-                    case EvaluationParamType.Effect:
-                        ret.Effect.Add(cp.Effect);
-                        break;
-                    case EvaluationParamType.Turn:
-                        break;
-                    default:
-                        break;
-                }
+                ret.SetCommand(cp);
             });
         }
         else
         {
-            m_effects.ForEach(e => 
+            m_effects.ForEach(e =>
             ret = e.Effect(conditionalParametors));
         }
-        Debug.Log($"power{ret.Power}");
         return ret;
     }
 

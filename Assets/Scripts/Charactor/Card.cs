@@ -97,6 +97,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_player.CurrentCost -= m_cost;
     }
 
+    /// <summary>
+    /// プレイヤーのエフェクトを評価しカード効果を増減させた後、テキストを更新させる
+    /// </summary>
     public void GetPlayerEffect()
     {
         string s = m_tooltip;
@@ -107,7 +110,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             int index = int.Parse(m.Groups[1].Value);
             List<ConditionalParametor> cps = new List<ConditionalParametor>();
             ConditionalParametor cp = new ConditionalParametor();
-            Debug.Log($"{Name} 攻撃力:{m_cardCommands[index].Power}");
             cp.Parametor = m_cardCommands[index].Power;
             cp.EffectTiming = EffectTiming.Attacked;
             cp.EvaluationParamType = EvaluationParamType.Attack;
@@ -121,6 +123,15 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         foreach (Match m in matchs)
         {
             int index = int.Parse(m.Groups[1].Value);
+            List<ConditionalParametor> cps = new List<ConditionalParametor>();
+            ConditionalParametor cp = new ConditionalParametor();
+            cp.Parametor = m_cardCommands[index].Block;
+            cp.EffectTiming = EffectTiming.Attacked;
+            cp.EvaluationParamType = EvaluationParamType.Block;
+            cps.Add(cp);
+            Command c = m_cardCommands[index];
+            c.Block = m_player.EffectExecute(cps).Block;
+            m_cardCommands[index] = c;
             s = s.Replace(m.Value, $"{m_cardCommands[index].Block}ブロック");
         }
         m_tooltipText.text = s;

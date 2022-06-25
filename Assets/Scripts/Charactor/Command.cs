@@ -4,11 +4,32 @@ using UnityEngine;
 
 public struct Command
 {
+    public int Life { get; set; }
     public int Power { get; set; }
     public int Block { get; set; }
     public List<EffectBase> Effect { get; set; }
     public UseType UseType { get; set; }
     public int TargetEnemyIndex { get; set; }
+    public void SetCommand(ConditionalParametor conditionalParametor)
+    {
+        switch (conditionalParametor.EvaluationParamType)
+        {
+            case EvaluationParamType.Life:
+                Life += conditionalParametor.Parametor;
+                break;
+            case EvaluationParamType.Attack:
+                Power += conditionalParametor.Parametor;
+                break;
+            case EvaluationParamType.Block:
+                Block += conditionalParametor.Parametor;
+                break;
+            case EvaluationParamType.Effect:
+                Effect.Add(conditionalParametor.Effect);
+                break;
+            default:
+                break;
+        }
+    }
 }
 public struct Field
 {
