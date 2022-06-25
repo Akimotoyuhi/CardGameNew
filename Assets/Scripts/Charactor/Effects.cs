@@ -45,9 +45,7 @@ public class Weakness : EffectBase
         }
         if (powerDecFlag)
         {
-            Debug.Log($"•]‰¿‘O{power}");
             float f = power * (1 - 0.25f);
-            Debug.Log($"•]‰¿g‚¨{f}");
             ret.Power = (int)f;
         }
         if (turnDecFlag)

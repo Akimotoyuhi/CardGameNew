@@ -91,7 +91,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             return;
         }
         List<Command> cmds = new List<Command>();
-        m_database.CardCommands.Execute().ForEach(c => cmds.Add(c));
+        m_cardCommands.ForEach(c => cmds.Add(c));
         target.GetDrop(ref cmds);
         m_cardExecute.OnNext(cmds);
         m_player.CurrentCost -= m_cost;
@@ -100,12 +100,14 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     public void GetPlayerEffect()
     {
         string s = m_tooltip;
+        m_cardCommands = m_database.CardCommands.Execute();
         MatchCollection matchs = Regex.Matches(s, "{pow([0-9]*)}");
         foreach (Match m in matchs)
         {
             int index = int.Parse(m.Groups[1].Value);
             List<ConditionalParametor> cps = new List<ConditionalParametor>();
             ConditionalParametor cp = new ConditionalParametor();
+            Debug.Log($"{Name} çUåÇóÕ:{m_cardCommands[index].Power}");
             cp.Parametor = m_cardCommands[index].Power;
             cp.EffectTiming = EffectTiming.Attacked;
             cp.EvaluationParamType = EvaluationParamType.Attack;

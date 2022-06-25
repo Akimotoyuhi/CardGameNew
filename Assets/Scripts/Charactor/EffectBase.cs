@@ -52,6 +52,7 @@ public class EffectSelector
 public struct ConditionalParametor
 {
     public int Parametor { get; set; }
+    public EffectBase Effect { get; set; }
     public EvaluationParamType EvaluationParamType { get; set; }
     public EffectTiming EffectTiming { get; set; }
 }

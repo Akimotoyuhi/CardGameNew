@@ -120,7 +120,37 @@ public abstract class Charactor : MonoBehaviour
     public Command EffectExecute(List<ConditionalParametor> conditionalParametors)
     {
         Command ret = new Command();
-        m_effects.ForEach(e => ret = e.Effect(conditionalParametors));
+        Debug.Log($"param{conditionalParametors[0].Parametor}");
+        if (m_effects.Count == 0)
+        {
+            conditionalParametors.ForEach(cp =>
+            {
+                switch (cp.EvaluationParamType)
+                {
+                    case EvaluationParamType.Life:
+                        break;
+                    case EvaluationParamType.Attack:
+                        ret.Power += cp.Parametor;
+                        break;
+                    case EvaluationParamType.Block:
+                        ret.Block += cp.Parametor;
+                        break;
+                    case EvaluationParamType.Effect:
+                        ret.Effect.Add(cp.Effect);
+                        break;
+                    case EvaluationParamType.Turn:
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
+        else
+        {
+            m_effects.ForEach(e => 
+            ret = e.Effect(conditionalParametors));
+        }
+        Debug.Log($"power{ret.Power}");
         return ret;
     }
 

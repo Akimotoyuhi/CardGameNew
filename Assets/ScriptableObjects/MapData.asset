@@ -20,7 +20,7 @@ MonoBehaviour:
     m_chip:
       m_minCellNum: 1
       m_maxCellNum: 3
-      m_secondHalfIndex: 3
+      m_secondHalfIndex: 4
       m_detailSetting:
         m_restMinIndex: 1
         m_restMaxIndex: 9
