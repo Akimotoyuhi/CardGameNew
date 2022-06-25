@@ -33,16 +33,27 @@ public class Enemy : Charactor, IDrop
         Setup();
     }
 
+    /// <summary>
+    /// ターン開始
+    /// </summary>
     public override async UniTask TurnBegin(int turn)
     {
-        await UniTask.Yield();
+        await base.TurnBegin(turn);
     }
 
+    /// <summary>
+    /// ターン終了
+    /// </summary>
     public override async UniTask TurnEnd(int turn)
     {
         await Action();
+        await base.TurnEnd(turn);
     }
 
+    /// <summary>
+    /// 敵を行動させる
+    /// </summary>
+    /// <returns></returns>
     private async UniTask Action()
     {
         m_action.OnNext(m_dataBase.Action(new Field(), null, null));

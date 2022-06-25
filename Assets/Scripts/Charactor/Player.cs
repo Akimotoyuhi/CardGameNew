@@ -29,13 +29,12 @@ public class Player : Charactor, IDrop
     public override async UniTask TurnBegin(int turn)
     {
         m_currentCost.Value = m_maxCost;
-        m_currentBlock.Value = 0;
-        await UniTask.Delay(1);
+        await base.TurnBegin(turn);
     }
 
     public override async UniTask TurnEnd(int turn)
     {
-        await UniTask.Delay(1);
+        await base.TurnEnd(turn);
     }
 
     public override void Damage(Command cmd)

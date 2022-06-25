@@ -63,6 +63,9 @@ public abstract class Charactor : MonoBehaviour
         m_image.transform.localScale *= dataBase.ImageScaling;
     }
 
+    /// <summary>
+    /// HP上部のテキストの更新
+    /// </summary>
     protected virtual void SetText()
     {
         if (m_currentBlock.Value > 0)
@@ -74,10 +77,10 @@ public abstract class Charactor : MonoBehaviour
     /// <summary>
     /// ターン開始
     /// </summary>
-    /// <param name="turn"></param>
-    /// <returns></returns>
     public virtual async UniTask TurnBegin(int turn)
     {
+        m_currentBlock.Value = 0;
+
         ConditionalParametor cp = new ConditionalParametor();
         cp.EffectTiming = EffectTiming.TurnBegin;
         cp.EvaluationParamType = EvaluationParamType.Turn;
@@ -91,8 +94,6 @@ public abstract class Charactor : MonoBehaviour
     /// <summary>
     /// ターン終了
     /// </summary>
-    /// <param name="turn"></param>
-    /// <returns></returns>
     public virtual async UniTask TurnEnd(int turn)
     {
         ConditionalParametor cp = new ConditionalParametor();
@@ -106,7 +107,6 @@ public abstract class Charactor : MonoBehaviour
     }
 
     /// <summary>被ダメージ処理</summary>
-    /// <param name="cmd"></param>
     public virtual void Damage(Command cmd)
     {
         if (cmd.Effect != null)
@@ -119,6 +119,9 @@ public abstract class Charactor : MonoBehaviour
         m_currentBlock.Value += cmd.Block;
     }
 
+    /// <summary>
+    /// 新たにエフェクトを付与する
+    /// </summary>
     public void AddEffect(EffectBase effect)
     {
         bool addFlag = true;
@@ -137,6 +140,9 @@ public abstract class Charactor : MonoBehaviour
         SetViewEffectUI();
     }
 
+    /// <summary>
+    /// 現在かかっているエフェクトを表示する
+    /// </summary>
     protected void SetViewEffectUI()
     {
         for (int i = 0; i < m_effectViewParent.childCount; i++)
@@ -151,6 +157,9 @@ public abstract class Charactor : MonoBehaviour
         });
     }
 
+    /// <summary>
+    /// エフェクトの実行
+    /// </summary>
     public Command EffectExecute(List<ConditionalParametor> conditionalParametors)
     {
         Command ret = new Command();
