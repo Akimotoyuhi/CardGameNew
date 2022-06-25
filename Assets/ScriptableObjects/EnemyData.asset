@@ -29,6 +29,14 @@ MonoBehaviour:
       m_enemyCommands:
         m_commands:
         - rid: 2058801917908484096
+    - m_conditional:
+        m_probability: 100
+        m_playNum: -1
+        m_conditionals:
+        - rid: 2058802013358260224
+      m_enemyCommands:
+        m_commands:
+        - rid: 2058802013358260225
   references:
     version: 2
     RefIds:
@@ -38,6 +46,18 @@ MonoBehaviour:
         m_life: 0
         m_evaluationType: 2
     - rid: 2058801917908484096
+      type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 0
+        m_effectSelector:
+        - m_effectID: 1
+          m_turn: 5
+    - rid: 2058802013358260224
+      type: {class: EnemyLifeConditional, ns: , asm: Assembly-CSharp}
+      data:
+        m_life: 20
+        m_evaluationType: 3
+    - rid: 2058802013358260225
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0

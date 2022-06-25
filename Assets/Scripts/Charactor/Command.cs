@@ -105,7 +105,14 @@ public class Conditional
     [SerializeReference, SubclassSelector] List<IConditional> m_conditionals;
     public bool Evaluation(Field field, Player player, Enemy enemy)
     {
-        return true;
+        bool ret = true;
+        m_conditionals.ForEach(c =>
+        {
+            ret = c.EnemyEvaluation(enemy);
+            ret = c.PlayerEvaluation(player);
+            ret = c.FieldEvaluation(field);
+        });
+        return ret;
     }
 }
 public interface IConditional
