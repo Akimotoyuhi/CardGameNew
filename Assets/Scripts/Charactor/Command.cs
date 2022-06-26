@@ -106,12 +106,15 @@ public class Conditional
     public bool Evaluation(Field field, Player player, Enemy enemy)
     {
         bool ret = true;
-        m_conditionals.ForEach(c =>
+        foreach (var c in m_conditionals)
         {
-            ret = c.EnemyEvaluation(enemy);
-            ret = c.PlayerEvaluation(player);
-            ret = c.FieldEvaluation(field);
-        });
+            if (!c.EnemyEvaluation(enemy))
+                return false;
+            if (!c.PlayerEvaluation(player))
+                return false;
+            if (!c.FieldEvaluation(field))
+                return false;
+        }
         return ret;
     }
 }

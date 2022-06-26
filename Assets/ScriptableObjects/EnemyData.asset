@@ -25,18 +25,18 @@ MonoBehaviour:
         m_probability: 100
         m_playNum: -1
         m_conditionals:
-        - rid: 2058801694920146944
-      m_enemyCommands:
-        m_commands:
-        - rid: 2058801917908484096
-    - m_conditional:
-        m_probability: 100
-        m_playNum: -1
-        m_conditionals:
         - rid: 2058802013358260224
       m_enemyCommands:
         m_commands:
         - rid: 2058802013358260225
+    - m_conditional:
+        m_probability: 100
+        m_playNum: -1
+        m_conditionals:
+        - rid: 2058801694920146944
+      m_enemyCommands:
+        m_commands:
+        - rid: 2058801917908484096
   references:
     version: 2
     RefIds:

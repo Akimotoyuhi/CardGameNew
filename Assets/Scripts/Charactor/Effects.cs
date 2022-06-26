@@ -28,10 +28,11 @@ public class Weakness : EffectBase
         foreach (var ep in evaluationParametors)
         {
             ret.SetCommand(ep);
+            Debug.Log(ep.EffectTiming);
             if (ep.EffectTiming == EffectTiming.Attacked && ep.EvaluationParamType == EvaluationParamType.Attack)
             {
                 power = ep.Parametor;
-                continue;
+                //continue;
             }
             else
             {
@@ -39,9 +40,13 @@ public class Weakness : EffectBase
                 powerDecFlag = false;
             }
             if (ep.EffectTiming == EffectTiming.TurnEnd)
-                continue;
+            {
+                //continue;
+            }
             else
+            {
                 turnDecFlag = false;
+            }
         }
         if (powerDecFlag)
         {
@@ -49,7 +54,10 @@ public class Weakness : EffectBase
             ret.Power = (int)f;
         }
         if (turnDecFlag)
+        {
+            Debug.Log("Turn-1");
             Turn--;
+        }
         return ret;
     }
 }
