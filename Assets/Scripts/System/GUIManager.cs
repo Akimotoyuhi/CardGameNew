@@ -24,11 +24,7 @@ public class GUIManager : MonoBehaviour
         m_battleManager.BattleStateObservable
             .Subscribe(s => SwitchBattleState(s)).AddTo(m_battleManager);
         m_charactorManager.CurrentPlayer.CurrentCostObservable
-            .Subscribe(c =>
-            {
-                m_costText.text = $"{c}/{m_charactorManager.CurrentPlayer.MaxCost}";
-            })
-            .AddTo(m_charactorManager.CurrentPlayer);
+            .Subscribe(c => m_costText.text = $"{c}/{m_charactorManager.CurrentPlayer.MaxCost}").AddTo(m_charactorManager.CurrentPlayer);
         GameManager.Instance.InfoTextUpdate
             .Subscribe(s => SetInfoTextPanels(s)).AddTo(this);
         m_infoPanel.SetActive(false);

@@ -57,7 +57,7 @@ public class CharactorManager : MonoBehaviour
             Enemy e = Instantiate(m_enemyPrefab);
             e.transform.SetParent(m_enemisParent, false);
             e.SetBaseData(m_enemyData.Databases[(int)id]); //‚Æ‚è‚ ‚¦‚¸
-            e.DeadSubject.Subscribe(_ => Debug.Log("“G“|‚µ‚½")).AddTo(this);
+            e.DeadSubject.Subscribe(_ => BattleEnd()).AddTo(this);
             m_newEnemyCreateSubject.OnNext(e);
             m_currentEnemies.Add(e);
         });
@@ -106,5 +106,18 @@ public class CharactorManager : MonoBehaviour
                     break;
             }
         });
+    }
+
+    /// <summary>
+    /// ƒoƒgƒ‹‚ÌI—¹”»’è‚ğs‚È‚¤
+    /// </summary>
+    private void BattleEnd()
+    {
+        foreach (var e in m_currentEnemies)
+        {
+            if (e.IsDead)
+                return;
+        }
+        Debug.Log("“G‘S–Å");
     }
 }

@@ -55,6 +55,18 @@ public struct ConditionalParametor
     public EffectBase Effect { get; set; }
     public EvaluationParamType EvaluationParamType { get; set; }
     public EffectTiming EffectTiming { get; set; }
+    public void Setup(int parametor, EvaluationParamType evaluationParamType, EffectTiming effectTiming)
+    {
+        Parametor = parametor;
+        EvaluationParamType = evaluationParamType;
+        EffectTiming = effectTiming;
+    }
+    public void Setup(EffectBase effectBase, EvaluationParamType evaluationParamType, EffectTiming effectTiming)
+    {
+        Effect = effectBase;
+        EvaluationParamType = evaluationParamType;
+        EffectTiming = effectTiming;
+    }
 }
 #region Enums
 /// <summary>

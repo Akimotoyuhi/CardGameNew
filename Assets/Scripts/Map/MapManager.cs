@@ -57,7 +57,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void CellClick(CellType cellType)
+    private void CellClick(CellType cellType)
     {
         m_encount.OnNext(cellType);
     }

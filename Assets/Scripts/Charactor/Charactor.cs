@@ -21,6 +21,7 @@ public abstract class Charactor : MonoBehaviour
     protected ReactiveProperty<int> m_currentBlock = new ReactiveProperty<int>();
     protected List<EffectBase> m_effects = new List<EffectBase>();
     protected bool m_isPlayer;
+    protected bool m_isDead;
     private Subject<Unit> m_deadSubject = new Subject<Unit>();
     #endregion
     #region property
@@ -31,6 +32,7 @@ public abstract class Charactor : MonoBehaviour
     public IObservable<int> CurrentBlockObservable => m_currentBlock;
     public List<EffectBase> Effects => new List<EffectBase>();
     public bool IsPlayer => m_isPlayer;
+    public bool IsDead => m_isDead;
     public IObservable<Unit> DeadSubject => m_deadSubject;
     #endregion
 
@@ -52,6 +54,7 @@ public abstract class Charactor : MonoBehaviour
             SetText();
         }).AddTo(this);
         m_currentBlock.Value = 0;
+        m_isDead = false;
     }
 
     protected void SetData(CharactorDataBase dataBase)
@@ -97,9 +100,7 @@ public abstract class Charactor : MonoBehaviour
     public virtual async UniTask TurnEnd(int turn)
     {
         ConditionalParametor cp = new ConditionalParametor();
-        cp.EffectTiming = EffectTiming.TurnEnd;
-        cp.EvaluationParamType = EvaluationParamType.Turn;
-        cp.Parametor = turn;
+        cp.Setup(turn, EvaluationParamType.Turn, EffectTiming.TurnEnd);
         List<ConditionalParametor> cps = new List<ConditionalParametor>();
         cps.Add(cp);
         EffectExecute(cps);
@@ -181,6 +182,7 @@ public abstract class Charactor : MonoBehaviour
     /// <summary>éÄñSèàóù</summary>
     protected virtual void Dead()
     {
+        m_isDead = true;
         m_deadSubject.OnNext(Unit.Default);
     }
 }
