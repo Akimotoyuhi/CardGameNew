@@ -110,9 +110,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             int index = int.Parse(m.Groups[1].Value);
             List<ConditionalParametor> cps = new List<ConditionalParametor>();
             ConditionalParametor cp = new ConditionalParametor();
-            cp.Parametor = m_cardCommands[index].Power;
-            cp.EffectTiming = EffectTiming.Attacked;
-            cp.EvaluationParamType = EvaluationParamType.Attack;
+            cp.Setup(m_cardCommands[index].Power, EvaluationParamType.Attack, EffectTiming.Attacked);
             cps.Add(cp);
             Command c = m_cardCommands[index];
             c.Power = m_player.EffectExecute(cps).Power;
@@ -125,9 +123,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             int index = int.Parse(m.Groups[1].Value);
             List<ConditionalParametor> cps = new List<ConditionalParametor>();
             ConditionalParametor cp = new ConditionalParametor();
-            cp.Parametor = m_cardCommands[index].Block;
-            cp.EffectTiming = EffectTiming.Attacked;
-            cp.EvaluationParamType = EvaluationParamType.Block;
+            cp.Setup(m_cardCommands[index].Block, EvaluationParamType.Block, EffectTiming.Attacked);
             cps.Add(cp);
             Command c = m_cardCommands[index];
             c.Block = m_player.EffectExecute(cps).Block;

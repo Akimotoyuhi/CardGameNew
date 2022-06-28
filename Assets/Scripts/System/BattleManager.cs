@@ -19,9 +19,11 @@ public class BattleManager : MonoBehaviour
     private int m_currentTurn;
     private List<Card> m_currentCard = new List<Card>();
     private CardData m_useCardData;
+    private Subject<Unit> m_battleFinished = new Subject<Unit>();
     private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
     /// <summary>バトルの状態遷移を通知する</summary>
     public System.IObservable<BattleState> BattleStateObservable => m_battleState;
+    public System.IObservable<Unit> BattleFinished => m_battleFinished;
 
     public void Setup()
     {
@@ -114,6 +116,7 @@ public class BattleManager : MonoBehaviour
     private void BattleEnd(BattleEndType battleEndType)
     {
         //報酬表示
+        m_battleFinished.OnNext(Unit.Default);
     }
 }
 

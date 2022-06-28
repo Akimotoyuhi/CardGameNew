@@ -8,16 +8,29 @@ using UnityEditor;
 [CustomEditor(typeof(CardData))]
 public class CardEditButton : Editor
 {
-    private SerializedProperty m_cardDatabase;
+    [System.Serializable]
+    public class DataBinder
+    {
+        [SerializeReference]
+        public CardData CardData;
+    }
+    private SerializedObject m_target;
+    private CardDataBase m_database = null;
+
     private void OnEnable()
     {
-        m_cardDatabase = serializedObject.FindProperty("");
+        var node = target as CardData;
+        if (m_database == null)
+        {
+            //m_database = ScriptableObject.CreateInstance<CardDataBase>();
+        }
     }
+
 
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        //CardDataBase cardDataBase = target as CardDataBase;
+        CardData cardDataBase = target as CardData;
 
         if (GUILayout.Button("Edit"))
         {
@@ -36,7 +49,7 @@ public class CardCustomWindow : EditorWindow
 
     private void OnGUI()
     {
-        
+
     }
 }
 #endif

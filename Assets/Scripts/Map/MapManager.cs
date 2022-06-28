@@ -53,6 +53,7 @@ public class MapManager : MonoBehaviour
                 else
                     cell.SetCellType = m_nowMap.Chip.Lottery(i);
                 cell.CellSubject.Subscribe(c => CellClick(c)).AddTo(cell);
+                cell.Floor = m_act * i + 1; //floor‚Í‚Pf‚©‚ç‚È‚Ì‚ÅƒYƒŒ‚ð‰ðŒˆ‚·‚é
                 cell.Setup();
             }
             m_columns.Add(col);

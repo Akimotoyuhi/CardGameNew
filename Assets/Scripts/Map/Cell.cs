@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using System;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Cell : MonoBehaviour
 {
@@ -13,8 +14,12 @@ public class Cell : MonoBehaviour
     [SerializeField] Sprite m_restSprite;
     [SerializeField] Sprite m_eliteSprite;
     [SerializeField] Sprite m_bossSprite;
+    [SerializeField] float m_blinkingInterval;
+    private int m_floor;
     private CellType m_cellType;
+    private Sequence m_sequence;
     private Subject<CellType> m_cellSubject = new Subject<CellType>();
+    public int Floor { set => m_floor = value; }
     public CellType SetCellType
     {
         set
@@ -27,7 +32,31 @@ public class Cell : MonoBehaviour
 
     public void Setup()
     {
-        m_button.onClick.AddListener(() => m_cellSubject.OnNext(m_cellType));
+        m_button.onClick.AddListener(() =>
+        {
+            m_sequence.Kill();
+            m_cellSubject.OnNext(m_cellType);
+        });
+        GameManager.Instance.FloorUpdate
+            .Subscribe(f => CellStateChanged(f)).AddTo(this);
+        m_sequence = DOTween.Sequence();
+    }
+
+    private void CellStateChanged(int floor)
+    {
+        if (m_floor == floor)
+        {
+            m_sequence.Append(m_image.DOColor(Color.gray, m_blinkingInterval))
+                .Append(m_image.DOColor(Color.white, m_blinkingInterval))
+                .Append(m_image.DOColor(Color.gray, m_blinkingInterval))
+                .SetLoops(-1);
+            m_button.interactable = true;
+        }
+        else
+        {
+            m_image.color = Color.gray;
+            m_button.interactable = false;
+        }
     }
 
     private void SetSprite()

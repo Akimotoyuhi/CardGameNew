@@ -25,10 +25,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         m_battleManager.Setup();
+        m_battleManager.BattleFinished
+            .Subscribe(_ => FloorFinished()).AddTo(m_battleManager);
         m_guiManager.Setup();
         m_mapManager.Setup();
         m_mapManager.EncountObservable.Subscribe(ct => Encount(ct)).AddTo(m_mapManager);
         m_gameState.Value = GameState.MapSelect;
+        m_floor.Value = 1;
     }
 
     private void Encount(CellType cellType)
@@ -40,6 +43,12 @@ public class GameManager : MonoBehaviour
         }
         m_gameState.Value = GameState.Battle;
         m_battleManager.Encount(m_mapManager.NowMapID, cellType);
+    }
+
+    private void FloorFinished()
+    {
+        m_floor.Value++;
+        Debug.Log($"åªç›ÉtÉçÉA {m_floor.Value}");
     }
 }
 
