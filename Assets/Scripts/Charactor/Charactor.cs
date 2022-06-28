@@ -85,9 +85,7 @@ public abstract class Charactor : MonoBehaviour
         m_currentBlock.Value = 0;
 
         ConditionalParametor cp = new ConditionalParametor();
-        cp.EffectTiming = EffectTiming.TurnBegin;
-        cp.EvaluationParamType = EvaluationParamType.Turn;
-        cp.Parametor = turn;
+        cp.Setup(turn, EvaluationParamType.Turn, EffectTiming.TurnBegin);
         List<ConditionalParametor> cps = new List<ConditionalParametor>();
         cps.Add(cp);
         EffectExecute(cps);
@@ -176,6 +174,7 @@ public abstract class Charactor : MonoBehaviour
             m_effects.ForEach(e =>
             ret = e.Effect(conditionalParametors));
         }
+        SetViewEffectUI();
         return ret;
     }
 

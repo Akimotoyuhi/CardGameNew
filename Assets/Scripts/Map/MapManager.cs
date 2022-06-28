@@ -15,6 +15,8 @@ public class MapManager : MonoBehaviour
     /// <summary>現在マップ</summary>
     private MapDataBase m_nowMap;
     private List<Column> m_columns = new List<Column>();
+    /// <summary>階層の更新を通知する</summary>
+    private Subject<int> m_floorUpdateSubject = new Subject<int>();
     public MapID NowMapID => m_nowMap.MapID;
     public System.IObservable<CellType> EncountObservable => m_encount;
 

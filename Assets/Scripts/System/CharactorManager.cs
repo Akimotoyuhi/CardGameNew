@@ -23,6 +23,7 @@ public class CharactorManager : MonoBehaviour
     [SerializeField] Transform m_enemisParent;
     private List<Enemy> m_currentEnemies = new List<Enemy>();
     private Subject<Enemy> m_newEnemyCreateSubject = new Subject<Enemy>();
+    private Subject<BattleEndType> m_battleEnd = new Subject<BattleEndType>();
     /// <summary>現在のプレイヤーのインスタンス</summary>
     public Player CurrentPlayer => m_currentPlayer;
     /// <summary>敵たち</summary>
@@ -32,6 +33,7 @@ public class CharactorManager : MonoBehaviour
     /// <summary>このゲーム中使用しているのカードクラス(Enum)</summary>
     public CardClassType CardClassType => m_cardClassType;
     public System.IObservable<Enemy> NewEnemyCreateSubject => m_newEnemyCreateSubject;
+    public System.IObservable<BattleEndType> BattleEndSubject => m_battleEnd;
 
     public void Setup()
     {
@@ -74,9 +76,9 @@ public class CharactorManager : MonoBehaviour
     public async UniTask TurnEnd(int turn)
     {
         Debug.Log("ターン終了");
+        await CurrentPlayer.TurnEnd(turn);
         foreach (var e in m_currentEnemies)
             await e.TurnEnd(turn);
-        await CurrentPlayer.TurnEnd(turn);
     }
 
     /// <summary>
@@ -118,6 +120,12 @@ public class CharactorManager : MonoBehaviour
             if (e.IsDead)
                 return;
         }
-        Debug.Log("敵全滅");
+        m_battleEnd.OnNext(BattleEndType.EnemiesDead);
     }
+}
+
+public enum BattleEndType
+{
+    EnemiesDead,
+    Gameover,
 }

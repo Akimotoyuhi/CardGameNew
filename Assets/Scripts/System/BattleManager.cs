@@ -34,6 +34,9 @@ public class BattleManager : MonoBehaviour
                 .AddTo(e);
             })
             .AddTo(m_charactorManager);
+        m_charactorManager.BattleEndSubject
+            .Subscribe(type => BattleEnd(type))
+            .AddTo(m_charactorManager);
         m_deck.SetParentActive = false;
         m_discard.SetParentActive = false;
     }
@@ -104,8 +107,13 @@ public class BattleManager : MonoBehaviour
         List<EnemyID> e = m_encountData.GetEncountData(mapID).GetEnemies(cellType);
         m_charactorManager.Create(e);
         Create();
-        m_battleState.Value = global::BattleState.PlayerFaze;
+        m_battleState.Value = BattleState.PlayerFaze;
         m_charactorManager.TurnBegin(m_currentTurn).Forget();
+    }
+
+    private void BattleEnd(BattleEndType battleEndType)
+    {
+        //報酬表示
     }
 }
 
