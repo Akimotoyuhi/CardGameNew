@@ -34,7 +34,6 @@ public class Cell : MonoBehaviour
     {
         m_button.onClick.AddListener(() =>
         {
-            m_sequence.Kill();
             m_cellSubject.OnNext(m_cellType);
         });
         GameManager.Instance.FloorUpdate

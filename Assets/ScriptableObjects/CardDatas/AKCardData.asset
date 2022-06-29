@@ -34,6 +34,16 @@ MonoBehaviour:
     m_cardCommands:
       m_commands:
       - rid: 2058801646637940738
+  - m_name: "\u30BF\u30FC\u30DF\u30CD\u30FC\u30C8"
+    m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
+    m_cost: 1
+    m_tooltip: "\u6575\u5168\u4F53\u306B{pow0}"
+    m_cardUseType: 0
+    m_rarity: 4
+    m_cardType: 1
+    m_cardCommands:
+      m_commands:
+      - rid: 2058802105155321856
   references:
     version: 2
     RefIds:
@@ -41,11 +51,17 @@ MonoBehaviour:
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
-        m_block: 5
+        m_block: 100
         isTrueBlock: 0
     - rid: 2058801646637940739
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
-        m_power: 5
+        m_power: 100
+        m_isTrueDamage: 0
+    - rid: 2058802105155321856
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 2
+        m_power: 9999999
         m_isTrueDamage: 0

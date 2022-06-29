@@ -5,5 +5,5 @@ using UnityEngine;
 [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = false)]
 public class PreviewButtonAttribute : PropertyAttribute
 {
-    public CardDataBase DataBase { get; set; }
+    public string m_name = "aaaa";
 }

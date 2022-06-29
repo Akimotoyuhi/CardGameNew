@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     {
         m_floor.Value++;
         Debug.Log($"åªç›ÉtÉçÉA {m_floor.Value}");
+        m_gameState.Value = GameState.MapSelect;
     }
 }
 

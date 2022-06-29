@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using UniRx;
 using Cysharp.Threading.Tasks;
 
+/// <summary>
+/// ƒQ[ƒ€’†‚ÌGUI‚Ì‘€ì‚â‰æ–Ê‚ÌØ‚è‘Ö‚¦‚ğ‚·‚é
+/// </summary>
 public class GUIManager : MonoBehaviour
 {
     [SerializeField] GameObject m_mapPanel;

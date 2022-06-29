@@ -15,7 +15,9 @@ public class PreviewButtonDrawer : PropertyDrawer
         //Editƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çwindow‚ðŠJ‚­
         if (GUI.Button(position, "Edit"))
         {
-            CardCustomWindow.ShowWindow();
+            var v = property.serializedObject.FindProperty("m_name");
+            Debug.Log(v);
+            //CardCustomWindow.ShowWindow();
         }
     }
 

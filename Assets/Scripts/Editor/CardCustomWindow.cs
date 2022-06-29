@@ -22,7 +22,7 @@ public class CardCustomWindow : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Label(m_cardData.name);
+        //GUILayout.Label(m_cardData.name);
     }
 }
 #endif

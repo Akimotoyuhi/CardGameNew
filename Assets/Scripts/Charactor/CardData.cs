@@ -7,7 +7,7 @@ using UniRx;
 public class CardData : ScriptableObject
 {
     [SerializeField] CardClassType m_cardClassType;
-    [SerializeField, PreviewButton] List<CardDataBase> m_dataBases;
+    [SerializeField] List<CardDataBase> m_dataBases;
     private Subject<CardData> m_cardEditSubject = new Subject<CardData>();
     public CardClassType CardClassType => m_cardClassType;
     public List<CardDataBase> DataBases => m_dataBases;
@@ -57,6 +57,8 @@ public enum AKCardID
     Strike,
     /// <summary>防御</summary>
     Defence,
+    /// <summary>ターミネート</summary>
+    TerminationOfTactics
 }
 /// <summary>レアリティ</summary>
 public enum Rarity

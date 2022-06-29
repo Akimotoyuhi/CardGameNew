@@ -17,7 +17,7 @@ MonoBehaviour:
     m_id: 0
     m_characterData:
       m_name: "\u30B9\u30E9\u30A4\u30E0"
-      m_maxLife: 30
+      m_maxLife: 1000
       m_sprite: {fileID: 21300000, guid: 5678199d677832a4ebacd5a8521635aa, type: 3}
       m_imageScaling: 1
     m_enemyAi:
