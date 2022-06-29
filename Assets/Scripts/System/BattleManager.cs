@@ -23,10 +23,12 @@ public class BattleManager : MonoBehaviour
     private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
     /// <summary>バトルの状態遷移を通知する</summary>
     public System.IObservable<BattleState> BattleStateObservable => m_battleState;
+    /// <summary>バトルの終了を通知する</summary>
     public System.IObservable<Unit> BattleFinished => m_battleFinished;
 
     public void Setup()
     {
+        //キャラクターマネージャーのセットアップ
         m_charactorManager.Setup();
         m_charactorManager.NewEnemyCreateSubject
             .Subscribe(e =>
@@ -39,6 +41,8 @@ public class BattleManager : MonoBehaviour
         m_charactorManager.BattleEndSubject
             .Subscribe(type => BattleEnd(type))
             .AddTo(m_charactorManager);
+
+        //デッキと捨て札一覧画面を消す
         m_deck.SetParentActive = false;
         m_discard.SetParentActive = false;
     }
@@ -62,7 +66,7 @@ public class BattleManager : MonoBehaviour
                 throw new System.Exception("使用するカードデータが見つかりませんでした");
         }
 
-        //生成
+        //カードを生成
         List<int> list = m_charactorManager.CardClass.GetCardID(cct);
         List<Card> toDeckCards = new List<Card>();
         list.ForEach(i =>
@@ -82,7 +86,7 @@ public class BattleManager : MonoBehaviour
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
     }
 
-    /// <summary>ボタンが押された後の一連の流れ</summary>
+    /// <summary>ターン終了ボタンが押された後の一連の流れ</summary>
     public async void OnBattle()
     {
         m_hand.ConvartToDiscard();
