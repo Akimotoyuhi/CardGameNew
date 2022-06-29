@@ -38,6 +38,7 @@ public abstract class Charactor : MonoBehaviour
 
     protected virtual void Setup()
     {
+        //体力スライダーの設定
         m_lifeSlider.maxValue = m_maxLife;
         CurrentLifeObservable.Subscribe(life =>
         {
@@ -46,6 +47,8 @@ public abstract class Charactor : MonoBehaviour
             if (m_lifeSlider.value <= 0)
                 m_deadSubject.OnNext(Unit.Default);
         }).AddTo(this);
+
+        //ブロック値スライダーの設定
         CurrentBlockObservable.Subscribe(block =>
         {
             if (m_currentBlock.Value < 0)
@@ -53,10 +56,15 @@ public abstract class Charactor : MonoBehaviour
             m_blockSlider.value = block;
             SetText();
         }).AddTo(this);
+
         m_currentBlock.Value = 0;
         m_isDead = false;
     }
 
+    /// <summary>
+    /// 渡されたキャラクターデータを各値に入れる
+    /// </summary>
+    /// <param name="dataBase"></param>
     protected void SetData(CharactorDataBase dataBase)
     {
         m_name = dataBase.Name;
@@ -82,13 +90,16 @@ public abstract class Charactor : MonoBehaviour
     /// </summary>
     public virtual async UniTask TurnBegin(int turn)
     {
+        //ターン開始時にブロック値はリセット
         m_currentBlock.Value = 0;
 
+        //ターン開始時のエフェクトを評価しにいく
         ConditionalParametor cp = new ConditionalParametor();
         cp.Setup(turn, EvaluationParamType.Turn, EffectTiming.TurnBegin);
         List<ConditionalParametor> cps = new List<ConditionalParametor>();
         cps.Add(cp);
         EffectExecute(cps);
+
         await UniTask.Yield();
     }
 
@@ -97,11 +108,13 @@ public abstract class Charactor : MonoBehaviour
     /// </summary>
     public virtual async UniTask TurnEnd(int turn)
     {
+        //ターン終了時のエフェクトを評価しにいく
         ConditionalParametor cp = new ConditionalParametor();
         cp.Setup(turn, EvaluationParamType.Turn, EffectTiming.TurnEnd);
         List<ConditionalParametor> cps = new List<ConditionalParametor>();
         cps.Add(cp);
         EffectExecute(cps);
+
         await UniTask.Yield();
     }
 
@@ -162,6 +175,7 @@ public abstract class Charactor : MonoBehaviour
     public Command EffectExecute(List<ConditionalParametor> conditionalParametors)
     {
         Command ret = new Command();
+        //エフェクト数が０の場合は渡された値をそのままCommandに変換して返す
         if (m_effects.Count == 0)
         {
             conditionalParametors.ForEach(cp =>

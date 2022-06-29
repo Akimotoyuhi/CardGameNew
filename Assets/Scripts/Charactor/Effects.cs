@@ -31,27 +31,24 @@ public class Weakness : EffectBase
             if (ep.EffectTiming == EffectTiming.Attacked && ep.EvaluationParamType == EvaluationParamType.Attack)
             {
                 power = ep.Parametor;
-                continue;
             }
             else
             {
                 power = ep.Parametor;
                 powerDecFlag = false;
             }
-            if (ep.EffectTiming == EffectTiming.TurnEnd)
-            {
-                continue;
-            }
-            else
+            if (ep.EffectTiming != EffectTiming.TurnEnd)
             {
                 turnDecFlag = false;
             }
         }
+        //攻撃時かつ渡されたパラメータタイプがアタックなら値を25%減らして返す
         if (powerDecFlag)
         {
             float f = power * (1 - 0.25f);
             ret.Power = (int)f;
         }
+        //ターン終了時なら持続ターンを１減らす
         if (turnDecFlag)
         {
             Turn--;
@@ -86,25 +83,29 @@ public class Frail : EffectBase
             if (ep.EffectTiming == EffectTiming.Attacked && ep.EvaluationParamType == EvaluationParamType.Block)
             {
                 block = ep.Parametor;
-                continue;
             }
             else
             {
                 block = ep.Parametor;
                 blockDecFlag = false;
             }
-            if (ep.EffectTiming == EffectTiming.TurnEnd)
-                continue;
-            else
+            if (ep.EffectTiming != EffectTiming.TurnEnd)
+            {
                 turnDecFlag = false;
+            }
+                
         }
+        //攻撃時かつ渡されたパラメータタイプが防御なら値を25%減らす
         if (blockDecFlag)
         {
             float f = block * (1 - 0.25f);
             ret.Block = (int)f;
         }
+        //ターン終了時なら持続ターンを１減らす
         if (turnDecFlag)
+        {
             Turn--;
+        }
         return ret;
     }
 }

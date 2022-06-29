@@ -39,29 +39,28 @@ public class MapManager : MonoBehaviour
             col.transform.SetParent(m_columnParent);
             col.SetFloor = i;
             int cellIndex;
-            if (i == 0 || i == m_nowMap.MaxColumn - 1)//最初と最後はセル１つ
+            //最初と最後はセル１つ
+            if (i == 0 || i == m_nowMap.MaxColumn - 1)
                 cellIndex = 1;
+            //現在フロアのセル数を決める
             else
                 cellIndex = Random.Range(m_nowMap.Chip.MinCellNum, m_nowMap.Chip.MaxCellNum);
+
             for (int n = 0; n < cellIndex; n++)
             {
                 Cell cell = Instantiate(m_cellPrefab);
                 col.AddCell = cell;
                 cell.transform.SetParent(col.transform);
+                //最後のマスはボスマスで固定
                 if (i == m_nowMap.MaxColumn - 1)
                     cell.SetCellType = CellType.Boss;
                 else
                     cell.SetCellType = m_nowMap.Chip.Lottery(i);
-                cell.CellSubject.Subscribe(c => CellClick(c)).AddTo(cell);
+                cell.CellSubject.Subscribe(c => m_encount.OnNext(c)).AddTo(cell);
                 cell.Floor = m_act * i + 1; //floorは１fからなのでズレを解決する
                 cell.Setup();
             }
             m_columns.Add(col);
         }
-    }
-
-    private void CellClick(CellType cellType)
-    {
-        m_encount.OnNext(cellType);
     }
 }

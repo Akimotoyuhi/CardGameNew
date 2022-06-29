@@ -12,7 +12,8 @@ public class PreviewButtonDrawer : PropertyDrawer
         EditorGUI.PropertyField(position, property, label, true);
         position.y += 20;
         position.height = 20;
-        if (GUI.Button(position, "Preview"))
+        //Editƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çwindow‚ðŠJ‚­
+        if (GUI.Button(position, "Edit"))
         {
             CardCustomWindow.ShowWindow();
         }
