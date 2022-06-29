@@ -18,13 +18,22 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Text m_costText;
     public void Setup()
     {
+        //ターン終了ボタンが押されたらバトルマネージャーのターン終了関数を押す
         m_turnEndButton.onClick.AddListener(() => m_battleManager.OnBattle());
+        
+        //GameStateを監視して現在のStateに応じたパネルを表示する
         GameManager.Instance.GameStateObservable
             .Subscribe(s => SwitchGameState(s)).AddTo(this);
+        
+        //BattleStateを監視して現在のStateに応じたパネルを表示する
         m_battleManager.BattleStateObservable
             .Subscribe(s => SwitchBattleState(s)).AddTo(m_battleManager);
+
+        //プレイヤーのコストを監視してコストのテキストを変更する
         m_charactorManager.CurrentPlayer.CurrentCostObservable
             .Subscribe(c => m_costText.text = $"{c}/{m_charactorManager.CurrentPlayer.MaxCost}").AddTo(m_charactorManager.CurrentPlayer);
+        
+        //infoTextを監視してinfoTextの更新と表示非表示を切り替える
         GameManager.Instance.InfoTextUpdate
             .Subscribe(s => SetInfoTextPanels(s)).AddTo(this);
         m_infoPanel.SetActive(false);
