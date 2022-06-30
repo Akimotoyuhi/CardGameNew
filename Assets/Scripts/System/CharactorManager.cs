@@ -21,6 +21,7 @@ public class CharactorManager : MonoBehaviour
     [SerializeField] EnemyData m_enemyData;
     [SerializeField] Enemy m_enemyPrefab;
     [SerializeField] Transform m_enemisParent;
+    [SerializeField] float m_enemyFadeoutDuration;
     private List<Enemy> m_currentEnemies = new List<Enemy>();
     private Subject<Enemy> m_newEnemyCreateSubject = new Subject<Enemy>();
     private Subject<BattleEndType> m_battleEnd = new Subject<BattleEndType>();
@@ -40,8 +41,12 @@ public class CharactorManager : MonoBehaviour
         Create();
     }
 
+    /// <summary>
+    /// 敵グループとプレイヤーを作る<br/>enemiesがnullの場合はプレイヤーだけ生成する
+    /// </summary>
     public void Create(List<EnemyID> enemies = null)
     {
+        //プレイヤーの生成
         if (m_currentPlayer == null)
         {
             m_currentPlayer = Instantiate(m_playerPrefab);
@@ -54,11 +59,13 @@ public class CharactorManager : MonoBehaviour
 
         if (enemies == null)
             return;
+        //敵の生成
         enemies.ForEach(id =>
         {
             Enemy e = Instantiate(m_enemyPrefab);
             e.transform.SetParent(m_enemisParent, false);
-            e.SetBaseData(m_enemyData.Databases[(int)id]); //とりあえず
+            e.SetBaseData(m_enemyData.Databases[(int)id]);
+            e.DeadDuration = m_enemyFadeoutDuration;
             e.DeadSubject.Subscribe(_ => BattleEnd()).AddTo(this);
             m_newEnemyCreateSubject.OnNext(e);
             m_currentEnemies.Add(e);
@@ -115,9 +122,10 @@ public class CharactorManager : MonoBehaviour
     /// </summary>
     private void BattleEnd()
     {
+        //敵が全滅しているかを確認する　していたらバトル終了
         foreach (var e in m_currentEnemies)
         {
-            if (e.IsDead)
+            if (!e.IsDead)
                 return;
         }
         m_battleEnd.OnNext(BattleEndType.EnemiesDead);

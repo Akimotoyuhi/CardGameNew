@@ -22,7 +22,7 @@ public abstract class Charactor : MonoBehaviour
     protected List<EffectBase> m_effects = new List<EffectBase>();
     protected bool m_isPlayer;
     protected bool m_isDead;
-    private Subject<Unit> m_deadSubject = new Subject<Unit>();
+    protected Subject<Unit> m_deadSubject = new Subject<Unit>();
     #endregion
     #region property
     public int MaxLife => m_maxLife;
@@ -45,7 +45,7 @@ public abstract class Charactor : MonoBehaviour
             m_lifeSlider.value = life;
             SetText();
             if (m_lifeSlider.value <= 0)
-                m_deadSubject.OnNext(Unit.Default);
+                Dead();
         }).AddTo(this);
 
         //ブロック値スライダーの設定
@@ -195,6 +195,7 @@ public abstract class Charactor : MonoBehaviour
     /// <summary>死亡処理</summary>
     protected virtual void Dead()
     {
+        Debug.Log("死んだ");
         m_isDead = true;
         m_deadSubject.OnNext(Unit.Default);
     }

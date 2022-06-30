@@ -119,7 +119,8 @@ public class BattleManager : MonoBehaviour
 
     private void BattleEnd(BattleEndType battleEndType)
     {
-        //報酬表示
+        //ここで報酬表示
+        
         m_battleFinished.OnNext(Unit.Default);
     }
 }

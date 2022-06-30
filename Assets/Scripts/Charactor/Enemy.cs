@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 
 public class Enemy : Charactor, IDrop
 {
@@ -12,6 +13,8 @@ public class Enemy : Charactor, IDrop
     private Subject<List<Command>> m_action = new Subject<List<Command>>();
     /// <summary>敵グループでの所属index</summary>
     public int Index { set => m_index = value; }
+    /// <summary>敵死亡時に消滅にかける時間</summary>
+    public float DeadDuration { private get; set; }
     /// <summary>この敵のID</summary>
     public EnemyID EnemyID => m_enemyID;
     /// <summary>敵行動時に発行されるイベント</summary>
@@ -62,7 +65,11 @@ public class Enemy : Charactor, IDrop
 
     protected override void Dead()
     {
-        base.Dead();
+        if (IsDead)
+            return;
+        m_isDead = true;
+        m_image.DOColor(Color.clear, DeadDuration)
+            .OnComplete(() => m_deadSubject.OnNext(Unit.Default));
     }
 
     //以下インターフェース

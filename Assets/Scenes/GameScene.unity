@@ -1633,6 +1633,7 @@ MonoBehaviour:
   m_enemyData: {fileID: 11400000, guid: 956ab1f23d5957c48a3f84fc7ed2120a, type: 2}
   m_enemyPrefab: {fileID: 1634567993426009318, guid: 2279a47996a3bb047a9e76c55424505a, type: 3}
   m_enemisParent: {fileID: 525931655}
+  m_enemyFadeoutDuration: 1
 --- !u!114 &1312891807
 MonoBehaviour:
   m_ObjectHideFlags: 0

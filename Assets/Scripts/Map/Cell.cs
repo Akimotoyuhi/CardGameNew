@@ -38,22 +38,22 @@ public class Cell : MonoBehaviour
         });
         GameManager.Instance.FloorUpdate
             .Subscribe(f => CellStateChanged(f)).AddTo(this);
-        m_sequence = DOTween.Sequence();
+        //m_sequence = DOTween.Sequence();
     }
 
     private void CellStateChanged(int floor)
     {
         if (m_floor == floor)
         {
-            m_sequence.Append(m_image.DOColor(Color.gray, m_blinkingInterval))
-                .Append(m_image.DOColor(Color.white, m_blinkingInterval))
-                .Append(m_image.DOColor(Color.gray, m_blinkingInterval))
-                .SetLoops(-1);
+            //m_sequence.Append(m_image.DOColor(Color.gray, m_blinkingInterval))
+            //    .Append(m_image.DOColor(Color.white, m_blinkingInterval))
+            //    .Append(m_image.DOColor(Color.gray, m_blinkingInterval))
+            //    .SetLoops(-1);
             m_button.interactable = true;
         }
         else
         {
-            m_image.color = Color.gray;
+            //m_image.color = Color.gray;
             m_button.interactable = false;
         }
     }
