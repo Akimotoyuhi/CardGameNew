@@ -17,7 +17,7 @@ public class Cell : MonoBehaviour
     [SerializeField] float m_blinkingInterval;
     private int m_floor;
     private CellType m_cellType;
-    private Sequence m_sequence;
+    //private Sequence m_sequence;
     private Subject<CellType> m_cellSubject = new Subject<CellType>();
     public int Floor { set => m_floor = value; }
     public CellType SetCellType

@@ -46,7 +46,8 @@ public class Player : Charactor, IDrop
 
     protected override void Dead()
     {
-        base.Dead();
+        m_isDead = true;
+        m_deadSubject.OnNext(Unit.Default);
     }
 
     //以下インターフェース

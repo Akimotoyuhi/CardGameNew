@@ -7,18 +7,37 @@ using System.Threading;
 
 public class BattleManager : MonoBehaviour
 {
-    [SerializeField] CardData m_commonCardData;
-    [SerializeField] CardData m_originalCardData;
-    [SerializeField] CardData m_akCardData;
+    [System.Serializable]
+    public class CardClassDatas
+    {
+        [SerializeField] CardData m_commonCardData;
+        [SerializeField] CardData m_originalCardData;
+        [SerializeField] CardData m_akCardData;
+        public CardDataBase GetDataBase(HaveCardData haveCardData)
+        {
+            switch (haveCardData.CardCalssType)
+            {
+                case CardClassType.Common:
+                    return m_commonCardData.DataBases[haveCardData.CardID];
+                case CardClassType.Original:
+                    return m_originalCardData.DataBases[haveCardData.CardID];
+                case CardClassType.AK:
+                    return m_akCardData.DataBases[haveCardData.CardID];
+                default:
+                    throw new System.Exception("存在しないデータにアクセスしようとしています");
+            }
+        }
+    }
     [SerializeField] Card m_cardPrefab;
     [SerializeField] EncountData m_encountData;
     [SerializeField] Hand m_hand;
     [SerializeField] Deck m_deck;
     [SerializeField] Discard m_discard;
     [SerializeField] CharactorManager m_charactorManager;
+    [SerializeField] CardClassDatas m_cardDatas;
     private int m_currentTurn;
+    /// <summary>この戦闘中のカードのインスタンス</summary>
     private List<Card> m_currentCard = new List<Card>();
-    private CardData m_useCardData;
     private Subject<Unit> m_battleFinished = new Subject<Unit>();
     private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
     /// <summary>バトルの状態遷移を通知する</summary>
@@ -49,50 +68,32 @@ public class BattleManager : MonoBehaviour
 
     private void Create()
     {
-        //使用するデータを設定
-        CardClassType cct = m_charactorManager.CardClassType;
-        switch (cct)
-        {
-            case CardClassType.Common:
-                m_useCardData = m_commonCardData;
-                break;
-            case CardClassType.Original:
-                m_useCardData = m_originalCardData;
-                break;
-            case CardClassType.AK:
-                m_useCardData = m_akCardData;
-                break;
-            default:
-                throw new System.Exception("使用するカードデータが見つかりませんでした");
-        }
-
-        //カードを生成
-        List<int> list = m_charactorManager.CardClass.GetCardID(cct);
-        List<Card> toDeckCards = new List<Card>();
-        list.ForEach(i =>
+        //HaveCardからカードを生成させる
+        m_charactorManager.HaveCard.ForEach(card =>
         {
             Card c = Instantiate(m_cardPrefab);
-            c.Setup(m_useCardData.DataBases[i], m_charactorManager.CurrentPlayer);
+            c.Setup(m_cardDatas.GetDataBase(card), m_charactorManager.CurrentPlayer);
             c.CardExecute.Subscribe(cmds =>
             {
                 CommandExecutor(cmds);
                 c.transform.SetParent(m_discard.CardParent, false);
-            })
-            .AddTo(c);
-            toDeckCards.Add(c);
+            }).AddTo(c);
             m_currentCard.Add(c);
         });
-        m_deck.SetCard = toDeckCards;
+        m_deck.SetCard = m_currentCard;
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
     }
 
     /// <summary>ターン終了ボタンが押された後の一連の流れ</summary>
     public async void OnBattle()
     {
+        Debug.Log("ボタンが押された");
+        //手札を全て捨てて敵のターンを開始
         m_hand.ConvartToDiscard();
         m_battleState.Value = BattleState.EnemyFaze;
-        Debug.Log("ボタンが押された");
         await m_charactorManager.TurnEnd(m_currentTurn);
+
+        //敵のターンが終わったらターン数を加算しプレイヤーのターンに移る
         m_battleState.Value = BattleState.PlayerFaze;
         m_currentTurn++;
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
@@ -120,7 +121,7 @@ public class BattleManager : MonoBehaviour
     private void BattleEnd(BattleEndType battleEndType)
     {
         //ここで報酬表示
-        
+
         m_battleFinished.OnNext(Unit.Default);
     }
 }

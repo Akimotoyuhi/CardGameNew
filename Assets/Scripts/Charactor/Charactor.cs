@@ -175,7 +175,7 @@ public abstract class Charactor : MonoBehaviour
     public Command EffectExecute(List<ConditionalParametor> conditionalParametors)
     {
         Command ret = new Command();
-        //エフェクト数が０の場合は渡された値をそのままCommandに変換して返す
+        //エフェクト数が0の場合は渡された値をそのままCommandに変換して返す
         if (m_effects.Count == 0)
         {
             conditionalParametors.ForEach(cp =>
@@ -193,10 +193,5 @@ public abstract class Charactor : MonoBehaviour
     }
 
     /// <summary>死亡処理</summary>
-    protected virtual void Dead()
-    {
-        Debug.Log("死んだ");
-        m_isDead = true;
-        m_deadSubject.OnNext(Unit.Default);
-    }
+    protected abstract void Dead();
 }

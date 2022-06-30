@@ -14,7 +14,7 @@ public class CharactorManager : MonoBehaviour
     [SerializeField] Transform m_playerParent;
     private Player m_currentPlayer;
     /// <summary>プレイヤーの初期所持カード</summary>
-    private CardClass m_cardClass;
+    private List<HaveCardData> m_haveCards;
     /// <summary>使用カードタイプ</summary>
     private CardClassType m_cardClassType;
     [Header("敵関連")]
@@ -29,15 +29,14 @@ public class CharactorManager : MonoBehaviour
     public Player CurrentPlayer => m_currentPlayer;
     /// <summary>敵たち</summary>
     //public List<Enemy> CurrentEnemies => m_currentEnemies;
-    /// <summary>このゲーム中使用しているのカードクラス</summary>
-    public CardClass CardClass => m_cardClass;
-    /// <summary>このゲーム中使用しているのカードクラス(Enum)</summary>
-    public CardClassType CardClassType => m_cardClassType;
+    /// <summary>所持カード</summary>
+    public List<HaveCardData> HaveCard => m_haveCards;
     public System.IObservable<Enemy> NewEnemyCreateSubject => m_newEnemyCreateSubject;
     public System.IObservable<BattleEndType> BattleEndSubject => m_battleEnd;
 
     public void Setup()
     {
+        m_haveCards = m_playerData.DataBase[(int)m_usePlayerID].CardClassSelector.HaveCardData;
         Create();
     }
 
@@ -53,8 +52,6 @@ public class CharactorManager : MonoBehaviour
         }
         m_currentPlayer.transform.SetParent(m_playerParent, false);
         m_currentPlayer.SetBaseData(m_playerData.DataBase[(int)m_usePlayerID]);
-        m_cardClass = m_playerData.DataBase[(int)m_usePlayerID].CardClassSelector.CardClass;
-        m_cardClassType = m_playerData.DataBase[(int)m_usePlayerID].CardClassSelector.CardClass.CardClassType;
         m_currentPlayer.DeadSubject.Subscribe(_ => Debug.Log("ゲームオーバー")).AddTo(m_currentPlayer);
 
         if (enemies == null)

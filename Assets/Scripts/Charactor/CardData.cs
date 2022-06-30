@@ -8,10 +8,8 @@ public class CardData : ScriptableObject
 {
     [SerializeField] CardClassType m_cardClassType;
     [SerializeField] List<CardDataBase> m_dataBases;
-    private Subject<CardData> m_cardEditSubject = new Subject<CardData>();
     public CardClassType CardClassType => m_cardClassType;
     public List<CardDataBase> DataBases => m_dataBases;
-    public Subject<CardData> CardEditSubject => m_cardEditSubject;
 }
 
 [System.Serializable]
