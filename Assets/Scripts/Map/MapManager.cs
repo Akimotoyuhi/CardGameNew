@@ -35,9 +35,9 @@ public class MapManager : MonoBehaviour
         m_nowMap = databases[r];
         for (int i = 0; i < m_nowMap.MaxColumn; i++)
         {
-            Column col = Instantiate(m_columnPrefab);
-            col.transform.SetParent(m_columnParent);
-            col.SetFloor = i;
+            Column column = Instantiate(m_columnPrefab);
+            column.transform.SetParent(m_columnParent);
+            column.SetFloor = i;
             int cellIndex;
             //最初と最後はセル１つ
             if (i == 0 || i == m_nowMap.MaxColumn - 1)
@@ -49,18 +49,18 @@ public class MapManager : MonoBehaviour
             for (int n = 0; n < cellIndex; n++)
             {
                 Cell cell = Instantiate(m_cellPrefab);
-                col.AddCell = cell;
-                cell.transform.SetParent(col.transform);
+                column.AddCell = cell;
+                cell.transform.SetParent(column.transform);
                 //最後のマスはボスマスで固定
                 if (i == m_nowMap.MaxColumn - 1)
                     cell.SetCellType = CellType.Boss;
                 else
                     cell.SetCellType = m_nowMap.Chip.Lottery(i);
                 cell.CellSubject.Subscribe(c => m_encount.OnNext(c)).AddTo(cell);
-                cell.Floor = m_act * i + 1; //floorは１fからなのでズレを解決する
+                cell.Floor = m_act * i + 1; //floorは1fからなのでズレを解決する
                 cell.Setup();
             }
-            m_columns.Add(col);
+            m_columns.Add(column);
         }
     }
 }

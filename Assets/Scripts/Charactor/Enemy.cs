@@ -36,17 +36,11 @@ public class Enemy : Charactor, IDrop
         Setup();
     }
 
-    /// <summary>
-    /// ターン開始
-    /// </summary>
     public override async UniTask TurnBegin(int turn)
     {
         await base.TurnBegin(turn);
     }
 
-    /// <summary>
-    /// ターン終了
-    /// </summary>
     public override async UniTask TurnEnd(int turn)
     {
         await Action();

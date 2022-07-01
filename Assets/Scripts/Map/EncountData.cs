@@ -6,6 +6,12 @@ using UnityEngine;
 public class EncountData : ScriptableObject
 {
     [SerializeField] List<EncountDataBase> m_database;
+    /// <summary>
+    /// 指定したマップの全ての敵グループを取得
+    /// </summary>
+    /// <param name="mapID"></param>
+    /// <returns></returns>
+    /// <exception cref="System.Exception"></exception>
     public EncountDataBase GetEncountData(MapID mapID)
     {
         foreach (var db in m_database)
@@ -25,6 +31,11 @@ public class EncountDataBase
     [SerializeField] List<Elite> m_elite;
     [SerializeField] List<Boss> m_boss;
     public MapID MapID => m_mapID;
+    /// <summary>
+    /// 敵グループの取得
+    /// </summary>
+    /// <param name="cellType"></param>
+    /// <returns></returns>
     public List<EnemyID> GetEnemies(CellType cellType)
     {
         List<EnemyID> ret = null;

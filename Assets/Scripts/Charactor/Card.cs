@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 using UniRx;
 using System.Text.RegularExpressions;
 
+/// <summary>
+/// カードの実体
+/// </summary>
 public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     [SerializeField] Text m_nameText;
@@ -35,8 +38,11 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private Vector2 m_defPos;
     private Player m_player;
     private Subject<List<Command>> m_cardExecute = new Subject<List<Command>>();
+    /// <summary>名前</summary>
     public string Name { get; private set; }
+    /// <summary>状態</summary>
     public CardState CardState { get; set; }
+    /// <summary>使用された事を通知する</summary>
     public System.IObservable<List<Command>> CardExecute => m_cardExecute;
 
     public void Setup(CardDataBase dataBase, Player player)
@@ -51,6 +57,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_cardCommands = m_database.CardCommands.Execute();
     }
 
+    /// <summary>与えられたカードデータを自身に設定する</summary>
+    /// <param name="database"></param>
     private void SetBaseData(CardDataBase database)
     {
         m_database = database;
@@ -63,13 +71,14 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_cardType = database.CardType;
         m_cardTypeImage.sprite = m_cardTypeSpriteSettings[(int)m_cardType].Sprite;
         m_cardTypeImage.color = m_cardTypeSpriteSettings[(int)m_cardType].Color;
+        //今後コストxとか作りたいので文字列で取れるようにしてある
         try
         {
             m_cost = int.Parse(database.Cost);
         }
         catch
         {
-            Debug.LogError("キャスト不可な値が検出されたので、適当な値が設定されました");
+            Debug.Log("キャスト不可な値が検出されたので、適当な値が設定されました");
             m_cost = m_player.MaxCost;
         }
         m_useType = database.CardUseType;
@@ -83,17 +92,21 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private void Execute(IDrop target)
     {
         UseType ut = target.GetUseType();
+        //使用対象じゃければ使えない
         if (ut != m_useType)
             return;
+        //コスト不足なら使えない
         if (m_player.CurrentCost < m_cost)
         {
             Debug.Log("コスト足りない");
             return;
         }
+        //効果を送る
         List<Command> cmds = new List<Command>();
         m_cardCommands.ForEach(c => cmds.Add(c));
         target.GetDrop(ref cmds);
         m_cardExecute.OnNext(cmds);
+        //プレイヤーのコストを減らす
         m_player.CurrentCost -= m_cost;
     }
 
@@ -104,6 +117,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     {
         string s = m_tooltip;
         m_cardCommands = m_database.CardCommands.Execute();
+        //攻撃力の効果置き換え
         MatchCollection matchs = Regex.Matches(s, "{pow([0-9]*)}");
         foreach (Match m in matchs)
         {
@@ -113,10 +127,11 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             cp.Setup(m_cardCommands[index].Power, EvaluationParamType.Attack, EffectTiming.Attacked);
             cps.Add(cp);
             Command c = m_cardCommands[index];
-            c.Power = m_player.EffectExecute(cps).Power;
+            c.Power = m_player.EffectExecute(cps).Power; //プレイヤーのエフェクトを評価
             m_cardCommands[index] = c;
             s = s.Replace(m.Value, $"{m_cardCommands[index].Power}ダメージ");
         }
+        //ブロック値の効果置き換え
         matchs = Regex.Matches(s, "{blk([0-9]*)}");
         foreach (Match m in matchs)
         {
@@ -126,7 +141,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             cp.Setup(m_cardCommands[index].Block, EvaluationParamType.Block, EffectTiming.Attacked);
             cps.Add(cp);
             Command c = m_cardCommands[index];
-            c.Block = m_player.EffectExecute(cps).Block;
+            c.Block = m_player.EffectExecute(cps).Block; //プレイヤーのエフェクトを評価
             m_cardCommands[index] = c;
             s = s.Replace(m.Value, $"{m_cardCommands[index].Block}ブロック");
         }
@@ -172,6 +187,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     public void OnDrop(PointerEventData eventData)
     {
         m_isDrag = false;
+        //普通にOnDropで取るとカードの描画が対象の裏に行っちゃうので
+        //マウスの位置にRayを飛ばしてインターフェースで判断する
         var result = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, result);
         foreach (var hit in result)

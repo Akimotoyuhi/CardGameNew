@@ -5,6 +5,9 @@ using UniRx;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
+/// <summary>
+/// プレイヤー、敵の基底クラス
+/// </summary>
 public class CharactorManager : MonoBehaviour
 {
     [Header("プレイヤー関連")]
@@ -128,7 +131,6 @@ public class CharactorManager : MonoBehaviour
         m_battleEnd.OnNext(BattleEndType.EnemiesDead);
     }
 }
-
 public enum BattleEndType
 {
     EnemiesDead,

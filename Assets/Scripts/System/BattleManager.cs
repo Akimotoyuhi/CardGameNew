@@ -5,14 +5,26 @@ using UniRx;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
+/// <summary>
+/// バトルの管理クラス
+/// </summary>
 public class BattleManager : MonoBehaviour
 {
+    /// <summary>
+    /// カードデータの集まり
+    /// </summary>
     [System.Serializable]
     public class CardClassDatas
     {
         [SerializeField] CardData m_commonCardData;
         [SerializeField] CardData m_originalCardData;
         [SerializeField] CardData m_akCardData;
+        /// <summary>
+        /// 任意のカードのデータが取れる
+        /// </summary>
+        /// <param name="haveCardData"></param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception"></exception>
         public CardDataBase GetDataBase(HaveCardData haveCardData)
         {
             switch (haveCardData.CardCalssType)
@@ -47,7 +59,7 @@ public class BattleManager : MonoBehaviour
 
     public void Setup()
     {
-        //キャラクターマネージャーのセットアップ
+        //キャラクターマネージャーのセットアップと通知の購読
         m_charactorManager.Setup();
         m_charactorManager.NewEnemyCreateSubject
             .Subscribe(e =>
@@ -106,9 +118,15 @@ public class BattleManager : MonoBehaviour
     /// <param name="cmds"></param>
     private void CommandExecutor(List<Command> cmds)
     {
+        //この辺でフィールド効果を評価する予定
         m_charactorManager.CommandExecutor(cmds);
     }
 
+    /// <summary>
+    /// 戦闘開始
+    /// </summary>
+    /// <param name="mapID"></param>
+    /// <param name="cellType"></param>
     public void Encount(MapID mapID, CellType cellType)
     {
         List<EnemyID> e = m_encountData.GetEncountData(mapID).GetEnemies(cellType);
