@@ -6,7 +6,7 @@ using UniRx;
 [CreateAssetMenu(fileName = "CardData")]
 public class CardData : ScriptableObject
 {
-    [SerializeField] CardClassType m_cardClassType;
+    [SerializeField, PreviewButton] CardClassType m_cardClassType;
     [SerializeField] List<CardDataBase> m_dataBases;
     public CardClassType CardClassType => m_cardClassType;
     public List<CardDataBase> DataBases => m_dataBases;
