@@ -62,7 +62,9 @@ public class CharactorManager : MonoBehaviour
         //敵の生成
         enemies.ForEach(id =>
         {
-            Enemy e = Instantiate(m_enemyPrefab);
+            Enemy e = IsEnemyInstance();
+            if (e == null)
+                e = Instantiate(m_enemyPrefab);
             e.transform.SetParent(m_enemisParent, false);
             e.SetBaseData(m_enemyData.Databases[(int)id]);
             e.DeadDuration = m_enemyFadeoutDuration;
@@ -70,6 +72,19 @@ public class CharactorManager : MonoBehaviour
             m_newEnemyCreateSubject.OnNext(e);
             m_currentEnemies.Add(e);
         });
+    }
+
+    /// <summary>
+    /// 使い回せるEnemyクラスのインスタンスを探す
+    /// </summary>
+    private Enemy IsEnemyInstance()
+    {
+        foreach (var e in m_currentEnemies)
+        {
+            if (e.IsDispose)
+                return e;
+        }
+        return null;
     }
 
     public async UniTask TurnBegin(int turn)
@@ -128,6 +143,8 @@ public class CharactorManager : MonoBehaviour
             if (!e.IsDead)
                 return;
         }
+        //戦闘終了時に使用した敵データを破棄
+        m_currentEnemies.ForEach(e => e.Dispose());
         m_battleEnd.OnNext(BattleEndType.EnemiesDead);
     }
 }

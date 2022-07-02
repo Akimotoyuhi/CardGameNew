@@ -5,5 +5,4 @@ using UnityEngine;
 [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = false)]
 public class PreviewButtonAttribute : PropertyAttribute
 {
-    public string m_name = "aaaa";
 }

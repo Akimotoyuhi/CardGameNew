@@ -8,11 +8,14 @@ using DG.Tweening;
 public class Enemy : Charactor, IDrop
 {
     private int m_index;
+    private bool m_isDispose;
     private EnemyDataBase m_dataBase;
     private EnemyID m_enemyID;
     private Subject<List<Command>> m_action = new Subject<List<Command>>();
     /// <summary>敵グループでの所属index</summary>
     public int Index { set => m_index = value; }
+    /// <summary>このインスタンスの使い回し可否</summary>
+    public bool IsDispose => m_isDispose;
     /// <summary>敵死亡時に消滅にかける時間</summary>
     public float DeadDuration { private get; set; }
     /// <summary>この敵のID</summary>
@@ -25,6 +28,11 @@ public class Enemy : Charactor, IDrop
         base.Setup();
     }
 
+    public void Dispose()
+    {
+        m_isDispose = true;
+    }
+
     public void SetBaseData(EnemyDataBase dataBase)
     {
         if (dataBase == null)
@@ -33,6 +41,9 @@ public class Enemy : Charactor, IDrop
         m_image.sprite = dataBase.CharactorData.Sprite;
         m_maxLife = dataBase.CharactorData.MaxLife;
         m_currentLife.Value = dataBase.CharactorData.MaxLife;
+        m_isDispose = false;
+        m_image.gameObject.SetActive(true);
+        m_image.color = Color.white;
         Setup();
     }
 
@@ -63,7 +74,11 @@ public class Enemy : Charactor, IDrop
             return;
         m_isDead = true;
         m_image.DOColor(Color.clear, DeadDuration)
-            .OnComplete(() => m_deadSubject.OnNext(Unit.Default));
+            .OnComplete(() =>
+            {
+                m_deadSubject.OnNext(Unit.Default);
+                m_image.gameObject.SetActive(false);
+            });
     }
 
     //以下インターフェース

@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class CardCustomWindow : EditorWindow
 {
-    private CardData m_cardData;
+    private static CardDataBase m_database;
 
     private void OnEnable()
     {
@@ -15,14 +15,15 @@ public class CardCustomWindow : EditorWindow
     }
 
     [MenuItem("Custom/CardEdit")]
-    public static void ShowWindow()
+    public static void ShowWindow(CardDataBase cardData)
     {
+        m_database = cardData;
         GetWindow(typeof(CardCustomWindow));
     }
 
     private void OnGUI()
     {
-        //GUILayout.Label(m_cardData.name);
+        GUILayout.Label(m_database.Name);
     }
 }
 #endif

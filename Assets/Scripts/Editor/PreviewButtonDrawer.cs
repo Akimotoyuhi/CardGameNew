@@ -20,7 +20,7 @@ public class PreviewButtonDrawer : PropertyDrawer
             var carddata = (CardData)obj;
             var v = carddata.DataBases;
             Debug.Log(v[0].Name);
-            //CardCustomWindow.ShowWindow();
+            CardCustomWindow.ShowWindow(v[0]);
         }
     }
 
