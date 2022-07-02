@@ -78,6 +78,7 @@ public class Enemy : Charactor, IDrop
             {
                 m_deadSubject.OnNext(Unit.Default);
                 m_image.gameObject.SetActive(false);
+                m_deadSubject.Dispose();
             });
     }
 

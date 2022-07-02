@@ -34,7 +34,9 @@ public class CharactorManager : MonoBehaviour
     //public List<Enemy> CurrentEnemies => m_currentEnemies;
     /// <summary>所持カード</summary>
     public List<HaveCardData> HaveCard => m_haveCards;
+    /// <summary>新たな敵が作られた際に通知する</summary>
     public System.IObservable<Enemy> NewEnemyCreateSubject => m_newEnemyCreateSubject;
+    /// <summary>戦闘の終了を通知する</summary>
     public System.IObservable<BattleEndType> BattleEndSubject => m_battleEnd;
 
     public void Setup()
@@ -145,6 +147,7 @@ public class CharactorManager : MonoBehaviour
         }
         //戦闘終了時に使用した敵データを破棄
         m_currentEnemies.ForEach(e => e.Dispose());
+        m_currentPlayer.Effects.Clear();
         m_battleEnd.OnNext(BattleEndType.EnemiesDead);
     }
 }
