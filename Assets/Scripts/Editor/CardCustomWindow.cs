@@ -8,22 +8,23 @@ using UnityEditor;
 public class CardCustomWindow : EditorWindow
 {
     private static CardDataBase m_database;
+    private static string m_name;
 
-    private void OnEnable()
-    {
-        
-    }
-
-    [MenuItem("Custom/CardEdit")]
     public static void ShowWindow(CardDataBase cardData)
     {
         m_database = cardData;
+        Setup(cardData);
         GetWindow(typeof(CardCustomWindow));
     }
 
     private void OnGUI()
     {
-        GUILayout.Label(m_database.Name);
+        m_name = GUILayout.TextField(m_name);
+    }
+
+    private static void Setup(CardDataBase database)
+    {
+        m_name = database.Name;
     }
 }
 #endif
