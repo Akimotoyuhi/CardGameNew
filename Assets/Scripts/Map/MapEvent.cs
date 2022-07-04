@@ -6,7 +6,7 @@ public class MapEvent : MonoBehaviour
 {
     [SerializeField] Rest m_rest;
 
-
+    public Rest RestEvent => m_rest;
 
 
 
@@ -21,19 +21,8 @@ public class MapEvent : MonoBehaviour
         [SerializeField] int m_upgradeNum;
         [SerializeField] int m_clearCardNum;
 
-        public void Healing()
-        {
-
-        }
-
-        public void Upgrade()
-        {
-
-        }
-
-        public void Clear()
-        {
-
-        }
+        public int Heal => m_healValue;
+        public int Upgrade => m_upgradeNum;
+        public int Clear => m_clearCardNum;
     }
 }

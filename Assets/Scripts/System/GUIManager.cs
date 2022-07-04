@@ -19,6 +19,13 @@ public class GUIManager : MonoBehaviour
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] Button m_turnEndButton;
     [SerializeField] Text m_costText;
+    [Header("マップ中画面")]
+    [SerializeField] MapEvent m_mapEvant;
+    [SerializeField] GameObject m_restEventPanel;
+    [SerializeField] Button m_restButton;
+    [SerializeField] Button m_upgradeButton;
+    [SerializeField] Button m_cardClearButton;
+
     public void Setup()
     {
         //ターン終了ボタンが押されたらバトルマネージャーのターン終了関数を押す
@@ -40,6 +47,21 @@ public class GUIManager : MonoBehaviour
         GameManager.Instance.InfoTextUpdate
             .Subscribe(s => SetInfoTextPanels(s)).AddTo(this);
         m_infoPanel.SetActive(false);
+
+        m_restButton.onClick.AddListener(() =>
+        {
+
+        });
+
+        m_upgradeButton.onClick.AddListener(() =>
+        {
+
+        });
+
+        m_cardClearButton.onClick.AddListener(() =>
+        {
+
+        });
     }
 
     /// <summary>GameStateに応じてUIを切り替える</summary>
