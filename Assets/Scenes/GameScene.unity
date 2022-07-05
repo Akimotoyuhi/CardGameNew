@@ -2051,6 +2051,7 @@ GameObject:
   - component: {fileID: 1312891808}
   - component: {fileID: 1312891810}
   - component: {fileID: 1312891811}
+  - component: {fileID: 1312891812}
   - component: {fileID: 1312891807}
   - component: {fileID: 1312891806}
   m_Layer: 0
@@ -2153,6 +2154,11 @@ MonoBehaviour:
   m_charactorManager: {fileID: 1312891806}
   m_turnEndButton: {fileID: 2068859252}
   m_costText: {fileID: 983765551}
+  m_mapEvant: {fileID: 0}
+  m_restEventPanel: {fileID: 0}
+  m_restButton: {fileID: 0}
+  m_upgradeButton: {fileID: 0}
+  m_cardClearButton: {fileID: 0}
 --- !u!114 &1312891811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2169,6 +2175,22 @@ MonoBehaviour:
   m_columnPrefab: {fileID: 3352385438186324962, guid: e3551830820a3314eb2002f02fae0e9a, type: 3}
   m_cellPrefab: {fileID: 4145602547475124240, guid: 0c0f42af224035944b6e6d372d1eafc4, type: 3}
   m_columnParent: {fileID: 1163102343}
+--- !u!114 &1312891812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312891805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3904a66a7b2602d40ba5e5f9bff07274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_rest:
+    m_healValue: 30
+    m_upgradeNum: 1
+    m_clearCardNum: 1
 --- !u!1 &1324358105
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Reflection;
 #if UNITY_EDITOR
 using UnityEditor;
 
 public class CardDataSelectWindow : EditorWindow
 {
     private static CardData m_carddata;
+    private List<bool> m_toggleFlag = new List<bool>();
 
     public static void ShowWindow(CardData cardData)
     {
@@ -18,9 +21,19 @@ public class CardDataSelectWindow : EditorWindow
     {
         for (int i = 0; i < m_carddata.DataBases.Count; i++)
         {
-            if (GUILayout.Button(m_carddata.DataBases[i].Label))
+            bool flag = false;
+            m_toggleFlag.Add(flag);
+            m_toggleFlag[i] = EditorGUILayout.Foldout(m_toggleFlag[i], m_carddata.DataBases[i].Label);
+            if (m_toggleFlag[i])
             {
-                CardCustomWindow.ShowWindow(m_carddata.DataBases[i]);
+                if (GUILayout.Button("‹­‰»‘O"))
+                {
+                    CardCustomWindow.ShowWindow(m_carddata.DataBases[i].CardData);
+                }
+                if (GUILayout.Button("‹­‰»Œã"))
+                {
+                    CardCustomWindow.ShowWindow(m_carddata.DataBases[i].UpgradeData);
+                }
             }
         }
     }
