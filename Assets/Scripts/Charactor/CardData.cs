@@ -41,7 +41,7 @@ public class CardDataBase
     [SerializeField] string m_name;
     [SerializeField] Sprite m_icon;
     [SerializeField] string m_cost;
-    [SerializeField, TextArea, Tooltip("攻撃力に置き換える場合は{pow0}\nブロック値の場合は{blk0}\nの様に記述すること")]
+    [SerializeField, TextArea, Tooltip("攻撃力に置き換える場合は{dmg0}\nブロック値の場合は{blk0}\nの様に記述すること")]
     string m_tooltip;
     [SerializeField] UseType m_cardUseType = UseType.None;
     [SerializeField] Rarity m_rarity;

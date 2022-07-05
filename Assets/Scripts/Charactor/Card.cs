@@ -118,7 +118,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         string s = m_tooltip;
         m_cardCommands = m_database.CardCommands.Execute();
         //UŒ‚—Í‚ÌŒø‰Ê’u‚«Š·‚¦
-        MatchCollection matchs = Regex.Matches(s, "{pow([0-9]*)}");
+        MatchCollection matchs = Regex.Matches(s, "{dmg([0-9]*)}");
         foreach (Match m in matchs)
         {
             int index = int.Parse(m.Groups[1].Value);

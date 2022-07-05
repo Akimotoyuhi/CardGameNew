@@ -27,7 +27,7 @@ MonoBehaviour:
     m_maxCost: 3
     m_characterData:
       m_name: a
-      m_maxLife: 5000
+      m_maxLife: 70
       m_sprite: {fileID: 21300000, guid: 570753d7dc1bcb64c872b2adcdba33b3, type: 3}
       m_imageScaling: 1.2
     m_cardClassSelector:
