@@ -30,11 +30,11 @@ public class BattleManager : MonoBehaviour
             switch (haveCardData.CardCalssType)
             {
                 case CardClassType.Common:
-                    return m_commonCardData.DataBases[haveCardData.CardID];
+                    return m_commonCardData.DataBases[haveCardData.CardID].GetCardData(haveCardData.IsUpGrade);
                 case CardClassType.Original:
-                    return m_originalCardData.DataBases[haveCardData.CardID];
+                    return m_originalCardData.DataBases[haveCardData.CardID].GetCardData(haveCardData.IsUpGrade);
                 case CardClassType.AK:
-                    return m_akCardData.DataBases[haveCardData.CardID];
+                    return m_akCardData.DataBases[haveCardData.CardID].GetCardData(haveCardData.IsUpGrade);
                 default:
                     throw new System.Exception("存在しないデータにアクセスしようとしています");
             }

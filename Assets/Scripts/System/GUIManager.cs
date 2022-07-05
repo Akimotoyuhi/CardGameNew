@@ -48,20 +48,26 @@ public class GUIManager : MonoBehaviour
             .Subscribe(s => SetInfoTextPanels(s)).AddTo(this);
         m_infoPanel.SetActive(false);
 
-        m_restButton.onClick.AddListener(() =>
+        //休憩マス関連
         {
+            //休憩ボタン
+            m_restButton.onClick.AddListener(() =>
+            {
+                m_charactorManager.CurrentPlayer.HealEvent(m_mapEvant.RestEvent.Heal);
+            });
 
-        });
+            //カード強化ボタン
+            m_upgradeButton.onClick.AddListener(() =>
+            {
 
-        m_upgradeButton.onClick.AddListener(() =>
-        {
+            });
 
-        });
+            //カード削除ボタン
+            m_cardClearButton.onClick.AddListener(() =>
+            {
 
-        m_cardClearButton.onClick.AddListener(() =>
-        {
-
-        });
+            });
+        }
     }
 
     /// <summary>GameStateに応じてUIを切り替える</summary>

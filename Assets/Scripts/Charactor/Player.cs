@@ -26,6 +26,11 @@ public class Player : Charactor, IDrop
         Setup();
     }
 
+    public void HealEvent(int healValue)
+    {
+        m_currentLife.Value = healValue;
+    }
+
     public override async UniTask TurnBegin(int turn)
     {
         m_currentCost.Value = m_maxCost;

@@ -7,9 +7,32 @@ using UniRx;
 public class CardData : ScriptableObject
 {
     [SerializeField, PreviewButton] CardClassType m_cardClassType;
-    [SerializeField] List<CardDataBase> m_dataBases;
+    [SerializeField] List<CardDataBases> m_dataBases;
     public CardClassType CardClassType => m_cardClassType;
-    public List<CardDataBase> DataBases => m_dataBases;
+    public List<CardDataBases> DataBases => m_dataBases;
+}
+
+[System.Serializable]
+public class CardDataBases
+{
+    [SerializeField] string m_label;
+    [SerializeField] CardDataBase m_database;
+    [SerializeField] CardDataBase m_upgradeData;
+    public string Label => m_label;
+    public CardDataBase CardData => m_database;
+    public CardDataBase UpgradeData => m_upgradeData;
+    public CardDataBase GetCardData(CardUpGrade isUpgrade)
+    {
+        switch (isUpgrade)
+        {
+            case CardUpGrade.NoUpGrade:
+                return m_database;
+            case CardUpGrade.AsseptUpGrade:
+                return m_upgradeData;
+            default:
+                return null;
+        }
+    }
 }
 
 [System.Serializable]

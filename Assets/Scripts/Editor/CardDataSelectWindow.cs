@@ -18,7 +18,7 @@ public class CardDataSelectWindow : EditorWindow
     {
         for (int i = 0; i < m_carddata.DataBases.Count; i++)
         {
-            if (GUILayout.Button(m_carddata.DataBases[i].Name))
+            if (GUILayout.Button(m_carddata.DataBases[i].Label))
             {
                 CardCustomWindow.ShowWindow(m_carddata.DataBases[i]);
             }
