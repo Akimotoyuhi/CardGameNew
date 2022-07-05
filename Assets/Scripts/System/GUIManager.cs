@@ -78,10 +78,17 @@ public class GUIManager : MonoBehaviour
             case GameState.MapSelect:
                 m_mapPanel.SetActive(true);
                 m_battlePanel.SetActive(false);
+                m_restEventPanel.SetActive(false);
                 break;
             case GameState.Battle:
                 m_mapPanel.SetActive(false);
                 m_battlePanel.SetActive(true);
+                m_restEventPanel.SetActive(false);
+                break;
+            case GameState.Rest:
+                m_mapPanel.SetActive(false);
+                m_battlePanel.SetActive(false);
+                m_restEventPanel.SetActive(true);
                 break;
             default:
                 break;

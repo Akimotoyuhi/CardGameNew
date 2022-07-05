@@ -2116,7 +2116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_battleManager: {fileID: 1312891807}
-  m_eventManager: {fileID: 0}
+  m_eventManager: {fileID: 1312891812}
   m_guiManager: {fileID: 1312891810}
   m_mapManager: {fileID: 1312891811}
 --- !u!4 &1312891809
@@ -2154,11 +2154,11 @@ MonoBehaviour:
   m_charactorManager: {fileID: 1312891806}
   m_turnEndButton: {fileID: 2068859252}
   m_costText: {fileID: 983765551}
-  m_mapEvant: {fileID: 0}
-  m_restEventPanel: {fileID: 0}
-  m_restButton: {fileID: 0}
-  m_upgradeButton: {fileID: 0}
-  m_cardClearButton: {fileID: 0}
+  m_mapEvant: {fileID: 1312891812}
+  m_restEventPanel: {fileID: 1799992674}
+  m_restButton: {fileID: 356385849}
+  m_upgradeButton: {fileID: 1020510040}
+  m_cardClearButton: {fileID: 735748747}
 --- !u!114 &1312891811
 MonoBehaviour:
   m_ObjectHideFlags: 0
