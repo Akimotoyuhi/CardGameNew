@@ -66,12 +66,14 @@ public class CharactorManager : MonoBehaviour
         {
             Enemy e = IsEnemyInstance();
             if (e == null)
+            {
                 e = Instantiate(m_enemyPrefab);
+                e.DeadSubject.Subscribe(_ => BattleEnd()).AddTo(this);
+                m_newEnemyCreateSubject.OnNext(e);
+            }
             e.transform.SetParent(m_enemisParent, false);
             e.SetBaseData(m_enemyData.Databases[(int)id]);
             e.DeadDuration = m_enemyFadeoutDuration;
-            e.DeadSubject.Subscribe(_ => BattleEnd()).AddTo(this);
-            m_newEnemyCreateSubject.OnNext(e);
             m_currentEnemies.Add(e);
         });
     }
