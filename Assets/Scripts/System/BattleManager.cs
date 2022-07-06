@@ -20,6 +20,26 @@ public class BattleManager : MonoBehaviour
         [SerializeField] CardData m_originalCardData;
         [SerializeField] CardData m_akCardData;
         /// <summary>
+        /// 任意のカードのデータの集まりが取れる
+        /// </summary>
+        /// <param name="cardClassType"></param>
+        /// <returns></returns>
+        public CardData GetData(CardClassType cardClassType)
+        {
+            switch (cardClassType)
+            {
+                case CardClassType.Common:
+                    return m_commonCardData;
+                case CardClassType.Original:
+                    return m_originalCardData;
+                case CardClassType.AK:
+                    return m_akCardData;
+                default:
+                    return null;
+            }
+
+        }
+        /// <summary>
         /// 任意のカードのデータが取れる
         /// </summary>
         /// <param name="haveCardData"></param>
@@ -84,7 +104,10 @@ public class BattleManager : MonoBehaviour
         m_charactorManager.HaveCard.ForEach(card =>
         {
             Card c = Instantiate(m_cardPrefab);
-            c.Setup(m_cardDatas.GetDataBase(card), m_charactorManager.CurrentPlayer);
+            c.Setup(m_cardDatas.GetDataBase(card),
+                m_cardDatas.GetData(card.CardCalssType).GetRaritySprite,
+                m_cardDatas.GetData(card.CardCalssType).GetTypeSprite,
+                m_charactorManager.CurrentPlayer);
             c.CardExecute.Subscribe(cmds =>
             {
                 CommandExecutor(cmds);

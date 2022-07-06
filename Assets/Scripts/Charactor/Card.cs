@@ -11,28 +11,20 @@ using System.Text.RegularExpressions;
 /// </summary>
 public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
+    [SerializeField] Image m_background;
     [SerializeField] Text m_nameText;
     [SerializeField] Image m_icon;
     [SerializeField] Text m_tooltipText;
     [SerializeField] Text m_costText;
-    [SerializeField] Image m_cardTypeImage;
+    [SerializeField] List<Image> m_cardTypeImages;
     [SerializeField] RectTransform m_rectTransform;
-    [SerializeField, Tooltip("CardTypeに基づいたカード右上のアイコンの画像\n要素順に攻撃\n防御\nバフ\nデバフ\n自傷\nの順")]
-    private List<CardTypeSpriteSettings> m_cardTypeSpriteSettings;
-    [System.Serializable]
-    public class CardTypeSpriteSettings
-    {
-        [SerializeField] Sprite m_sprite;
-        [SerializeField] Color m_color = Color.white;
-        public Sprite Sprite => m_sprite;
-        public Color Color => m_color;
-    }
     private int m_cost;
     private string m_tooltip;
     private bool m_isDrag;
+    private Sprite m_backgroundSprite;
     private UseType m_useType;
     private Rarity m_rarity;
-    private CardType m_cardType;
+    private List<CardType> m_cardType;
     private CardDataBase m_database;
     private List<Command> m_cardCommands;
     private Vector2 m_defPos;
@@ -45,10 +37,11 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     /// <summary>使用された事を通知する</summary>
     public System.IObservable<List<Command>> CardExecute => m_cardExecute;
 
-    public void Setup(CardDataBase dataBase, Player player)
+    public void Setup(CardDataBase dataBase, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite, Player player)
     {
         m_player = player;
         SetBaseData(dataBase);
+        SetSprites(raritySprite, typeSprite);
         GetPlayerEffect();
     }
 
@@ -69,8 +62,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_costText.text = database.Cost;
         m_rarity = database.Rarity;
         m_cardType = database.CardType;
-        m_cardTypeImage.sprite = m_cardTypeSpriteSettings[(int)m_cardType].Sprite;
-        m_cardTypeImage.color = m_cardTypeSpriteSettings[(int)m_cardType].Color;
         //今後コストxとか作りたいので文字列で取れるようにしてある
         try
         {
@@ -83,6 +74,39 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         }
         m_useType = database.CardUseType;
         m_cardCommands = database.CardCommands.Execute();
+    }
+
+    /// <summary>
+    /// 背景画像とアイコン横の画像の設定
+    /// </summary>
+    /// <param name="backgroundSprites"></param>
+    /// <param name="typeSprites"></param>
+    private void SetSprites(List<CardData.RaritySprite> backgroundSprites, List<CardData.TypeSprite> typeSprites)
+    {
+        foreach (var b in backgroundSprites)
+        {
+            if (b.Rarity == m_rarity)
+            {
+                m_background.sprite = b.Sprite;
+                return;
+            }
+        }
+        List<Sprite> sprites = new List<Sprite>();
+        foreach (var myType in m_cardType)
+        {
+            foreach (var t in typeSprites)
+            {
+                if (myType == t.CardType)
+                {
+                    sprites.Add(t.Sprite);
+                    continue;
+                }
+            }
+        }
+        for (int i = 0; i < sprites.Count; i++)
+        {
+            m_cardTypeImages[i].sprite = sprites[i];
+        }
     }
 
     /// <summary>

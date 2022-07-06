@@ -3,13 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
+/// <summary>
+/// 全てのカードデータ
+/// </summary>
 [CreateAssetMenu(fileName = "CardData")]
 public class CardData : ScriptableObject
 {
     [SerializeField, PreviewButton] CardClassType m_cardClassType;
+    [SerializeField] List<RaritySprite> m_raritySprite;
+    [SerializeField] List<TypeSprite> m_typeSprite;
     [SerializeField] List<CardDataBases> m_dataBases;
     public CardClassType CardClassType => m_cardClassType;
+    public List<RaritySprite> GetRaritySprite => m_raritySprite;
+    public List<TypeSprite> GetTypeSprite => m_typeSprite;
     public List<CardDataBases> DataBases => m_dataBases;
+    /// <summary>
+    /// レアリティに応じた画像
+    /// </summary>
+    [System.Serializable]
+    public class RaritySprite
+    {
+        [SerializeField] Rarity m_rarity;
+        [SerializeField] Sprite m_sprite;
+        public Rarity Rarity => m_rarity;
+        public Sprite Sprite => m_sprite;
+    }
+    /// <summary>
+    /// CardTypeに応じた画像
+    /// </summary>
+    [System.Serializable]
+    public class TypeSprite
+    {
+        [SerializeField] CardType m_cardType;
+        [SerializeField] Sprite m_sprites;
+        public CardType CardType => m_cardType;
+        public Sprite Sprite => m_sprites;
+    }
 }
 
 [System.Serializable]
@@ -45,7 +74,7 @@ public class CardDataBase
     string m_tooltip;
     [SerializeField] UseType m_cardUseType = UseType.None;
     [SerializeField] Rarity m_rarity;
-    [SerializeField] CardType m_cardType;
+    [SerializeField] List<CardType> m_cardType;
     [SerializeField] CommandSelect m_cardCommands;
     public string Name => m_name;
     public Sprite Icon => m_icon;
@@ -53,7 +82,7 @@ public class CardDataBase
     public string Tooltip => m_tooltip;
     public UseType CardUseType => m_cardUseType;
     public Rarity Rarity => m_rarity;
-    public CardType CardType => m_cardType;
+    public List<CardType> CardType => m_cardType;
     public CommandSelect CardCommands => m_cardCommands;
 }
 
