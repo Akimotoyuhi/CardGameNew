@@ -2,19 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using UniRx;
+using System;
 
-public class Sample : Component
+public class Sample : MonoBehaviour
 {
-    [SerializeField] Text m_text;
 
     void Start()
     {
-    }
-
-    void Update()
-    {
-        
+        Enum rarity = Rarity.Rare;
     }
 }

@@ -24,7 +24,7 @@ public class CardCustomWindow : EditorWindow
     private static float m_cardAriaHeight = 260;
     private static float m_cardViewAriaSizeWidth = 300;
     private static float m_cardViewAriaSizeHeight = 250;
-    private static Vector2 m_scrollPos;
+    private Vector2 m_scrollPos;
 
     public static void ShowWindow(CardDataBase cardData, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite)
     {
@@ -37,10 +37,10 @@ public class CardCustomWindow : EditorWindow
     {
         if (m_database == null)
             return;
+        //設定項目の表示
         m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos, false, true,
-            GUILayout.Width(m_settingAriaWidth + 30), GUILayout.Height(m_cardViewAriaSizeHeight));
+            GUILayout.Width(m_settingAriaWidth + 30), GUILayout.Height(m_cardViewAriaSizeHeight + 50));
         {
-            //設定項目の表示
             GUILayout.Label("カード名");
             m_name = GUILayout.TextField(m_name,
                 GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
