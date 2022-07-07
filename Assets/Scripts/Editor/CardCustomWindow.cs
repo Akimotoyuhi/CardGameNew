@@ -18,12 +18,13 @@ public class CardCustomWindow : EditorWindow
     private static List<CardType> m_type;
     private static Texture2D m_cardBackground;
     private static Texture2D m_background;
-    private static float m_settingAriaWidth = 200;
-    private static float m_settingAriaHeight = 20;
+    private float m_settingAriaWidth = 200;
+    private float m_settingAriaHeight = 20;
     private static float m_cardAriaWidth = 180;
     private static float m_cardAriaHeight = 260;
     private static float m_cardViewAriaSizeWidth = 300;
     private static float m_cardViewAriaSizeHeight = 250;
+    private static Vector2 m_scrollPos;
 
     public static void ShowWindow(CardDataBase cardData, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite)
     {
@@ -36,30 +37,35 @@ public class CardCustomWindow : EditorWindow
     {
         if (m_database == null)
             return;
-        //設定項目の表示
-        GUILayout.Label("カード名");
-        m_name = GUILayout.TextField(m_name,
-            GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
-
-        GUILayout.Label("消費コスト\n(文字列の場合はプレイヤーの最大コスト)");
-        m_cost = GUILayout.TextField(m_cost,
-            GUILayout.Width(20), GUILayout.Height(20));
-
-        GUILayout.Label("アイコン画像");
-        GUILayout.Space(15); //やり方が分かり次第変える
-
-        GUILayout.Label("使用対象");
-        m_useType = (UseType)EditorGUILayout.EnumPopup(m_useType, 
-            GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
-
-        EditorGUI.BeginChangeCheck();
-        GUILayout.Label("レア度");
-        m_rarity = (Rarity)EditorGUILayout.EnumPopup(m_rarity,
-            GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
-        if (EditorGUI.EndChangeCheck())
+        m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos, false, true,
+            GUILayout.Width(m_settingAriaWidth + 30), GUILayout.Height(m_cardViewAriaSizeHeight));
         {
-            Graphics.ConvertTexture(GetTexture(m_rarity), m_cardBackground);
+            //設定項目の表示
+            GUILayout.Label("カード名");
+            m_name = GUILayout.TextField(m_name,
+                GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
+
+            GUILayout.Label("消費コスト\n(文字列の場合はプレイヤーの最大コスト)");
+            m_cost = GUILayout.TextField(m_cost,
+                GUILayout.Width(20), GUILayout.Height(20));
+
+            GUILayout.Label("アイコン画像");
+            GUILayout.Space(15); //画像入れたい
+
+            GUILayout.Label("使用対象");
+            m_useType = (UseType)EditorGUILayout.EnumPopup(m_useType,
+                GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
+
+            EditorGUI.BeginChangeCheck();
+            GUILayout.Label("レア度");
+            m_rarity = (Rarity)EditorGUILayout.EnumPopup(m_rarity,
+                GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
+            if (EditorGUI.EndChangeCheck())
+            {
+                Graphics.ConvertTexture(GetTexture(m_rarity), m_cardBackground);
+            }
         }
+        EditorGUILayout.EndScrollView();
 
         //設定中のカードを表示する領域
         GUILayout.BeginArea(new Rect(m_settingAriaWidth + 20, 0, m_cardViewAriaSizeWidth, m_cardViewAriaSizeHeight));
