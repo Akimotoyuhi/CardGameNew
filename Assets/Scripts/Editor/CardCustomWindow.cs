@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -13,6 +13,7 @@ public class CardCustomWindow : EditorWindow
     private static string m_name;
     private static string m_cost;
     private static Sprite m_icon;
+    private static UseType m_useType;
     private static Rarity m_rarity;
     private static List<CardType> m_type;
     private static Texture2D m_cardBackground;
@@ -36,10 +37,29 @@ public class CardCustomWindow : EditorWindow
         if (m_database == null)
             return;
         //設定項目の表示
+        GUILayout.Label("カード名");
         m_name = GUILayout.TextField(m_name,
             GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
+
+        GUILayout.Label("消費コスト\n(文字列の場合はプレイヤーの最大コスト)");
         m_cost = GUILayout.TextField(m_cost,
             GUILayout.Width(20), GUILayout.Height(20));
+
+        GUILayout.Label("アイコン画像");
+        GUILayout.Space(15); //やり方が分かり次第変える
+
+        GUILayout.Label("使用対象");
+        m_useType = (UseType)EditorGUILayout.EnumPopup(m_useType, 
+            GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
+
+        EditorGUI.BeginChangeCheck();
+        GUILayout.Label("レア度");
+        m_rarity = (Rarity)EditorGUILayout.EnumPopup(m_rarity,
+            GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
+        if (EditorGUI.EndChangeCheck())
+        {
+            Graphics.ConvertTexture(GetTexture(m_rarity), m_cardBackground);
+        }
 
         //設定中のカードを表示する領域
         GUILayout.BeginArea(new Rect(m_settingAriaWidth + 20, 0, m_cardViewAriaSizeWidth, m_cardViewAriaSizeHeight));
@@ -72,6 +92,7 @@ public class CardCustomWindow : EditorWindow
         m_name = database.Name;
         m_icon = database.Icon;
         m_cost = database.Cost;
+        m_useType = database.CardUseType;
         m_rarity = database.Rarity;
         m_type = database.CardType;
         m_raritySprite = raritySprite;
@@ -87,7 +108,7 @@ public class CardCustomWindow : EditorWindow
     {
         foreach (var r in m_raritySprite)
         {
-            if (r.Rarity == m_database.Rarity)
+            if (r.Rarity == rarity)
             {
                 return r.Sprite.texture;
             }    
