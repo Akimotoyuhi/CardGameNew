@@ -12,6 +12,7 @@ public class CardCustomWindow : EditorWindow
     private static List<CardData.TypeSprite> m_types;
     private static string m_name;
     private static string m_cost;
+    private static string m_tooltip;
     private static Sprite m_icon;
     private static UseType m_useType;
     private static Rarity m_rarity;
@@ -25,6 +26,7 @@ public class CardCustomWindow : EditorWindow
     private static float m_cardViewAriaSizeWidth = 300;
     private static float m_cardViewAriaSizeHeight = 250;
     private Vector2 m_scrollPos;
+    private bool m_commandSettingToggleFlag;
 
     public static void ShowWindow(CardDataBase cardData, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite)
     {
@@ -56,13 +58,23 @@ public class CardCustomWindow : EditorWindow
             m_useType = (UseType)EditorGUILayout.EnumPopup(m_useType,
                 GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
 
-            EditorGUI.BeginChangeCheck();
             GUILayout.Label("レア度");
+            EditorGUI.BeginChangeCheck();
             m_rarity = (Rarity)EditorGUILayout.EnumPopup(m_rarity,
                 GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight));
             if (EditorGUI.EndChangeCheck())
             {
                 Graphics.ConvertTexture(GetTexture(m_rarity), m_cardBackground);
+            }
+
+            GUILayout.Label("ツールチップ");
+            m_tooltip = GUILayout.TextArea(m_tooltip, GUILayout.Width(m_settingAriaWidth));
+
+            GUILayout.Label("効果設定");
+            m_commandSettingToggleFlag = EditorGUILayout.Foldout(m_commandSettingToggleFlag, "Commands");
+            if (m_commandSettingToggleFlag)
+            {
+                HorizontalIndentAria(1, () => GUILayout.Label("Level1"));
             }
         }
         EditorGUILayout.EndScrollView();
@@ -86,6 +98,7 @@ public class CardCustomWindow : EditorWindow
                 style.alignment = TextAnchor.MiddleCenter;
                 Rect rect = new Rect(0, 0, m_cardAriaWidth, 30);
                 GUI.Label(rect, m_name, style);
+
                 //GUILayout.Box(m_icon.texture);
             }
             GUILayout.EndArea();
@@ -101,6 +114,7 @@ public class CardCustomWindow : EditorWindow
         m_useType = database.CardUseType;
         m_rarity = database.Rarity;
         m_type = database.CardType;
+        m_tooltip = database.Tooltip;
         m_raritySprite = raritySprite;
         m_cardBackground = new Texture2D((int)m_cardAriaWidth, (int)m_cardAriaHeight);
         Graphics.ConvertTexture(GetTexture(m_rarity), m_cardBackground);
@@ -108,6 +122,14 @@ public class CardCustomWindow : EditorWindow
         t.SetPixel(t.width, t.height, Color.white);
         m_background = t;
         m_types = typeSprite;
+    }
+
+    private void HorizontalIndentAria(int indentLevel, Action action)
+    {
+        GUILayout.BeginHorizontal();
+        GUILayout.Space(indentLevel * 10);
+        action();
+        GUILayout.EndHorizontal();
     }
 
     private static Texture2D GetTexture(Rarity rarity)
@@ -140,3 +162,10 @@ public class CardCustomWindow : EditorWindow
     }
 }
 #endif
+
+public enum CommandType
+{
+    Attack,
+    Block,
+    Effect
+}
