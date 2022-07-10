@@ -12,6 +12,7 @@ public class CreateWindowTest : EditorWindow
     private bool m_flag2;
     private int m_popupIndex;
     private string[] m_array = new string[] { "a", "b", "c" };
+    private string m_path;
 
     //任意のタブにTestWindowという項目を追加する　今回はCustomタブを新たに作る
     [MenuItem("Custom/TestWindow")]
@@ -59,6 +60,17 @@ public class CreateWindowTest : EditorWindow
         {
             GUILayout.Label("Null");
         }
+
+        //EditorGUI.BeginChangeCheck();
+        if (GUILayout.Button("Open"))
+        {
+            m_path = EditorUtility.OpenFilePanelWithFilters("画像を設定", Application.dataPath, new string[] { "Image files", "jpg,png" });
+        }
+        GUILayout.Label(m_path);
+        Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(m_path.Substring(m_path.IndexOf("Assets")));
+        GUILayout.Box(texture);
+        //EditorGUI.EndChangeCheck();
+
     }
 
     private void SelectedPopup(int popupIndex)
