@@ -13,6 +13,7 @@ public class CardCustomWindow : EditorWindow
     private static string m_name;
     private static string m_cost;
     private static string m_tooltip;
+    private static string m_iconTexturePath = default;
     private static Sprite m_icon;
     private static UseType m_useType;
     private static Rarity m_rarity;
@@ -52,7 +53,10 @@ public class CardCustomWindow : EditorWindow
                 GUILayout.Width(20), GUILayout.Height(20));
 
             GUILayout.Label("アイコン画像");
-            GUILayout.Space(15); //画像入れたい
+            if (GUILayout.Button("SetIconSprite"))
+            {
+                m_iconTexturePath = EditorUtility.OpenFilePanelWithFilters("画像を選択", Application.dataPath, new string[] { "Image files", "jpg,png" });
+            }
 
             GUILayout.Label("使用対象");
             m_useType = (UseType)EditorGUILayout.EnumPopup(m_useType,
@@ -99,7 +103,18 @@ public class CardCustomWindow : EditorWindow
                 Rect rect = new Rect(0, 0, m_cardAriaWidth, 30);
                 GUI.Label(rect, m_name, style);
 
-                //GUILayout.Box(m_icon.texture);
+                if (m_iconTexturePath.Length > 0)
+                {
+                    GUILayout.BeginArea(new Rect(m_cardAriaWidth / 4, 30, 90, 90), AssetDatabase.LoadAssetAtPath<Texture2D>(m_iconTexturePath.Substring(m_iconTexturePath.IndexOf("Assets"))));
+                    GUILayout.EndArea();
+                }
+                
+                //if (m_iconTexturePath.Length > 0)
+                //{
+                //    GUILayout.Label(m_iconTexturePath);
+                //    GUILayout.Box(AssetDatabase.LoadAssetAtPath<Texture2D>(m_iconTexturePath.Substring(m_iconTexturePath.IndexOf("Assets"))),
+                //        GUILayout.Width(50), GUILayout.Height(50));
+                //}
             }
             GUILayout.EndArea();
         }
@@ -110,6 +125,7 @@ public class CardCustomWindow : EditorWindow
     {
         m_name = database.Name;
         m_icon = database.Icon;
+        m_iconTexturePath = AssetDatabase.GetAssetPath(m_icon);
         m_cost = database.Cost;
         m_useType = database.CardUseType;
         m_rarity = database.Rarity;
@@ -139,7 +155,7 @@ public class CardCustomWindow : EditorWindow
             if (r.Rarity == rarity)
             {
                 return r.Sprite.texture;
-            }    
+            }
         }
         return null;
     }
