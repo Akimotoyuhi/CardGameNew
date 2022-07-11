@@ -103,18 +103,22 @@ public class CardCustomWindow : EditorWindow
                 Rect rect = new Rect(0, 0, m_cardAriaWidth, 30);
                 GUI.Label(rect, m_name, style);
 
+                //アイコン画像の表示
                 if (m_iconTexturePath.Length > 0)
                 {
                     GUILayout.BeginArea(new Rect(m_cardAriaWidth / 4, 30, 90, 90), AssetDatabase.LoadAssetAtPath<Texture2D>(m_iconTexturePath.Substring(m_iconTexturePath.IndexOf("Assets"))));
                     GUILayout.EndArea();
                 }
-                
-                //if (m_iconTexturePath.Length > 0)
-                //{
-                //    GUILayout.Label(m_iconTexturePath);
-                //    GUILayout.Box(AssetDatabase.LoadAssetAtPath<Texture2D>(m_iconTexturePath.Substring(m_iconTexturePath.IndexOf("Assets"))),
-                //        GUILayout.Width(50), GUILayout.Height(50));
-                //}
+
+                //ツールチップの表示 https://zaki0929.github.io/page44.html
+                GUILayout.BeginArea(new Rect(0, 120, m_cardAriaWidth, 120));
+                style = new GUIStyle();
+                GUIStyleState styleState = new GUIStyleState();
+                styleState.textColor = Color.black;
+                style.normal = styleState;
+                style.wordWrap = true;
+                GUILayout.Label(m_tooltip, style);
+                GUILayout.EndArea();
             }
             GUILayout.EndArea();
         }
