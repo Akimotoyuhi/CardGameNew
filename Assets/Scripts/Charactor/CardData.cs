@@ -13,8 +13,8 @@ public class CardData : ScriptableObject
     [SerializeField, PreviewButton] CardClassType m_cardClassType;
     [SerializeField] List<RaritySprite> m_raritySprite;
     [SerializeField] List<TypeSprite> m_typeSprite;
-    [SerializeField] List<CardDataBases> m_dataBases;
     [SerializeField] List<Provality> m_cardRewordProvality;
+    [SerializeField] List<CardDataBases> m_dataBases;
     public CardClassType CardClassType => m_cardClassType;
     public List<RaritySprite> GetRaritySprite => m_raritySprite;
     public List<TypeSprite> GetTypeSprite => m_typeSprite;
