@@ -43,7 +43,7 @@ public class CreateWindowTest : EditorWindow
             //GUILayout.Label("トグルリストを表示", EditorStyles.label);
         }
 
-        Type type = typeof(CardData);
+        Type type = typeof(ICommand);
         //PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Static);
         //foreach (var pro in properties)
         //{

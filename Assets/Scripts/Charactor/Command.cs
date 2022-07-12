@@ -40,6 +40,7 @@ public struct Field
 public class CommandSelect
 {
     [SerializeReference, SubclassSelector] List<ICommand> m_commands;
+    public List<ICommand> GetCommands => m_commands;
     public List<Command> Execute()
     {
         var ret = new List<Command>();

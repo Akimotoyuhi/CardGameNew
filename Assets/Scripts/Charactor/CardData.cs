@@ -84,6 +84,16 @@ public class CardDataBase
     public Rarity Rarity => m_rarity;
     public List<CardType> CardType => m_cardType;
     public CommandSelect CardCommands => m_cardCommands;
+    public void SetData(string name, Sprite icon, string cost, string tooltip, UseType useType, Rarity rarity, List<CardType> cardTypes)
+    {
+        m_name = name;
+        m_icon = icon;
+        m_cost = cost;
+        m_tooltip = tooltip;
+        m_rarity = rarity;
+        m_cardUseType = useType;
+        m_cardType = cardTypes;
+    }
 }
 
 #region enums

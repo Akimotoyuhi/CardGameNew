@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -13,19 +14,20 @@ public class CardCustomWindow : EditorWindow
     private static string m_name;
     private static string m_cost;
     private static string m_tooltip;
-    private static string m_iconTexturePath = default;
     private static Sprite m_icon;
     private static UseType m_useType;
     private static Rarity m_rarity;
+    private static Type m_commands;
     private static List<CardType> m_type;
     private static Texture2D m_cardBackground;
     private static Texture2D m_background;
+    private static Texture2D m_iconTexture;
     private float m_settingAriaWidth = 200;
     private float m_settingAriaHeight = 20;
     private static float m_cardAriaWidth = 180;
-    private static float m_cardAriaHeight = 260;
+    private static float m_cardAriaHeight = 280;
     private static float m_cardViewAriaSizeWidth = 300;
-    private static float m_cardViewAriaSizeHeight = 250;
+    private static float m_cardViewAriaSizeHeight = 280;
     private Vector2 m_scrollPos;
     private bool m_commandSettingToggleFlag;
 
@@ -42,7 +44,7 @@ public class CardCustomWindow : EditorWindow
             return;
         //設定項目の表示
         m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos, false, true,
-            GUILayout.Width(m_settingAriaWidth + 30), GUILayout.Height(m_cardViewAriaSizeHeight + 50));
+            GUILayout.Width(m_settingAriaWidth + 30), GUILayout.Height(m_cardViewAriaSizeHeight));
         {
             GUILayout.Label("カード名");
             m_name = GUILayout.TextField(m_name,
@@ -53,9 +55,11 @@ public class CardCustomWindow : EditorWindow
                 GUILayout.Width(20), GUILayout.Height(20));
 
             GUILayout.Label("アイコン画像");
-            if (GUILayout.Button("SetIconSprite"))
+            if (GUILayout.Button("SetIconSprite", GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight)))
             {
-                m_iconTexturePath = EditorUtility.OpenFilePanelWithFilters("画像を選択", Application.dataPath, new string[] { "Image files", "jpg,png" });
+                string path = EditorUtility.OpenFilePanelWithFilters("画像を選択", Application.dataPath, new string[] { "Image files", "jpg,png" });
+                m_iconTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(path.Substring(path.IndexOf("Assets")));
+                m_icon = AssetDatabase.LoadAssetAtPath<Sprite>(path.Substring(path.IndexOf("Assets")));
             }
 
             GUILayout.Label("使用対象");
@@ -74,14 +78,20 @@ public class CardCustomWindow : EditorWindow
             GUILayout.Label("ツールチップ");
             m_tooltip = GUILayout.TextArea(m_tooltip, GUILayout.Width(m_settingAriaWidth));
 
-            GUILayout.Label("効果設定");
-            m_commandSettingToggleFlag = EditorGUILayout.Foldout(m_commandSettingToggleFlag, "Commands");
-            if (m_commandSettingToggleFlag)
-            {
-                HorizontalIndentAria(1, () => GUILayout.Label("Level1"));
-            }
+            //GUILayout.Label("効果設定");
+            //m_commandSettingToggleFlag = EditorGUILayout.Foldout(m_commandSettingToggleFlag, "Commands");
+            //if (m_commandSettingToggleFlag)
+            //{
+            //    HorizontalIndentAria(1, () => GUILayout.Label("Level1"));
+            //}
         }
         EditorGUILayout.EndScrollView();
+
+        //設定を反映させるボタン
+        if (GUILayout.Button("Appry"))
+        {
+            AppryButton();
+        }
 
         //設定中のカードを表示する領域
         GUILayout.BeginArea(new Rect(m_settingAriaWidth + 20, 0, m_cardViewAriaSizeWidth, m_cardViewAriaSizeHeight));
@@ -104,18 +114,19 @@ public class CardCustomWindow : EditorWindow
                 GUI.Label(rect, m_name, style);
 
                 //アイコン画像の表示
-                if (m_iconTexturePath.Length > 0)
+                if (m_iconTexture != null)
                 {
-                    GUILayout.BeginArea(new Rect(m_cardAriaWidth / 4, 30, 90, 90), AssetDatabase.LoadAssetAtPath<Texture2D>(m_iconTexturePath.Substring(m_iconTexturePath.IndexOf("Assets"))));
+                    GUILayout.BeginArea(new Rect(m_cardAriaWidth / 4, 30, 90, 90), m_iconTexture);
                     GUILayout.EndArea();
                 }
 
                 //ツールチップの表示 https://zaki0929.github.io/page44.html
-                GUILayout.BeginArea(new Rect(0, 120, m_cardAriaWidth, 120));
+                GUILayout.BeginArea(new Rect(0, 125, m_cardAriaWidth, 120));
                 style = new GUIStyle();
                 GUIStyleState styleState = new GUIStyleState();
                 styleState.textColor = Color.black;
                 style.normal = styleState;
+                style.fontSize = 15;
                 style.wordWrap = true;
                 GUILayout.Label(m_tooltip, style);
                 GUILayout.EndArea();
@@ -129,13 +140,21 @@ public class CardCustomWindow : EditorWindow
     {
         m_name = database.Name;
         m_icon = database.Icon;
-        m_iconTexturePath = AssetDatabase.GetAssetPath(m_icon);
+        //m_iconTexturePath = AssetDatabase.GetAssetPath(m_icon);
+        string icon = AssetDatabase.GetAssetPath(m_icon);
+        m_iconTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(icon.Substring(icon.IndexOf("Assets")));
         m_cost = database.Cost;
         m_useType = database.CardUseType;
         m_rarity = database.Rarity;
         m_type = database.CardType;
         m_tooltip = database.Tooltip;
         m_raritySprite = raritySprite;
+        m_type = database.CardType;
+        //var v = AppDomain.CurrentDomain.GetAssemblies()
+        //    .SelectMany(s => s.GetType())
+        //    .Where(p => baseType.IsAssignableFrom(p) && p.IsClass && (!monoType.IsAssignableFrom(p)))
+        //    .Prepend(null)
+        //    .ToArray();
         m_cardBackground = new Texture2D((int)m_cardAriaWidth, (int)m_cardAriaHeight);
         Graphics.ConvertTexture(GetTexture(m_rarity), m_cardBackground);
         var t = new Texture2D((int)m_cardViewAriaSizeWidth, (int)m_cardViewAriaSizeHeight);
@@ -144,6 +163,9 @@ public class CardCustomWindow : EditorWindow
         m_types = typeSprite;
     }
 
+    /// <summary>
+    /// GUIをIndentLevel分横にずらす
+    /// </summary>
     private void HorizontalIndentAria(int indentLevel, Action action)
     {
         GUILayout.BeginHorizontal();
@@ -152,6 +174,9 @@ public class CardCustomWindow : EditorWindow
         GUILayout.EndHorizontal();
     }
 
+    /// <summary>
+    /// レアリティに対応したカードの背景画像をTextureにして渡す
+    /// </summary>
     private static Texture2D GetTexture(Rarity rarity)
     {
         foreach (var r in m_raritySprite)
@@ -179,6 +204,15 @@ public class CardCustomWindow : EditorWindow
             }
         }
         return ret;
+    }
+
+    /// <summary>
+    /// 設定完了
+    /// </summary>
+    private void AppryButton()
+    {
+        m_database.SetData(m_name, m_icon, m_cost, m_tooltip, m_useType, m_rarity, m_type);
+        Close();
     }
 }
 #endif
