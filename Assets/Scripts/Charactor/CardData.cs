@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using System.Linq;
 
 /// <summary>
 /// 全てのカードデータ
@@ -13,13 +14,84 @@ public class CardData : ScriptableObject
     [SerializeField] List<RaritySprite> m_raritySprite;
     [SerializeField] List<TypeSprite> m_typeSprite;
     [SerializeField] List<CardDataBases> m_dataBases;
+    [SerializeField] List<Provality> m_cardRewordProvality;
     public CardClassType CardClassType => m_cardClassType;
     public List<RaritySprite> GetRaritySprite => m_raritySprite;
     public List<TypeSprite> GetTypeSprite => m_typeSprite;
     public List<CardDataBases> DataBases => m_dataBases;
+    
+    /// <summary>特定のレア度からランダムに任意の枚数取得</summary>
+    public List<CardDataBase> GetCardDatas(int num, Rarity rarity, CardUpGrade cardUpGrade)
+    {
+        var dataList = m_dataBases.Where(t => t.GetCardData(cardUpGrade).Rarity == rarity).ToList();
+        var nums = ToNumListNoCover(dataList.Count, num); //被りが無いように
+        List<CardDataBase> ret = new List<CardDataBase>();
+        nums.ForEach(i => ret.Add(dataList[i].GetCardData(cardUpGrade)));
+        return ret;
+    }
+
+    /// <summary>戦った敵のタイプからランダムに任意の枚数取得</summary>
+    public List<CardDataBase> GetCardDatas(int num, BattleType battleType, CardUpGrade cardUpGrade)
+    {
+        List<CardDataBase> ret = new List<CardDataBase>();
+        Rarity r = Rarity.Normal;
+        for (int i = 0; i < num; )
+        {
+            bool coveringFlag = false;
+            foreach (var p in m_cardRewordProvality)
+            {
+                if (p.BattleType == battleType)
+                {
+                    r = p.Lottery();
+                    break;
+                }
+            }
+            //被りが無いように
+            var addList = GetCardDatas(1, r, cardUpGrade);
+            foreach (var re in ret)
+            {
+                if (re.Name == addList[0].Name)
+                {
+                    coveringFlag = true;
+                    break;
+                }
+            }
+            if (coveringFlag)
+                continue;
+            ret.AddRange(addList);
+            i++;
+        }
+        return ret;
+    }
+
     /// <summary>
-    /// レアリティに応じた画像
+    /// 被りなしの整数の配列を返す
     /// </summary>
+    /// <param name="range">範囲</param>
+    /// <param name="element">要素数</param>
+    /// <returns>被りなしの整数のリスト</returns>
+    private List<int> ToNumListNoCover(int range, int element)
+    {
+        List<int> vs = new List<int>();
+        for (int i = 0; i < element;)
+        {
+            int r = Random.Range(0, range);
+            bool b = true;
+            foreach (var v in vs)
+            {
+                if (v == r)
+                    b = false;
+            }
+            if (b)
+            {
+                vs.Add(r);
+                i++;
+            }
+        }
+        return vs;
+    }
+
+    /// <summary>レアリティに応じた画像</summary>
     [System.Serializable]
     public class RaritySprite
     {
@@ -28,9 +100,7 @@ public class CardData : ScriptableObject
         public Rarity Rarity => m_rarity;
         public Sprite Sprite => m_sprite;
     }
-    /// <summary>
-    /// CardTypeに応じた画像
-    /// </summary>
+    /// <summary>CardTypeに応じた画像</summary>
     [System.Serializable]
     public class TypeSprite
     {
@@ -38,6 +108,27 @@ public class CardData : ScriptableObject
         [SerializeField] Sprite m_sprites;
         public CardType CardType => m_cardType;
         public Sprite Sprite => m_sprites;
+    }
+    /// <summary>報酬で出る際のレア度毎の出現確率</summary>
+    [System.Serializable]
+    public class Provality
+    {
+        [SerializeField] BattleType m_battleType;
+        [SerializeField, Range(0, 100)] int m_normalCard;
+        [SerializeField, Range(0, 100)] int m_rareCard;
+        [SerializeField, Range(0, 100)] int m_superRareCard;
+        public BattleType BattleType => m_battleType;
+        /// <summary>抽選</summary>
+        public Rarity Lottery()
+        {
+            int r = Random.Range(0, 100);
+            if (r <= m_superRareCard)
+                return Rarity.SuperRare;
+            if (r <= m_rareCard)
+                return Rarity.Rare;
+            else
+                return Rarity.Normal;
+        }
     }
 }
 
@@ -118,7 +209,9 @@ public enum AKCardID
     /// <summary>防御</summary>
     Defence,
     /// <summary>ターミネート</summary>
-    TerminationOfTactics
+    TerminationOfTactics,
+    /// <summary>ハンマリングオン</summary>
+    HammerOn,
 }
 /// <summary>レアリティ</summary>
 public enum Rarity
@@ -126,7 +219,6 @@ public enum Rarity
     Normal,
     Rare,
     SuperRare,
-    UltimateRare,
     Special,
     BadState,
     Curse,

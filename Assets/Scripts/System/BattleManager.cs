@@ -173,3 +173,9 @@ public enum BattleState
     EnemyFaze,
     PlayerFaze,
 }
+public enum BattleType
+{
+    Normal,
+    Elite,
+    Boss,
+}

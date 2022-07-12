@@ -20,10 +20,8 @@ MonoBehaviour:
     m_sprite: {fileID: 21300000, guid: a1c87685e1aef4240a7703945ff057d1, type: 3}
   - m_rarity: 2
     m_sprite: {fileID: 21300000, guid: 4cf5318ddddbbaf4e943be2bdbcc4fbc, type: 3}
-  - m_rarity: 3
-    m_sprite: {fileID: 21300000, guid: 97d4ede048fade44cb7e3d209ff94f20, type: 3}
   - m_rarity: 4
-    m_sprite: {fileID: 21300000, guid: 21752d828d967a6498efc465998871e7, type: 3}
+    m_sprite: {fileID: 21300000, guid: 889fc4945ae57e94bb7b95f7742ba453, type: 3}
   - m_rarity: 5
     m_sprite: {fileID: 21300000, guid: 5948ff37dbb97cc47899fed8f4454f1c, type: 3}
   - m_rarity: 6
@@ -109,6 +107,29 @@ MonoBehaviour:
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746054
+  - m_label: "\u30CF\u30F3\u30DE\u30EA\u30F3\u30B0\u30FB\u30AA\u30F3"
+    m_database:
+      m_name: "\u30CF\u30F3\u30DE\u30EA\u30F3\u30B0\u30FB\u30AA\u30F3"
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
+      m_cost: 2
+      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
+      m_cardUseType: 1
+      m_rarity: 0
+      m_cardType: 00000000
+      m_cardCommands:
+        m_commands:
+        - rid: 3443098950917685248
+    m_upgradeData:
+      m_name: "\u30CF\u30F3\u30DE\u30EA\u30F3\u30B0\u30FB\u30AA\u30F3"
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
+      m_cost: 2
+      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
+      m_cardUseType: 1
+      m_rarity: 0
+      m_cardType: 00000000
+      m_cardCommands:
+        m_commands:
+        - rid: 3443098950917685249
   references:
     version: 2
     RefIds:
@@ -147,4 +168,16 @@ MonoBehaviour:
       data:
         m_useType: 1
         m_power: 10000
+        m_isTrueDamage: 0
+    - rid: 3443098950917685248
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 1
+        m_power: 12
+        m_isTrueDamage: 0
+    - rid: 3443098950917685249
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 1
+        m_power: 15
         m_isTrueDamage: 0
