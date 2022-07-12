@@ -83,14 +83,17 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     /// <param name="typeSprites"></param>
     private void SetSprites(List<CardData.RaritySprite> backgroundSprites, List<CardData.TypeSprite> typeSprites)
     {
+        //背景画像の設定
         foreach (var b in backgroundSprites)
         {
             if (b.Rarity == m_rarity)
             {
                 m_background.sprite = b.Sprite;
-                return;
+                break;
             }
         }
+
+        //カードタイプの設定
         List<Sprite> sprites = new List<Sprite>();
         foreach (var myType in m_cardType)
         {
@@ -103,9 +106,16 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
                 }
             }
         }
-        for (int i = 0; i < sprites.Count; i++)
+        for (int i = 0; i < m_cardTypeImages.Count; i++)
         {
-            m_cardTypeImages[i].sprite = sprites[i];
+            if (sprites.Count <= i)
+            {
+                m_cardTypeImages[i].color = Color.clear;
+            }
+            else
+            {
+                m_cardTypeImages[i].sprite = sprites[i];
+            }
         }
     }
 

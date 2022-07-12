@@ -14,14 +14,17 @@ public class CardCustomWindow : EditorWindow
     private static string m_name;
     private static string m_cost;
     private static string m_tooltip;
+    private static string m_cardTypeCountText;
     private static Sprite m_icon;
     private static UseType m_useType;
     private static Rarity m_rarity;
     private static Type m_commands;
-    private static List<CardType> m_type;
+    private static List<CardType> m_cardTypes;
+    private static CardType[] m_cardTypesArray;
     private static Texture2D m_cardBackground;
     private static Texture2D m_background;
     private static Texture2D m_iconTexture;
+    private static int m_cardTypeCount;
     private float m_settingAriaWidth = 200;
     private float m_settingAriaHeight = 20;
     private static float m_cardAriaWidth = 180;
@@ -30,6 +33,7 @@ public class CardCustomWindow : EditorWindow
     private static float m_cardViewAriaSizeHeight = 280;
     private Vector2 m_scrollPos;
     private bool m_commandSettingToggleFlag;
+    private bool m_cardTypeToggleFlag;
 
     public static void ShowWindow(CardDataBase cardData, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite)
     {
@@ -54,6 +58,9 @@ public class CardCustomWindow : EditorWindow
             m_cost = GUILayout.TextField(m_cost,
                 GUILayout.Width(20), GUILayout.Height(20));
 
+            GUILayout.Label("ツールチップ");
+            m_tooltip = GUILayout.TextArea(m_tooltip, GUILayout.Width(m_settingAriaWidth));
+
             GUILayout.Label("アイコン画像");
             if (GUILayout.Button("SetIconSprite", GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight)))
             {
@@ -75,8 +82,28 @@ public class CardCustomWindow : EditorWindow
                 Graphics.ConvertTexture(GetTexture(m_rarity), m_cardBackground);
             }
 
-            GUILayout.Label("ツールチップ");
-            m_tooltip = GUILayout.TextArea(m_tooltip, GUILayout.Width(m_settingAriaWidth));
+            //GUILayout.Label("カードタイプの設定");
+            //m_cardTypeToggleFlag = EditorGUILayout.Foldout(m_cardTypeToggleFlag, "CardType");
+            //if (m_cardTypeToggleFlag)
+            //{
+            //    HorizontalIndentAria(1, () =>
+            //    {
+            //        //要素数の指定
+            //        EditorGUI.BeginChangeCheck();
+            //        HorizontalIndentAria(1, () => m_cardTypeCountText = GUILayout.TextField(m_cardTypeCountText));
+            //        try
+            //        {
+            //            m_cardTypeCount = int.Parse(m_cardTypeCountText);
+            //            m_cardTypesArray = new CardType[m_cardTypeCount];
+            //        }
+            //        catch { }
+            //        EditorGUI.EndChangeCheck();
+            //    });
+            //    for (int i = 0; i < m_cardTypeCount; i++)
+            //    {
+            //        HorizontalIndentAria(1, () => m_cardTypesArray[i] = (CardType)EditorGUILayout.EnumPopup(m_cardTypesArray[i]));
+            //    }
+            //}
 
             //GUILayout.Label("効果設定");
             //m_commandSettingToggleFlag = EditorGUILayout.Foldout(m_commandSettingToggleFlag, "Commands");
@@ -140,16 +167,18 @@ public class CardCustomWindow : EditorWindow
     {
         m_name = database.Name;
         m_icon = database.Icon;
-        //m_iconTexturePath = AssetDatabase.GetAssetPath(m_icon);
         string icon = AssetDatabase.GetAssetPath(m_icon);
         m_iconTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(icon.Substring(icon.IndexOf("Assets")));
         m_cost = database.Cost;
         m_useType = database.CardUseType;
         m_rarity = database.Rarity;
-        m_type = database.CardType;
+        m_cardTypes = database.CardType;
         m_tooltip = database.Tooltip;
         m_raritySprite = raritySprite;
-        m_type = database.CardType;
+        m_cardTypes = database.CardType;
+        m_cardTypeCount = database.CardType.Count;
+        m_cardTypeCountText = database.CardType.Count.ToString();
+        m_cardTypesArray = database.CardType.ToArray();
         //var v = AppDomain.CurrentDomain.GetAssemblies()
         //    .SelectMany(s => s.GetType())
         //    .Where(p => baseType.IsAssignableFrom(p) && p.IsClass && (!monoType.IsAssignableFrom(p)))
@@ -211,7 +240,7 @@ public class CardCustomWindow : EditorWindow
     /// </summary>
     private void AppryButton()
     {
-        m_database.SetData(m_name, m_icon, m_cost, m_tooltip, m_useType, m_rarity, m_type);
+        m_database.SetData(m_name, m_icon, m_cost, m_tooltip, m_useType, m_rarity, m_cardTypes);
         Close();
     }
 }

@@ -48,7 +48,7 @@ MonoBehaviour:
       m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
       m_cardUseType: 1
       m_rarity: 4
-      m_cardType: 
+      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746048
@@ -59,7 +59,7 @@ MonoBehaviour:
       m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
       m_cardUseType: 1
       m_rarity: 4
-      m_cardType: 
+      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746050
@@ -71,7 +71,7 @@ MonoBehaviour:
       m_tooltip: "\u81EA\u8EAB\u306B{blk0}"
       m_cardUseType: 0
       m_rarity: 4
-      m_cardType: 
+      m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746052
@@ -82,7 +82,7 @@ MonoBehaviour:
       m_tooltip: "\u81EA\u8EAB\u306B{blk0}"
       m_cardUseType: 0
       m_rarity: 4
-      m_cardType: 
+      m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746051
@@ -94,7 +94,7 @@ MonoBehaviour:
       m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
       m_cardUseType: 1
       m_rarity: 4
-      m_cardType: 
+      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746053
@@ -105,7 +105,7 @@ MonoBehaviour:
       m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
       m_cardUseType: 1
       m_rarity: 4
-      m_cardType: 
+      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746054

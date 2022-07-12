@@ -71,6 +71,7 @@ public abstract class Charactor : MonoBehaviour
         m_image.sprite = dataBase.Sprite;
         m_maxLife = dataBase.MaxLife;
         m_currentLife.Value = dataBase.MaxLife;
+        m_image.transform.localScale = Vector2.one;
         m_image.transform.localScale *= dataBase.ImageScaling;
     }
 
