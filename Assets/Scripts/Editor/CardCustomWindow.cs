@@ -167,8 +167,11 @@ public class CardCustomWindow : EditorWindow
     {
         m_name = database.Name;
         m_icon = database.Icon;
-        string icon = AssetDatabase.GetAssetPath(m_icon);
-        m_iconTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(icon.Substring(icon.IndexOf("Assets")));
+        if (m_icon != null)
+        {
+            string icon = AssetDatabase.GetAssetPath(m_icon);
+            m_iconTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(icon.Substring(icon.IndexOf("Assets")));
+        }
         m_cost = database.Cost;
         m_useType = database.CardUseType;
         m_rarity = database.Rarity;

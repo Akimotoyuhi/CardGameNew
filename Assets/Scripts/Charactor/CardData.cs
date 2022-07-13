@@ -145,10 +145,9 @@ public class CardData : ScriptableObject
 [System.Serializable]
 public class CardDataBases
 {
-    [SerializeField] string m_label;
+    public string m_label;
     [SerializeField] CardDataBase m_database;
     [SerializeField] CardDataBase m_upgradeData;
-    public string Label => m_label;
     public CardDataBase CardData => m_database;
     public CardDataBase UpgradeData => m_upgradeData;
     public CardDataBase GetCardData(CardUpGrade isUpgrade)

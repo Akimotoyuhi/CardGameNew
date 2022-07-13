@@ -97,8 +97,8 @@ public class BattleManager : MonoBehaviour
         m_deck.SetParentActive = false;
         m_discard.SetParentActive = false;
 
-        var v = m_cardDatas.GetData(CardClassType.AK).GetCardDatas(1, BattleType.Normal, CardUpGrade.NoUpGrade);
-        v.ForEach(c => Debug.Log(c.Name));
+        //var v = m_cardDatas.GetData(CardClassType.AK).GetCardDatas(1, BattleType.Normal, CardUpGrade.NoUpGrade);
+        //v.ForEach(c => Debug.Log(c.Name));
     }
 
     private void Create()
