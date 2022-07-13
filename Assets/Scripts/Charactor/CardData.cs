@@ -23,8 +23,12 @@ public class CardData : ScriptableObject
     /// <summary>特定のレア度からランダムに任意の枚数取得</summary>
     public List<CardDataBase> GetCardDatas(int num, Rarity rarity, CardUpGrade cardUpGrade)
     {
+        //指定されたレアリティのカードをまとめる
         var dataList = m_dataBases.Where(t => t.GetCardData(cardUpGrade).Rarity == rarity).ToList();
-        var nums = ToNumListNoCover(dataList.Count, num); //被りが無いように
+        //被りが無いように
+        var nums = ToNumListNoCover(dataList.Count, num);
+        if (nums == null)
+            throw new System.ArgumentOutOfRangeException("data数が指定された枚数より少ないです");
         List<CardDataBase> ret = new List<CardDataBase>();
         nums.ForEach(i => ret.Add(dataList[i].GetCardData(cardUpGrade)));
         return ret;
@@ -46,8 +50,11 @@ public class CardData : ScriptableObject
                     break;
                 }
             }
-            //被りが無いように
+
+            Debug.Log($"決まったレア度{r}");
             var addList = GetCardDatas(1, r, cardUpGrade);
+
+            //被りが無いように
             foreach (var re in ret)
             {
                 if (re.Name == addList[0].Name)
@@ -65,13 +72,16 @@ public class CardData : ScriptableObject
     }
 
     /// <summary>
-    /// 被りなしの整数の配列を返す
+    /// 被りなしの整数の配列を返す<br/>範囲が要素より大きければnull
     /// </summary>
     /// <param name="range">範囲</param>
     /// <param name="element">要素数</param>
     /// <returns>被りなしの整数のリスト</returns>
     private List<int> ToNumListNoCover(int range, int element)
     {
+        //範囲が要素より大きければnullを返す
+        if (range < element)
+            return null;
         List<int> vs = new List<int>();
         for (int i = 0; i < element;)
         {
