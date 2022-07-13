@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Reflection;
 #if UNITY_EDITOR
 using UnityEditor;
 
 public class CardDataSelectWindow : EditorWindow
 {
     private static CardData m_carddata;
-    private List<bool> m_toggleFlag = new List<bool>();
-    private float m_buttonWidthSize = 200;
+    private static List<bool> m_toggleFlag = new List<bool>();
 
     public static void ShowWindow(CardData cardData)
     {
@@ -44,7 +42,7 @@ public class CardDataSelectWindow : EditorWindow
                     }
                     if (GUILayout.Button("Remove"))
                     {
-                        RemoveData(m_carddata.DataBases[i]);
+                        RemoveData(i);
                     }
                 }
                 GUILayout.EndHorizontal();
@@ -59,11 +57,14 @@ public class CardDataSelectWindow : EditorWindow
     private static void AddNewCard()
     {
         m_carddata.DataBases.Add(new CardDataBases());
+        m_toggleFlag.Add(false);
     }
 
-    private static void RemoveData(CardDataBases data)
+    private static void RemoveData(int index)
     {
-        m_carddata.DataBases.Remove(data);
+        Debug.Log(m_carddata.DataBases[index].m_label);
+        m_toggleFlag.RemoveAt(index);
+        m_carddata.DataBases.RemoveAt(index);
     }
 }
 #endif
