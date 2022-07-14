@@ -217,6 +217,7 @@ public enum OriginalCardID
     ImpregnableWall,
     /// <summary>Š¢Š„</summary>
     TileBreaking,
+    SuperRareCard,
 }
 /// <summary></summary>
 public enum AKCardID

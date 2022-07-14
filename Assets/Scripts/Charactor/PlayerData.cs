@@ -14,9 +14,11 @@ public class PlayerDataBase
 {
     [SerializeField] string m_label;
     [SerializeField] int m_maxCost;
+    [SerializeField] CardClassType m_rewardClassType;
     [SerializeField] CharactorDataBase m_characterData;
     [SerializeField] CardClassSelector m_cardClassSelector;
     public int MaxCost => m_maxCost;
+    public CardClassType RewardClassType => m_rewardClassType;
     public CharactorDataBase CharactorData => m_characterData;
     public CardClassSelector CardClassSelector => m_cardClassSelector;
 }

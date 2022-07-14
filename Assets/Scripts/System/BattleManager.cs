@@ -67,12 +67,15 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Discard m_discard;
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] CardClassDatas m_cardDatas;
+    [SerializeField] int m_rewardNum;
     private int m_currentTurn;
     /// <summary>この戦闘中のカードのインスタンス</summary>
     private List<Card> m_currentCard = new List<Card>();
     /// <summary>戦闘終了を通知する</summary>
     private Subject<Unit> m_battleFinished = new Subject<Unit>();
     private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
+    /// <summary>現在の戦闘のBattleType</summary>
+    private BattleType m_currentBattleType;
     /// <summary>バトルの状態遷移を通知する</summary>
     public System.IObservable<BattleState> BattleStateObservable => m_battleState;
     /// <summary>バトルの終了を通知する</summary>
@@ -93,8 +96,6 @@ public class BattleManager : MonoBehaviour
         m_charactorManager.BattleEndSubject
             .Subscribe(type => BattleEnd(type))
             .AddTo(m_charactorManager);
-
-        BattleFinished.Subscribe(type => Debug.Log(m_deck.ChildCount));
 
         //デッキと捨て札一覧画面を消す
         m_deck.SetParentActive = false;
@@ -151,10 +152,15 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 戦闘開始
     /// </summary>
-    /// <param name="mapID"></param>
-    /// <param name="cellType"></param>
     public void Encount(MapID mapID, CellType cellType)
     {
+        if (cellType == CellType.FirstHalfBattle || cellType == CellType.SecondHalfBattle)
+            m_currentBattleType = BattleType.Normal;
+        else if (cellType == CellType.Elite)
+            m_currentBattleType = BattleType.Elite;
+        else if (cellType == CellType.Boss)
+            m_currentBattleType = BattleType.Boss;
+
         List<EnemyID> e = m_encountData.GetEncountData(mapID).GetEnemies(cellType);
         m_charactorManager.Create(e);
         Create();
@@ -165,13 +171,24 @@ public class BattleManager : MonoBehaviour
     private void BattleEnd(BattleEndType battleEndType)
     {
         //ここで報酬表示
+        switch (battleEndType)
+        {
+            case BattleEndType.EnemiesDead:
+                var v = m_cardDatas.GetData(m_charactorManager.CardClassType).GetCardDatas(m_rewardNum, m_currentBattleType, CardUpGrade.NoUpGrade);
+                v.ForEach(x => Debug.Log($"抽選された報酬 {x.Name}"));
+                break;
+            case BattleEndType.Gameover:
+                Debug.Log("ゲームオーバー");
+                return;
+            default:
+                break;
+        }
 
         for (int i = m_currentCard.Count - 1; i >= 0; i--)
         {
             Destroy(m_currentCard[i].gameObject);
             m_currentCard.RemoveAt(i);
         }
-        Debug.Log($"CardDestroy Instance Card is {m_currentCard.Count}");
         m_battleFinished.OnNext(Unit.Default);
     }
 }

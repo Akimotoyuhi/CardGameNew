@@ -34,6 +34,8 @@ public class CharactorManager : MonoBehaviour
     //public List<Enemy> CurrentEnemies => m_currentEnemies;
     /// <summary>所持カード</summary>
     public List<HaveCardData> HaveCard => m_haveCards;
+    /// <summary>このゲームで使用されるカードクラス</summary>
+    public CardClassType CardClassType => m_cardClassType;
     /// <summary>新たな敵が作られた際に通知する</summary>
     public System.IObservable<Enemy> NewEnemyCreateSubject => m_newEnemyCreateSubject;
     /// <summary>戦闘の終了を通知する</summary>
@@ -57,7 +59,8 @@ public class CharactorManager : MonoBehaviour
         }
         m_currentPlayer.transform.SetParent(m_playerParent, false);
         m_currentPlayer.SetBaseData(m_playerData.DataBase[(int)m_usePlayerID]);
-        m_currentPlayer.DeadSubject.Subscribe(_ => Debug.Log("ゲームオーバー")).AddTo(m_currentPlayer);
+        m_currentPlayer.DeadSubject.Subscribe(_ => BattleEnd(BattleEndType.Gameover)).AddTo(m_currentPlayer);
+        m_cardClassType = m_playerData.DataBase[(int)m_usePlayerID].RewardClassType;
 
         if (enemies == null)
             return;
@@ -65,7 +68,7 @@ public class CharactorManager : MonoBehaviour
         enemies.ForEach(id =>
         {
             Enemy e = Instantiate(m_enemyPrefab);
-            e.DeadSubject.Subscribe(_ => BattleEnd()).AddTo(this);
+            e.DeadSubject.Subscribe(_ => BattleEnd(BattleEndType.EnemiesDead)).AddTo(this);
             m_newEnemyCreateSubject.OnNext(e);
             e.transform.SetParent(m_enemisParent, false);
             e.SetBaseData(m_enemyData.Databases[(int)id]);
@@ -120,16 +123,24 @@ public class CharactorManager : MonoBehaviour
     }
 
     /// <summary>
-    /// バトルの終了判定を行なう
+    /// バトルの終了判定を行う
     /// </summary>
-    private void BattleEnd()
+    private void BattleEnd(BattleEndType battleEndType)
     {
-        //敵が全滅しているかを確認する　していたらバトル終了
-        foreach (var e in m_currentEnemies)
+        switch (battleEndType)
         {
-            if (!e.IsDead)
-                return;
+            case BattleEndType.EnemiesDead:
+                //敵が全滅しているかを確認する　していたらバトル終了
+                foreach (var e in m_currentEnemies)
+                {
+                    if (!e.IsDead)
+                        return;
+                }
+                break;
+            default:
+                break;
         }
+        
         //戦闘終了時に使用した敵データを破棄
         for (int i = m_currentEnemies.Count - 1; i >= 0; i--)
         {
@@ -137,7 +148,7 @@ public class CharactorManager : MonoBehaviour
             m_currentEnemies.RemoveAt(i);
         }
         m_currentPlayer.Effects.Clear();
-        m_battleEnd.OnNext(BattleEndType.EnemiesDead);
+        m_battleEnd.OnNext(battleEndType);
     }
 }
 public enum BattleEndType

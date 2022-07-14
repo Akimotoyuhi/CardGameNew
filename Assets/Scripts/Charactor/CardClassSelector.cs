@@ -10,41 +10,15 @@ public class CardClassSelector
 }
 public struct HaveCardData
 {
-    //public CardClassType CardClassType
-    //{
-    //    get
-    //    {
-    //        if (CommonCardID != null)
-    //            return CardClassType.Common;
-    //        else if (OriginalCardID != null)
-    //            return CardClassType.Original;
-    //        else
-    //            return CardClassType.AK;
-    //    }
-    //}
-    //public CommonCardID CommonCardID { get; set; }
-    //public OriginalCardID OriginalCardID { get; set; }
-    //public AKCardID AKCardID { get; set; }
     public CardClassType CardCalssType { get; set; }
     public int CardID { get; set; }
     public CardUpGrade IsUpGrade { get; set; }
-    //public List<int> GetCardID(CardClassType cardClassType)
-    //{
-    //    List<int> ret = new List<int>();
-    //    switch (cardClassType)
-    //    {
-    //        case CardClassType.Common:
-    //            CommonCardID.ForEach(c => ret.Add((int)c));
-    //            break;
-    //        case CardClassType.Original:
-    //            OriginalCardID.ForEach(c => ret.Add((int)c));
-    //            break;
-    //        case CardClassType.AK:
-    //            AKCardID.ForEach(c => ret.Add((int)c));
-    //            break;
-    //    }
-    //    return ret;
-    //}
+    public void Setup(CardClassType cardClassType, int id, CardUpGrade cardUpGrade)
+    {
+        CardCalssType = cardClassType;
+        CardID = id;
+        IsUpGrade = cardUpGrade;
+    }
 }
 public interface ICardClassSelector
 {

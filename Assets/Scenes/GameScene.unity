@@ -2103,6 +2103,7 @@ MonoBehaviour:
     m_commonCardData: {fileID: 11400000, guid: 6068bc350c5dc6d41b08a116083c5d1d, type: 2}
     m_originalCardData: {fileID: 11400000, guid: 25ce34f5850765f46aedcd7ac8dc95eb, type: 2}
     m_akCardData: {fileID: 11400000, guid: 45683c5d06b8fd6459aedc5ecd14457d, type: 2}
+  m_rewardNum: 1
 --- !u!114 &1312891808
 MonoBehaviour:
   m_ObjectHideFlags: 0
