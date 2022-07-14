@@ -209,6 +209,14 @@ public enum OriginalCardID
     Slashing,
     /// <summary>–hŒä</summary>
     Defence,
+    /// <summary>ƒYƒ‹‚¢•Ší</summary>
+    ZuruiWeapon,
+    /// <summary>‹­‘Å</summary>
+    Smiting,
+    /// <summary>“S•Ç</summary>
+    ImpregnableWall,
+    /// <summary>Š¢Š„</summary>
+    TileBreaking,
 }
 /// <summary></summary>
 public enum AKCardID

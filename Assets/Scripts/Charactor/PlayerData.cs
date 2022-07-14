@@ -24,5 +24,6 @@ public class PlayerDataBase
 public enum PlayerID
 {
     Challenger,
-    Magallan,
+    Operator,
+    //Element
 }

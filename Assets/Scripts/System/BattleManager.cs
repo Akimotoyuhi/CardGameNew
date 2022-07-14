@@ -70,6 +70,7 @@ public class BattleManager : MonoBehaviour
     private int m_currentTurn;
     /// <summary>この戦闘中のカードのインスタンス</summary>
     private List<Card> m_currentCard = new List<Card>();
+    /// <summary>戦闘終了を通知する</summary>
     private Subject<Unit> m_battleFinished = new Subject<Unit>();
     private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
     /// <summary>バトルの状態遷移を通知する</summary>
@@ -92,6 +93,8 @@ public class BattleManager : MonoBehaviour
         m_charactorManager.BattleEndSubject
             .Subscribe(type => BattleEnd(type))
             .AddTo(m_charactorManager);
+
+        BattleFinished.Subscribe(type => Debug.Log(m_deck.ChildCount));
 
         //デッキと捨て札一覧画面を消す
         m_deck.SetParentActive = false;
@@ -163,6 +166,12 @@ public class BattleManager : MonoBehaviour
     {
         //ここで報酬表示
 
+        for (int i = m_currentCard.Count - 1; i >= 0; i--)
+        {
+            Destroy(m_currentCard[i].gameObject);
+            m_currentCard.RemoveAt(i);
+        }
+        Debug.Log($"CardDestroy Instance Card is {m_currentCard.Count}");
         m_battleFinished.OnNext(Unit.Default);
     }
 }
