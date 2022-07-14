@@ -179,9 +179,16 @@ public class CardCustomWindow : EditorWindow
         m_tooltip = database.Tooltip;
         m_raritySprite = raritySprite;
         m_cardTypes = database.CardType;
-        m_cardTypeCount = database.CardType.Count;
-        m_cardTypeCountText = database.CardType.Count.ToString();
-        m_cardTypesArray = database.CardType.ToArray();
+        if (m_cardTypes == null)
+        {
+            m_cardTypes = new List<CardType>();
+        }
+        else
+        {
+            m_cardTypeCount = database.CardType.Count;
+            m_cardTypeCountText = database.CardType.Count.ToString();
+        }
+        m_cardTypesArray = m_cardTypes.ToArray();
         //var v = AppDomain.CurrentDomain.GetAssemblies()
         //    .SelectMany(s => s.GetType())
         //    .Where(p => baseType.IsAssignableFrom(p) && p.IsClass && (!monoType.IsAssignableFrom(p)))

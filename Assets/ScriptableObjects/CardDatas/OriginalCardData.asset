@@ -21,12 +21,10 @@ MonoBehaviour:
   - m_rarity: 2
     m_sprite: {fileID: 21300000, guid: 4cf5318ddddbbaf4e943be2bdbcc4fbc, type: 3}
   - m_rarity: 3
-    m_sprite: {fileID: 21300000, guid: 97d4ede048fade44cb7e3d209ff94f20, type: 3}
-  - m_rarity: 4
     m_sprite: {fileID: 21300000, guid: 889fc4945ae57e94bb7b95f7742ba453, type: 3}
-  - m_rarity: 5
+  - m_rarity: 4
     m_sprite: {fileID: 21300000, guid: 5948ff37dbb97cc47899fed8f4454f1c, type: 3}
-  - m_rarity: 6
+  - m_rarity: 5
     m_sprite: {fileID: 21300000, guid: 5948ff37dbb97cc47899fed8f4454f1c, type: 3}
   m_typeSprite:
   - m_cardType: 0
@@ -39,8 +37,9 @@ MonoBehaviour:
     m_sprites: {fileID: 21300000, guid: fe48cbafab0cf82478867ec562ce82c8, type: 3}
   - m_cardType: 4
     m_sprites: {fileID: 21300000, guid: 417dea5dcabf20b4ba6f8bcb38af51d3, type: 3}
+  m_cardRewordProvality: []
   m_dataBases:
-  - m_label: 
+  - m_label: "\u65AC\u6483"
     m_database:
       m_name: 
       m_icon: {fileID: 0}
@@ -61,7 +60,7 @@ MonoBehaviour:
       m_cardType: 
       m_cardCommands:
         m_commands: []
-  - m_label: 
+  - m_label: "\u9632\u5FA1"
     m_database:
       m_name: 
       m_icon: {fileID: 0}
@@ -79,6 +78,27 @@ MonoBehaviour:
       m_tooltip: 
       m_cardUseType: -1
       m_rarity: 0
+      m_cardType: 
+      m_cardCommands:
+        m_commands: []
+  - m_label: "\u30BA\u30EB\u3044\u6B66\u5668"
+    m_database:
+      m_name: "\u30BA\u30EB\u3044\u6B66\u5668"
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
+      m_cost: 0
+      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
+      m_cardUseType: 1
+      m_rarity: 3
+      m_cardType: 
+      m_cardCommands:
+        m_commands: []
+    m_upgradeData:
+      m_name: "\u3081\u3063\u3061\u3083\u30BA\u30EB\u3044\u6B66\u5668"
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
+      m_cost: 0
+      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
+      m_cardUseType: 1
+      m_rarity: 3
       m_cardType: 
       m_cardCommands:
         m_commands: []
