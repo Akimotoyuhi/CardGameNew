@@ -67,7 +67,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Discard m_discard;
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] CardClassDatas m_cardDatas;
-    [SerializeField] int m_rewardNum;
+    [SerializeField] Reward m_reward;
     private int m_currentTurn;
     /// <summary>この戦闘中のカードのインスタンス</summary>
     private List<Card> m_currentCard = new List<Card>();
@@ -83,6 +83,11 @@ public class BattleManager : MonoBehaviour
 
     public void Setup()
     {
+        //各カードデータのID割り振り
+        m_cardDatas.GetData(CardClassType.Common).Setup();
+        m_cardDatas.GetData(CardClassType.AK).Setup();
+        m_cardDatas.GetData(CardClassType.Original).Setup();
+
         //キャラクターマネージャーのセットアップと通知の購読
         m_charactorManager.Setup();
         m_charactorManager.NewEnemyCreateSubject
@@ -174,8 +179,20 @@ public class BattleManager : MonoBehaviour
         switch (battleEndType)
         {
             case BattleEndType.EnemiesDead:
-                var v = m_cardDatas.GetData(m_charactorManager.CardClassType).GetCardDatas(m_rewardNum, m_currentBattleType, CardUpGrade.NoUpGrade);
-                v.ForEach(x => Debug.Log($"抽選された報酬 {x.Name}"));
+                //報酬のカードを抽選させる
+                var cardDataList = m_cardDatas.GetData(m_charactorManager.CardClassType).GetCardDatas(m_reward.RewardNum, m_currentBattleType, CardUpGrade.NoUpGrade);
+                List<GameObject> objList = new List<GameObject>();
+                cardDataList.ForEach(card =>
+                {
+                    Card c = Instantiate(m_cardPrefab);
+                    c.Setup(card, 
+                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite, 
+                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite, 
+                        null);
+                    objList.Add(c.gameObject);
+                });
+                //表示
+                m_reward.ViewRewrard(objList);
                 break;
             case BattleEndType.Gameover:
                 Debug.Log("ゲームオーバー");
@@ -189,8 +206,47 @@ public class BattleManager : MonoBehaviour
             Destroy(m_currentCard[i].gameObject);
             m_currentCard.RemoveAt(i);
         }
-        m_battleFinished.OnNext(Unit.Default);
+        m_battleState.Value = BattleState.Reward;
+        //m_battleFinished.OnNext(Unit.Default);
     }
+
+    [System.Serializable]
+    public class Reward
+    {
+        [SerializeField] int m_rewardNum;
+        [SerializeField] Transform m_cardParent;
+        public int RewardNum => m_rewardNum;
+
+        public void ViewRewrard(List<GameObject> rewardViewObjects)
+        {
+            rewardViewObjects.ForEach(item =>
+            {
+                item.transform.SetParent(m_cardParent);
+            });
+        }
+    }
+
+    #region テスト用関数
+    /// <summary>報酬で出現するカードの確率空間が正しいかを調査する</summary>
+    private void CardRewardTest()
+    {
+        var cardIDs = System.Enum.GetNames(typeof(OriginalCardID));
+        foreach (var c in cardIDs)
+        {
+            Debug.Log(c);
+        }
+        int[] ids = new int[cardIDs.Length];
+        for (int i = 0; i < 10000; i++)
+        {
+            int id = m_cardDatas.GetData(CardClassType.Original).GetCardDatas(1, BattleType.Normal, CardUpGrade.NoUpGrade)[0].ID;
+            ids[id]++;
+        }
+        for (int i = 0; i < ids.Length; i++)
+        {
+            Debug.Log($"ID:{(OriginalCardID)i}のカードが{ids[i]}枚抽選された");
+        }
+    }
+    #endregion
 }
 
 public enum BattleState
@@ -198,6 +254,7 @@ public enum BattleState
     None,
     EnemyFaze,
     PlayerFaze,
+    Reward,
 }
 public enum BattleType
 {

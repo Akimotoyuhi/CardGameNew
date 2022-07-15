@@ -37,7 +37,19 @@ MonoBehaviour:
     m_sprites: {fileID: 21300000, guid: fe48cbafab0cf82478867ec562ce82c8, type: 3}
   - m_cardType: 4
     m_sprites: {fileID: 21300000, guid: 417dea5dcabf20b4ba6f8bcb38af51d3, type: 3}
-  m_cardRewordProvality: []
+  m_cardRewordProvality:
+  - m_battleType: 0
+    m_normalCard: 100
+    m_rareCard: 20
+    m_superRareCard: 5
+  - m_battleType: 1
+    m_normalCard: 100
+    m_rareCard: 50
+    m_superRareCard: 10
+  - m_battleType: 2
+    m_normalCard: 0
+    m_rareCard: 0
+    m_superRareCard: 100
   m_dataBases:
   - m_label: "\u65AC\u6483"
     m_database:
