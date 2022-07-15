@@ -19,6 +19,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] Button m_turnEndButton;
     [SerializeField] Text m_costText;
+    [SerializeField] GameObject m_rewardPanel;
     [Header("ƒ}ƒbƒv’†‰æ–Ê")]
     [SerializeField] MapEvent m_mapEvant;
     [SerializeField] GameObject m_restEventPanel;
@@ -99,10 +100,27 @@ public class GUIManager : MonoBehaviour
     /// <param name="battleState"></param>
     private void SwitchBattleState(BattleState battleState)
     {
-        if (battleState == BattleState.PlayerFaze)
-            m_turnEndButton.interactable = true;
-        else
-            m_turnEndButton.interactable = false;
+        switch (battleState)
+        {
+            case BattleState.None:
+                m_turnEndButton.interactable = false;
+                m_rewardPanel.SetActive(false);
+                break;
+            case BattleState.EnemyFaze:
+                m_turnEndButton.interactable = false;
+                m_rewardPanel.SetActive(false);
+                break;
+            case BattleState.PlayerFaze:
+                m_turnEndButton.interactable = true;
+                m_rewardPanel.SetActive(false);
+                break;
+            case BattleState.Reward:
+                m_turnEndButton.interactable = false;
+                m_rewardPanel.SetActive(true);
+                break;
+            default:
+                break;
+        }
     }
 
     private void SetInfoTextPanels(string text)

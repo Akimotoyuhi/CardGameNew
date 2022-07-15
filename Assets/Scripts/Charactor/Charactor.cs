@@ -45,7 +45,10 @@ public abstract class Charactor : MonoBehaviour
             m_lifeSlider.value = life;
             SetText();
             if (m_lifeSlider.value <= 0)
+            {
+                //m_currentLife.Value = 0;
                 Dead();
+            }
         }).AddTo(this);
 
         //ブロック値スライダーの設定
@@ -128,6 +131,8 @@ public abstract class Charactor : MonoBehaviour
         {
             int dmg = m_currentBlock.Value -= cmd.Power;
             m_currentLife.Value += dmg;
+            if (m_currentLife.Value <= 0)
+                m_currentLife.Value = 0;
         }
         m_currentBlock.Value += cmd.Block;
     }

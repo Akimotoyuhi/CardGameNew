@@ -19,6 +19,14 @@ public class CardData : ScriptableObject
     public List<RaritySprite> GetRaritySprite => m_raritySprite;
     public List<TypeSprite> GetTypeSprite => m_typeSprite;
     public List<CardDataBases> DataBases => m_dataBases;
+
+    public void Setup()
+    {
+        for (int i = 0; i < m_dataBases.Count; i++)
+        {
+            m_dataBases[i].Setup(i);
+        }
+    }
     
     /// <summary>“Á’è‚ÌƒŒƒA“x‚©‚çƒ‰ƒ“ƒ_ƒ€‚É”CˆÓ‚Ì–‡”æ“¾</summary>
     public List<CardDataBase> GetCardDatas(int num, Rarity rarity, CardUpGrade cardUpGrade)
@@ -150,6 +158,12 @@ public class CardDataBases
     [SerializeField] CardDataBase m_upgradeData;
     public CardDataBase CardData => m_database;
     public CardDataBase UpgradeData => m_upgradeData;
+    public void Setup(int index)
+    {
+        m_database.ID = index;
+        m_upgradeData.ID = index;
+    }
+
     public CardDataBase GetCardData(CardUpGrade isUpgrade)
     {
         switch (isUpgrade)
@@ -184,6 +198,7 @@ public class CardDataBase
     public Rarity Rarity => m_rarity;
     public List<CardType> CardType => m_cardType;
     public CommandSelect CardCommands => m_cardCommands;
+    public int ID { get; set; }
     public void SetData(string name, Sprite icon, string cost, string tooltip, UseType useType, Rarity rarity, List<CardType> cardTypes)
     {
         m_name = name;

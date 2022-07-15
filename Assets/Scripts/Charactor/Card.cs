@@ -29,6 +29,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private List<Command> m_cardCommands;
     private Vector2 m_defPos;
     private Player m_player;
+    private Subject<Unit> m_onClick = new Subject<Unit>();
     private Subject<List<Command>> m_cardExecute = new Subject<List<Command>>();
     /// <summary>名前</summary>
     public string Name { get; private set; }
@@ -156,13 +157,16 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         foreach (Match m in matchs)
         {
             int index = int.Parse(m.Groups[1].Value);
-            List<ConditionalParametor> cps = new List<ConditionalParametor>();
-            ConditionalParametor cp = new ConditionalParametor();
-            cp.Setup(m_cardCommands[index].Power, EvaluationParamType.Attack, EffectTiming.Attacked);
-            cps.Add(cp);
-            Command c = m_cardCommands[index];
-            c.Power = m_player.EffectExecute(cps).Power; //プレイヤーのエフェクトを評価
-            m_cardCommands[index] = c;
+            if (m_player != null || CardState == CardState.Play)
+            {
+                List<ConditionalParametor> cps = new List<ConditionalParametor>();
+                ConditionalParametor cp = new ConditionalParametor();
+                cp.Setup(m_cardCommands[index].Power, EvaluationParamType.Attack, EffectTiming.Attacked);
+                cps.Add(cp);
+                Command c = m_cardCommands[index];
+                c.Power = m_player.EffectExecute(cps).Power; //プレイヤーのエフェクトを評価
+                m_cardCommands[index] = c;
+            }
             s = s.Replace(m.Value, $"{m_cardCommands[index].Power}ダメージ");
         }
         //ブロック値の効果置き換え
@@ -170,13 +174,16 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         foreach (Match m in matchs)
         {
             int index = int.Parse(m.Groups[1].Value);
-            List<ConditionalParametor> cps = new List<ConditionalParametor>();
-            ConditionalParametor cp = new ConditionalParametor();
-            cp.Setup(m_cardCommands[index].Block, EvaluationParamType.Block, EffectTiming.Attacked);
-            cps.Add(cp);
-            Command c = m_cardCommands[index];
-            c.Block = m_player.EffectExecute(cps).Block; //プレイヤーのエフェクトを評価
-            m_cardCommands[index] = c;
+            if (m_player != null || CardState == CardState.Play)
+            {
+                List<ConditionalParametor> cps = new List<ConditionalParametor>();
+                ConditionalParametor cp = new ConditionalParametor();
+                cp.Setup(m_cardCommands[index].Block, EvaluationParamType.Block, EffectTiming.Attacked);
+                cps.Add(cp);
+                Command c = m_cardCommands[index];
+                c.Block = m_player.EffectExecute(cps).Block; //プレイヤーのエフェクトを評価
+                m_cardCommands[index] = c;
+            }
             s = s.Replace(m.Value, $"{m_cardCommands[index].Block}ブロック");
         }
         m_tooltipText.text = s;
@@ -235,9 +242,13 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         }
     }
 }
-
+/// <summary>カードの振る舞い</summary>
 public enum CardState
 {
+    /// <summary>何の振る舞いも持たない</summary>
     None,
+    /// <summary>ドラッグ&ドロップで使用することが出来る</summary>
     Play,
+    /// <summary>クリック時イベントのみ</summary>
+    Button,
 }
