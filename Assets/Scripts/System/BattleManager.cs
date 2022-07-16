@@ -88,6 +88,16 @@ public class BattleManager : MonoBehaviour
         m_cardDatas.GetData(CardClassType.AK).Setup();
         m_cardDatas.GetData(CardClassType.Original).Setup();
 
+        //Reward画面が終了した時の処理
+        BattleStateObservable.Subscribe(s =>
+        {
+            if (s == BattleState.None)
+            {
+                m_reward.DisposeObjects();
+                m_battleFinished.OnNext(Unit.Default);
+            }
+        }).AddTo(this);
+
         //キャラクターマネージャーのセットアップと通知の購読
         m_charactorManager.Setup();
         m_charactorManager.NewEnemyCreateSubject
@@ -185,10 +195,17 @@ public class BattleManager : MonoBehaviour
                 cardDataList.ForEach(card =>
                 {
                     Card c = Instantiate(m_cardPrefab);
-                    c.Setup(card, 
-                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite, 
-                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite, 
-                        null);
+                    c.Setup(card,
+                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite,
+                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite,
+                        () =>
+                        {
+                            HaveCardData hcd = new HaveCardData();
+                            hcd.Setup(m_charactorManager.CardClassType, card.ID, CardUpGrade.NoUpGrade);
+                            m_charactorManager.HaveCard.Add(hcd);
+                            m_battleState.Value = BattleState.None;
+                        });
+                    c.CardState = CardState.Button;
                     objList.Add(c.gameObject);
                 });
                 //表示
@@ -207,7 +224,6 @@ public class BattleManager : MonoBehaviour
             m_currentCard.RemoveAt(i);
         }
         m_battleState.Value = BattleState.Reward;
-        //m_battleFinished.OnNext(Unit.Default);
     }
 
     [System.Serializable]
@@ -217,6 +233,8 @@ public class BattleManager : MonoBehaviour
         [SerializeField] Transform m_cardParent;
         public int RewardNum => m_rewardNum;
 
+        /// <summary>報酬画面を表示する</summary>
+        /// <param name="rewardViewObjects"></param>
         public void ViewRewrard(List<GameObject> rewardViewObjects)
         {
             rewardViewObjects.ForEach(item =>
@@ -224,11 +242,20 @@ public class BattleManager : MonoBehaviour
                 item.transform.SetParent(m_cardParent);
             });
         }
+
+        /// <summary>表示中のオブジェクトを全て消す</summary>
+        public void DisposeObjects()
+        {
+            for (int i = m_cardParent.childCount - 1; i >= 0; i--)
+            {
+                Destroy(m_cardParent.GetChild(i).gameObject);
+            }
+        }
     }
 
     #region テスト用関数
     /// <summary>報酬で出現するカードの確率空間が正しいかを調査する</summary>
-    private void CardRewardTest()
+    private void CardRewardTest(int num)
     {
         var cardIDs = System.Enum.GetNames(typeof(OriginalCardID));
         foreach (var c in cardIDs)
@@ -236,7 +263,7 @@ public class BattleManager : MonoBehaviour
             Debug.Log(c);
         }
         int[] ids = new int[cardIDs.Length];
-        for (int i = 0; i < 10000; i++)
+        for (int i = 0; i < num; i++)
         {
             int id = m_cardDatas.GetData(CardClassType.Original).GetCardDatas(1, BattleType.Normal, CardUpGrade.NoUpGrade)[0].ID;
             ids[id]++;

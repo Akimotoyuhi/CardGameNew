@@ -13,6 +13,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField] GameObject m_mapPanel;
     [SerializeField] GameObject m_infoPanel;
     [SerializeField] Text m_infoText;
+    [SerializeField] Transform m_uiViewParent;
     [Header("êÌì¨âÊñ ")]
     [SerializeField] GameObject m_battlePanel;
     [SerializeField] BattleManager m_battleManager;

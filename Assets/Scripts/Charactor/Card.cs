@@ -29,6 +29,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private List<Command> m_cardCommands;
     private Vector2 m_defPos;
     private Player m_player;
+    private System.Action m_clickEvent;
     private Subject<Unit> m_onClick = new Subject<Unit>();
     private Subject<List<Command>> m_cardExecute = new Subject<List<Command>>();
     /// <summary>名前</summary>
@@ -41,6 +42,14 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     public void Setup(CardDataBase dataBase, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite, Player player)
     {
         m_player = player;
+        SetBaseData(dataBase);
+        SetSprites(raritySprite, typeSprite);
+        GetPlayerEffect();
+    }
+
+    public void Setup(CardDataBase dataBase, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite, System.Action onClick)
+    {
+        m_clickEvent = onClick;
         SetBaseData(dataBase);
         SetSprites(raritySprite, typeSprite);
         GetPlayerEffect();
@@ -193,7 +202,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!m_isDrag)
+        if (!m_isDrag && CardState == CardState.Play)
             m_defPos = m_rectTransform.anchoredPosition;
     }
 
@@ -203,18 +212,27 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        m_isDrag = true;
+        if (CardState == CardState.Play)
+        {
+            m_isDrag = true;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        m_rectTransform.anchoredPosition = new Vector2(eventData.position.x, eventData.position.y - 150);//カーソルがカード中央に来るように調整
+        if (CardState == CardState.Play)
+        {
+            m_rectTransform.anchoredPosition = new Vector2(eventData.position.x, eventData.position.y - 150);//カーソルがカード中央に来るように調整
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        m_rectTransform.anchoredPosition = m_defPos;
-        m_isDrag = false;
+        if (CardState == CardState.Play)
+        {
+            m_rectTransform.anchoredPosition = m_defPos;
+            m_isDrag = false;
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -223,6 +241,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (m_clickEvent != null)
+        {
+            m_clickEvent();
+        }
     }
 
     public void OnDrop(PointerEventData eventData)

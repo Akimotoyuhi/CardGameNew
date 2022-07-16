@@ -166,9 +166,9 @@ MonoBehaviour:
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639491
-  - m_label: "\u74E6\u5272"
+  - m_label: "\u95A2\u7BC0\u7815\u304D"
     m_database:
-      m_name: "\u74E6\u5272"
+      m_name: "\u95A2\u7BC0\u7815\u304D"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
       m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u3068\u8131\u529B1\u3092\u4E0E\u3048\u308B"
@@ -178,6 +178,7 @@ MonoBehaviour:
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639492
+        - rid: 3443099041877458944
     m_upgradeData:
       m_name: "\u74E6\u5272+"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
@@ -285,3 +286,10 @@ MonoBehaviour:
         m_useType: 1
         m_power: 6
         m_isTrueDamage: 0
+    - rid: 3443099041877458944
+      type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 1
+        m_effectSelector:
+        - m_effectID: 0
+          m_turn: 1

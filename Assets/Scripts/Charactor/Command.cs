@@ -2,13 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 何かしらになんかするときの情報受け渡し用構造体
+/// </summary>
 public struct Command
 {
     public int Life { get; set; }
+    /// <summary>攻撃力値</summary>
     public int Power { get; set; }
+    /// <summary>ブロック値</summary>
     public int Block { get; set; }
+    /// <summary>エフェクト</summary>
     public List<EffectBase> Effect { get; set; }
+    /// <summary>このコマンド実行時に要する時間</summary>
+    public float Duration { get; set; }
+    /// <summary>効果対象</summary>
     public UseType UseType { get; set; }
+    /// <summary>敵を対象とする場合の敵インデックス</summary>
     public int TargetEnemyIndex { get; set; }
     public void SetCommand(ConditionalParametor conditionalParametor)
     {
@@ -31,6 +41,7 @@ public struct Command
         }
     }
 }
+/// <summary>戦闘中のフィールド効果</summary>
 public struct Field
 {
     public int CurrentTurn { get; set; }
