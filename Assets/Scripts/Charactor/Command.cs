@@ -70,12 +70,14 @@ public class AttackCommand : ICommand
     [SerializeField] UseType m_useType = UseType.None;
     [SerializeField] int m_power;
     [SerializeField] bool m_isTrueDamage;
+    [SerializeField] float m_duration;
 
     public Command Execute()
     {
         Command ret = new Command();
         ret.Power = m_power;
         ret.UseType = m_useType;
+        ret.Duration = m_duration;
         return ret;
     }
 }
@@ -85,18 +87,21 @@ public class BlockCommand : ICommand
     [SerializeField] UseType m_useType;
     [SerializeField] int m_block;
     [SerializeField] bool isTrueBlock;
+    [SerializeField] float m_duration;
 
     public Command Execute()
     {
         Command ret = new Command();
         ret.Block = m_block;
         ret.UseType = m_useType;
+        ret.Duration = m_duration;
         return ret;
     }
 }
 public class EffectCommand : ICommand
 {
     [SerializeField] UseType m_useType;
+    [SerializeField] float m_duration;
     [SerializeField] List<EffectSelector> m_effectSelector;
     public Command Execute()
     {
@@ -104,6 +109,7 @@ public class EffectCommand : ICommand
         List<EffectBase> effects = new List<EffectBase>();
         m_effectSelector.ForEach(e => effects.Add(e.GetEffect));
         ret.Effect = effects;
+        ret.Duration = m_duration;
         return ret;
     }
 }
