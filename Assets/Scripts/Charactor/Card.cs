@@ -21,6 +21,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private int m_cost;
     private string m_tooltip;
     private bool m_isDrag;
+    private bool m_isDisplay;
     private Sprite m_backgroundSprite;
     private UseType m_useType;
     private Rarity m_rarity;
@@ -29,13 +30,20 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private List<Command> m_cardCommands;
     private Vector2 m_defPos;
     private Player m_player;
-    private System.Action m_clickEvent;
     private Subject<Unit> m_onClick = new Subject<Unit>();
     private Subject<List<Command>> m_cardExecute = new Subject<List<Command>>();
     /// <summary>名前</summary>
     public string Name { get; private set; }
     /// <summary>状態</summary>
     public CardState CardState { get; set; }
+    public System.IObservable<Unit> OnClickSubject
+    {
+        get
+        {
+            m_isDisplay = true;
+            return m_onClick;
+        }
+    }
     /// <summary>使用された事を通知する</summary>
     public System.IObservable<List<Command>> CardExecute => m_cardExecute;
 
@@ -47,13 +55,12 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         GetPlayerEffect();
     }
 
-    public void Setup(CardDataBase dataBase, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite, System.Action onClick)
-    {
-        m_clickEvent = onClick;
-        SetBaseData(dataBase);
-        SetSprites(raritySprite, typeSprite);
-        GetPlayerEffect();
-    }
+    //public void Setup(CardDataBase dataBase, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite)
+    //{
+    //    SetBaseData(dataBase);
+    //    SetSprites(raritySprite, typeSprite);
+    //    GetPlayerEffect();
+    //}
 
     public void Init()
     {
@@ -241,9 +248,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (m_clickEvent != null)
+        if (m_isDisplay)
         {
-            m_clickEvent();
+            m_onClick.OnNext(Unit.Default);
         }
     }
 

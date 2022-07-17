@@ -67,7 +67,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Discard m_discard;
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] CardClassDatas m_cardDatas;
-    [SerializeField] Reward m_reward;
+    [SerializeField] int m_rewardNum;
     private int m_currentTurn;
     /// <summary>この戦闘中のカードのインスタンス</summary>
     private List<Card> m_currentCard = new List<Card>();
@@ -88,15 +88,15 @@ public class BattleManager : MonoBehaviour
         m_cardDatas.GetData(CardClassType.AK).Setup();
         m_cardDatas.GetData(CardClassType.Original).Setup();
 
-        //Reward画面が終了した時の処理
-        BattleStateObservable.Subscribe(s =>
-        {
-            if (s == BattleState.None)
-            {
-                m_reward.DisposeObjects();
-                m_battleFinished.OnNext(Unit.Default);
-            }
-        }).AddTo(this);
+        //バトル画面を閉じる際の画面の初期化処理
+        //BattleStateObservable.Subscribe(s =>
+        //{
+        //    if (s == BattleState.None)
+        //    {
+        //        m_reward.DisposeObjects();
+        //        m_battleFinished.OnNext(Unit.Default);
+        //    }
+        //}).AddTo(this);
 
         //キャラクターマネージャーのセットアップと通知の購読
         m_charactorManager.Setup();
@@ -190,26 +190,29 @@ public class BattleManager : MonoBehaviour
         {
             case BattleEndType.EnemiesDead:
                 //報酬のカードを抽選させる
-                var cardDataList = m_cardDatas.GetData(m_charactorManager.CardClassType).GetCardDatas(m_reward.RewardNum, m_currentBattleType, CardUpGrade.NoUpGrade);
-                List<GameObject> objList = new List<GameObject>();
+                var cardDataList = m_cardDatas.GetData(m_charactorManager.CardClassType).GetCardDatas(m_rewardNum, m_currentBattleType, CardUpGrade.NoUpGrade);
+                List<Card> cards = new List<Card>();
                 cardDataList.ForEach(card =>
                 {
                     Card c = Instantiate(m_cardPrefab);
                     c.Setup(card,
                         m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite,
                         m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite,
-                        () =>
-                        {
-                            HaveCardData hcd = new HaveCardData();
-                            hcd.Setup(m_charactorManager.CardClassType, card.ID, CardUpGrade.NoUpGrade);
-                            m_charactorManager.HaveCard.Add(hcd);
-                            m_battleState.Value = BattleState.None;
-                        });
+                        null);
+                    //クリック時の振る舞い設定
+                    c.OnClickSubject.Subscribe(_ =>
+                    {
+                        HaveCardData hcd = new HaveCardData();
+                        hcd.Setup(m_charactorManager.CardClassType, card.ID, CardUpGrade.NoUpGrade);
+                        m_charactorManager.HaveCard.Add(hcd);
+                        m_battleState.Value = BattleState.None;
+                    });
                     c.CardState = CardState.Button;
-                    objList.Add(c.gameObject);
+                    cards.Add(c);
                 });
                 //表示
-                m_reward.ViewRewrard(objList);
+                GUIManager.CardDisplay(CardDisplayType.Reward, cards, () => m_battleFinished.OnNext(Unit.Default));
+                //m_reward.ViewRewrard(objList);
                 break;
             case BattleEndType.Gameover:
                 Debug.Log("ゲームオーバー");
@@ -224,33 +227,6 @@ public class BattleManager : MonoBehaviour
             m_currentCard.RemoveAt(i);
         }
         m_battleState.Value = BattleState.Reward;
-    }
-
-    [System.Serializable]
-    public class Reward
-    {
-        [SerializeField] int m_rewardNum;
-        [SerializeField] Transform m_cardParent;
-        public int RewardNum => m_rewardNum;
-
-        /// <summary>報酬画面を表示する</summary>
-        /// <param name="rewardViewObjects"></param>
-        public void ViewRewrard(List<GameObject> rewardViewObjects)
-        {
-            rewardViewObjects.ForEach(item =>
-            {
-                item.transform.SetParent(m_cardParent);
-            });
-        }
-
-        /// <summary>表示中のオブジェクトを全て消す</summary>
-        public void DisposeObjects()
-        {
-            for (int i = m_cardParent.childCount - 1; i >= 0; i--)
-            {
-                Destroy(m_cardParent.GetChild(i).gameObject);
-            }
-        }
     }
 
     #region テスト用関数

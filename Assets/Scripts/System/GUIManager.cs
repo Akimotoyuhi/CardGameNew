@@ -13,14 +13,16 @@ public class GUIManager : MonoBehaviour
     [SerializeField] GameObject m_mapPanel;
     [SerializeField] GameObject m_infoPanel;
     [SerializeField] Text m_infoText;
-    [SerializeField] Transform m_uiViewParent;
+    [SerializeField] static Transform m_uiViewParent;
     [Header("戦闘画面")]
     [SerializeField] GameObject m_battlePanel;
     [SerializeField] BattleManager m_battleManager;
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] Button m_turnEndButton;
     [SerializeField] Text m_costText;
+    [Header("報酬画面")]
     [SerializeField] GameObject m_rewardPanel;
+    [SerializeField] static Transform m_rewardParent;
     [Header("マップ中画面")]
     [SerializeField] MapEvent m_mapEvant;
     [SerializeField] GameObject m_restEventPanel;
@@ -69,6 +71,26 @@ public class GUIManager : MonoBehaviour
             {
 
             });
+        }
+    }
+
+    /// <summary>
+    /// カードの一覧を表示する
+    /// </summary>
+    /// <param name="displayType">表示タイプ</param>
+    /// <param name="cards">表示するカード</param>
+    /// <param name="onClick">カードをクリックした時の振る舞い</param>
+    public static void CardDisplay(CardDisplayType displayType, List<Card> cards, System.Action onClick)
+    {
+        switch (displayType)
+        {
+            case CardDisplayType.List:
+                break;
+            case CardDisplayType.Reward:
+                
+                break;
+            default:
+                break;
         }
     }
 
@@ -132,4 +154,10 @@ public class GUIManager : MonoBehaviour
         else
             m_infoPanel.SetActive(true);
     }
+}
+
+public enum CardDisplayType
+{
+    List,
+    Reward,
 }
