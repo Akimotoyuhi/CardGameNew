@@ -62,7 +62,7 @@ public class CardCustomWindow : EditorWindow
             m_tooltip = GUILayout.TextArea(m_tooltip, GUILayout.Width(m_settingAriaWidth));
 
             GUILayout.Label("アイコン画像");
-            if (GUILayout.Button("SetIconSprite", GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight)))
+            if (GUILayout.Button("画像を選ぶ", GUILayout.Width(m_settingAriaWidth), GUILayout.Height(m_settingAriaHeight)))
             {
                 string path = EditorUtility.OpenFilePanelWithFilters("画像を選択", Application.dataPath, new string[] { "Image files", "jpg,png" });
                 m_iconTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(path.Substring(path.IndexOf("Assets")));
@@ -115,7 +115,7 @@ public class CardCustomWindow : EditorWindow
         EditorGUILayout.EndScrollView();
 
         //設定を反映させるボタン
-        if (GUILayout.Button("Appry"))
+        if (GUILayout.Button("完了"))
         {
             AppryButton();
         }

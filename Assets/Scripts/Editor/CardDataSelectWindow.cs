@@ -88,7 +88,7 @@ public class CardDataSelectWindow : EditorWindow
             default:
                 break;
         }
-        if (GUILayout.Button("AddNewCard"))
+        if (GUILayout.Button("新規データ追加"))
         {
             AddNewCard();
         }
