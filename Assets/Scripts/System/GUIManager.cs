@@ -13,7 +13,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField] GameObject m_mapPanel;
     [SerializeField] GameObject m_infoPanel;
     [SerializeField] Text m_infoText;
-    [SerializeField] static Transform m_uiViewParent;
+    [SerializeField] Transform m_uiViewParent;
     [Header("戦闘画面")]
     [SerializeField] GameObject m_battlePanel;
     [SerializeField] BattleManager m_battleManager;
@@ -22,7 +22,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Text m_costText;
     [Header("報酬画面")]
     [SerializeField] GameObject m_rewardPanel;
-    [SerializeField] static Transform m_rewardParent;
+    [SerializeField] Transform m_rewardParent;
     [Header("マップ中画面")]
     [SerializeField] MapEvent m_mapEvant;
     [SerializeField] GameObject m_restEventPanel;
@@ -80,14 +80,50 @@ public class GUIManager : MonoBehaviour
     /// <param name="displayType">表示タイプ</param>
     /// <param name="cards">表示するカード</param>
     /// <param name="onClick">カードをクリックした時の振る舞い</param>
-    public static void CardDisplay(CardDisplayType displayType, List<Card> cards, System.Action onClick)
+    public void CardDisplay(CardDisplayType displayType, List<Card> cards, System.Action onClick)
     {
         switch (displayType)
         {
             case CardDisplayType.List:
                 break;
             case CardDisplayType.Reward:
-                
+                //m_rewardPanel.SetActive(true);
+                foreach (var c in cards)
+                {
+                    c.transform.SetParent(m_rewardParent, false);
+                    c.OnClickSubject.Subscribe(_ =>
+                    {
+                        onClick();
+                        DisposeCardDisplay(displayType);
+                    });
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// カード一覧画面のリセット
+    /// </summary>
+    /// <param name="displayType"></param>
+    private void DisposeCardDisplay(CardDisplayType displayType)
+    {
+        switch (displayType)
+        {
+            case CardDisplayType.List:
+                for (int i = m_uiViewParent.childCount; i >= 0; i--)
+                {
+                    Destroy(m_uiViewParent.GetChild(i).gameObject);
+                }
+                //m_uiViewParent.gameObject.SetActive(false);
+                break;
+            case CardDisplayType.Reward:
+                for (int i = m_rewardParent.childCount - 1; i >= 0; i--)
+                {
+                    Destroy(m_rewardParent.GetChild(i).gameObject);
+                }
+                //m_rewardParent.gameObject.SetActive(false);
                 break;
             default:
                 break;

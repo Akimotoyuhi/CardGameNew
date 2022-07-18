@@ -72,6 +72,15 @@ public class GameManager : MonoBehaviour
         Debug.Log($"現在フロア {m_floor.Value}");
         m_gameState.Value = GameState.MapSelect;
     }
+
+    /// <summary>
+    /// カード一覧を表示する
+    /// </summary>
+    /// <param name="displayType">表示する形式</param>
+    /// <param name="cards">表示するカード</param>
+    /// <param name="onClick">カードをクリックした際の振る舞い</param>
+    public void CardDisplay(CardDisplayType displayType, List<Card> cards, System.Action onClick) => 
+        m_guiManager.CardDisplay(displayType, cards, onClick);
 }
 
 public enum GameState

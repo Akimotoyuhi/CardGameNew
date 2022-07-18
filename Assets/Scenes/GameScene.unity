@@ -2181,9 +2181,7 @@ MonoBehaviour:
     m_commonCardData: {fileID: 11400000, guid: 6068bc350c5dc6d41b08a116083c5d1d, type: 2}
     m_originalCardData: {fileID: 11400000, guid: 25ce34f5850765f46aedcd7ac8dc95eb, type: 2}
     m_akCardData: {fileID: 11400000, guid: 45683c5d06b8fd6459aedc5ecd14457d, type: 2}
-  m_reward:
-    m_rewardNum: 1
-    m_cardParent: {fileID: 1975312518}
+  m_rewardNum: 1
 --- !u!114 &1312891808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2230,12 +2228,14 @@ MonoBehaviour:
   m_mapPanel: {fileID: 756372268}
   m_infoPanel: {fileID: 634011866}
   m_infoText: {fileID: 400772827}
+  m_uiViewParent: {fileID: 0}
   m_battlePanel: {fileID: 1519845697}
   m_battleManager: {fileID: 1312891807}
   m_charactorManager: {fileID: 1312891806}
   m_turnEndButton: {fileID: 2068859252}
   m_costText: {fileID: 983765551}
   m_rewardPanel: {fileID: 1056367765}
+  m_rewardParent: {fileID: 1975312518}
   m_mapEvant: {fileID: 1312891812}
   m_restEventPanel: {fileID: 1799992674}
   m_restButton: {fileID: 356385849}

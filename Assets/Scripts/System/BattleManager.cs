@@ -211,7 +211,7 @@ public class BattleManager : MonoBehaviour
                     cards.Add(c);
                 });
                 //表示
-                GUIManager.CardDisplay(CardDisplayType.Reward, cards, () => m_battleFinished.OnNext(Unit.Default));
+                GameManager.Instance.CardDisplay(CardDisplayType.Reward, cards, () => m_battleFinished.OnNext(Unit.Default));
                 //m_reward.ViewRewrard(objList);
                 break;
             case BattleEndType.Gameover:
