@@ -13,6 +13,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField] GameObject m_mapPanel;
     [SerializeField] GameObject m_infoPanel;
     [SerializeField] Text m_infoText;
+    [SerializeField] GameObject m_displayPanel;
     [SerializeField] Transform m_uiViewParent;
     [Header("í“¬‰æ–Ê")]
     [SerializeField] GameObject m_battlePanel;
@@ -85,6 +86,16 @@ public class GUIManager : MonoBehaviour
         switch (displayType)
         {
             case CardDisplayType.List:
+                m_displayPanel.SetActive(true);
+                foreach (var c in cards)
+                {
+                    c.transform.SetParent(m_uiViewParent, false);
+                    c.OnClickSubject.Subscribe(_ =>
+                    {
+                        onClick();
+                        DisposeCardDisplay(displayType);
+                    });
+                }
                 break;
             case CardDisplayType.Reward:
                 //m_rewardPanel.SetActive(true);
@@ -112,18 +123,17 @@ public class GUIManager : MonoBehaviour
         switch (displayType)
         {
             case CardDisplayType.List:
-                for (int i = m_uiViewParent.childCount; i >= 0; i--)
+                for (int i = m_uiViewParent.childCount - 1; i >= 0; i--)
                 {
                     Destroy(m_uiViewParent.GetChild(i).gameObject);
                 }
-                //m_uiViewParent.gameObject.SetActive(false);
+                m_displayPanel.SetActive(false);
                 break;
             case CardDisplayType.Reward:
                 for (int i = m_rewardParent.childCount - 1; i >= 0; i--)
                 {
                     Destroy(m_rewardParent.GetChild(i).gameObject);
                 }
-                //m_rewardParent.gameObject.SetActive(false);
                 break;
             default:
                 break;

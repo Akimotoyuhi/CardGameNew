@@ -88,16 +88,6 @@ public class BattleManager : MonoBehaviour
         m_cardDatas.GetData(CardClassType.AK).Setup();
         m_cardDatas.GetData(CardClassType.Original).Setup();
 
-        //バトル画面を閉じる際の画面の初期化処理
-        //BattleStateObservable.Subscribe(s =>
-        //{
-        //    if (s == BattleState.None)
-        //    {
-        //        m_reward.DisposeObjects();
-        //        m_battleFinished.OnNext(Unit.Default);
-        //    }
-        //}).AddTo(this);
-
         //キャラクターマネージャーのセットアップと通知の購読
         m_charactorManager.Setup();
         m_charactorManager.NewEnemyCreateSubject
@@ -115,6 +105,21 @@ public class BattleManager : MonoBehaviour
         //デッキと捨て札一覧画面を消す
         m_deck.SetParentActive = false;
         m_discard.SetParentActive = false;
+
+        //var cardDataList = m_cardDatas.GetData(m_charactorManager.CardClassType).GetCardDatas(m_rewardNum, m_currentBattleType, CardUpGrade.NoUpGrade);
+        //List<Card> cards = new List<Card>();
+        //for (int i = 0; i < 100; i++)
+        //{
+        //    Card c = Instantiate(m_cardPrefab);
+        //    c.Setup(cardDataList[0],
+        //        m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite,
+        //        m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite,
+        //        null);
+        //    c.OnClickSubject.Subscribe(_ => Debug.Log(c.Name));
+        //    c.CardState = CardState.Button;
+        //    cards.Add(c);
+        //}
+        //GameManager.Instance.CardDisplay(CardDisplayType.List, cards, () => Debug.Log("OnClick"));
     }
 
     private void Create()
