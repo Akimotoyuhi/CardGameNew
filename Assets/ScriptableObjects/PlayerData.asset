@@ -41,8 +41,22 @@ MonoBehaviour:
     - rid: 2058801646637940740
       type: {class: AKCardClass, ns: , asm: Assembly-CSharp}
       data:
-        m_cardID: 000000000100000002000000
+        m_cardIDSelector:
+        - m_cardid: 0
+          m_isUpgrade: 0
+        - m_cardid: 0
+          m_isUpgrade: 0
+        - m_cardid: 1
+          m_isUpgrade: 0
+        - m_cardid: 1
+          m_isUpgrade: 0
     - rid: 2058801646637940746
       type: {class: OriginalCardClass, ns: , asm: Assembly-CSharp}
       data:
-        m_cardID: 0000000000000000010000000100000002000000
+        m_cardIDSelector:
+        - m_cardid: 0
+          m_isUpgrade: 0
+        - m_cardid: 1
+          m_isUpgrade: 0
+        - m_cardid: 2
+          m_isUpgrade: 0

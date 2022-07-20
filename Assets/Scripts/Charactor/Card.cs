@@ -34,6 +34,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private Subject<List<Command>> m_cardExecute = new Subject<List<Command>>();
     /// <summary>名前</summary>
     public string Name { get; private set; }
+    /// <summary>ボタンとして表示された際に何番目に生成されたかを記憶しておく用</summary>
+    public int Index { get; set; }
     /// <summary>状態</summary>
     public CardState CardState { get; set; }
     public System.IObservable<Unit> OnClickSubject

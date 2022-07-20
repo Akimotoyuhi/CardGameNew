@@ -52,21 +52,23 @@ public class GameManager : MonoBehaviour
     /// <param name="cellType"></param>
     private void Encount(CellType cellType)
     {
-        if (cellType == CellType.Rest)
+        switch (cellType)
         {
-            Debug.Log("休憩マス未実装");
-            return;
+            case CellType.Rest:
+                m_gameState.Value = GameState.Rest;
+                break;
+            default:
+                //戦闘マスだった場合
+                m_gameState.Value = GameState.Battle;
+                m_battleManager.Encount(m_mapManager.NowMapID, cellType);
+                break;
         }
-
-        //戦闘マスだった場合
-        m_gameState.Value = GameState.Battle;
-        m_battleManager.Encount(m_mapManager.NowMapID, cellType);
     }
 
     /// <summary>
     /// 階層の更新
     /// </summary>
-    private void FloorFinished()
+    public void FloorFinished()
     {
         m_floor.Value++;
         Debug.Log($"現在フロア {m_floor.Value}");

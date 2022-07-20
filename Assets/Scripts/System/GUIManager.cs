@@ -10,9 +10,12 @@ using Cysharp.Threading.Tasks;
 /// </summary>
 public class GUIManager : MonoBehaviour
 {
+    /// <summary>マップ画面</summary>
     [SerializeField] GameObject m_mapPanel;
+    /// <summary>全体情報を表示する画面</summary>
     [SerializeField] GameObject m_infoPanel;
     [SerializeField] Text m_infoText;
+    /// <summary>カード一覧を表示する画面</summary>
     [SerializeField] GameObject m_displayPanel;
     [SerializeField] Transform m_uiViewParent;
     [Header("戦闘画面")]
@@ -64,7 +67,10 @@ public class GUIManager : MonoBehaviour
             //カード強化ボタン
             m_upgradeButton.onClick.AddListener(() =>
             {
-
+                m_displayPanel.SetActive(true);
+                CardDisplay(CardDisplayType.List, 
+                    m_battleManager.GetCards(CardLotteryConditional.IsNoUpgrade), 
+                    () => GameManager.Instance.FloorFinished());
             });
 
             //カード削除ボタン
@@ -73,6 +79,8 @@ public class GUIManager : MonoBehaviour
 
             });
         }
+        m_displayPanel.SetActive(false);
+        //m_restEventPanel.SetActive(false);
     }
 
     /// <summary>
@@ -140,7 +148,7 @@ public class GUIManager : MonoBehaviour
         }
     }
 
-    /// <summary>GameStateに応じてUIを切り替える</summary>
+    /// <summary>GameStateに応じて画面を切り替える</summary>
     private void SwitchGameState(GameState gameState)
     {
         switch (gameState)
@@ -149,6 +157,7 @@ public class GUIManager : MonoBehaviour
                 m_mapPanel.SetActive(true);
                 m_battlePanel.SetActive(false);
                 m_restEventPanel.SetActive(false);
+                m_displayPanel.SetActive(false);
                 break;
             case GameState.Battle:
                 m_mapPanel.SetActive(false);
@@ -165,7 +174,7 @@ public class GUIManager : MonoBehaviour
         }
     }
 
-    /// <summary>BattleStateに応じてUIを切り替える</summary>
+    /// <summary>BattleStateに応じて画面を切り替える</summary>
     /// <param name="battleState"></param>
     private void SwitchBattleState(BattleState battleState)
     {

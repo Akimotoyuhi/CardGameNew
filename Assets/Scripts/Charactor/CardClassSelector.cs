@@ -19,6 +19,11 @@ public struct HaveCardData
         CardID = id;
         IsUpGrade = cardUpGrade;
     }
+    /// <summary>‹­‰»‚·‚é</summary>
+    public void Upgrade()
+    {
+        IsUpGrade = CardUpGrade.AsseptUpGrade;
+    }
 }
 public interface ICardClassSelector
 {
@@ -26,51 +31,81 @@ public interface ICardClassSelector
 }
 public class CommonCardClass : ICardClassSelector
 {
-    [SerializeField] List<CommonCardID> m_cardID;
+    [SerializeField] List<CardIDSelector> m_cardIDSelector;
     public List<HaveCardData> Execute()
     {
         List<HaveCardData> ret = new List<HaveCardData>();
-        m_cardID.ForEach(c =>
+        m_cardIDSelector.ForEach(c =>
         {
             HaveCardData hcd = new HaveCardData();
             hcd.CardCalssType = CardClassType.Common;
-            hcd.CardID = (int)c;
+            hcd.CardID = (int)c.CardID;
+            hcd.IsUpGrade = c.CardUpGrade;
             ret.Add(hcd);
         });
         return ret;
+    }
+
+    [System.Serializable]
+    public class CardIDSelector
+    {
+        [SerializeField] CommonCardID m_cardid;
+        [SerializeField] bool m_isUpgrade;
+        public CommonCardID CardID => m_cardid;
+        public CardUpGrade CardUpGrade => m_isUpgrade ? CardUpGrade.AsseptUpGrade : CardUpGrade.NoUpGrade;
     }
 }
 public class OriginalCardClass : ICardClassSelector
 {
-    [SerializeField] List<OriginalCardID> m_cardID;
+    [SerializeField] List<CardIDSelector> m_cardIDSelector;
 
     public List<HaveCardData> Execute()
     {
         List<HaveCardData> ret = new List<HaveCardData>();
-        m_cardID.ForEach(c =>
+        m_cardIDSelector.ForEach(c =>
         {
             HaveCardData hcd = new HaveCardData();
             hcd.CardCalssType = CardClassType.Original;
-            hcd.CardID = (int)c;
+            hcd.CardID = (int)c.CardID;
+            hcd.IsUpGrade = c.CardUpGrade;
             ret.Add(hcd);
         });
         return ret;
     }
+
+    [System.Serializable]
+    public class CardIDSelector
+    {
+        [SerializeField] OriginalCardID m_cardid;
+        [SerializeField] bool m_isUpgrade;
+        public OriginalCardID CardID => m_cardid;
+        public CardUpGrade CardUpGrade => m_isUpgrade ? CardUpGrade.AsseptUpGrade : CardUpGrade.NoUpGrade;
+    }
 }
 public class AKCardClass : ICardClassSelector
 {
-    [SerializeField] List<AKCardID> m_cardID;
+    [SerializeField] List<CardIDSelector> m_cardIDSelector;
     public List<HaveCardData> Execute()
     {
         List<HaveCardData> ret = new List<HaveCardData>();
-        m_cardID.ForEach(c =>
+        m_cardIDSelector.ForEach(c =>
         {
             HaveCardData hcd = new HaveCardData();
             hcd.CardCalssType = CardClassType.AK;
-            hcd.CardID = (int)c;
+            hcd.CardID = (int)c.CardID;
+            hcd.IsUpGrade = c.CardUpGrade;
             ret.Add(hcd);
         });
         return ret;
+    }
+
+    [System.Serializable]
+    public class CardIDSelector
+    {
+        [SerializeField] AKCardID m_cardid;
+        [SerializeField] bool m_isUpgrade;
+        public AKCardID CardID => m_cardid;
+        public CardUpGrade CardUpGrade => m_isUpgrade ? CardUpGrade.AsseptUpGrade : CardUpGrade.NoUpGrade;
     }
 }
 public enum CardClassType

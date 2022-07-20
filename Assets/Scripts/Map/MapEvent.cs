@@ -22,7 +22,9 @@ public class MapEvent : MonoBehaviour
         [SerializeField] int m_clearCardNum;
         /// <summary>‰ñ•œ—Ê</summary>
         public int Heal => m_healValue;
-        public int Upgrade => m_upgradeNum;
-        public int Clear => m_clearCardNum;
+        /// <summary>‹­‰»–‡”</summary>
+        public int UpgradeNum => m_upgradeNum;
+        /// <summary>íœ–‡”</summary>
+        public int ClearNum => m_clearCardNum;
     }
 }

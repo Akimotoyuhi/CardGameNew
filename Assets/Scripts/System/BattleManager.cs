@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UniRx;
 using Cysharp.Threading.Tasks;
 using System.Threading;
@@ -105,21 +106,6 @@ public class BattleManager : MonoBehaviour
         //デッキと捨て札一覧画面を消す
         m_deck.SetParentActive = false;
         m_discard.SetParentActive = false;
-
-        //var cardDataList = m_cardDatas.GetData(m_charactorManager.CardClassType).GetCardDatas(m_rewardNum, m_currentBattleType, CardUpGrade.NoUpGrade);
-        //List<Card> cards = new List<Card>();
-        //for (int i = 0; i < 100; i++)
-        //{
-        //    Card c = Instantiate(m_cardPrefab);
-        //    c.Setup(cardDataList[0],
-        //        m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite,
-        //        m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite,
-        //        null);
-        //    c.OnClickSubject.Subscribe(_ => Debug.Log(c.Name));
-        //    c.CardState = CardState.Button;
-        //    cards.Add(c);
-        //}
-        //GameManager.Instance.CardDisplay(CardDisplayType.List, cards, () => Debug.Log("OnClick"));
     }
 
     private void Create()
@@ -234,6 +220,38 @@ public class BattleManager : MonoBehaviour
         m_battleState.Value = BattleState.Reward;
     }
 
+    public List<Card> GetCards(CardLotteryConditional conditional)
+    {
+        List<Card> ret = new List<Card>();
+        switch (conditional)
+        {
+            case CardLotteryConditional.IsNoUpgrade:
+                //未強化のカードだけ表示する
+                for (int i = 0; i < m_charactorManager.HaveCard.Count; i++)
+                {
+                    if (m_charactorManager.HaveCard[i].IsUpGrade != CardUpGrade.NoUpGrade)
+                        continue;
+                    var db = m_cardDatas.GetDataBase(m_charactorManager.HaveCard[i]);
+                    Card c = Instantiate(m_cardPrefab);
+                    c.Setup(db,
+                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite,
+                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite,
+                        null);
+                    c.Index = i;
+                    c.CardState = CardState.Button;
+                    c.OnClickSubject.Subscribe(_ =>
+                    {
+                        Debug.Log($"index{c.Index}の{c.Name}を強化");
+                        m_charactorManager.HaveCard[c.Index].Upgrade();
+                    });
+                    ret.Add(c);
+                }
+                break;
+            default:
+                break;
+        }
+        return ret;
+    }
     #region テスト用関数
     /// <summary>報酬で出現するカードの確率空間が正しいかを調査する</summary>
     private void CardRewardTest(int num)
@@ -269,4 +287,12 @@ public enum BattleType
     Normal,
     Elite,
     Boss,
+}
+/// <summary>
+/// カードを抽選する際の条件
+/// </summary>
+public enum CardLotteryConditional
+{
+    None,
+    IsNoUpgrade,
 }
