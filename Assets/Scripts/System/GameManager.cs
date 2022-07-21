@@ -6,7 +6,7 @@ using UniRx;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] BattleManager m_battleManager;
-    [SerializeField] MapEvent m_eventManager;
+    [SerializeField] EventManager m_eventManager;
     [SerializeField] GUIManager m_guiManager;
     [SerializeField] MapManager m_mapManager;
     private ReactiveProperty<GameState> m_gameState = new ReactiveProperty<GameState>();

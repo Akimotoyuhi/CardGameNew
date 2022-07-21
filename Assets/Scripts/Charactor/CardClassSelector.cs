@@ -19,11 +19,6 @@ public struct HaveCardData
         CardID = id;
         IsUpGrade = cardUpGrade;
     }
-    /// <summary>‹­‰»‚·‚é</summary>
-    public void Upgrade()
-    {
-        IsUpGrade = CardUpGrade.AsseptUpGrade;
-    }
 }
 public interface ICardClassSelector
 {

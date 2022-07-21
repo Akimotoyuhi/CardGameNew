@@ -1,12 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using Cysharp.Threading.Tasks;
 
-public class MapEvent : MonoBehaviour
+public class EventManager : MonoBehaviour
 {
     [SerializeField] Rest m_rest;
-
+    /// <summary>‹xŒeƒ}ƒX</summary>
     public Rest RestEvent => m_rest;
+    private ReactiveProperty<MapEventState> m_mapState = new ReactiveProperty<MapEventState>();
+    public System.IObservable<MapEventState> MapEventStateObservable => m_mapState;
+
+    public void Setup()
+    {
+
+    }
 
 
 
@@ -27,4 +36,11 @@ public class MapEvent : MonoBehaviour
         /// <summary>íœ–‡”</summary>
         public int ClearNum => m_clearCardNum;
     }
+}
+
+public enum MapEventState
+{
+    Rest,
+    Upgrade,
+    Clear,
 }

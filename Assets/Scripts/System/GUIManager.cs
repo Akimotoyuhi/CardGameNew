@@ -28,11 +28,17 @@ public class GUIManager : MonoBehaviour
     [SerializeField] GameObject m_rewardPanel;
     [SerializeField] Transform m_rewardParent;
     [Header("マップ中画面")]
-    [SerializeField] MapEvent m_mapEvant;
+    [SerializeField] EventManager m_mapEvant;
+    [Header("休憩マス")]
     [SerializeField] GameObject m_restEventPanel;
     [SerializeField] Button m_restButton;
     [SerializeField] Button m_upgradeButton;
     [SerializeField] Button m_cardClearButton;
+    [SerializeField] GameObject m_checkPanel;
+    [SerializeField] Transform m_beforeCardParent;
+    [SerializeField] Transform m_aftarCardParent;
+    [SerializeField] Button m_applyButton;
+    [SerializeField] Button m_calcelButton;
 
     public void Setup()
     {
@@ -81,9 +87,11 @@ public class GUIManager : MonoBehaviour
                     m_battleManager.GetCards(CardLotteryType.Dispose),
                     () => GameManager.Instance.FloorFinished());
             });
+
+            //確認画面
+            //m_applyButton.onClick.
         }
         m_displayPanel.SetActive(false);
-        //m_restEventPanel.SetActive(false);
     }
 
     /// <summary>
