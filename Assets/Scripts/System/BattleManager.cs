@@ -224,13 +224,13 @@ public class BattleManager : MonoBehaviour
         m_battleState.Value = BattleState.Reward;
     }
 
-    public List<Card> GetCards(CardLotteryConditional conditional)
+    public List<Card> GetCards(CardLotteryType conditional)
     {
         List<Card> ret = new List<Card>();
         switch (conditional)
         {
-            case CardLotteryConditional.IsNoUpgrade:
-                //未強化のカードだけ表示する
+            case CardLotteryType.IsNoUpgrade:
+                //未強化のカードだけ取得
                 for (int i = 0; i < m_charactorManager.HaveCard.Count; i++)
                 {
                     if (m_charactorManager.HaveCard[i].IsUpGrade != CardUpGrade.NoUpGrade)
@@ -247,8 +247,8 @@ public class BattleManager : MonoBehaviour
                     {
                         Debug.Log($"index{c.Index}の{c.Name}を強化");
                         HaveCardData hcd = new HaveCardData();
-                        hcd.Setup(m_charactorManager.HaveCard[c.Index].CardCalssType, 
-                            m_charactorManager.HaveCard[c.Index].CardID, 
+                        hcd.Setup(m_charactorManager.HaveCard[c.Index].CardCalssType,
+                            m_charactorManager.HaveCard[c.Index].CardID,
                             CardUpGrade.AsseptUpGrade);
                         m_charactorManager.HaveCard[c.Index] = hcd;
                     }).AddTo(c);
@@ -256,6 +256,24 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
             default:
+                //全部取得する
+                for (int i = 0; i < m_charactorManager.HaveCard.Count; i++)
+                {
+                    var db = m_cardDatas.GetDataBase(m_charactorManager.HaveCard[i]);
+                    Card c = Instantiate(m_cardPrefab);
+                    c.Setup(db,
+                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite,
+                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite,
+                        null);
+                    c.Index = i;
+                    c.CardState = CardState.Button;
+                    c.OnClickSubject.Subscribe(_ =>
+                    {
+                        Debug.Log($"index{c.Index}の{c.Name}を強化");
+                        m_charactorManager.HaveCard.RemoveAt(c.Index);
+                    }).AddTo(c);
+                    ret.Add(c);
+                }
                 break;
         }
         return ret;
@@ -297,10 +315,11 @@ public enum BattleType
     Boss,
 }
 /// <summary>
-/// カードを抽選する際の条件
+/// カードを抽選タイプ
 /// </summary>
-public enum CardLotteryConditional
+public enum CardLotteryType
 {
     None,
     IsNoUpgrade,
+    Dispose,
 }

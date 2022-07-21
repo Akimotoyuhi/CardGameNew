@@ -69,14 +69,17 @@ public class GUIManager : MonoBehaviour
             {
                 m_displayPanel.SetActive(true);
                 CardDisplay(CardDisplayType.List, 
-                    m_battleManager.GetCards(CardLotteryConditional.IsNoUpgrade), 
+                    m_battleManager.GetCards(CardLotteryType.IsNoUpgrade), 
                     () => GameManager.Instance.FloorFinished());
             });
 
             //カード削除ボタン
             m_cardClearButton.onClick.AddListener(() =>
             {
-
+                m_displayPanel.SetActive(true);
+                CardDisplay(CardDisplayType.List,
+                    m_battleManager.GetCards(CardLotteryType.Dispose),
+                    () => GameManager.Instance.FloorFinished());
             });
         }
         m_displayPanel.SetActive(false);
