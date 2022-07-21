@@ -55,7 +55,8 @@ public class GUIManager : MonoBehaviour
 
         //プレイヤーのコストを監視してコストのテキストを変更する
         m_charactorManager.CurrentPlayer.CurrentCostObservable
-            .Subscribe(c => m_costText.text = $"{c}/{m_charactorManager.CurrentPlayer.MaxCost}").AddTo(m_charactorManager.CurrentPlayer);
+            .Subscribe(c => m_costText.text = $"{c}/{m_charactorManager.CurrentPlayer.MaxCost}")
+            .AddTo(m_charactorManager.CurrentPlayer);
         
         //infoTextを監視してinfoTextの更新と表示非表示を切り替える
         GameManager.Instance.InfoTextUpdate
@@ -89,7 +90,17 @@ public class GUIManager : MonoBehaviour
             });
 
             //確認画面
-            //m_applyButton.onClick.
+            //確定ボタン
+            m_applyButton.onClick.AddListener(() =>
+            {
+                GameManager.Instance.FloorFinished();
+            });
+
+            //キャンセルボタン
+            m_calcelButton.onClick.AddListener(() =>
+            {
+                //GameManager.Instance.FloorFinished();
+            });
         }
         m_displayPanel.SetActive(false);
     }

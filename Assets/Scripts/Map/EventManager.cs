@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 public class EventManager : MonoBehaviour
 {
     [SerializeField] Rest m_rest;
+    [SerializeField] CharactorManager m_charactorManager;
     /// <summary>ãxåeÉ}ÉX</summary>
     public Rest RestEvent => m_rest;
     private ReactiveProperty<MapEventState> m_mapState = new ReactiveProperty<MapEventState>();
@@ -15,6 +16,12 @@ public class EventManager : MonoBehaviour
     public void Setup()
     {
 
+    }
+
+    private async UniTask OnRestAsync()
+    {
+
+        await UniTask.Yield();
     }
 
 
@@ -42,5 +49,5 @@ public enum MapEventState
 {
     Rest,
     Upgrade,
-    Clear,
+    Dispose,
 }
