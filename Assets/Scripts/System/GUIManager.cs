@@ -102,7 +102,7 @@ public class GUIManager : MonoBehaviour
                     {
                         onClick();
                         DisposeCardDisplay(displayType);
-                    });
+                    }).AddTo(c);
                 }
                 break;
             case CardDisplayType.Reward:
@@ -114,7 +114,7 @@ public class GUIManager : MonoBehaviour
                     {
                         onClick();
                         DisposeCardDisplay(displayType);
-                    });
+                    }).AddTo(c);
                 }
                 break;
             default:

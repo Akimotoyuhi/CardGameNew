@@ -147,7 +147,6 @@ public class CharactorManager : MonoBehaviour
             Destroy(m_currentEnemies[i].gameObject);
             m_currentEnemies.RemoveAt(i);
         }
-        m_currentPlayer.Effects.Clear();
         m_battleEnd.OnNext(battleEndType);
     }
 }

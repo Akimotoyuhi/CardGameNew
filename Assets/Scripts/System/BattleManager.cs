@@ -174,6 +174,10 @@ public class BattleManager : MonoBehaviour
         m_charactorManager.TurnBegin(m_currentTurn).Forget();
     }
 
+    /// <summary>
+    /// 戦闘終了
+    /// </summary>
+    /// <param name="battleEndType"></param>
     private void BattleEnd(BattleEndType battleEndType)
     {
         //ここで報酬表示
@@ -197,7 +201,7 @@ public class BattleManager : MonoBehaviour
                         hcd.Setup(m_charactorManager.CardClassType, card.ID, CardUpGrade.NoUpGrade);
                         m_charactorManager.HaveCard.Add(hcd);
                         m_battleState.Value = BattleState.None;
-                    });
+                    }).AddTo(c);
                     c.CardState = CardState.Button;
                     cards.Add(c);
                 });
@@ -247,7 +251,7 @@ public class BattleManager : MonoBehaviour
                             m_charactorManager.HaveCard[c.Index].CardID, 
                             CardUpGrade.AsseptUpGrade);
                         m_charactorManager.HaveCard[c.Index] = hcd;
-                    });
+                    }).AddTo(c);
                     ret.Add(c);
                 }
                 break;

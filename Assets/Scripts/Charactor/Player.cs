@@ -16,6 +16,11 @@ public class Player : Charactor, IDrop
 
     protected override void Setup()
     {
+        GameManager.Instance.FloorUpdate.Subscribe(_ =>
+        {
+            m_effects.Clear();
+            SetViewEffectUI();
+        }).AddTo(this);
         base.Setup();
     }
 
