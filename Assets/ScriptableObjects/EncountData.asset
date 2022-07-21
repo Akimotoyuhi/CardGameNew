@@ -16,6 +16,7 @@ MonoBehaviour:
   - m_mapID: 0
     m_firstHarfEnemy:
     - m_enemy: 00000000
-    m_secondHarfEnemy: []
+    m_secondHarfEnemy:
+    - m_enemy: 00000000
     m_elite: []
     m_boss: []

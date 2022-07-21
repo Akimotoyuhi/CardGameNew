@@ -242,7 +242,11 @@ public class BattleManager : MonoBehaviour
                     c.OnClickSubject.Subscribe(_ =>
                     {
                         Debug.Log($"index{c.Index}の{c.Name}を強化");
-                        m_charactorManager.HaveCard[c.Index].Upgrade();
+                        HaveCardData hcd = new HaveCardData();
+                        hcd.Setup(m_charactorManager.HaveCard[c.Index].CardCalssType, 
+                            m_charactorManager.HaveCard[c.Index].CardID, 
+                            CardUpGrade.AsseptUpGrade);
+                        m_charactorManager.HaveCard[c.Index] = hcd;
                     });
                     ret.Add(c);
                 }
