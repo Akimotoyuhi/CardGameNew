@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
         m_mapManager.Setup();
         m_mapManager.EncountObservable.Subscribe(ct => Encount(ct)).AddTo(m_mapManager);
 
+        //イベントマネージャーのセットアップ
+        m_eventManager.Setup();
+
         //最初はマップセレクト画面から始まる
         m_gameState.Value = GameState.MapSelect;
         m_floor.Value = 1;

@@ -28,7 +28,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField] GameObject m_rewardPanel;
     [SerializeField] Transform m_rewardParent;
     [Header("マップ中画面")]
-    [SerializeField] EventManager m_mapEvant;
+    [SerializeField] EventManager m_eventManager;
     [Header("休憩マス")]
     [SerializeField] GameObject m_restEventPanel;
     [SerializeField] Button m_restButton;
@@ -68,38 +68,42 @@ public class GUIManager : MonoBehaviour
             //休憩ボタン
             m_restButton.onClick.AddListener(() =>
             {
-                m_charactorManager.CurrentPlayer.HealEvent(m_mapEvant.RestEvent.Heal);
+                m_eventManager.OnRest();
+                GameManager.Instance.FloorFinished();
             });
 
             //カード強化ボタン
             m_upgradeButton.onClick.AddListener(() =>
             {
                 m_displayPanel.SetActive(true);
-                CardDisplay(CardDisplayType.List, 
-                    m_battleManager.GetCards(CardLotteryType.IsNoUpgrade), 
-                    () => GameManager.Instance.FloorFinished());
+                m_eventManager.SetEventType = EventType.Upgrade;
+                CardDisplay(CardDisplayType.List,
+                    m_battleManager.GetCards(CardLotteryType.IsNoUpgrade),
+                    () => Debug.Log("a"));
             });
 
             //カード削除ボタン
             m_cardClearButton.onClick.AddListener(() =>
             {
                 m_displayPanel.SetActive(true);
+                m_eventManager.SetEventType = EventType.Dispose;
                 CardDisplay(CardDisplayType.List,
                     m_battleManager.GetCards(CardLotteryType.Dispose),
-                    () => GameManager.Instance.FloorFinished());
+                    () => Debug.Log("b"));
             });
 
             //確認画面
             //確定ボタン
             m_applyButton.onClick.AddListener(() =>
             {
+                DisposeCardDisplay();
                 GameManager.Instance.FloorFinished();
             });
 
             //キャンセルボタン
             m_calcelButton.onClick.AddListener(() =>
             {
-                //GameManager.Instance.FloorFinished();
+                m_restEventPanel.SetActive(true);
             });
         }
         m_displayPanel.SetActive(false);
@@ -123,7 +127,8 @@ public class GUIManager : MonoBehaviour
                     c.OnClickSubject.Subscribe(_ =>
                     {
                         onClick();
-                        DisposeCardDisplay(displayType);
+                        m_eventManager.SetSelectedCardIndex = c.Index;
+                        DisposeCardDisplay(displayType);//あとでけす
                     }).AddTo(c);
                 }
                 break;
@@ -135,7 +140,8 @@ public class GUIManager : MonoBehaviour
                     c.OnClickSubject.Subscribe(_ =>
                     {
                         onClick();
-                        DisposeCardDisplay(displayType);
+                        m_eventManager.SetSelectedCardIndex = c.Index;
+                        DisposeCardDisplay(displayType);//あとでけす
                     }).AddTo(c);
                 }
                 break;
@@ -148,8 +154,17 @@ public class GUIManager : MonoBehaviour
     /// カード一覧画面のリセット
     /// </summary>
     /// <param name="displayType"></param>
-    private void DisposeCardDisplay(CardDisplayType displayType)
+    private void DisposeCardDisplay(CardDisplayType displayType = CardDisplayType.List)
     {
+        for (int i = m_uiViewParent.childCount - 1; i >= 0; i--)
+        {
+            Destroy(m_uiViewParent.GetChild(i).gameObject);
+        }
+        for (int i = m_rewardParent.childCount - 1; i >= 0; i--)
+        {
+            Destroy(m_rewardParent.GetChild(i).gameObject);
+        }
+        /*
         switch (displayType)
         {
             case CardDisplayType.List:
@@ -168,6 +183,7 @@ public class GUIManager : MonoBehaviour
             default:
                 break;
         }
+        */
     }
 
     /// <summary>GameStateに応じて画面を切り替える</summary>

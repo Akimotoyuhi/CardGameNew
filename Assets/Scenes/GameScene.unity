@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Content: {fileID: 1379789816}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 2
+  m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -1024,7 +1024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &426522639
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3186,7 +3186,7 @@ MonoBehaviour:
   m_costText: {fileID: 983765551}
   m_rewardPanel: {fileID: 1056367765}
   m_rewardParent: {fileID: 1975312518}
-  m_mapEvant: {fileID: 1312891812}
+  m_eventManager: {fileID: 1312891812}
   m_restEventPanel: {fileID: 1799992674}
   m_restButton: {fileID: 356385849}
   m_upgradeButton: {fileID: 1020510040}
@@ -3228,6 +3228,7 @@ MonoBehaviour:
     m_healValue: 30
     m_upgradeNum: 1
     m_clearCardNum: 1
+  m_charactorManager: {fileID: 0}
 --- !u!1 &1324358105
 GameObject:
   m_ObjectHideFlags: 0
@@ -4804,7 +4805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2001696954
 RectTransform:
   m_ObjectHideFlags: 0

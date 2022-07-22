@@ -74,6 +74,7 @@ public class BattleManager : MonoBehaviour
     private List<Card> m_currentCard = new List<Card>();
     /// <summary>戦闘終了を通知する</summary>
     private Subject<Unit> m_battleFinished = new Subject<Unit>();
+    //private Subject<int> m_selectCardIndex = new Subject<int>();
     private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
     /// <summary>現在の戦闘のBattleType</summary>
     private BattleType m_currentBattleType;
@@ -251,6 +252,7 @@ public class BattleManager : MonoBehaviour
                             m_charactorManager.HaveCard[c.Index].CardID,
                             CardUpGrade.AsseptUpGrade);
                         m_charactorManager.HaveCard[c.Index] = hcd;
+                        //m_selectCardIndex.OnNext(c.Index);
                     }).AddTo(c);
                     ret.Add(c);
                 }
@@ -272,13 +274,14 @@ public class BattleManager : MonoBehaviour
                         Debug.Log($"index{c.Index}の{c.Name}を強化");
                         m_charactorManager.HaveCard.RemoveAt(c.Index);
                     }).AddTo(c);
+
                     ret.Add(c);
                 }
                 break;
         }
         return ret;
     }
-    #region テスト用関数
+    #region デバッグ用関数
     /// <summary>報酬で出現するカードの確率空間が正しいかを調査する</summary>
     private void CardRewardTest(int num)
     {
