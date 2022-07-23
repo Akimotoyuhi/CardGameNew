@@ -79,7 +79,7 @@ public class GUIManager : MonoBehaviour
                 m_eventManager.SetEventType = EventType.Upgrade;
                 CardDisplay(CardDisplayType.List,
                     m_battleManager.GetCards(CardLotteryType.IsNoUpgrade),
-                    () => Debug.Log("a"));
+                    () => m_checkPanel.SetActive(true));
             });
 
             //カード削除ボタン
@@ -89,7 +89,7 @@ public class GUIManager : MonoBehaviour
                 m_eventManager.SetEventType = EventType.Dispose;
                 CardDisplay(CardDisplayType.List,
                     m_battleManager.GetCards(CardLotteryType.Dispose),
-                    () => Debug.Log("b"));
+                    () => m_checkPanel.SetActive(true));
             });
 
             //確認画面
@@ -164,26 +164,6 @@ public class GUIManager : MonoBehaviour
         {
             Destroy(m_rewardParent.GetChild(i).gameObject);
         }
-        /*
-        switch (displayType)
-        {
-            case CardDisplayType.List:
-                for (int i = m_uiViewParent.childCount - 1; i >= 0; i--)
-                {
-                    Destroy(m_uiViewParent.GetChild(i).gameObject);
-                }
-                m_displayPanel.SetActive(false);
-                break;
-            case CardDisplayType.Reward:
-                for (int i = m_rewardParent.childCount - 1; i >= 0; i--)
-                {
-                    Destroy(m_rewardParent.GetChild(i).gameObject);
-                }
-                break;
-            default:
-                break;
-        }
-        */
     }
 
     /// <summary>GameStateに応じて画面を切り替える</summary>
@@ -196,6 +176,7 @@ public class GUIManager : MonoBehaviour
                 m_battlePanel.SetActive(false);
                 m_restEventPanel.SetActive(false);
                 m_displayPanel.SetActive(false);
+                m_checkPanel.SetActive(false);
                 break;
             case GameState.Battle:
                 m_mapPanel.SetActive(false);

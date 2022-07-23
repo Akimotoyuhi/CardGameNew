@@ -7,8 +7,8 @@ using System.Threading;
 
 public class EventManager : MonoBehaviour
 {
-    [SerializeField] Rest m_rest;
     [SerializeField] CharactorManager m_charactorManager;
+    [SerializeField] Rest m_rest;
     private EventType m_eventType;
     private ReactiveProperty<MapEventState> m_mapState = new ReactiveProperty<MapEventState>();
     //private ReactiveProperty<int> m_selectedCardIndex = new ReactiveProperty<int>();
@@ -46,6 +46,11 @@ public class EventManager : MonoBehaviour
         switch (m_eventType)
         {
             case EventType.Upgrade:
+                HaveCardData hcd = new HaveCardData();
+                hcd.Setup(m_charactorManager.HaveCard[m_selectedCardIndex].CardCalssType,
+                    m_charactorManager.HaveCard[m_selectedCardIndex].CardID,
+                    CardUpGrade.AsseptUpGrade);
+                m_charactorManager.HaveCard[m_selectedCardIndex] = hcd;
                 Debug.Log($"Index{m_selectedCardIndex}î‘ÇÃÉJÅ[ÉhÇã≠âª");
                 break;
             case EventType.Dispose:
