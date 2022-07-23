@@ -244,16 +244,6 @@ public class BattleManager : MonoBehaviour
                         null);
                     c.Index = i;
                     c.CardState = CardState.Button;
-                    c.OnClickSubject.Subscribe(_ =>
-                    {
-                        Debug.Log($"index{c.Index}の{c.Name}を強化");
-                        HaveCardData hcd = new HaveCardData();
-                        hcd.Setup(m_charactorManager.HaveCard[c.Index].CardCalssType,
-                            m_charactorManager.HaveCard[c.Index].CardID,
-                            CardUpGrade.AsseptUpGrade);
-                        m_charactorManager.HaveCard[c.Index] = hcd;
-                        //m_selectCardIndex.OnNext(c.Index);
-                    }).AddTo(c);
                     ret.Add(c);
                 }
                 break;
@@ -269,12 +259,6 @@ public class BattleManager : MonoBehaviour
                         null);
                     c.Index = i;
                     c.CardState = CardState.Button;
-                    c.OnClickSubject.Subscribe(_ =>
-                    {
-                        Debug.Log($"index{c.Index}の{c.Name}を強化");
-                        m_charactorManager.HaveCard.RemoveAt(c.Index);
-                    }).AddTo(c);
-
                     ret.Add(c);
                 }
                 break;

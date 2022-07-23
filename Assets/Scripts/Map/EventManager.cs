@@ -84,6 +84,13 @@ public class EventManager : MonoBehaviour
     public void CancelRest()
     {
         m_cancellationTokenSource.Cancel();
+        Debug.Log("RestEvent‚ªƒLƒƒƒ“ƒZƒ‹‚³‚ê‚½");
+    }
+
+    public void RetryRest()
+    {
+        CancelRest();
+        RestEvent().Forget();
     }
 
 

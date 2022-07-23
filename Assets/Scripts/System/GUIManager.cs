@@ -96,15 +96,17 @@ public class GUIManager : MonoBehaviour
             //確定ボタン
             m_applyButton.onClick.AddListener(() =>
             {
+                m_eventManager.IsDecision = true;
                 DisposeCardDisplay();
                 GameManager.Instance.FloorFinished();
-
             });
 
             //キャンセルボタン
             m_calcelButton.onClick.AddListener(() =>
             {
+                m_checkPanel.SetActive(false);
                 m_restEventPanel.SetActive(true);
+                m_eventManager.RetryRest();
             });
         }
         m_displayPanel.SetActive(false);
@@ -129,7 +131,6 @@ public class GUIManager : MonoBehaviour
                     {
                         onClick();
                         m_eventManager.SetSelectedCardIndex = c.Index;
-                        DisposeCardDisplay(displayType);//あとでけす
                     }).AddTo(c);
                 }
                 break;
@@ -142,7 +143,6 @@ public class GUIManager : MonoBehaviour
                     {
                         onClick();
                         m_eventManager.SetSelectedCardIndex = c.Index;
-                        DisposeCardDisplay(displayType);//あとでけす
                     }).AddTo(c);
                 }
                 break;
@@ -155,7 +155,7 @@ public class GUIManager : MonoBehaviour
     /// カード一覧画面のリセット
     /// </summary>
     /// <param name="displayType"></param>
-    private void DisposeCardDisplay(CardDisplayType displayType = CardDisplayType.List)
+    private void DisposeCardDisplay()
     {
         for (int i = m_uiViewParent.childCount - 1; i >= 0; i--)
         {

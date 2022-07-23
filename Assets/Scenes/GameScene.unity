@@ -3224,11 +3224,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3904a66a7b2602d40ba5e5f9bff07274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_charactorManager: {fileID: 1312891806}
   m_rest:
     m_healValue: 30
     m_upgradeNum: 1
     m_clearCardNum: 1
-  m_charactorManager: {fileID: 0}
 --- !u!1 &1324358105
 GameObject:
   m_ObjectHideFlags: 0
