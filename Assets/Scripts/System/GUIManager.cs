@@ -98,6 +98,7 @@ public class GUIManager : MonoBehaviour
             {
                 DisposeCardDisplay();
                 GameManager.Instance.FloorFinished();
+
             });
 
             //キャンセルボタン

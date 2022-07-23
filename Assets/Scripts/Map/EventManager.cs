@@ -11,14 +11,14 @@ public class EventManager : MonoBehaviour
     [SerializeField] Rest m_rest;
     private EventType m_eventType;
     private ReactiveProperty<MapEventState> m_mapState = new ReactiveProperty<MapEventState>();
-    //private ReactiveProperty<int> m_selectedCardIndex = new ReactiveProperty<int>();
-    private int m_selectedCardIndex;
     private CancellationTokenSource m_cancellationTokenSource;
     public EventType SetEventType { set => m_eventType = value; }
     /// <summary>イベントの状態</summary>
     public System.IObservable<MapEventState> MapEventStateObservable => m_mapState;
     /// <summary>選択されたカードのindex</summary>
-    public int SetSelectedCardIndex { set => m_selectedCardIndex = value; }
+    public int SetSelectedCardIndex { private get; set; }
+    /// <summary>確認画面の操作を待つ用</summary>
+    public bool IsDecision { private get; set; }
 
     public void Setup()
     {
@@ -39,22 +39,32 @@ public class EventManager : MonoBehaviour
     {
         m_cancellationTokenSource = new CancellationTokenSource();
         Debug.Log("休憩マスに入った");
-        m_selectedCardIndex = -1;
-        await UniTask.WaitUntil(() => m_selectedCardIndex != -1, 
+        SetSelectedCardIndex = -1;
+        //何かカードが選択されるまで待つ
+        await UniTask.WaitUntil(() => SetSelectedCardIndex != -1, 
             PlayerLoopTiming.Update, 
             m_cancellationTokenSource.Token);
+
+        //確定ボタンが押されるまで待つ
+        Debug.Log("確認画面の操作を待機");
+        IsDecision = false;
+        await UniTask.WaitUntil(() => IsDecision, 
+            PlayerLoopTiming.Update, 
+            m_cancellationTokenSource.Token);
+
         switch (m_eventType)
         {
             case EventType.Upgrade:
                 HaveCardData hcd = new HaveCardData();
-                hcd.Setup(m_charactorManager.HaveCard[m_selectedCardIndex].CardCalssType,
-                    m_charactorManager.HaveCard[m_selectedCardIndex].CardID,
+                hcd.Setup(m_charactorManager.HaveCard[SetSelectedCardIndex].CardCalssType,
+                    m_charactorManager.HaveCard[SetSelectedCardIndex].CardID,
                     CardUpGrade.AsseptUpGrade);
-                m_charactorManager.HaveCard[m_selectedCardIndex] = hcd;
-                Debug.Log($"Index{m_selectedCardIndex}番のカードを強化");
+                m_charactorManager.HaveCard[SetSelectedCardIndex] = hcd;
+                Debug.Log($"Index{SetSelectedCardIndex}番のカードを強化");
                 break;
             case EventType.Dispose:
-                Debug.Log($"Index{m_selectedCardIndex}番のカードを削除");
+                m_charactorManager.HaveCard.RemoveAt(SetSelectedCardIndex);
+                Debug.Log($"Index{SetSelectedCardIndex}番のカードを削除");
                 break;
             default:
                 break;
@@ -64,17 +74,16 @@ public class EventManager : MonoBehaviour
     public void OnRest()
     {
         m_charactorManager.CurrentPlayer.HealEvent(m_rest.Heal);
+        Debug.Log($"プレイヤーの体力を{m_rest.Heal}回復");
+        CancelRest();
+    }
+
+    /// <summary>
+    /// 休憩イベントのキャンセル
+    /// </summary>
+    public void CancelRest()
+    {
         m_cancellationTokenSource.Cancel();
-    }
-
-    public void OnUpgrade()
-    {
-
-    }
-
-    public void OnDispose()
-    {
-
     }
 
 
