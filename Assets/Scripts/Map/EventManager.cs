@@ -22,6 +22,7 @@ public class EventManager : MonoBehaviour
 
     public void Setup()
     {
+        //休憩イベントが起きたら休憩イベント関数を呼び出す
         GameManager.Instance.GameStateObservable.Subscribe(s =>
         {
             switch (s)
@@ -52,6 +53,7 @@ public class EventManager : MonoBehaviour
             PlayerLoopTiming.Update, 
             m_cancellationTokenSource.Token);
 
+        //選ばれたカードに対して強化したり削除したり
         switch (m_eventType)
         {
             case EventType.Upgrade:
@@ -71,6 +73,9 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 回復が選択された場合
+    /// </summary>
     public void OnRest()
     {
         m_charactorManager.CurrentPlayer.HealEvent(m_rest.Heal);

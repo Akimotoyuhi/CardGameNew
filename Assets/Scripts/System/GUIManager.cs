@@ -123,6 +123,7 @@ public class GUIManager : MonoBehaviour
         switch (displayType)
         {
             case CardDisplayType.List:
+                //カード一覧画面を表示
                 m_displayPanel.SetActive(true);
                 foreach (var c in cards)
                 {
@@ -135,7 +136,7 @@ public class GUIManager : MonoBehaviour
                 }
                 break;
             case CardDisplayType.Reward:
-                //m_rewardPanel.SetActive(true);
+                //報酬画面を表示
                 foreach (var c in cards)
                 {
                     c.transform.SetParent(m_rewardParent, false);
@@ -143,6 +144,7 @@ public class GUIManager : MonoBehaviour
                     {
                         onClick();
                         m_eventManager.SetSelectedCardIndex = c.Index;
+                        DisposeCardDisplay();
                     }).AddTo(c);
                 }
                 break;
