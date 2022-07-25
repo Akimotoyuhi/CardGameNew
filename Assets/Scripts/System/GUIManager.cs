@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 
 /// <summary>
 /// ゲーム中のGUIの操作や画面の切り替えをする
@@ -18,6 +19,8 @@ public class GUIManager : MonoBehaviour
     /// <summary>カード一覧を表示する画面</summary>
     [SerializeField] GameObject m_displayPanel;
     [SerializeField] Transform m_uiViewParent;
+    //フェード用パネル
+    [SerializeField] Image m_fadeImage;
     [Header("戦闘画面")]
     [SerializeField] GameObject m_battlePanel;
     [SerializeField] BattleManager m_battleManager;
@@ -39,16 +42,18 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Transform m_aftarCardParent;
     [SerializeField] Button m_applyButton;
     [SerializeField] Button m_calcelButton;
+    //フェード用シーケンス
+    private Sequence m_fadeSequence;
 
     public void Setup()
     {
         //ターン終了ボタンが押されたらバトルマネージャーのターン終了関数を押す
         m_turnEndButton.onClick.AddListener(() => m_battleManager.OnBattle());
-        
+
         //GameStateを監視して現在のStateに応じたパネルを表示する
         GameManager.Instance.GameStateObservable
             .Subscribe(s => SwitchGameState(s)).AddTo(this);
-        
+
         //BattleStateを監視して現在のStateに応じたパネルを表示する
         m_battleManager.BattleStateObservable
             .Subscribe(s => SwitchBattleState(s)).AddTo(m_battleManager);
@@ -57,7 +62,7 @@ public class GUIManager : MonoBehaviour
         m_charactorManager.CurrentPlayer.CurrentCostObservable
             .Subscribe(c => m_costText.text = $"{c}/{m_charactorManager.CurrentPlayer.MaxCost}")
             .AddTo(m_charactorManager.CurrentPlayer);
-        
+
         //infoTextを監視してinfoTextの更新と表示非表示を切り替える
         GameManager.Instance.InfoTextUpdate
             .Subscribe(s => SetInfoTextPanels(s)).AddTo(this);
@@ -230,6 +235,38 @@ public class GUIManager : MonoBehaviour
             m_infoPanel.SetActive(false);
         else
             m_infoPanel.SetActive(true);
+    }
+
+    /// <summary>
+    /// フェード
+    /// </summary>
+    /// <param name="color"></param>
+    /// <param name="duration"></param>
+    /// <param name="onCompleate"></param>
+    public void Fade(Color color, float duration, System.Action onCompleate = null)
+    {
+        if (color != Color.clear)
+            m_fadeImage.raycastTarget = true;
+        else
+            m_fadeImage.raycastTarget = false;
+        m_fadeImage.DOColor(color, duration).OnComplete(() =>
+        {
+            if (onCompleate != null)
+                onCompleate();
+        });
+    }
+
+    public async UniTask FadeAsync(Color color, float duration, System.Action onCompleate = null)
+    {
+        if (color != Color.clear)
+            m_fadeImage.raycastTarget = true;
+        else
+            m_fadeImage.raycastTarget = false;
+        await m_fadeImage.DOColor(color, duration).OnComplete(() =>
+        {
+            if (onCompleate != null)
+                onCompleate();
+        });
     }
 }
 

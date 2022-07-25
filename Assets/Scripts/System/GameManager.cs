@@ -53,8 +53,9 @@ public class GameManager : MonoBehaviour
     /// 押されたマップのマスに応じて何かしらの処理をする
     /// </summary>
     /// <param name="cellType"></param>
-    private void Encount(CellType cellType)
+    private async void Encount(CellType cellType)
     {
+        await m_guiManager.FadeAsync(Color.black, 0.5f, () => m_guiManager.Fade(Color.clear, 0.5f));
         switch (cellType)
         {
             case CellType.Rest:

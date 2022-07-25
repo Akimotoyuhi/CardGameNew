@@ -92,6 +92,7 @@ public class EventManager : MonoBehaviour
         Debug.Log("RestEventがキャンセルされた");
     }
 
+    //休憩イベントの再発生
     public void RetryRest()
     {
         CancelRest();
