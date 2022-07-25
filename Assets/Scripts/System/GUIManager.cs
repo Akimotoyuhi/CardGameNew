@@ -11,6 +11,7 @@ using DG.Tweening;
 /// </summary>
 public class GUIManager : MonoBehaviour
 {
+    [Header("共通")]
     /// <summary>マップ画面</summary>
     [SerializeField] GameObject m_mapPanel;
     /// <summary>全体情報を表示する画面</summary>
@@ -256,6 +257,13 @@ public class GUIManager : MonoBehaviour
         });
     }
 
+    /// <summary>
+    /// フェード(await出来る)
+    /// </summary>
+    /// <param name="color"></param>
+    /// <param name="duration"></param>
+    /// <param name="onCompleate"></param>
+    /// <returns></returns>
     public async UniTask FadeAsync(Color color, float duration, System.Action onCompleate = null)
     {
         if (color != Color.clear)
