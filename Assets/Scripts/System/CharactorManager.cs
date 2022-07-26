@@ -97,29 +97,26 @@ public class CharactorManager : MonoBehaviour
     /// コマンドを各キャラクターに対し実行する
     /// </summary>
     /// <param name="cmds"></param>
-    public void CommandExecutor(List<Command> cmds)
+    public void CommandExecutor(Command command)
     {
-        cmds.ForEach(c =>
+        switch (command.UseType)
         {
-            switch (c.UseType)
-            {
-                case UseType.None:
-                    break;
-                case UseType.Player:
-                    CurrentPlayer.Damage(c);
-                    break;
-                case UseType.Enemy:
-                    m_currentEnemies[c.TargetEnemyIndex].Damage(c);
-                    break;
-                case UseType.AllEnemies:
-                    m_currentEnemies.ForEach(e => e.Damage(c));
-                    break;
-                case UseType.System:
-                    break;
-                default:
-                    break;
-            }
-        });
+            case UseType.None:
+                break;
+            case UseType.Player:
+                CurrentPlayer.Damage(command);
+                break;
+            case UseType.Enemy:
+                m_currentEnemies[command.TargetEnemyIndex].Damage(command);
+                break;
+            case UseType.AllEnemies:
+                m_currentEnemies.ForEach(e => e.Damage(command));
+                break;
+            case UseType.System:
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>

@@ -180,7 +180,7 @@ MonoBehaviour:
         - rid: 3443099019064639492
         - rid: 3443099041877458944
     m_upgradeData:
-      m_name: "\u74E6\u5272+"
+      m_name: "\u95A2\u7BC0\u7815\u304D+"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
       m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u3068\u8131\u529B1\u3092\u4E0E\u3048\u308B"
@@ -202,7 +202,7 @@ MonoBehaviour:
       m_cardCommands:
         m_commands: []
     m_upgradeData:
-      m_name: "\u6700\u9AD8\u30EC\u30A2\u30EA\u30C6\u30A3\u30AB\u30FC\u30C9"
+      m_name: "\u6700\u9AD8\u30EC\u30A2\u30EA\u30C6\u30A3\u30AB\u30FC\u30C9+"
       m_icon: {fileID: 21300000, guid: 0a33552f86bdb2246b76d1204087e951, type: 3}
       m_cost: 1
       m_tooltip: 
@@ -220,76 +220,89 @@ MonoBehaviour:
         m_useType: 1
         m_power: 5
         m_isTrueDamage: 0
+        m_duration: 0
     - rid: 3443098995593314305
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
         m_power: 8
         m_isTrueDamage: 0
+        m_duration: 0
     - rid: 3443098995593314306
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
         m_block: 5
         isTrueBlock: 0
+        m_duration: 0
     - rid: 3443098995593314307
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
         m_block: 8
         isTrueBlock: 0
+        m_duration: 0
     - rid: 3443098995593314308
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
         m_power: 9999
         m_isTrueDamage: 0
+        m_duration: 0
     - rid: 3443098995593314309
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
         m_power: 9999
         m_isTrueDamage: 0
+        m_duration: 0
     - rid: 3443099019064639488
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
         m_power: 12
         m_isTrueDamage: 0
+        m_duration: 0
     - rid: 3443099019064639489
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
         m_power: 18
         m_isTrueDamage: 0
+        m_duration: 0
     - rid: 3443099019064639490
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
         m_block: 12
         isTrueBlock: 0
+        m_duration: 0
     - rid: 3443099019064639491
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
         m_block: 18
         isTrueBlock: 0
+        m_duration: 0
     - rid: 3443099019064639492
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
         m_power: 3
         m_isTrueDamage: 0
+        m_duration: 0
     - rid: 3443099019064639493
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
         m_power: 6
         m_isTrueDamage: 0
+        m_duration: 0
     - rid: 3443099041877458944
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
+        m_duration: 0
         m_effectSelector:
         - m_effectID: 0
           m_turn: 1

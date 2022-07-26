@@ -70,6 +70,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] CardClassDatas m_cardDatas;
     [SerializeField] int m_rewardNum;
     private int m_currentTurn;
+    private bool m_onCommand;
     /// <summary>この戦闘中のカードのインスタンス</summary>
     private List<Card> m_currentCard = new List<Card>();
     /// <summary>戦闘終了を通知する</summary>
@@ -92,11 +93,16 @@ public class BattleManager : MonoBehaviour
 
         //キャラクターマネージャーのセットアップと通知の購読
         m_charactorManager.Setup();
+        //敵行動イベントの購読
         m_charactorManager.NewEnemyCreateSubject
             .Subscribe(e =>
             {
                 e.ActionSubject
-                .Subscribe(cmd => CommandExecutor(cmd))
+                .Subscribe(async cmd =>
+                {
+                    await CommandExecutor(cmd);
+                    e.EndAction = true;
+                })
                 .AddTo(e);
             })
             .AddTo(m_charactorManager);
@@ -109,6 +115,7 @@ public class BattleManager : MonoBehaviour
         m_discard.SetParentActive = false;
     }
 
+    /// <summary>カードの生成</summary>
     private void Create()
     {
         //HaveCardからカードを生成させる
@@ -121,7 +128,7 @@ public class BattleManager : MonoBehaviour
                 m_charactorManager.CurrentPlayer);
             c.CardExecute.Subscribe(cmds =>
             {
-                CommandExecutor(cmds);
+                CommandExecutor(cmds).Forget();
                 c.transform.SetParent(m_discard.CardParent, false);
             }).AddTo(c);
             m_currentCard.Add(c);
@@ -150,10 +157,21 @@ public class BattleManager : MonoBehaviour
     /// フィールド効果を評価し、一部コマンドを実行する
     /// </summary>
     /// <param name="cmds"></param>
-    private void CommandExecutor(List<Command> cmds)
+    private async UniTask CommandExecutor(List<Command> cmds)
     {
-        //この辺でフィールド効果を評価する予定
-        m_charactorManager.CommandExecutor(cmds);
+        //コマンド処理中は他のコマンドを待機させる
+        while (m_onCommand)
+            await UniTask.Yield();
+        foreach (var c in cmds)
+        {
+            while (m_onCommand)
+                await UniTask.Yield();
+            m_onCommand = true;
+            //この辺でフィールド効果を評価する予定
+            m_charactorManager.CommandExecutor(c);
+            await UniTask.Delay(System.TimeSpan.FromSeconds(c.Duration));
+            m_onCommand = false;
+        }
     }
 
     /// <summary>
@@ -161,6 +179,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void Encount(MapID mapID, CellType cellType)
     {
+        //エンカウントした敵の大まかな種類の判定
         if (cellType == CellType.FirstHalfBattle || cellType == CellType.SecondHalfBattle)
             m_currentBattleType = BattleType.Normal;
         else if (cellType == CellType.Elite)
@@ -168,6 +187,7 @@ public class BattleManager : MonoBehaviour
         else if (cellType == CellType.Boss)
             m_currentBattleType = BattleType.Boss;
 
+        //エンカウントした敵のデータを取得して、CharactorManagerに渡す
         List<EnemyID> e = m_encountData.GetEncountData(mapID).GetEnemies(cellType);
         m_charactorManager.Create(e);
         Create();

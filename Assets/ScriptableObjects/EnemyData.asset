@@ -49,6 +49,7 @@ MonoBehaviour:
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
+        m_duration: 0.5
         m_effectSelector:
         - m_effectID: 0
           m_turn: 5
@@ -61,6 +62,7 @@ MonoBehaviour:
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
+        m_duration: 0.5
         m_effectSelector:
         - m_effectID: 1
           m_turn: 5

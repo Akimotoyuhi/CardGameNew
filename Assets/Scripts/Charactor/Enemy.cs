@@ -14,10 +14,10 @@ public class Enemy : Charactor, IDrop
     private Subject<List<Command>> m_action = new Subject<List<Command>>();
     /// <summary>敵グループでの所属index</summary>
     public int Index { set => m_index = value; }
-    /// <summary>このインスタンスの使い回し可否</summary>
-    public bool IsDispose => m_isDispose;
     /// <summary>敵死亡時に消滅にかける時間</summary>
     public float DeadDuration { private get; set; }
+    /// <summary>行動終了フラグ</summary>
+    public bool EndAction { get; set; }
     /// <summary>この敵のID</summary>
     public EnemyID EnemyID => m_enemyID;
     /// <summary>敵行動時に発行されるイベント</summary>
@@ -54,7 +54,9 @@ public class Enemy : Charactor, IDrop
 
     public override async UniTask TurnEnd(int turn)
     {
+        EndAction = false;
         await Action();
+        await UniTask.WaitUntil(() => EndAction);
         await base.TurnEnd(turn);
     }
 
@@ -65,7 +67,7 @@ public class Enemy : Charactor, IDrop
     private async UniTask Action()
     {
         m_action.OnNext(m_dataBase.Action(new Field(), null, this));
-        await UniTask.Delay(1);
+        await UniTask.Yield();
     }
 
     protected override void Dead()

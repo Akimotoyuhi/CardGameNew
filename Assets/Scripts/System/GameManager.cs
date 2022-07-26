@@ -55,7 +55,8 @@ public class GameManager : MonoBehaviour
     /// <param name="cellType"></param>
     private async void Encount(CellType cellType)
     {
-        await m_guiManager.FadeAsync(Color.black, 0.5f, () => m_guiManager.Fade(Color.clear, 0.5f));
+        await GUIManager.FadeAsync(Color.black, 0.5f,
+            () => GUIManager.Fade(Color.clear, 0.5f));
         switch (cellType)
         {
             case CellType.Rest:
@@ -72,8 +73,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 階層の更新
     /// </summary>
-    public void FloorFinished()
+    public async void FloorFinished()
     {
+        await GUIManager.FadeAsync(Color.black, 0.5f,
+            () => GUIManager.Fade(Color.clear, 0.5f));
         m_floor.Value++;
         Debug.Log($"現在フロア {m_floor.Value}");
         m_gameState.Value = GameState.MapSelect;

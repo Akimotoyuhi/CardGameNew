@@ -43,12 +43,13 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Transform m_aftarCardParent;
     [SerializeField] Button m_applyButton;
     [SerializeField] Button m_calcelButton;
-    //フェード用シーケンス
+    /// <summary>フェード用シーケンス</summary>
     private Sequence m_fadeSequence;
+    private static Image FadeImage { get; set; }
 
     public void Setup()
     {
-        //ターン終了ボタンが押されたらバトルマネージャーのターン終了関数を押す
+        //ターン終了ボタンが押されたらバトルマネージャーのターン終了関数を呼ぶ
         m_turnEndButton.onClick.AddListener(() => m_battleManager.OnBattle());
 
         //GameStateを監視して現在のStateに応じたパネルを表示する
@@ -116,6 +117,7 @@ public class GUIManager : MonoBehaviour
             });
         }
         m_displayPanel.SetActive(false);
+        FadeImage = m_fadeImage;
     }
 
     /// <summary>
@@ -244,13 +246,13 @@ public class GUIManager : MonoBehaviour
     /// <param name="color"></param>
     /// <param name="duration"></param>
     /// <param name="onCompleate"></param>
-    public void Fade(Color color, float duration, System.Action onCompleate = null)
+    public static void Fade(Color color, float duration, System.Action onCompleate = null)
     {
         if (color != Color.clear)
-            m_fadeImage.raycastTarget = true;
+            FadeImage.raycastTarget = true;
         else
-            m_fadeImage.raycastTarget = false;
-        m_fadeImage.DOColor(color, duration).OnComplete(() =>
+            FadeImage.raycastTarget = false;
+        FadeImage.DOColor(color, duration).OnComplete(() =>
         {
             if (onCompleate != null)
                 onCompleate();
@@ -264,13 +266,13 @@ public class GUIManager : MonoBehaviour
     /// <param name="duration"></param>
     /// <param name="onCompleate"></param>
     /// <returns></returns>
-    public async UniTask FadeAsync(Color color, float duration, System.Action onCompleate = null)
+    public static async UniTask FadeAsync(Color color, float duration, System.Action onCompleate = null)
     {
         if (color != Color.clear)
-            m_fadeImage.raycastTarget = true;
+            FadeImage.raycastTarget = true;
         else
-            m_fadeImage.raycastTarget = false;
-        await m_fadeImage.DOColor(color, duration).OnComplete(() =>
+            FadeImage.raycastTarget = false;
+        await FadeImage.DOColor(color, duration).OnComplete(() =>
         {
             if (onCompleate != null)
                 onCompleate();
