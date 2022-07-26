@@ -10,11 +10,13 @@ public abstract class Charactor : MonoBehaviour
 {
     #region field
     [SerializeField] protected Image m_image;
+    [SerializeField] RectTransform m_rectTransform;
     [SerializeField] Slider m_lifeSlider;
     [SerializeField] Slider m_blockSlider;
     [SerializeField] Text m_text;
     [SerializeField] Transform m_effectViewParent;
     [SerializeField] EffectView m_effectViewPrefab;
+    [SerializeField] DamageText m_datageTextPrefab;
     protected string m_name;
     protected int m_maxLife;
     protected ReactiveProperty<int> m_currentLife = new ReactiveProperty<int>();
@@ -130,6 +132,9 @@ public abstract class Charactor : MonoBehaviour
         if (cmd.Power > 0)
         {
             int dmg = m_currentBlock.Value -= cmd.Power;
+            DamageText dmgText = Instantiate(m_datageTextPrefab);
+            dmgText.transform.SetParent(transform, false);
+            dmgText.Setup(dmg, new Vector2(50, 50), 2, DamageTextType.Damage, DG.Tweening.Ease.OutQuad);
             m_currentLife.Value += dmg;
             if (m_currentLife.Value <= 0)
                 m_currentLife.Value = 0;

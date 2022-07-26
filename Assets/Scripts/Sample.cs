@@ -8,9 +8,8 @@ using System;
 
 public class Sample : MonoBehaviour
 {
-
     void Start()
     {
-        Enum rarity = Rarity.Rare;
+
     }
 }

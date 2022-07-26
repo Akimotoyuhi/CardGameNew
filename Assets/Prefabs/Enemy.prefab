@@ -320,11 +320,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_image: {fileID: 4945893511101934441}
+  m_rectTransform: {fileID: 4945893511101934442}
   m_lifeSlider: {fileID: 3325091881534334366}
   m_blockSlider: {fileID: 2209319488171733783}
   m_text: {fileID: 3167413887765058672}
   m_effectViewParent: {fileID: 5834394363555287036}
   m_effectViewPrefab: {fileID: 7535523473399065179, guid: d00abcb9a22df274093701e50d03a924, type: 3}
+  m_datageTextPrefab: {fileID: 1020770847991171918, guid: cfade49cd74e3404cb5054a7833654ef, type: 3}
 --- !u!1 &6550619610317498416
 GameObject:
   m_ObjectHideFlags: 0

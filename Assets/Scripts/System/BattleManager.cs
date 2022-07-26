@@ -160,12 +160,12 @@ public class BattleManager : MonoBehaviour
     private async UniTask CommandExecutor(List<Command> cmds)
     {
         //コマンド処理中は他のコマンドを待機させる
-        while (m_onCommand)
-            await UniTask.Yield();
+        //while (m_onCommand)
+        //    await UniTask.Yield();
         foreach (var c in cmds)
         {
-            while (m_onCommand)
-                await UniTask.Yield();
+            //while (m_onCommand)
+            //    await UniTask.Yield();
             m_onCommand = true;
             //この辺でフィールド効果を評価する予定
             m_charactorManager.CommandExecutor(c);
