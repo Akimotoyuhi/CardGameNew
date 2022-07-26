@@ -22,6 +22,7 @@ public abstract class Charactor : MonoBehaviour
     protected ReactiveProperty<int> m_currentLife = new ReactiveProperty<int>();
     protected ReactiveProperty<int> m_currentBlock = new ReactiveProperty<int>();
     protected List<EffectBase> m_effects = new List<EffectBase>();
+    protected List<DamageText> m_damageTexts = new List<DamageText>();
     protected bool m_isPlayer;
     protected bool m_isDead;
     protected Subject<Unit> m_deadSubject = new Subject<Unit>();
@@ -133,8 +134,12 @@ public abstract class Charactor : MonoBehaviour
         {
             int dmg = m_currentBlock.Value -= cmd.Power;
             DamageText dmgText = Instantiate(m_datageTextPrefab);
+            m_damageTexts.Add(dmgText);
             dmgText.transform.SetParent(transform, false);
-            dmgText.Setup(dmg, new Vector2(50, 50), 2, DamageTextType.Damage, DG.Tweening.Ease.OutQuad);
+            dmgText.Setup(dmg, new Vector2(50, 50), 2, DamageTextType.Damage, DG.Tweening.Ease.OutQuad, () =>
+            {
+                m_damageTexts.Remove(dmgText);
+            });
             m_currentLife.Value += dmg;
             if (m_currentLife.Value <= 0)
                 m_currentLife.Value = 0;
@@ -205,4 +210,10 @@ public abstract class Charactor : MonoBehaviour
 
     /// <summary>éÄñSèàóù</summary>
     protected abstract void Dead();
+
+    private void OnDestroy()
+    {
+        m_damageTexts.ForEach(d => d.Kill());
+        m_damageTexts.Clear();
+    }
 }

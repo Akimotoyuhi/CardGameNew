@@ -245,6 +245,22 @@ public class BattleManager : MonoBehaviour
         m_battleState.Value = BattleState.Reward;
     }
 
+    /// <summary>
+    /// 任意のカードのインスタンスを取得する
+    /// </summary>
+    /// <param name="haveCardData"></param>
+    /// <param name="state"></param>
+    public Card GetCardInstance(HaveCardData haveCardData, CardState state)
+    {
+        Card card = Instantiate(m_cardPrefab);
+        card.Setup(m_cardDatas.GetDataBase(haveCardData), 
+            m_cardDatas.GetData(haveCardData.CardCalssType).GetRaritySprite, 
+            m_cardDatas.GetData(haveCardData.CardCalssType).GetTypeSprite, 
+            null);
+        card.CardState = state;
+        return card;
+    }
+
     public List<Card> GetCards(CardLotteryType conditional)
     {
         List<Card> ret = new List<Card>();

@@ -19,8 +19,8 @@ public class DamageText : MonoBehaviour
         SetColor(textType);
         m_sequence = DOTween.Sequence();
         m_sequence.Append(m_recrTransform.DOAnchorPos(
-            new Vector2(m_recrTransform.anchoredPosition.x + addPosition.x, m_recrTransform.anchoredPosition.y + addPosition.y)
-            , duration))
+            new Vector2(m_recrTransform.anchoredPosition.x + addPosition.x, m_recrTransform.anchoredPosition.y + addPosition.y), 
+            duration))
             .Join(m_text.DOColor(Color.clear, duration))
             .SetEase(ease)
             .OnComplete(() =>

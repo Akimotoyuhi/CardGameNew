@@ -16,10 +16,12 @@ public class GUIManager : MonoBehaviour
     [SerializeField] GameObject m_mapPanel;
     /// <summary>全体情報を表示する画面</summary>
     [SerializeField] GameObject m_infoPanel;
+    /// <summary>全体情報を表示するテキスト</summary>
     [SerializeField] Text m_infoText;
     /// <summary>カード一覧を表示する画面</summary>
     [SerializeField] GameObject m_displayPanel;
-    [SerializeField] Transform m_uiViewParent;
+    /// <summary>カード一覧画面で表示するカードの親</summary>
+    [SerializeField] Transform m_displayCardParent;
     //フェード用パネル
     [SerializeField] Image m_fadeImage;
     [Header("戦闘画面")]
@@ -33,18 +35,24 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Transform m_rewardParent;
     [Header("マップ中画面")]
     [SerializeField] EventManager m_eventManager;
+    /// <summary>休憩イベントを表示する画面</summary>
     [Header("休憩マス")]
     [SerializeField] GameObject m_restEventPanel;
+    /// <summary>休むボタン</summary>
     [SerializeField] Button m_restButton;
+    /// <summary>カード強化ボタン</summary>
     [SerializeField] Button m_upgradeButton;
+    /// <summary>カード削除ボタン</summary>
     [SerializeField] Button m_cardClearButton;
+    /// <summary>カード強化、削除の確認画面</summary>
     [SerializeField] GameObject m_checkPanel;
     [SerializeField] Transform m_beforeCardParent;
-    [SerializeField] Transform m_aftarCardParent;
+    [SerializeField] Transform m_afterCardParent;
     [SerializeField] Button m_applyButton;
     [SerializeField] Button m_calcelButton;
     /// <summary>フェード用シーケンス</summary>
     private Sequence m_fadeSequence;
+    private EventType m_type;
     private static Image FadeImage { get; set; }
 
     public void Setup()
@@ -83,7 +91,7 @@ public class GUIManager : MonoBehaviour
             m_upgradeButton.onClick.AddListener(() =>
             {
                 m_displayPanel.SetActive(true);
-                m_eventManager.SetEventType = EventType.Upgrade;
+                m_eventManager.EventType = EventType.Upgrade;
                 CardDisplay(CardDisplayType.List,
                     m_battleManager.GetCards(CardLotteryType.IsNoUpgrade),
                     () => m_checkPanel.SetActive(true));
@@ -93,7 +101,7 @@ public class GUIManager : MonoBehaviour
             m_cardClearButton.onClick.AddListener(() =>
             {
                 m_displayPanel.SetActive(true);
-                m_eventManager.SetEventType = EventType.Dispose;
+                m_eventManager.EventType = EventType.Dispose;
                 CardDisplay(CardDisplayType.List,
                     m_battleManager.GetCards(CardLotteryType.Dispose),
                     () => m_checkPanel.SetActive(true));
@@ -135,10 +143,11 @@ public class GUIManager : MonoBehaviour
                 m_displayPanel.SetActive(true);
                 foreach (var c in cards)
                 {
-                    c.transform.SetParent(m_uiViewParent, false);
+                    c.transform.SetParent(m_displayCardParent, false);
                     c.OnClickSubject.Subscribe(_ =>
                     {
                         onClick();
+                        CheckPanelPreview(m_charactorManager.HaveCard[c.Index], m_eventManager.EventType);
                         m_eventManager.SetSelectedCardIndex = c.Index;
                     }).AddTo(c);
                 }
@@ -167,13 +176,36 @@ public class GUIManager : MonoBehaviour
     /// <param name="displayType"></param>
     private void DisposeCardDisplay()
     {
-        for (int i = m_uiViewParent.childCount - 1; i >= 0; i--)
+        for (int i = m_displayCardParent.childCount - 1; i >= 0; i--)
         {
-            Destroy(m_uiViewParent.GetChild(i).gameObject);
+            Destroy(m_displayCardParent.GetChild(i).gameObject);
         }
         for (int i = m_rewardParent.childCount - 1; i >= 0; i--)
         {
             Destroy(m_rewardParent.GetChild(i).gameObject);
+        }
+    }
+
+    /// <summary>
+    /// 確認画面の設定
+    /// </summary>
+    /// <param name="haveCardData"></param>
+    /// <param name="eventType"></param>
+    private void CheckPanelPreview(HaveCardData haveCardData, EventType eventType)
+    {
+        switch (eventType)
+        {
+            case EventType.Upgrade:
+                Card beforeCard = m_battleManager.GetCardInstance(haveCardData, CardState.None);
+                beforeCard.transform.SetParent(m_beforeCardParent, false);
+                haveCardData.IsUpGrade = CardUpGrade.AsseptUpGrade;
+                Card Aftercard = m_battleManager.GetCardInstance(haveCardData, CardState.None);
+                Aftercard.transform.SetParent(m_afterCardParent, false);
+                break;
+            case EventType.Dispose:
+                break;
+            default:
+                break;
         }
     }
 

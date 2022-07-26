@@ -9,10 +9,10 @@ public class EventManager : MonoBehaviour
 {
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] Rest m_rest;
-    private EventType m_eventType;
+    //private EventType m_eventType;
     private ReactiveProperty<MapEventState> m_mapState = new ReactiveProperty<MapEventState>();
     private CancellationTokenSource m_cancellationTokenSource;
-    public EventType SetEventType { set => m_eventType = value; }
+    public EventType EventType { get; set; }
     /// <summary>イベントの状態</summary>
     public System.IObservable<MapEventState> MapEventStateObservable => m_mapState;
     /// <summary>選択されたカードのindex</summary>
@@ -54,7 +54,7 @@ public class EventManager : MonoBehaviour
             m_cancellationTokenSource.Token);
 
         //選ばれたカードに対して強化したり削除したり
-        switch (m_eventType)
+        switch (EventType)
         {
             case EventType.Upgrade:
                 HaveCardData hcd = new HaveCardData();
