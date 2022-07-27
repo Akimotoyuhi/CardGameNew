@@ -46,8 +46,12 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Button m_cardClearButton;
     /// <summary>カード強化、削除の確認画面</summary>
     [SerializeField] GameObject m_checkPanel;
+    /// <summary>カード強化確認画面で、強化前のカードの情報を表示する場所</summary>
     [SerializeField] Transform m_beforeCardParent;
+    /// <summary>カード強化確認画面で、強化後のカードの情報を表示する場所</summary>
     [SerializeField] Transform m_afterCardParent;
+    //カード削除確認画面で、カードの情報を表示する場所
+    [SerializeField] Transform m_disposeParent;
     [SerializeField] Button m_applyButton;
     [SerializeField] Button m_calcelButton;
     /// <summary>フェード用シーケンス</summary>
@@ -193,9 +197,18 @@ public class GUIManager : MonoBehaviour
     /// <param name="eventType"></param>
     private void CheckPanelPreview(HaveCardData haveCardData, EventType eventType)
     {
+        //画面の初期化
+        if (m_beforeCardParent.childCount > 0)
+            Destroy(m_beforeCardParent.GetChild(0).gameObject);
+        if (m_afterCardParent.childCount > 0)
+            Destroy(m_afterCardParent.GetChild(0).gameObject);
+        if (m_disposeParent.childCount > 0)
+            Destroy(m_disposeParent.GetChild(0).gameObject);
+
         switch (eventType)
         {
             case EventType.Upgrade:
+                //カード強化の確認画面　強化前と後のカードを表示させる
                 Card beforeCard = m_battleManager.GetCardInstance(haveCardData, CardState.None);
                 beforeCard.transform.SetParent(m_beforeCardParent, false);
                 haveCardData.IsUpGrade = CardUpGrade.AsseptUpGrade;
@@ -203,6 +216,8 @@ public class GUIManager : MonoBehaviour
                 Aftercard.transform.SetParent(m_afterCardParent, false);
                 break;
             case EventType.Dispose:
+                Card disposeCard = m_battleManager.GetCardInstance(haveCardData, CardState.None);
+                disposeCard.transform.SetParent(m_disposeParent, false);
                 break;
             default:
                 break;
