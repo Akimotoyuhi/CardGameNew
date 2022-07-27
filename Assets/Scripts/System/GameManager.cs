@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using Cysharp.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
@@ -55,8 +56,8 @@ public class GameManager : MonoBehaviour
     /// <param name="cellType"></param>
     private async void Encount(CellType cellType)
     {
-        await GUIManager.FadeAsync(Color.black, 0.5f,
-            () => GUIManager.Fade(Color.clear, 0.5f));
+        await GUIManager.Fade(Color.black, 0.5f,
+            () => GUIManager.Fade(Color.clear, 0.5f).Forget());
         switch (cellType)
         {
             case CellType.Rest:
@@ -75,8 +76,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public async void FloorFinished()
     {
-        await GUIManager.FadeAsync(Color.black, 0.5f,
-            () => GUIManager.Fade(Color.clear, 0.5f));
+        await GUIManager.Fade(Color.black, 0.5f,
+            () => GUIManager.Fade(Color.clear, 0.5f).Forget());
         m_floor.Value++;
         Debug.Log($"åªç›ÉtÉçÉA {m_floor.Value}");
         m_gameState.Value = GameState.MapSelect;

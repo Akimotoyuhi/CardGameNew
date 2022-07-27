@@ -278,27 +278,8 @@ public class GUIManager : MonoBehaviour
     /// <param name="color"></param>
     /// <param name="duration"></param>
     /// <param name="onCompleate"></param>
-    public static void Fade(Color color, float duration, System.Action onCompleate = null)
-    {
-        if (color != Color.clear)
-            FadeImage.raycastTarget = true;
-        else
-            FadeImage.raycastTarget = false;
-        FadeImage.DOColor(color, duration).OnComplete(() =>
-        {
-            if (onCompleate != null)
-                onCompleate();
-        });
-    }
-
-    /// <summary>
-    /// フェード(await出来る)
-    /// </summary>
-    /// <param name="color"></param>
-    /// <param name="duration"></param>
-    /// <param name="onCompleate"></param>
     /// <returns></returns>
-    public static async UniTask FadeAsync(Color color, float duration, System.Action onCompleate = null)
+    public static async UniTask Fade(Color color, float duration, System.Action onCompleate = null)
     {
         if (color != Color.clear)
             FadeImage.raycastTarget = true;

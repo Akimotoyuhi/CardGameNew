@@ -338,7 +338,7 @@ public enum BattleType
     Boss,
 }
 /// <summary>
-/// カードを抽選タイプ
+/// カードの抽選タイプ
 /// </summary>
 public enum CardLotteryType
 {
