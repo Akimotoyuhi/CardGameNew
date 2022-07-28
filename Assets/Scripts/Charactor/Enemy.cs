@@ -11,6 +11,7 @@ public class Enemy : Charactor, IDrop
     private bool m_isDispose;
     private EnemyDataBase m_dataBase;
     private EnemyID m_enemyID;
+    private List<Command> m_currentTurnCommand = new List<Command>();
     private Subject<List<Command>> m_action = new Subject<List<Command>>();
     /// <summary>敵グループでの所属index</summary>
     public int Index { set => m_index = value; }
@@ -49,6 +50,7 @@ public class Enemy : Charactor, IDrop
 
     public override async UniTask TurnBegin(int turn)
     {
+        SelectActionCommand();
         await base.TurnBegin(turn);
     }
 
@@ -66,8 +68,29 @@ public class Enemy : Charactor, IDrop
     /// <returns></returns>
     private async UniTask Action()
     {
-        m_action.OnNext(m_dataBase.Action(new Field(), null, this));
+        m_action.OnNext(m_currentTurnCommand);
         await UniTask.Yield();
+    }
+
+    /// <summary>
+    /// このターンの行動を選ぶ
+    /// </summary>
+    private void SelectActionCommand()
+    {
+        m_currentTurnCommand = m_dataBase.Action(new Field(), null, this); //とりあえずこれで
+        //エフェクトの評価
+        List<ConditionalParametor> cps = new List<ConditionalParametor>();
+        m_currentTurnCommand.ForEach(cmd =>
+        {
+            ConditionalParametor cp = new ConditionalParametor();
+            if (cmd.Power > 0)
+            {
+                cp.Parametor = cmd.Power;
+                cp.Setup(cmd.Power, EvaluationParamType.Attack, EffectTiming.Attacked);
+                cps.Add(cp);
+            }
+        });
+        EffectExecute(cps);
     }
 
     protected override void Dead()

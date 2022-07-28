@@ -18,6 +18,9 @@ public struct Command
     public float Duration { get; set; }
     /// <summary>効果対象</summary>
     public UseType UseType { get; set; }
+    public CommandType CommandType { get; set; }
+    /// <summary>敵行動予定用</summary>
+    public PlanType PlanType { get; set; }
     /// <summary>敵を対象とする場合の敵インデックス</summary>
     public int TargetEnemyIndex { get; set; }
     public void SetCommand(ConditionalParametor conditionalParametor)
@@ -51,7 +54,6 @@ public struct Field
 public class CommandSelect
 {
     [SerializeReference, SubclassSelector] List<ICommand> m_commands;
-    public List<ICommand> GetCommands => m_commands;
     public List<Command> Execute()
     {
         var ret = new List<Command>();
@@ -71,6 +73,7 @@ public class AttackCommand : ICommand
     [SerializeField] int m_power;
     [SerializeField] bool m_isTrueDamage;
     [SerializeField] float m_duration;
+    [SerializeField] bool m_isHideType;
 
     public Command Execute()
     {
@@ -78,6 +81,11 @@ public class AttackCommand : ICommand
         ret.Power = m_power;
         ret.UseType = m_useType;
         ret.Duration = m_duration;
+        ret.CommandType = CommandType.Attack;
+        if (m_isHideType)
+            ret.PlanType = PlanType.Attack;
+        else
+            ret.PlanType = PlanType.Other;
         return ret;
     }
 }
@@ -88,6 +96,7 @@ public class BlockCommand : ICommand
     [SerializeField] int m_block;
     [SerializeField] bool isTrueBlock;
     [SerializeField] float m_duration;
+    [SerializeField] bool m_isHideType;
 
     public Command Execute()
     {
@@ -95,6 +104,12 @@ public class BlockCommand : ICommand
         ret.Block = m_block;
         ret.UseType = m_useType;
         ret.Duration = m_duration;
+        ret.PlanType = PlanType.Block;
+        ret.CommandType = CommandType.Block;
+        if (m_isHideType)
+            ret.PlanType = PlanType.Block;
+        else
+            ret.PlanType = PlanType.Other;
         return ret;
     }
 }
@@ -102,14 +117,38 @@ public class EffectCommand : ICommand
 {
     [SerializeField] UseType m_useType;
     [SerializeField] float m_duration;
-    [SerializeField] List<EffectSelector> m_effectSelector;
+    [SerializeField] EffectSelector m_effectSelector;
+    [SerializeField] bool m_isHideType;
+    [SerializeField] PlanType m_otherBuffTypeCommandType;
     public Command Execute()
     {
         Command ret = new Command();
         List<EffectBase> effects = new List<EffectBase>();
-        m_effectSelector.ForEach(e => effects.Add(e.GetEffect));
+        effects.Add(m_effectSelector.GetEffect);
         ret.Effect = effects;
         ret.Duration = m_duration;
+        ret.CommandType = CommandType.Effect;
+        if (m_isHideType)
+        {
+            switch (m_effectSelector.GetEffect.GetBuffType)
+            {
+                case BuffType.Buff:
+                    ret.PlanType = PlanType.Auxiliary;
+                    break;
+                case BuffType.Debuff:
+                    ret.PlanType = PlanType.Obstruction;
+                    break;
+                case BuffType.Soreigai:
+                    ret.PlanType = m_otherBuffTypeCommandType;
+                    break;
+                default:
+                    Debug.LogWarning("想定外のバフタイプが検出されました");
+                    ret.PlanType = PlanType.Other;
+                    break;
+            }
+        }
+        else
+            ret.PlanType = PlanType.Other;
         return ret;
     }
 }
@@ -150,7 +189,11 @@ public class EnemyLifeConditional : IConditional
     [SerializeField] int m_life;
     [SerializeField] EvaluationType m_evaluationType;
 
-    public bool EnemyEvaluation(Enemy enemy) => ConditionalHelper.Evaluation(m_evaluationType, enemy.CurrentLife, m_life);
+    public bool EnemyEvaluation(Enemy enemy)
+    {
+        //return enemy.CurrentLife >= m_life;
+        return ConditionalHelper.Evaluation(m_evaluationType, enemy.CurrentLife, m_life);
+    }
     public bool FieldEvaluation(Field field) => true;
     public bool PlayerEvaluation(Player player) => true;
 }
@@ -199,6 +242,26 @@ public enum EvaluationType
     High,
     /// <summary>以下</summary>
     Low,
+}
+/// <summary>
+/// 敵行動予定用
+/// </summary>
+public enum PlanType
+{
+    Attack,
+    Block,
+    Obstruction,
+    Auxiliary,
+    Other,
+}
+/// <summary>
+/// コマンドの種類
+/// </summary>
+public enum CommandType
+{
+    Attack,
+    Block,
+    Effect,
 }
 #endregion
 #endregion
