@@ -18,17 +18,23 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     [SerializeField] Text m_costText;
     [SerializeField] List<Image> m_cardTypeImages;
     [SerializeField] RectTransform m_rectTransform;
+    [SerializeField] float m_releaseDistance;
     private int m_cost;
     private string m_tooltip;
+    /// <summary>ドラッグ中フラグ</summary>
     private bool m_isDrag;
-    private bool m_isDisplay;
+    /// <summary>背景画像</summary>
     private Sprite m_backgroundSprite;
+    /// <summary>使用対象</summary>
     private UseType m_useType;
+    /// <summary>レア度</summary>
     private Rarity m_rarity;
+    /// <summary>カードの種類</summary>
     private List<CardType> m_cardType;
     private CardDataBase m_database;
     private List<Command> m_cardCommands;
     private Vector2 m_defPos;
+    private Vector2 m_mouseClickPos;
     private Player m_player;
     private Subject<Unit> m_onClick = new Subject<Unit>();
     private Subject<List<Command>> m_cardExecute = new Subject<List<Command>>();
@@ -38,14 +44,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     public int Index { get; set; }
     /// <summary>状態</summary>
     public CardState CardState { get; set; }
-    public System.IObservable<Unit> OnClickSubject
-    {
-        get
-        {
-            m_isDisplay = true;
-            return m_onClick;
-        }
-    }
+    public System.IObservable<Unit> OnClickSubject => m_onClick;
     /// <summary>使用された事を通知する</summary>
     public System.IObservable<List<Command>> CardExecute => m_cardExecute;
 
@@ -246,13 +245,23 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (CardState == CardState.Button)
+        {
+            m_mouseClickPos = eventData.position;
+            m_isDrag = true;
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (m_isDisplay)
+        if (CardState == CardState.Button)
         {
-            m_onClick.OnNext(Unit.Default);
+            //スクロール中クリックを受け付けちゃうからその対策
+            float dist = Vector2.Distance(m_mouseClickPos, eventData.position);
+            if (dist < m_releaseDistance)
+            {
+                m_onClick.OnNext(Unit.Default);
+            }
         }
     }
 

@@ -272,29 +272,17 @@ public class BattleManager : MonoBehaviour
                 {
                     if (m_charactorManager.HaveCard[i].IsUpGrade != CardUpGrade.NoUpGrade)
                         continue;
-                    var db = m_cardDatas.GetDataBase(m_charactorManager.HaveCard[i]);
-                    Card c = Instantiate(m_cardPrefab);
-                    c.Setup(db,
-                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite,
-                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite,
-                        null);
+                    Card c = GetCardInstance(m_charactorManager.HaveCard[i], CardState.Button);
                     c.Index = i;
-                    c.CardState = CardState.Button;
                     ret.Add(c);
                 }
                 break;
             default:
-                //全部取得する
+                //全部取得
                 for (int i = 0; i < m_charactorManager.HaveCard.Count; i++)
                 {
-                    var db = m_cardDatas.GetDataBase(m_charactorManager.HaveCard[i]);
-                    Card c = Instantiate(m_cardPrefab);
-                    c.Setup(db,
-                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite,
-                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite,
-                        null);
+                    Card c = GetCardInstance(m_charactorManager.HaveCard[i], CardState.Button);
                     c.Index = i;
-                    c.CardState = CardState.Button;
                     ret.Add(c);
                 }
                 break;

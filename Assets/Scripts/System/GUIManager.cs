@@ -56,7 +56,6 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Button m_calcelButton;
     /// <summary>フェード用シーケンス</summary>
     private Sequence m_fadeSequence;
-    private EventType m_type;
     private static Image FadeImage { get; set; }
 
     public void Setup()
