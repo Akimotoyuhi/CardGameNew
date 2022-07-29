@@ -83,9 +83,9 @@ public class AttackCommand : ICommand
         ret.Duration = m_duration;
         ret.CommandType = CommandType.Attack;
         if (m_isHideType)
-            ret.PlanType = PlanType.Attack;
-        else
             ret.PlanType = PlanType.Other;
+        else
+            ret.PlanType = PlanType.Attack;
         return ret;
     }
 }
@@ -107,9 +107,9 @@ public class BlockCommand : ICommand
         ret.PlanType = PlanType.Block;
         ret.CommandType = CommandType.Block;
         if (m_isHideType)
-            ret.PlanType = PlanType.Block;
-        else
             ret.PlanType = PlanType.Other;
+        else
+            ret.PlanType = PlanType.Block;
         return ret;
     }
 }
@@ -119,7 +119,7 @@ public class EffectCommand : ICommand
     [SerializeField] float m_duration;
     [SerializeField] EffectSelector m_effectSelector;
     [SerializeField] bool m_isHideType;
-    [SerializeField] PlanType m_otherBuffTypeCommandType;
+    [SerializeField] PlanType m_otherBuffTypeCommandType = PlanType.Other;
     public Command Execute()
     {
         Command ret = new Command();
@@ -128,7 +128,7 @@ public class EffectCommand : ICommand
         ret.Effect = effects;
         ret.Duration = m_duration;
         ret.CommandType = CommandType.Effect;
-        if (m_isHideType)
+        if (!m_isHideType)
         {
             switch (m_effectSelector.GetEffect.GetBuffType)
             {

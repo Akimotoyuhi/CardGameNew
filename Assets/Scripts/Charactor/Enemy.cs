@@ -4,13 +4,16 @@ using UnityEngine;
 using UniRx;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System.Linq;
 
 public class Enemy : Charactor, IDrop
 {
+    //[SerializeField] 行動予定表示クラス
     private int m_index;
     private bool m_isDispose;
     private EnemyDataBase m_dataBase;
     private EnemyID m_enemyID;
+    /// <summary>このターンの行動</summary>
     private List<Command> m_currentTurnCommand = new List<Command>();
     private Subject<List<Command>> m_action = new Subject<List<Command>>();
     /// <summary>敵グループでの所属index</summary>
@@ -78,19 +81,43 @@ public class Enemy : Charactor, IDrop
     private void SelectActionCommand()
     {
         m_currentTurnCommand = m_dataBase.Action(new Field(), null, this); //とりあえずこれで
+
         //エフェクトの評価
-        List<ConditionalParametor> cps = new List<ConditionalParametor>();
         m_currentTurnCommand.ForEach(cmd =>
         {
+            List<ConditionalParametor> cps = new List<ConditionalParametor>();
             ConditionalParametor cp = new ConditionalParametor();
-            if (cmd.Power > 0)
+            switch (cmd.CommandType)
             {
-                cp.Parametor = cmd.Power;
-                cp.Setup(cmd.Power, EvaluationParamType.Attack, EffectTiming.Attacked);
-                cps.Add(cp);
+                case CommandType.Attack:
+                    cp.Parametor = cmd.Power;
+                    cp.Setup(cmd.Power, EvaluationParamType.Attack, EffectTiming.Attacked);
+                    cps.Add(cp);
+                    break;
+                case CommandType.Block:
+                    cp.Parametor = cmd.Block;
+                    cp.Setup(cmd.Block, EvaluationParamType.Block, EffectTiming.Attacked);
+                    cps.Add(cp);
+                    break;
+                //case CommandType.Effect:
+                //    break;
+                default:
+                    break;
             }
+            EffectExecute(cps);
         });
-        EffectExecute(cps);
+        SetPlan(m_currentTurnCommand);
+    }
+
+    /// <summary>
+    /// 行動予定を表示される
+    /// </summary>
+    /// <param name="commands"></param>
+    private void SetPlan(List<Command> commands)
+    {
+        //行う行動のPlanTypeから同種のものを省く
+        var list = commands.Select(cmd => cmd.PlanType).Distinct().ToList();
+        //plansを行動予定を表示するクラスに渡す
     }
 
     protected override void Dead()
