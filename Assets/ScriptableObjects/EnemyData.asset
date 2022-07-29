@@ -51,7 +51,7 @@ MonoBehaviour:
     - rid: 2058802013358260224
       type: {class: EnemyLifeConditional, ns: , asm: Assembly-CSharp}
       data:
-        m_life: 20
+        m_life: 10
         m_evaluationType: 3
     - rid: 3443099266971336704
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
@@ -59,7 +59,7 @@ MonoBehaviour:
         m_useType: 0
         m_power: 5
         m_isTrueDamage: 0
-        m_duration: 0
+        m_duration: 0.2
         m_isHideType: 0
     - rid: 3443099266971336705
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
@@ -76,7 +76,7 @@ MonoBehaviour:
         m_duration: 0.5
         m_effectSelector:
           m_effectID: 0
-          m_turn: 0
+          m_turn: 1
         m_isHideType: 0
         m_otherBuffTypeCommandType: 2
     - rid: 3443099336300560384
@@ -85,7 +85,7 @@ MonoBehaviour:
         m_useType: 0
         m_power: 5
         m_isTrueDamage: 0
-        m_duration: 0
+        m_duration: 0.2
         m_isHideType: 0
     - rid: 3443099336300560385
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
@@ -93,5 +93,5 @@ MonoBehaviour:
         m_useType: 0
         m_power: 5
         m_isTrueDamage: 0
-        m_duration: 0
+        m_duration: 0.2
         m_isHideType: 0

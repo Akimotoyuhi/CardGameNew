@@ -8,7 +8,8 @@ using System.Linq;
 
 public class Enemy : Charactor, IDrop
 {
-    //[SerializeField] 行動予定表示クラス
+    [SerializeField] PlanDisplay m_planDisplayPrefab;
+    [SerializeField] Transform m_planDisplayParent;
     private int m_index;
     private bool m_isDispose;
     private EnemyDataBase m_dataBase;
@@ -110,14 +111,60 @@ public class Enemy : Charactor, IDrop
     }
 
     /// <summary>
-    /// 行動予定を表示される
+    /// 行動予定を表示させる
     /// </summary>
     /// <param name="commands"></param>
     private void SetPlan(List<Command> commands)
     {
-        //行う行動のPlanTypeから同種のものを省く
-        var list = commands.Select(cmd => cmd.PlanType).Distinct().ToList();
-        //plansを行動予定を表示するクラスに渡す
+        for (int i = m_planDisplayParent.childCount - 1; i >= 0; i--)
+        {
+            Destroy(m_planDisplayParent.GetChild(i).gameObject);
+        }
+
+        //PlanDataに値を入れつつ同種のものを弾く
+        List<PlanData> pds = new List<PlanData>();
+        foreach (var cmd in commands)
+        {
+            PlanData pd = new PlanData();
+            pd.PlanType = cmd.PlanType;
+            switch (cmd.CommandType)
+            {
+                case CommandType.Attack:
+                    pd.Text = cmd.Power.ToString();
+                    break;
+                case CommandType.Block:
+                    pd.Text = cmd.Block.ToString();
+                    break;
+                default:
+                    pd.Text = "";
+                    break;
+            }
+
+            //既に同種のデータがあれば追加しない
+            bool flag = false;
+            if (pd.PlanType == PlanType.Attack || pd.PlanType == PlanType.Block) { }
+            else
+            {
+                foreach (var p in pds)
+                {
+                    if (p.PlanType == pd.PlanType)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (!flag)
+                pds.Add(pd);
+        }
+
+        pds.ForEach(p =>
+        {
+            PlanDisplay planDisplay = Instantiate(m_planDisplayPrefab);
+            planDisplay.Setup(p);
+            planDisplay.transform.SetParent(m_planDisplayParent, false);
+        });
     }
 
     protected override void Dead()
