@@ -587,7 +587,7 @@ MonoBehaviour:
   m_blockSlider: {fileID: 7976513523093438148}
   m_text: {fileID: 6624718850303170979}
   m_effectViewParent: {fileID: 3691342827603387263}
-  m_effectViewPrefab: {fileID: 7535523473399065179, guid: d00abcb9a22df274093701e50d03a924, type: 3}
+  m_effectViewPrefab: {fileID: 459807321444133065, guid: 04893cf9aa72e3447b57e863b5dd6080, type: 3}
   m_datageTextPrefab: {fileID: 1020770847991171918, guid: cfade49cd74e3404cb5054a7833654ef, type: 3}
 --- !u!1 &5162432010835813828
 GameObject:

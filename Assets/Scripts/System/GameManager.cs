@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     /// <summary>GameStateが変更された事を通知する</summary>
     public System.IObservable<GameState> GameStateObservable => m_gameState;
     /// <summary>インフォメーションテキストの更新用</summary>
-    public string SetInfoText { set => m_infoText.Value = value; }
+    public string SetInfoText { set => m_infoText.SetValueAndForceNotify(value); }
     /// <summary>インフォメーションテキストが更新されたら通知する</summary>
     public System.IObservable<string> InfoTextUpdate => m_infoText;
     /// <summary>現在の階層が更新されたら通知する</summary>

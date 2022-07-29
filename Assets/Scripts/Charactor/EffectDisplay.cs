@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// かかったエフェクトを画面上に表示する
 /// </summary>
-public class EffectView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class EffectDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Image m_image;
     [SerializeField] Text m_text;

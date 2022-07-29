@@ -15,7 +15,7 @@ public abstract class Charactor : MonoBehaviour
     [SerializeField] Slider m_blockSlider;
     [SerializeField] Text m_text;
     [SerializeField] Transform m_effectViewParent;
-    [SerializeField] EffectView m_effectViewPrefab;
+    [SerializeField] EffectDisplay m_effectViewPrefab;
     [SerializeField] DamageText m_datageTextPrefab;
     protected string m_name;
     protected int m_maxLife;
@@ -179,7 +179,7 @@ public abstract class Charactor : MonoBehaviour
         }
         m_effects.ForEach(e =>
         {
-            EffectView ev = Instantiate(m_effectViewPrefab);
+            EffectDisplay ev = Instantiate(m_effectViewPrefab);
             ev.Setup(e);
             ev.transform.SetParent(m_effectViewParent.transform, false);
         });
