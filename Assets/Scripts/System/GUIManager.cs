@@ -22,7 +22,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField] GameObject m_displayPanel;
     /// <summary>カード一覧画面で表示するカードの親</summary>
     [SerializeField] Transform m_displayCardParent;
-    //フェード用パネル
+    /// <summary>フェード用パネル</summary>
     [SerializeField] Image m_fadeImage;
     [Header("戦闘画面")]
     [SerializeField] GameObject m_battlePanel;

@@ -261,6 +261,8 @@ MonoBehaviour:
   - {fileID: 1640711523261326930}
   m_rectTransform: {fileID: 4872266847705153437}
   m_releaseDistance: 50
+  m_moveYDist: 20
+  m_endDragMoveDuration: 0.05
 --- !u!1 &4872266848271888571
 GameObject:
   m_ObjectHideFlags: 0

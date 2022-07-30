@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UniRx;
+using DG.Tweening;
 using System.Text.RegularExpressions;
 
 /// <summary>
@@ -19,10 +20,14 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     [SerializeField] List<Image> m_cardTypeImages;
     [SerializeField] RectTransform m_rectTransform;
     [SerializeField] float m_releaseDistance;
+    [SerializeField] float m_moveYDist;
+    [SerializeField] float m_endDragMoveDuration;
     private int m_cost;
     private string m_tooltip;
     /// <summary>ドラッグ中フラグ</summary>
     private bool m_isDrag;
+    /// <summary>アニメーション中フラグ</summary>
+    private bool m_isAnim;
     /// <summary>背景画像</summary>
     private Sprite m_backgroundSprite;
     /// <summary>使用対象</summary>
@@ -210,12 +215,27 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!m_isDrag && CardState == CardState.Play)
+        if (!m_isAnim)
             m_defPos = m_rectTransform.anchoredPosition;
+        if (!m_isDrag && CardState == CardState.Play)
+        {
+            m_isAnim = true;
+            //カーソルが接触したらちょっと上に動かす
+            m_rectTransform.DOAnchorPos(new Vector2(m_rectTransform.anchoredPosition.x, m_rectTransform.anchoredPosition.y + m_moveYDist), m_endDragMoveDuration)
+                .OnComplete(() => m_isAnim = false);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!m_isDrag && CardState == CardState.Play)
+        {
+            m_isAnim = true;
+            //カーソルが離れたら元の位置に戻す
+            m_rectTransform.DOAnchorPos(m_defPos, m_endDragMoveDuration)
+                .OnComplete(() => m_isAnim = false);
+
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -238,8 +258,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     {
         if (CardState == CardState.Play)
         {
-            m_rectTransform.anchoredPosition = m_defPos;
-            m_isDrag = false;
+            m_rectTransform.DOAnchorPos(m_defPos, m_endDragMoveDuration)
+                .OnComplete(() => m_isDrag = false);
         }
     }
 
