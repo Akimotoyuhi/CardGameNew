@@ -19,7 +19,7 @@ public class Player : Charactor, IDrop
         GameManager.Instance.FloorUpdate.Subscribe(_ =>
         {
             m_effects.Clear();
-            SetViewEffectUI();
+            SetEffectDisplay();
         }).AddTo(this);
         base.Setup();
     }

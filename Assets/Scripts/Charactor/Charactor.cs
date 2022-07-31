@@ -148,7 +148,7 @@ public abstract class Charactor : MonoBehaviour
     }
 
     /// <summary>
-    /// 新たにエフェクトを付与する
+    /// 自身に新たにエフェクトを付与する
     /// </summary>
     public void AddEffect(EffectBase effect)
     {
@@ -165,13 +165,13 @@ public abstract class Charactor : MonoBehaviour
         {
             m_effects.Add(effect.Copy);
         }
-        SetViewEffectUI();
+        EffectRemoveCheck();
     }
 
     /// <summary>
     /// 現在かかっているエフェクトを表示する
     /// </summary>
-    protected void SetViewEffectUI()
+    protected void SetEffectDisplay()
     {
         for (int i = 0; i < m_effectViewParent.childCount; i++)
         {
@@ -204,8 +204,18 @@ public abstract class Charactor : MonoBehaviour
             m_effects.ForEach(e =>
             ret = e.Effect(conditionalParametors));
         }
-        SetViewEffectUI();
+        EffectRemoveCheck();
         return ret;
+    }
+
+    private void EffectRemoveCheck()
+    {
+        for (int i = m_effects.Count - 1; i >= 0; i--)
+        {
+            if (m_effects[i].IsRemove)
+                m_effects.RemoveAt(i);
+        }
+        SetEffectDisplay();
     }
 
     /// <summary>死亡処理</summary>
