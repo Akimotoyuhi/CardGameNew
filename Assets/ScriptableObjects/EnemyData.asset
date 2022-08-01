@@ -29,8 +29,6 @@ MonoBehaviour:
       m_enemyCommands:
         m_commands:
         - rid: 3443099266971336704
-        - rid: 3443099336300560384
-        - rid: 3443099336300560385
     - m_conditional:
         m_probability: 100
         m_playNum: -1
@@ -79,19 +77,3 @@ MonoBehaviour:
           m_turn: 1
         m_isHideType: 0
         m_otherBuffTypeCommandType: 2
-    - rid: 3443099336300560384
-      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
-      data:
-        m_useType: 0
-        m_power: 5
-        m_isTrueDamage: 0
-        m_duration: 0.2
-        m_isHideType: 0
-    - rid: 3443099336300560385
-      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
-      data:
-        m_useType: 0
-        m_power: 5
-        m_isTrueDamage: 0
-        m_duration: 0.2
-        m_isHideType: 0

@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 /// </summary>
 public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
+    #region Field
     [SerializeField] Image m_background;
     [SerializeField] Text m_nameText;
     [SerializeField] Image m_icon;
@@ -28,8 +29,18 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private bool m_isDrag;
     /// <summary>アニメーション中フラグ</summary>
     private bool m_isAnim;
-    /// <summary>背景画像</summary>
-    private Sprite m_backgroundSprite;
+    /// <summary>背景画像の色</summary>
+    private Color m_backgroundColor;
+    /// <summary>アイコン画像の色</summary>
+    private Color m_iconColor;
+    /// <summary>名前テキストの色</summary>
+    private Color m_nameTextColor;
+    /// <summary>ツールチップテキストの色</summary>
+    private Color m_tooltipColor;
+    /// <summary>コストテキストの色</summary>
+    private Color m_costColor;
+    /// <summary>カードタイプの色</summary>
+    private List<Color> m_cardTypeImagesColor = new List<Color>();
     /// <summary>使用対象</summary>
     private UseType m_useType;
     /// <summary>レア度</summary>
@@ -43,15 +54,19 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private Player m_player;
     private Subject<Unit> m_onClick = new Subject<Unit>();
     private Subject<List<Command>> m_cardExecute = new Subject<List<Command>>();
+    #endregion
+    #region Property
     /// <summary>名前</summary>
     public string Name { get; private set; }
     /// <summary>ボタンとして表示された際に何番目に生成されたかを記憶しておく用</summary>
     public int Index { get; set; }
     /// <summary>状態</summary>
     public CardState CardState { get; set; }
+    /// <summary>ボタンとして表示された際のクリック時イベント</summary>
     public System.IObservable<Unit> OnClickSubject => m_onClick;
     /// <summary>使用された事を通知する</summary>
     public System.IObservable<List<Command>> CardExecute => m_cardExecute;
+    #endregion
 
     public void Setup(CardDataBase dataBase, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite, Player player)
     {
@@ -60,13 +75,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         SetSprites(raritySprite, typeSprite);
         GetPlayerEffect();
     }
-
-    //public void Setup(CardDataBase dataBase, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite)
-    //{
-    //    SetBaseData(dataBase);
-    //    SetSprites(raritySprite, typeSprite);
-    //    GetPlayerEffect();
-    //}
 
     public void Init()
     {
@@ -79,12 +87,21 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     {
         m_database = database;
         Name = database.Name;
+        m_backgroundColor = m_background.color;
         m_nameText.text = database.Name;
+        m_nameTextColor = m_nameText.color;
         m_icon.sprite = database.Icon;
+        m_iconColor = m_icon.color;
         m_tooltip = database.Tooltip;
+        m_tooltipColor = m_tooltipText.color;
         m_costText.text = database.Cost;
+        m_costColor = m_costText.color;
         m_rarity = database.Rarity;
         m_cardType = database.CardType;
+        for (int i = 0; i < m_cardTypeImages.Count; i++)
+        {
+            m_cardTypeImagesColor.Add(m_cardTypeImages[i].color);
+        }
         //今後コストxとか作りたいので文字列で取れるようにしてある
         try
         {
@@ -211,14 +228,47 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_tooltipText.text = s;
     }
 
+    /// <summary>
+    /// カードを半透明にしたりしなかったり
+    /// </summary>
+    /// <param name="isTranslucent"></param>
+    private void TranslucentUI(bool isTranslucent = true)
+    {
+        if (isTranslucent)
+        {
+            m_background.color = m_backgroundColor - new Color(0, 0, 0, m_backgroundColor.a / 2);
+            m_costText.color = m_costColor - new Color(0, 0, 0, m_costColor.a / 2);
+            m_icon.color = m_iconColor - new Color(0, 0, 0, m_iconColor.a / 2);
+            m_nameText.color = m_nameTextColor - new Color(0, 0, 0, m_nameTextColor.a / 2);
+            m_tooltipText.color = m_tooltipColor - new Color(0, 0, 0, m_tooltipColor.a / 2);
+            for (int i = 0; i < m_cardTypeImages.Count; i++)
+            {
+                m_cardTypeImages[i].color = m_cardTypeImagesColor[i] - new Color(0, 0, 0, m_cardTypeImagesColor[i].a / 2);
+            }
+        }
+        else
+        {
+            m_background.color = m_backgroundColor; 
+            m_costText.color = m_costColor;
+            m_icon.color = m_iconColor;
+            m_nameText.color = m_nameTextColor;
+            m_tooltipText.color = m_tooltipColor;
+            for (int i = 0; i < m_cardTypeImages.Count; i++)
+            {
+                m_cardTypeImages[i].color = m_cardTypeImagesColor[i];
+            }
+        }
+    }
+
+
     //以下インターフェース
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!m_isAnim)
-            m_defPos = m_rectTransform.anchoredPosition;
         if (!m_isDrag && CardState == CardState.Play)
         {
+            if (!m_isAnim)
+                m_defPos = m_rectTransform.anchoredPosition;
             m_isAnim = true;
             //カーソルが接触したらちょっと上に動かす
             m_rectTransform.DOAnchorPos(new Vector2(m_rectTransform.anchoredPosition.x, m_rectTransform.anchoredPosition.y + m_moveYDist), m_endDragMoveDuration)
@@ -243,6 +293,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         if (CardState == CardState.Play)
         {
             m_isDrag = true;
+            TranslucentUI();
         }
     }
 
@@ -260,6 +311,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         {
             m_rectTransform.DOAnchorPos(m_defPos, m_endDragMoveDuration)
                 .OnComplete(() => m_isDrag = false);
+            TranslucentUI(false);
         }
     }
 
