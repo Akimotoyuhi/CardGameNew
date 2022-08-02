@@ -47,9 +47,15 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private Rarity m_rarity;
     /// <summary>カードの種類</summary>
     private List<CardType> m_cardType;
+    /// <summary>このカードのデータ</summary>
     private CardDataBase m_database;
+    /// <summary>使用時に起こる事</summary>
     private List<Command> m_cardCommands;
+    /// <summary>効果使用後にエフェクトを評価する際に使う</summary>
+    private List<ConditionalParametor> m_commandUsedConditionalParametors = new List<ConditionalParametor>();
+    /// <summary>デフォルト位置</summary>
     private Vector2 m_defPos;
+    /// <summary>マウスクリック位置の保存用</summary>
     private Vector2 m_mouseClickPos;
     private Player m_player;
     private Subject<Unit> m_onClick = new Subject<Unit>();
@@ -180,6 +186,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_cardCommands.ForEach(c => cmds.Add(c));
         target.GetDrop(ref cmds);
         m_cardExecute.OnNext(cmds);
+        m_player.EffectExecute(m_commandUsedConditionalParametors);
         //プレイヤーのコストを減らす
         m_player.CurrentCost -= m_cost;
     }
@@ -191,6 +198,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     {
         string s = m_tooltip;
         m_cardCommands = m_database.CardCommands.Execute();
+        List<ConditionalParametor> commandUsedConditionalParametors = new List<ConditionalParametor>();
         //攻撃力の効果置き換え
         MatchCollection matchs = Regex.Matches(s, "{dmg([0-9]*)}");
         foreach (Match m in matchs)
@@ -205,6 +213,12 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
                 Command c = m_cardCommands[index];
                 c.Power = m_player.EffectExecute(cps).Power; //プレイヤーのエフェクトを評価
                 m_cardCommands[index] = c;
+                if (m_commandUsedConditionalParametors.Count > 0)
+                {
+                    cp = new ConditionalParametor();
+                    cp.Setup(EvaluationParamType.Attack, EffectTiming.Attacked, true);
+                    commandUsedConditionalParametors.Add(cp);
+                }
             }
             s = s.Replace(m.Value, $"{m_cardCommands[index].Power}ダメージ");
         }
@@ -222,9 +236,16 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
                 Command c = m_cardCommands[index];
                 c.Block = m_player.EffectExecute(cps).Block; //プレイヤーのエフェクトを評価
                 m_cardCommands[index] = c;
+                if (m_commandUsedConditionalParametors.Count > 0)
+                {
+                    cp = new ConditionalParametor();
+                    cp.Setup(EvaluationParamType.Block, EffectTiming.Attacked, true);
+                    commandUsedConditionalParametors.Add(cp);
+                }
             }
             s = s.Replace(m.Value, $"{m_cardCommands[index].Block}ブロック");
         }
+        m_commandUsedConditionalParametors = commandUsedConditionalParametors;
         m_tooltipText.text = s;
     }
 

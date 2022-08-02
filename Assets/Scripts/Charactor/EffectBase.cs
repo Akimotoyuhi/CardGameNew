@@ -51,21 +51,35 @@ public class EffectSelector
 }
 public struct ConditionalParametor
 {
+    /// <summary>効果の数値</summary>
     public int Parametor { get; set; }
+    /// <summary>付与するエフェクト</summary>
     public EffectBase Effect { get; set; }
+    /// <summary>Parametorの値が何なのか</summary>
     public EvaluationParamType EvaluationParamType { get; set; }
+    /// <summary>エフェクトが評価されるタイミング</summary>
     public EffectTiming EffectTiming { get; set; }
-    public void Setup(int parametor, EvaluationParamType evaluationParamType, EffectTiming effectTiming)
+    /// <summary>これが評価された場合に効果を使った事にするか</summary>
+    public bool IsExecute { get; set; }
+    public void Setup(int parametor, EvaluationParamType evaluationParamType, EffectTiming effectTiming, bool isExecute = false)
     {
         Parametor = parametor;
         EvaluationParamType = evaluationParamType;
         EffectTiming = effectTiming;
+        IsExecute = isExecute;
     }
-    public void Setup(EffectBase effectBase, EvaluationParamType evaluationParamType, EffectTiming effectTiming)
+    public void Setup(EffectBase effectBase, EvaluationParamType evaluationParamType, EffectTiming effectTiming, bool isExecute = false)
     {
         Effect = effectBase;
         EvaluationParamType = evaluationParamType;
         EffectTiming = effectTiming;
+        IsExecute = isExecute;
+    }
+    public void Setup(EvaluationParamType evaluationParamType, EffectTiming effectTiming, bool isExecute)
+    {
+        EvaluationParamType = evaluationParamType;
+        EffectTiming = effectTiming;
+        IsExecute = isExecute;
     }
 }
 #region Enums
