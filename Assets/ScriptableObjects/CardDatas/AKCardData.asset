@@ -143,6 +143,52 @@ MonoBehaviour:
       m_cardCommands:
         m_commands:
         - rid: 3443098950917685249
+  - m_label: "\u52DD\u6557\u5206\u304B\u3064\u9023\u6483"
+    m_database:
+      m_name: "\u52DD\u6557\u5206\u304B\u3064\u9023\u6483"
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
+      m_cost: 1
+      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u30922\u56DE\u4E0E\u3048\u308B"
+      m_cardUseType: 1
+      m_rarity: 2
+      m_cardType: 00000000
+      m_cardCommands:
+        m_commands:
+        - rid: 3443098950917685248
+        - rid: 3724448357306335232
+    m_upgradeData:
+      m_name: "\u52DD\u6557\u5206\u304B\u3064\u9023\u6483+"
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
+      m_cost: 1
+      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u30922\u56DE\u4E0E\u3048\u308B"
+      m_cardUseType: 1
+      m_rarity: 2
+      m_cardType: 00000000
+      m_cardCommands:
+        m_commands:
+        - rid: 3443098950917685249
+        - rid: 3724448357306335233
+  - m_label: "\u9396\u92F8\u62E1\u5F35\u30E2\u30B8\u30E5\u30FC\u30EB"
+    m_database:
+      m_name: "\u9396\u92F8\u62E1\u5F35\u30E2\u30B8\u30E5\u30FC\u30EB"
+      m_icon: {fileID: 21300000, guid: 60ccf999198195d4da19a9f7090eb371, type: 3}
+      m_cost: 2
+      m_tooltip: "3\u30BF\u30FC\u30F3\u5F8C\u306B\u7B4B\u529B\u3068\u654F\u6377\u30923\u5F97\u308B"
+      m_cardUseType: 0
+      m_rarity: 1
+      m_cardType: 
+      m_cardCommands:
+        m_commands: []
+    m_upgradeData:
+      m_name: 
+      m_icon: {fileID: 0}
+      m_cost: 
+      m_tooltip: 
+      m_cardUseType: -1
+      m_rarity: 0
+      m_cardType: 
+      m_cardCommands:
+        m_commands: []
   references:
     version: 2
     RefIds:
@@ -152,45 +198,77 @@ MonoBehaviour:
         m_useType: 1
         m_power: 5
         m_isTrueDamage: 0
+        m_duration: 0
+        m_isHideType: 0
     - rid: 3443098792831746050
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
         m_power: 8
         m_isTrueDamage: 0
+        m_duration: 0
+        m_isHideType: 0
     - rid: 3443098792831746051
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
         m_block: 8
         isTrueBlock: 0
+        m_duration: 0
+        m_isHideType: 0
     - rid: 3443098792831746052
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
         m_block: 5
         isTrueBlock: 0
+        m_duration: 0
+        m_isHideType: 0
     - rid: 3443098792831746053
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
         m_power: 10000
         m_isTrueDamage: 0
+        m_duration: 0
+        m_isHideType: 0
     - rid: 3443098792831746054
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
         m_power: 10000
         m_isTrueDamage: 0
+        m_duration: 0
+        m_isHideType: 0
     - rid: 3443098950917685248
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
-        m_power: 12
+        m_power: 4
         m_isTrueDamage: 0
+        m_duration: 0
+        m_isHideType: 0
     - rid: 3443098950917685249
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 1
-        m_power: 15
+        m_power: 5
         m_isTrueDamage: 0
+        m_duration: 0
+        m_isHideType: 0
+    - rid: 3724448357306335232
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 1
+        m_power: 4
+        m_isTrueDamage: 0
+        m_duration: 0
+        m_isHideType: 0
+    - rid: 3724448357306335233
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 1
+        m_power: 5
+        m_isTrueDamage: 0
+        m_duration: 0
+        m_isHideType: 0
