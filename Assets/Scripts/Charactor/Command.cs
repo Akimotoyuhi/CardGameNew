@@ -18,11 +18,14 @@ public struct Command
     public float Duration { get; set; }
     /// <summary>効果対象</summary>
     public UseType UseType { get; set; }
+    /// <summary>コマンドの種類</summary>
     public CommandType CommandType { get; set; }
     /// <summary>敵行動予定用</summary>
     public PlanType PlanType { get; set; }
     /// <summary>敵を対象とする場合の敵インデックス</summary>
     public int TargetEnemyIndex { get; set; }
+    /// <summary>ストック効果のフラグ</summary>
+    public bool IsStockCommand { get; set; }
     public void SetCommand(ConditionalParametor conditionalParametor)
     {
         switch (conditionalParametor.EvaluationParamType)
@@ -50,6 +53,9 @@ public struct Field
     public int CurrentTurn { get; set; }
 }
 #region コマンド設定クラス関連
+/// <summary>
+/// 付与するコマンドを設定するクラス
+/// </summary>
 [System.Serializable]
 public class CommandSelect
 {
@@ -62,6 +68,9 @@ public class CommandSelect
     }
 }
 
+/// <summary>
+/// 設定するコマンドを切り替える為のインターフェース
+/// </summary>
 public interface ICommand
 {
     Command Execute();
@@ -74,6 +83,7 @@ public class AttackCommand : ICommand
     [SerializeField] bool m_isTrueDamage;
     [SerializeField] float m_duration;
     [SerializeField] bool m_isHideType;
+    [SerializeField] bool m_stock;
 
     public Command Execute()
     {
@@ -97,6 +107,7 @@ public class BlockCommand : ICommand
     [SerializeField] bool isTrueBlock;
     [SerializeField] float m_duration;
     [SerializeField] bool m_isHideType;
+    [SerializeField] bool m_stock;
 
     public Command Execute()
     {
@@ -119,6 +130,7 @@ public class EffectCommand : ICommand
     [SerializeField] float m_duration;
     [SerializeField] EffectSelector m_effectSelector;
     [SerializeField] bool m_isHideType;
+    [SerializeField] bool m_stock;
     [SerializeField] PlanType m_otherBuffTypeCommandType = PlanType.Other;
     public Command Execute()
     {

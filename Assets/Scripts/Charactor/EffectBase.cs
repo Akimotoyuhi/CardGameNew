@@ -92,6 +92,11 @@ public enum EffectID
     Weakness,
     /// <summary>虚弱</summary>
     Frail,
+    /// <summary>筋力</summary>
+    Strength,
+    /// <summary>敏捷</summary>
+    Agile,
+
 }
 /// <summary>
 /// エフェクトが評価するパラメータ

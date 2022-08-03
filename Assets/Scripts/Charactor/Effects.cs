@@ -7,16 +7,7 @@ public class Effects { }
 public class Weakness : EffectBase
 {
     public override string Tooltip => $"脱力\n与えるダメージが<color=#ff0000>25%低下</color>。{Turn}ターン持続";
-    public override bool IsRemove
-    {
-        get
-        {
-            if (Turn <= 0)
-                return true;
-            else
-                return false;
-        }
-    }
+    public override bool IsRemove => Turn <= 0;
     public override BuffType GetBuffType => BuffType.Debuff;
     public override EffectID GetEffectID => EffectID.Weakness;
     public override Command Effect(List<ConditionalParametor> evaluationParametors)
@@ -59,16 +50,7 @@ public class Weakness : EffectBase
 public class Frail : EffectBase
 {
     public override string Tooltip => $"虚弱\n得るブロックが<color=#ff0000>25%低下</color>。{Turn}ターン持続";
-    public override bool IsRemove
-    {
-        get
-        {
-            if (Turn <= 0)
-                return true;
-            else
-                return false;
-        }
-    }
+    public override bool IsRemove => Turn <= 0;
     public override BuffType GetBuffType => BuffType.Debuff;
     public override EffectID GetEffectID => EffectID.Frail;
     public override Command Effect(List<ConditionalParametor> evaluationParametors)
@@ -107,5 +89,45 @@ public class Frail : EffectBase
             Turn--;
         }
         return ret;
+    }
+    public class Strength : EffectBase
+    {
+        public override string Tooltip
+        {
+            get
+            {
+                if (Turn > 0)
+                    return $"与えるダメージが<color=#0000ff>+{Turn}</color>";
+                else
+                    return $"与えるダメージが<color=#ff0000>{Turn}</color>";
+            }
+        }
+        public override bool IsRemove => Turn == 0;
+        public override BuffType GetBuffType => BuffType.Buff;
+        public override EffectID GetEffectID => EffectID.Strength;
+        public override Command Effect(List<ConditionalParametor> evaluationParametors)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+    public class Agile : EffectBase
+    {
+        public override string Tooltip
+        {
+            get
+            {
+                if (Turn > 0)
+                    return $"得るブロック値が<color=#0000ff>+{Turn}</color>";
+                else
+                    return $"得るブロック値が<color=#ff0000>{Turn}</color>";
+            }
+        }
+        public override bool IsRemove => Turn == 0;
+        public override BuffType GetBuffType => BuffType.Buff;
+        public override EffectID GetEffectID => EffectID.Agile;
+        public override Command Effect(List<ConditionalParametor> evaluationParametors)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
