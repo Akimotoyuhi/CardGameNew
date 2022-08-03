@@ -90,44 +90,80 @@ public class Frail : EffectBase
         }
         return ret;
     }
-    public class Strength : EffectBase
+}
+public class Strength : EffectBase
+{
+    public override string Tooltip
     {
-        public override string Tooltip
+        get
         {
-            get
-            {
-                if (Turn > 0)
-                    return $"与えるダメージが<color=#0000ff>+{Turn}</color>";
-                else
-                    return $"与えるダメージが<color=#ff0000>{Turn}</color>";
-            }
-        }
-        public override bool IsRemove => Turn == 0;
-        public override BuffType GetBuffType => BuffType.Buff;
-        public override EffectID GetEffectID => EffectID.Strength;
-        public override Command Effect(List<ConditionalParametor> evaluationParametors)
-        {
-            throw new System.NotImplementedException();
+            if (Turn > 0)
+                return $"与えるダメージが<color=#0000ff>+{Turn}</color>";
+            else
+                return $"与えるダメージが<color=#ff0000>{Turn}</color>";
         }
     }
-    public class Agile : EffectBase
+    public override bool IsRemove => Turn == 0;
+    public override BuffType GetBuffType => BuffType.Buff;
+    public override EffectID GetEffectID => EffectID.Strength;
+    public override Command Effect(List<ConditionalParametor> evaluationParametors)
     {
-        public override string Tooltip
+        Command ret = new Command();
+        bool powerIncFlag = true;
+        int power = 0;
+        foreach (var ep in evaluationParametors)
         {
-            get
+            ret.SetCommand(ep);
+            if (ep.EffectTiming == EffectTiming.Attacked && ep.EvaluationParamType == EvaluationParamType.Attack)
             {
-                if (Turn > 0)
-                    return $"得るブロック値が<color=#0000ff>+{Turn}</color>";
-                else
-                    return $"得るブロック値が<color=#ff0000>{Turn}</color>";
+                power = ep.Parametor;
+            }
+            else
+            {
+                power = ep.Parametor;
+                powerIncFlag = false;
             }
         }
-        public override bool IsRemove => Turn == 0;
-        public override BuffType GetBuffType => BuffType.Buff;
-        public override EffectID GetEffectID => EffectID.Agile;
-        public override Command Effect(List<ConditionalParametor> evaluationParametors)
+        if (powerIncFlag)
+            ret.Power = power + Turn;
+        return ret;
+    }
+}
+public class Agile : EffectBase
+{
+    public override string Tooltip
+    {
+        get
         {
-            throw new System.NotImplementedException();
+            if (Turn > 0)
+                return $"得るブロックが<color=#0000ff>+{Turn}</color>";
+            else
+                return $"得るブロックが<color=#ff0000>{Turn}</color>";
         }
+    }
+    public override bool IsRemove => Turn == 0;
+    public override BuffType GetBuffType => BuffType.Buff;
+    public override EffectID GetEffectID => EffectID.Agile;
+    public override Command Effect(List<ConditionalParametor> evaluationParametors)
+    {
+        Command ret = new Command();
+        bool blockIncFlag = true;
+        int block = 0;
+        foreach (var ep in evaluationParametors)
+        {
+            ret.SetCommand(ep);
+            if (ep.EffectTiming == EffectTiming.Attacked && ep.EvaluationParamType == EvaluationParamType.Block)
+            {
+                block = ep.Parametor;
+            }
+            else
+            {
+                block = ep.Parametor;
+                blockIncFlag = false;
+            }
+        }
+        if (blockIncFlag)
+            ret.Block = block + Turn;
+        return ret;
     }
 }

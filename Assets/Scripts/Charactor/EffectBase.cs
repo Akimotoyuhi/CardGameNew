@@ -41,6 +41,12 @@ public class EffectSelector
                 case EffectID.Frail:
                     ret = new Frail();
                     break;
+                case EffectID.Strength:
+                    ret = new Strength();
+                        break;
+                case EffectID.Agile:
+                    ret = new Agile();
+                    break;
                 default:
                     throw new System.Exception("存在しないエフェクトが選択された");
             }

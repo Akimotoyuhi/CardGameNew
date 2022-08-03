@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 5448531615958275260}
   - component: {fileID: 459807321444133065}
   m_Layer: 5
-  m_Name: EffectView
+  m_Name: EffectDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,3 +179,9 @@ MonoBehaviour:
   - m_effectID: 1
     m_sprite: {fileID: 21300000, guid: 8c013fbd1dde7bc4db457cfd3b7b7ffa, type: 3}
     m_color: {r: 0.11548704, g: 0.09803921, b: 1, a: 1}
+  - m_effectID: 2
+    m_sprite: {fileID: 21300000, guid: f742aa32737423346b5593e68ef83d2a, type: 3}
+    m_color: {r: 1, g: 0.06987041, b: 0, a: 1}
+  - m_effectID: 3
+    m_sprite: {fileID: 21300000, guid: 083237d4baf78d143b4251ca612f18dd, type: 3}
+    m_color: {r: 1, g: 0.976174, b: 0, a: 1}
