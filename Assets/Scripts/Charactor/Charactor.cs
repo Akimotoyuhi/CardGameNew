@@ -125,7 +125,10 @@ public abstract class Charactor : MonoBehaviour
         await UniTask.Yield();
     }
 
-    /// <summary>被ダメージ処理</summary>
+    /// <summary>
+    /// 被ダメージ処理
+    /// </summary>
+    /// <param name="cmd"></param>
     public virtual void Damage(Command cmd)
     {
         if (cmd.Effect != null)

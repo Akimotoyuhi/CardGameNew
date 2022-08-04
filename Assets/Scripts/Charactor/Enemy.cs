@@ -140,7 +140,7 @@ public class Enemy : Charactor, IDrop
                     break;
             }
 
-            //既に同種のデータがあれば追加しない
+            //既に攻撃防御以外の同種の行動予定があれば追加しない
             bool flag = false;
             if (pd.PlanType == PlanType.Attack || pd.PlanType == PlanType.Block) { }
             else
