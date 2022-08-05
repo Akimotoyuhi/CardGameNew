@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 
 public class Player : Charactor, IDrop
 {
+    [SerializeField] StockSlot m_stockSlot;
     private int m_maxCost = 3;
     private ReactiveProperty<int> m_currentCost = new ReactiveProperty<int>();
     private int m_maxDrowNum = 5;
@@ -16,6 +17,8 @@ public class Player : Charactor, IDrop
 
     protected override void Setup()
     {
+        m_stockSlot.Setup();
+
         GameManager.Instance.FloorUpdate.Subscribe(_ =>
         {
             m_effects.Clear();

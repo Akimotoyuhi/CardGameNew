@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class StockItem : MonoBehaviour
 {
     [SerializeField] Image m_image;
-    private Sprite m_defaultSprite;
+    [SerializeField] Sprite m_defaultSprite;
     private Command m_command;
     public Command Command => m_command;
     public bool IsUsed { get; private set; }
