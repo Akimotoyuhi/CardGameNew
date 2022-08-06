@@ -232,7 +232,12 @@ public enum OriginalCardID
     ImpregnableWall,
     /// <summary>瓦割</summary>
     TileBreaking,
+    /// <summary>最高レア度カード</summary>
     SuperRareCard,
+    /// <summary>筋力増加</summary>
+    StrengthUp,
+    /// <summary>敏捷増加</summary>
+    AgileUp,
 }
 /// <summary></summary>
 public enum AKCardID

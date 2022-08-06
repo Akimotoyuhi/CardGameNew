@@ -24,8 +24,12 @@ public struct Command
     public PlanType PlanType { get; set; }
     /// <summary>敵を対象とする場合の敵インデックス</summary>
     public int TargetEnemyIndex { get; set; }
-    /// <summary>ストック効果のフラグ</summary>
+    /// <summary>ストック中効果のフラグ</summary>
     public bool IsStockCommand { get; set; }
+    /// <summary>ストック終了時に実行される</summary>
+    public bool IsRelease { get; set; }
+    /// <summary>ストック中に表示する画像</summary>
+    public Sprite StockSprite { get; set; }
     public void SetCommand(ConditionalParametor conditionalParametor)
     {
         switch (conditionalParametor.EvaluationParamType)

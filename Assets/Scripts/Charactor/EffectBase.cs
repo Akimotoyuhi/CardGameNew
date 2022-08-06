@@ -102,7 +102,6 @@ public enum EffectID
     Strength,
     /// <summary>敏捷</summary>
     Agile,
-
 }
 /// <summary>
 /// エフェクトが評価するパラメータ
