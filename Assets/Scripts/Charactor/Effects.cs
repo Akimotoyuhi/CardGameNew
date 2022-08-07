@@ -167,3 +167,86 @@ public class Agile : EffectBase
         return ret;
     }
 }
+public class Vitality : EffectBase
+{
+    public override string Tooltip => $"活力\n与えるダメージが<color=#0000ff>25%増加</color>。{Turn}ターン持続";
+    public override bool IsRemove => Turn <= 0;
+    public override BuffType GetBuffType => BuffType.Buff;
+    public override EffectID GetEffectID => EffectID.Vitality;
+    public override Command Effect(List<ConditionalParametor> evaluationParametors)
+    {
+        Command ret = new Command();
+        bool powerDecFlag = true;
+        bool turnDecFlag = true;
+        int power = 0;
+        foreach (var ep in evaluationParametors)
+        {
+            ret.SetCommand(ep);
+            if (ep.EffectTiming == EffectTiming.Attacked && ep.EvaluationParamType == EvaluationParamType.Attack)
+            {
+                power = ep.Parametor;
+            }
+            else
+            {
+                power = ep.Parametor;
+                powerDecFlag = false;
+            }
+            if (ep.EffectTiming != EffectTiming.TurnEnd)
+            {
+                turnDecFlag = false;
+            }
+        }
+        if (powerDecFlag)
+        {
+            float f = power * (1 + 0.25f);
+            ret.Power = (int)f;
+        }
+        if (turnDecFlag)
+        {
+            Turn--;
+        }
+        return ret;
+    }
+}
+public class Sturdy : EffectBase
+{
+    public override string Tooltip => $"頑丈\n得るブロックが<color=#0000ff>25%増加</color>。{Turn}ターン持続";
+    public override bool IsRemove => Turn <= 0;
+    public override BuffType GetBuffType => BuffType.Buff;
+    public override EffectID GetEffectID => EffectID.Sturdy;
+    public override Command Effect(List<ConditionalParametor> evaluationParametors)
+    {
+        Command ret = new Command();
+        bool blockDecFlag = true;
+        bool turnDecFlag = true;
+        int block = 0;
+        foreach (var ep in evaluationParametors)
+        {
+            ret.SetCommand(ep);
+            if (ep.EffectTiming == EffectTiming.Attacked && ep.EvaluationParamType == EvaluationParamType.Block)
+            {
+                block = ep.Parametor;
+            }
+            else
+            {
+                block = ep.Parametor;
+                blockDecFlag = false;
+            }
+            if (ep.EffectTiming != EffectTiming.TurnEnd)
+            {
+                turnDecFlag = false;
+            }
+
+        }
+        if (blockDecFlag)
+        {
+            float f = block * (1 + 0.25f);
+            ret.Block = (int)f;
+        }
+        if (turnDecFlag)
+        {
+            Turn--;
+        }
+        return ret;
+    }
+}

@@ -47,6 +47,12 @@ public class EffectSelector
                 case EffectID.Agile:
                     ret = new Agile();
                     break;
+                case EffectID.Vitality:
+                    ret = new Vitality();
+                    break;
+                case EffectID.Sturdy:
+                    ret = new Sturdy();
+                    break;
                 default:
                     throw new System.Exception("存在しないエフェクトが選択された");
             }
@@ -102,6 +108,10 @@ public enum EffectID
     Strength,
     /// <summary>敏捷</summary>
     Agile,
+    /// <summary>活力</summary>
+    Vitality,
+    /// <summary>頑丈</summary>
+    Sturdy,
 }
 /// <summary>
 /// エフェクトが評価するパラメータ
