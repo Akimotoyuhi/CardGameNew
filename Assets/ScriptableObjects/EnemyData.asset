@@ -19,16 +19,22 @@ MonoBehaviour:
       m_name: "\u30B9\u30E9\u30A4\u30E0"
       m_maxLife: 20
       m_sprite: {fileID: 21300000, guid: 5678199d677832a4ebacd5a8521635aa, type: 3}
-      m_imageScaling: 1
+      m_imageScaling: 0.9
     m_enemyAi:
     - m_conditional:
-        m_probability: 100
+        m_probability: 60
         m_playNum: -1
-        m_conditionals:
-        - rid: 2058802013358260224
+        m_conditionals: []
       m_enemyCommands:
         m_commands:
         - rid: 3443099266971336704
+    - m_conditional:
+        m_probability: 60
+        m_playNum: -1
+        m_conditionals: []
+      m_enemyCommands:
+        m_commands:
+        - rid: 3724448470816784384
     - m_conditional:
         m_probability: 100
         m_playNum: -1
@@ -37,7 +43,40 @@ MonoBehaviour:
       m_enemyCommands:
         m_commands:
         - rid: 3443099312498409473
-        - rid: 3443099266971336705
+  - m_label: "\u653B\u6483\u7684\u306A\u6575"
+    m_id: 0
+    m_characterData:
+      m_name: "\u653B\u6483\u7684\u306A\u6575"
+      m_maxLife: 40
+      m_sprite: {fileID: 21300000, guid: 5678199d677832a4ebacd5a8521635aa, type: 3}
+      m_imageScaling: 1
+    m_enemyAi:
+    - m_conditional:
+        m_probability: 0
+        m_playNum: 0
+        m_conditionals: []
+      m_enemyCommands:
+        m_commands: []
+    - m_conditional:
+        m_probability: 0
+        m_playNum: 0
+        m_conditionals: []
+      m_enemyCommands:
+        m_commands: []
+    - m_conditional:
+        m_probability: 0
+        m_playNum: 0
+        m_conditionals: []
+      m_enemyCommands:
+        m_commands: []
+    - m_conditional:
+        m_probability: 100
+        m_playNum: -1
+        m_conditionals: []
+      m_enemyCommands:
+        m_commands:
+        - rid: 3724448470816784386
+        - rid: 3724448470816784387
   references:
     version: 2
     RefIds:
@@ -46,12 +85,27 @@ MonoBehaviour:
       data:
         m_life: 0
         m_evaluationType: 0
-    - rid: 2058802013358260224
-      type: {class: EnemyLifeConditional, ns: , asm: Assembly-CSharp}
-      data:
-        m_life: 10
-        m_evaluationType: 3
     - rid: 3443099266971336704
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 0
+        m_power: 3
+        m_isTrueDamage: 0
+        m_duration: 0.2
+        m_isHideType: 0
+        m_stock: 0
+    - rid: 3443099312498409473
+      type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 0
+        m_duration: 0.2
+        m_effectSelector:
+          m_effectID: 0
+          m_turn: 2
+        m_isHideType: 0
+        m_stock: 0
+        m_otherBuffTypeCommandType: 2
+    - rid: 3724448470816784384
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
@@ -59,21 +113,24 @@ MonoBehaviour:
         m_isTrueDamage: 0
         m_duration: 0.2
         m_isHideType: 0
-    - rid: 3443099266971336705
+        m_stock: 0
+    - rid: 3724448470816784386
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
-        m_power: 5
+        m_power: 2
         m_isTrueDamage: 0
-        m_duration: 0.5
+        m_duration: 0.2
         m_isHideType: 0
-    - rid: 3443099312498409473
+        m_stock: 0
+    - rid: 3724448470816784387
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
-        m_duration: 0.5
+        m_duration: 0.2
         m_effectSelector:
-          m_effectID: 0
-          m_turn: 1
+          m_effectID: 1
+          m_turn: 0
         m_isHideType: 0
-        m_otherBuffTypeCommandType: 2
+        m_stock: 0
+        m_otherBuffTypeCommandType: 4

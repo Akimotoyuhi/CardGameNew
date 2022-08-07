@@ -174,11 +174,19 @@ public class EffectCommand : ICommand
 public class Conditional
 {
     [SerializeField, Range(0, 100), Tooltip("抽選確率")] int m_probability = 100;
-    [SerializeField, Tooltip("最大行動回数\n-1なら制限なし")] int m_playNum = -1;
+    [SerializeField, Tooltip("最大行動回数\n-1なら制限なし\n現在機能してないです")] int m_playNum = -1;
     [SerializeReference, SubclassSelector] List<IConditional> m_conditionals;
+    /// <summary>
+    /// 条件の評価
+    /// </summary>
     public bool Evaluation(Field field, Player player, Enemy enemy)
     {
-        bool ret = true;
+        //抽選確率の評価
+        int r = Random.Range(1, 101);
+        if (m_probability < r)
+            return false;
+
+        //IConditionalの評価
         foreach (var c in m_conditionals)
         {
             if (!c.EnemyEvaluation(enemy))
@@ -188,7 +196,7 @@ public class Conditional
             if (!c.FieldEvaluation(field))
                 return false;
         }
-        return ret;
+        return true;
     }
 }
 public interface IConditional
@@ -200,20 +208,28 @@ public interface IConditional
     /// <summary>敵を評価</summary>
     bool EnemyEvaluation(Enemy enemy);
 }
+/// <summary>敵の体力を評価する</summary>
 public class EnemyLifeConditional : IConditional
 {
     [SerializeField] int m_life;
     [SerializeField] EvaluationType m_evaluationType;
 
-    public bool EnemyEvaluation(Enemy enemy)
-    {
-        //return enemy.CurrentLife >= m_life;
-        return ConditionalHelper.Evaluation(m_evaluationType, enemy.CurrentLife, m_life);
-    }
+    public bool EnemyEvaluation(Enemy enemy) =>
+        ConditionalHelper.Evaluation(m_evaluationType, enemy.CurrentLife, m_life);
     public bool FieldEvaluation(Field field) => true;
     public bool PlayerEvaluation(Player player) => true;
 }
+/// <summary>現在のターン数を評価する</summary>
+public class TurnConditional : IConditional
+{
+    [SerializeField] int m_turn;
+    [SerializeField] EvaluationType m_evaluationType;
 
+    public bool EnemyEvaluation(Enemy enemy) => true;
+    public bool FieldEvaluation(Field field) =>
+        ConditionalHelper.Evaluation(m_evaluationType, field.CurrentTurn, m_turn);
+    public bool PlayerEvaluation(Player player) => true;
+}
 /// <summary>値と評価条件から成否をチェックする</summary>
 public static class ConditionalHelper
 {
