@@ -105,8 +105,8 @@ public class MapChip
 #region Enums
 public enum MapID
 {
-    /// <summary>黒銅遺跡</summary>
-    BlackCopperRuins,
+    /// <summary>遺跡</summary>
+    Ruin,
     /// <summary>さわやか川</summary>
     FreshRiver,
     /// <summary>スーパーエデン</summary>

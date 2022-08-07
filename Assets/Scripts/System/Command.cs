@@ -256,6 +256,10 @@ public static class ConditionalHelper
                 if (baseNum >= evaluationNum)
                     return true;
                 break;
+            case EvaluationType.AtIntervalsOf:
+                if (evaluationNum % baseNum == 0)
+                    return true;
+                break;
             default:
                 break;
         }
@@ -274,6 +278,8 @@ public enum EvaluationType
     High,
     /// <summary>ˆÈ‰º</summary>
     Low,
+    /// <summary>X–ˆ‚É</summary>
+    AtIntervalsOf
 }
 /// <summary>
 /// “Gs“®—\’è—p

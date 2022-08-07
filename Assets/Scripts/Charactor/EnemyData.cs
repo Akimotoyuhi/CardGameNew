@@ -45,4 +45,6 @@ public class EnemyAI
 public enum EnemyID
 {
     Slime,
+    AggressiveEnemy,
+    Act1Boss,
 }

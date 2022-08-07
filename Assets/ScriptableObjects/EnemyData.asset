@@ -48,27 +48,31 @@ MonoBehaviour:
     m_characterData:
       m_name: "\u653B\u6483\u7684\u306A\u6575"
       m_maxLife: 40
-      m_sprite: {fileID: 21300000, guid: 5678199d677832a4ebacd5a8521635aa, type: 3}
+      m_sprite: {fileID: 21300000, guid: d4d57f27b5f292f40950479d44cc3e04, type: 3}
       m_imageScaling: 1
     m_enemyAi:
     - m_conditional:
-        m_probability: 0
-        m_playNum: 0
+        m_probability: 20
+        m_playNum: -1
         m_conditionals: []
       m_enemyCommands:
-        m_commands: []
+        m_commands:
+        - rid: 3724448470816784391
     - m_conditional:
-        m_probability: 0
-        m_playNum: 0
+        m_probability: 50
+        m_playNum: -1
         m_conditionals: []
       m_enemyCommands:
-        m_commands: []
+        m_commands:
+        - rid: 3724448470816784390
     - m_conditional:
-        m_probability: 0
-        m_playNum: 0
-        m_conditionals: []
+        m_probability: 100
+        m_playNum: -1
+        m_conditionals:
+        - rid: 3724448470816784388
       m_enemyCommands:
-        m_commands: []
+        m_commands:
+        - rid: 3724448470816784389
     - m_conditional:
         m_probability: 100
         m_playNum: -1
@@ -76,7 +80,6 @@ MonoBehaviour:
       m_enemyCommands:
         m_commands:
         - rid: 3724448470816784386
-        - rid: 3724448470816784387
   references:
     version: 2
     RefIds:
@@ -118,19 +121,42 @@ MonoBehaviour:
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_useType: 0
-        m_power: 2
+        m_power: 4
         m_isTrueDamage: 0
         m_duration: 0.2
         m_isHideType: 0
         m_stock: 0
-    - rid: 3724448470816784387
+    - rid: 3724448470816784388
+      type: {class: TurnConditional, ns: , asm: Assembly-CSharp}
+      data:
+        m_turn: 2
+        m_evaluationType: 4
+    - rid: 3724448470816784389
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
-        m_useType: 0
+        m_useType: 1
         m_duration: 0.2
         m_effectSelector:
-          m_effectID: 1
-          m_turn: 0
+          m_effectID: 4
+          m_turn: 1
         m_isHideType: 0
         m_stock: 0
         m_otherBuffTypeCommandType: 4
+    - rid: 3724448470816784390
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 0
+        m_power: 6
+        m_isTrueDamage: 0
+        m_duration: 0.2
+        m_isHideType: 0
+        m_stock: 0
+    - rid: 3724448470816784391
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 0
+        m_power: 8
+        m_isTrueDamage: 0
+        m_duration: 0.2
+        m_isHideType: 0
+        m_stock: 0
