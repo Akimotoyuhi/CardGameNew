@@ -187,6 +187,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         target.GetDrop(ref cmds);
         m_cardExecute.OnNext(cmds);
         m_player.EffectExecute(m_commandUsedConditionalParametors);
+        //一部変数の初期化
+        TranslucentUI();
+        m_isDrag = false;
+        m_isAnim = false;
         //プレイヤーのコストを減らす
         m_player.CurrentCost -= m_cost;
     }
