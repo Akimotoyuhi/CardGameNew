@@ -27,7 +27,7 @@ public struct Command
     /// <summary>ストック中効果のフラグ</summary>
     public bool IsStockCommand { get; set; }
     /// <summary>ストック終了時に実行される</summary>
-    public bool IsRelease { get; set; }
+    public bool IsStockRelease { get; set; }
     /// <summary>ストック中に表示する画像</summary>
     public Sprite StockSprite { get; set; }
     public void SetCommand(ConditionalParametor conditionalParametor)

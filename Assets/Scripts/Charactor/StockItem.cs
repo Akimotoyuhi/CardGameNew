@@ -12,11 +12,12 @@ public class StockItem : MonoBehaviour
     [SerializeField] Sprite m_defaultSprite;
     private Command m_command;
     public Command Command => m_command;
+    /// <summary>Žg—p’†‚©‚Ç‚¤‚©</summary>
     public bool IsUsed { get; private set; }
 
-    public void Setup(Command command, Sprite sprite)
+    public void Setup(Command command)
     {
-        m_image.sprite = sprite;
+        m_image.sprite = command.StockSprite;
         m_command = command;
         IsUsed = true;
     }

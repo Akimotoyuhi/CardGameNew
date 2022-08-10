@@ -224,7 +224,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
                     commandUsedConditionalParametors.Add(cp);
                 }
             }
-            s = s.Replace(m.Value, $"{m_cardCommands[index].Power}ダメージ");
+            s = s.Replace(m.Value, m_cardCommands[index].Power.ToString());
         }
         //ブロック値の効果置き換え
         matchs = Regex.Matches(s, "{blk([0-9]*)}");
@@ -247,7 +247,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
                     commandUsedConditionalParametors.Add(cp);
                 }
             }
-            s = s.Replace(m.Value, $"{m_cardCommands[index].Block}ブロック");
+            s = s.Replace(m.Value, m_cardCommands[index].Block.ToString());
         }
         m_commandUsedConditionalParametors = commandUsedConditionalParametors;
         m_tooltipText.text = s;

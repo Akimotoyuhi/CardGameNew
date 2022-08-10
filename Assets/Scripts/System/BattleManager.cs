@@ -11,9 +11,7 @@ using System.Threading;
 /// </summary>
 public class BattleManager : MonoBehaviour
 {
-    /// <summary>
-    /// カードデータの集まり
-    /// </summary>
+    /// <summary>カードデータの集まり</summary>
     [System.Serializable]
     public class CardClassDatas
     {
@@ -68,9 +66,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Discard m_discard;
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] CardClassDatas m_cardDatas;
+    [SerializeField] StockSlot m_stockSlot;
     [SerializeField] int m_rewardNum;
     private int m_currentTurn;
-    private bool m_onCommand;
     /// <summary>この戦闘中のカードのインスタンス</summary>
     private List<Card> m_currentCard = new List<Card>();
     /// <summary>戦闘終了を通知する</summary>
@@ -106,11 +104,13 @@ public class BattleManager : MonoBehaviour
                 .AddTo(e);
             })
             .AddTo(m_charactorManager);
+        //戦闘終了イベントの購読
         m_charactorManager.BattleEndSubject
             .Subscribe(type => BattleEnd(type))
             .AddTo(m_charactorManager);
+        m_stockSlot.Setup();
 
-        //デッキと捨て札一覧画面を消す
+        //不要な画面を非表示に
         m_deck.SetParentActive = false;
         m_discard.SetParentActive = false;
     }
@@ -159,19 +159,22 @@ public class BattleManager : MonoBehaviour
     /// <param name="cmds"></param>
     private async UniTask CommandExecutor(List<Command> cmds)
     {
-        //コマンド処理中は他のコマンドを待機させる
-        //while (m_onCommand)
-        //    await UniTask.Yield();
+        List<Command> stockCommand = new List<Command>();
         foreach (var c in cmds)
         {
-            //while (m_onCommand)
-            //    await UniTask.Yield();
-            m_onCommand = true;
-            //この辺でフィールド効果を評価する予定
-            m_charactorManager.CommandExecutor(c);
-            await UniTask.Delay(System.TimeSpan.FromSeconds(c.Duration));
-            m_onCommand = false;
+            if (c.IsStockCommand || c.IsStockRelease)
+            {
+                //ストック系コマンドはここでは実行されない
+                stockCommand.Add(c);
+            }
+            else
+            {
+                //この辺でフィールド効果を評価する予定
+                m_charactorManager.CommandExecutor(c);
+                await UniTask.Delay(System.TimeSpan.FromSeconds(c.Duration));
+            }
         }
+        //m_stockSlot.Add();
     }
 
     /// <summary>
