@@ -59,7 +59,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private Vector2 m_mouseClickPos;
     private Player m_player;
     private Subject<Unit> m_onClick = new Subject<Unit>();
-    private Subject<List<Command>> m_cardExecute = new Subject<List<Command>>();
+    private Subject<CommandsInfomation> m_cardExecute = new Subject<CommandsInfomation>();
     #endregion
     #region Property
     /// <summary>名前</summary>
@@ -71,7 +71,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     /// <summary>ボタンとして表示された際のクリック時イベント</summary>
     public System.IObservable<Unit> OnClickSubject => m_onClick;
     /// <summary>使用された事を通知する</summary>
-    public System.IObservable<List<Command>> CardExecute => m_cardExecute;
+    public System.IObservable<CommandsInfomation> CardExecute => m_cardExecute;
     #endregion
 
     public void Setup(CardDataBase dataBase, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite, Player player)
@@ -185,7 +185,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         List<Command> cmds = new List<Command>();
         m_cardCommands.ForEach(c => cmds.Add(c));
         target.GetDrop(ref cmds);
-        m_cardExecute.OnNext(cmds);
+        CommandsInfomation info = new CommandsInfomation();
+        info.Setup(cmds, m_icon.sprite, m_tooltipText.text);
+        m_cardExecute.OnNext(info);
         m_player.EffectExecute(m_commandUsedConditionalParametors);
         //一部変数の初期化
         TranslucentUI();

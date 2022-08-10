@@ -30,13 +30,13 @@ public class StockSlot : MonoBehaviour
     }
 
     /// <summary>ストックされる効果を追加する</summary>
-    public void Add(Command command)
+    public void Add(List<Command> command, Sprite sprite, string tooltip)
     {
         m_stockItems.ForEach(item =>
         {
             if (!item.IsUsed)
             {
-                item.Setup(command);
+                item.Setup(command, sprite, tooltip);
                 return;
             }
         });

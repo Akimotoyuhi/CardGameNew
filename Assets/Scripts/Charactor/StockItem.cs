@@ -10,14 +10,14 @@ public class StockItem : MonoBehaviour
 {
     [SerializeField] Image m_image;
     [SerializeField] Sprite m_defaultSprite;
-    private Command m_command;
-    public Command Command => m_command;
+    private List<Command> m_command;
+    public List<Command> Command => m_command;
     /// <summary>Žg—p’†‚©‚Ç‚¤‚©</summary>
     public bool IsUsed { get; private set; }
 
-    public void Setup(Command command)
+    public void Setup(List<Command> command, Sprite sprite, string tooltip)
     {
-        m_image.sprite = command.StockSprite;
+        m_image.sprite = sprite;
         m_command = command;
         IsUsed = true;
     }
@@ -26,5 +26,15 @@ public class StockItem : MonoBehaviour
     {
         m_image.sprite = m_defaultSprite;
         IsUsed = false;
+    }
+
+    public List<Command> ExecuteStockCommand()
+    {
+        return null; //‚Æ‚è‚ ‚¦‚¸
+    }
+
+    public List<Command> ExecuteStockReleaseCommand()
+    {
+        return null; //‚Æ‚è‚ ‚¦‚¸
     }
 }

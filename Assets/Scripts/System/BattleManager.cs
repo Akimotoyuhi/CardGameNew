@@ -128,7 +128,7 @@ public class BattleManager : MonoBehaviour
                 m_charactorManager.CurrentPlayer);
             c.CardExecute.Subscribe(cmds =>
             {
-                CommandExecutor(cmds).Forget();
+                CommandExecutor(cmds.Commands).Forget();
                 c.transform.SetParent(m_discard.CardParent, false);
             }).AddTo(c);
             m_currentCard.Add(c);
@@ -157,7 +157,7 @@ public class BattleManager : MonoBehaviour
     /// フィールド効果を評価し、一部コマンドを実行する
     /// </summary>
     /// <param name="cmds"></param>
-    private async UniTask CommandExecutor(List<Command> cmds)
+    private async UniTask CommandExecutor(List<Command> cmds, Sprite sprite = null, string tooltip = default)
     {
         List<Command> stockCommand = new List<Command>();
         foreach (var c in cmds)
@@ -174,7 +174,15 @@ public class BattleManager : MonoBehaviour
                 await UniTask.Delay(System.TimeSpan.FromSeconds(c.Duration));
             }
         }
-        //m_stockSlot.Add();
+        if (stockCommand.Count >= 0)
+        {
+            m_stockSlot.Add(stockCommand, sprite, tooltip);
+        }
+    }
+
+    private void CommandInfoExecutor(CommandsInfomation commandsInfomation)
+    {
+
     }
 
     /// <summary>
