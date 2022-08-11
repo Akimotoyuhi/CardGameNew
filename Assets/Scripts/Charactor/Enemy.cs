@@ -16,7 +16,7 @@ public class Enemy : Charactor, IDrop
     private EnemyID m_enemyID;
     /// <summary>このターンの行動</summary>
     private List<Command> m_currentTurnCommand = new List<Command>();
-    private Subject<List<Command>> m_action = new Subject<List<Command>>();
+    private Subject<CommandsInfomation> m_action = new Subject<CommandsInfomation>();
     /// <summary>敵グループでの所属index</summary>
     public int Index { set => m_index = value; }
     /// <summary>敵死亡時に消滅にかける時間</summary>
@@ -26,7 +26,7 @@ public class Enemy : Charactor, IDrop
     /// <summary>この敵のID</summary>
     public EnemyID EnemyID => m_enemyID;
     /// <summary>敵行動時に発行されるイベント</summary>
-    public System.IObservable<List<Command>> ActionSubject => m_action;
+    public System.IObservable<CommandsInfomation> ActionSubject => m_action;
 
     protected override void Setup()
     {
@@ -72,7 +72,9 @@ public class Enemy : Charactor, IDrop
     /// <returns></returns>
     private async UniTask Action()
     {
-        m_action.OnNext(m_currentTurnCommand);
+        CommandsInfomation ci = new CommandsInfomation();
+        ci.Setup(m_currentTurnCommand, m_image.sprite, "");
+        m_action.OnNext(ci);
         await UniTask.Yield();
     }
 

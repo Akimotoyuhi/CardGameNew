@@ -257,6 +257,28 @@ MonoBehaviour:
       m_cardCommands:
         m_commands:
         - rid: 3724448452576542723
+  - m_label: "\u30B9\u30C8\u30C3\u30AF\u30AB\u30FC\u30C9\u30C6\u30B9\u30C8"
+    m_database:
+      m_name: "\u30B9\u30C8\u30C3\u30AF\u51FA\u6765\u308B"
+      m_icon: {fileID: 21300000, guid: 0a33552f86bdb2246b76d1204087e951, type: 3}
+      m_cost: 1
+      m_tooltip: "3\u30BF\u30FC\u30F3\u306E\u9593\u3001\u6575\u5168\u4F53\u306B2\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
+      m_cardUseType: 2
+      m_rarity: 0
+      m_cardType: 00000000
+      m_cardCommands:
+        m_commands:
+        - rid: 3724448561247027200
+    m_upgradeData:
+      m_name: "\u30B9\u30C8\u30C3\u30AF\u51FA\u6765\u308B"
+      m_icon: {fileID: 21300000, guid: 0a33552f86bdb2246b76d1204087e951, type: 3}
+      m_cost: 1
+      m_tooltip: "3\u30BF\u30FC\u30F3\u306E\u9593\u3001\u6575\u5168\u4F53\u306B2\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
+      m_cardUseType: 2
+      m_rarity: 0
+      m_cardType: 
+      m_cardCommands:
+        m_commands: []
   references:
     version: 2
     RefIds:
@@ -268,7 +290,8 @@ MonoBehaviour:
         m_isTrueDamage: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443098995593314305
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -277,7 +300,8 @@ MonoBehaviour:
         m_isTrueDamage: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443098995593314306
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -286,7 +310,8 @@ MonoBehaviour:
         isTrueBlock: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443098995593314307
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -295,7 +320,8 @@ MonoBehaviour:
         isTrueBlock: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443098995593314308
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -304,7 +330,8 @@ MonoBehaviour:
         m_isTrueDamage: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443098995593314309
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -313,7 +340,8 @@ MonoBehaviour:
         m_isTrueDamage: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443099019064639488
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -322,7 +350,8 @@ MonoBehaviour:
         m_isTrueDamage: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443099019064639489
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -331,7 +360,8 @@ MonoBehaviour:
         m_isTrueDamage: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443099019064639490
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -340,7 +370,8 @@ MonoBehaviour:
         isTrueBlock: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443099019064639491
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -349,7 +380,8 @@ MonoBehaviour:
         isTrueBlock: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443099019064639492
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -358,7 +390,8 @@ MonoBehaviour:
         m_isTrueDamage: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443099019064639493
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -367,7 +400,8 @@ MonoBehaviour:
         m_isTrueDamage: 0
         m_duration: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
     - rid: 3443099041877458944
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -377,7 +411,8 @@ MonoBehaviour:
           m_effectID: 0
           m_turn: 0
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
         m_otherBuffTypeCommandType: 4
     - rid: 3724448452576542720
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
@@ -388,7 +423,8 @@ MonoBehaviour:
           m_effectID: 2
           m_turn: 1
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
         m_otherBuffTypeCommandType: 4
     - rid: 3724448452576542721
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
@@ -399,7 +435,8 @@ MonoBehaviour:
           m_effectID: 2
           m_turn: 2
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
         m_otherBuffTypeCommandType: 4
     - rid: 3724448452576542722
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
@@ -410,7 +447,8 @@ MonoBehaviour:
           m_effectID: 3
           m_turn: 1
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
         m_otherBuffTypeCommandType: 4
     - rid: 3724448452576542723
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
@@ -421,5 +459,16 @@ MonoBehaviour:
           m_effectID: 3
           m_turn: 2
         m_isHideType: 0
-        m_stock: 0
+        m_isStock: 0
+        m_isStockRelease: 0
         m_otherBuffTypeCommandType: 4
+    - rid: 3724448561247027200
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_useType: 2
+        m_power: 2
+        m_isTrueDamage: 0
+        m_duration: 0.2
+        m_isHideType: 0
+        m_isStock: 1
+        m_isStockRelease: 0

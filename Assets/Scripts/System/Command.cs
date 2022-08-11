@@ -87,7 +87,8 @@ public class AttackCommand : ICommand
     [SerializeField] bool m_isTrueDamage;
     [SerializeField] float m_duration;
     [SerializeField] bool m_isHideType;
-    [SerializeField] bool m_stock;
+    [SerializeField] bool m_isStock;
+    [SerializeField] bool m_isStockRelease;
 
     public Command Execute()
     {
@@ -96,6 +97,8 @@ public class AttackCommand : ICommand
         ret.UseType = m_useType;
         ret.Duration = m_duration;
         ret.CommandType = CommandType.Attack;
+        ret.IsStockCommand = m_isStock;
+        ret.IsStockRelease = m_isStockRelease;
         if (m_isHideType)
             ret.PlanType = PlanType.Other;
         else
@@ -111,7 +114,8 @@ public class BlockCommand : ICommand
     [SerializeField] bool isTrueBlock;
     [SerializeField] float m_duration;
     [SerializeField] bool m_isHideType;
-    [SerializeField] bool m_stock;
+    [SerializeField] bool m_isStock;
+    [SerializeField] bool m_isStockRelease;
 
     public Command Execute()
     {
@@ -121,6 +125,8 @@ public class BlockCommand : ICommand
         ret.Duration = m_duration;
         ret.PlanType = PlanType.Block;
         ret.CommandType = CommandType.Block;
+        ret.IsStockCommand = m_isStock;
+        ret.IsStockRelease = m_isStockRelease;
         if (m_isHideType)
             ret.PlanType = PlanType.Other;
         else
@@ -134,7 +140,8 @@ public class EffectCommand : ICommand
     [SerializeField] float m_duration;
     [SerializeField] EffectSelector m_effectSelector;
     [SerializeField] bool m_isHideType;
-    [SerializeField] bool m_stock;
+    [SerializeField] bool m_isStock;
+    [SerializeField] bool m_isStockRelease;
     [SerializeField] PlanType m_otherBuffTypeCommandType = PlanType.Other;
     public Command Execute()
     {
@@ -144,6 +151,8 @@ public class EffectCommand : ICommand
         ret.Effect = effects;
         ret.Duration = m_duration;
         ret.CommandType = CommandType.Effect;
+        ret.IsStockCommand = m_isStock;
+        ret.IsStockRelease = m_isStockRelease;
         if (!m_isHideType)
         {
             switch (m_effectSelector.GetEffect.GetBuffType)

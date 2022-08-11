@@ -190,7 +190,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_cardExecute.OnNext(info);
         m_player.EffectExecute(m_commandUsedConditionalParametors);
         //一部変数の初期化
-        TranslucentUI();
+        TranslucentUI(false);
         m_isDrag = false;
         m_isAnim = false;
         //プレイヤーのコストを減らす
