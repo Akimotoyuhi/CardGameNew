@@ -238,6 +238,8 @@ public enum OriginalCardID
     StrengthUp,
     /// <summary>•q·‘‰Á</summary>
     AgileUp,
+    /// <summary>‚Ü‚«‚Ñ‚µ</summary>
+    Caltrop,
 }
 /// <summary></summary>
 public enum AKCardID

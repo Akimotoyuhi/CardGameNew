@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UniRx;
 using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
@@ -32,13 +33,13 @@ public class StockSlot : MonoBehaviour
     /// <summary>ストックされる効果を追加する</summary>
     public void Add(List<Command> command, Sprite sprite, string tooltip)
     {
-        m_stockItems.ForEach(item =>
+        foreach (var item in m_stockItems)
         {
             if (!item.IsUsed)
             {
                 item.Setup(command, sprite, tooltip);
-                return;
+                break;
             }
-        });
+        }
     }
 }
