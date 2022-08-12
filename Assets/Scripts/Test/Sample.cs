@@ -9,18 +9,4 @@ using UnityEngine.UI;
 
 public class Sample : MonoBehaviour
 {
-    private void Start()
-    {
-        Method(1, 2);
-    }
-
-    private void Method<T>(T a, T b)
-    {
-        Debug.Log(a);
-    }
-}
-
-public interface ITekitounaInterface
-{
-
 }

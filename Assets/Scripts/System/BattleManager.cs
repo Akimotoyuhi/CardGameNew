@@ -150,6 +150,7 @@ public class BattleManager : MonoBehaviour
         m_battleState.Value = BattleState.PlayerFaze;
         m_currentTurn++;
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
+        //ここでストック効果の発動
         await m_charactorManager.TurnBegin(m_currentTurn);
     }
 
@@ -162,7 +163,7 @@ public class BattleManager : MonoBehaviour
         List<Command> stockCommand = new List<Command>();
         foreach (var c in commandsInfomation.Commands)
         {
-            if (c.IsStockCommand || c.IsStockRelease)
+            if (c.StockTurn >= 0 || c.IsStockRelease)
             {
                 //ストック系コマンドはここでは実行されない
                 stockCommand.Add(c);
@@ -178,11 +179,6 @@ public class BattleManager : MonoBehaviour
         {
             m_stockSlot.Add(stockCommand, commandsInfomation.Sprite, commandsInfomation.Tooltip);
         }
-    }
-
-    private void CommandInfoExecutor(CommandsInfomation commandsInfomation)
-    {
-
     }
 
     /// <summary>

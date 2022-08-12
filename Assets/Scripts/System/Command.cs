@@ -24,8 +24,8 @@ public struct Command
     public PlanType PlanType { get; set; }
     /// <summary>敵を対象とする場合の敵インデックス</summary>
     public int TargetEnemyIndex { get; set; }
-    /// <summary>ストック中効果のフラグ</summary>
-    public bool IsStockCommand { get; set; }
+    /// <summary>ストックしておくターン数</summary>
+    public int StockTurn { get; set; }
     /// <summary>ストック終了時に実行される</summary>
     public bool IsStockRelease { get; set; }
     /// <summary>ストック中に表示する画像</summary>
@@ -87,7 +87,7 @@ public class AttackCommand : ICommand
     [SerializeField] bool m_isTrueDamage;
     [SerializeField] float m_duration;
     [SerializeField] bool m_isHideType;
-    [SerializeField] bool m_isStock;
+    [SerializeField] int m_stockTurn = -1;
     [SerializeField] bool m_isStockRelease;
 
     public Command Execute()
@@ -97,7 +97,7 @@ public class AttackCommand : ICommand
         ret.UseType = m_useType;
         ret.Duration = m_duration;
         ret.CommandType = CommandType.Attack;
-        ret.IsStockCommand = m_isStock;
+        ret.StockTurn = m_stockTurn;
         ret.IsStockRelease = m_isStockRelease;
         if (m_isHideType)
             ret.PlanType = PlanType.Other;
@@ -114,7 +114,7 @@ public class BlockCommand : ICommand
     [SerializeField] bool isTrueBlock;
     [SerializeField] float m_duration;
     [SerializeField] bool m_isHideType;
-    [SerializeField] bool m_isStock;
+    [SerializeField] int m_stockTurn = -1;
     [SerializeField] bool m_isStockRelease;
 
     public Command Execute()
@@ -125,7 +125,7 @@ public class BlockCommand : ICommand
         ret.Duration = m_duration;
         ret.PlanType = PlanType.Block;
         ret.CommandType = CommandType.Block;
-        ret.IsStockCommand = m_isStock;
+        ret.StockTurn = m_stockTurn;
         ret.IsStockRelease = m_isStockRelease;
         if (m_isHideType)
             ret.PlanType = PlanType.Other;
@@ -140,7 +140,7 @@ public class EffectCommand : ICommand
     [SerializeField] float m_duration;
     [SerializeField] EffectSelector m_effectSelector;
     [SerializeField] bool m_isHideType;
-    [SerializeField] bool m_isStock;
+    [SerializeField] int m_stockTurn = -1;
     [SerializeField] bool m_isStockRelease;
     [SerializeField] PlanType m_otherBuffTypeCommandType = PlanType.Other;
     public Command Execute()
@@ -151,7 +151,7 @@ public class EffectCommand : ICommand
         ret.Effect = effects;
         ret.Duration = m_duration;
         ret.CommandType = CommandType.Effect;
-        ret.IsStockCommand = m_isStock;
+        ret.StockTurn = m_stockTurn;
         ret.IsStockRelease = m_isStockRelease;
         if (!m_isHideType)
         {

@@ -10,15 +10,42 @@ public class StockItem : MonoBehaviour
 {
     [SerializeField] Image m_image;
     [SerializeField] Sprite m_defaultSprite;
-    private List<Command> m_command;
-    public List<Command> Command => m_command;
+    private List<Command> m_stockCommand = new List<Command>();
+    private List<Command> m_releaseCommand = new List<Command>();
+    public List<Command> Command => m_stockCommand;
     /// <summary>使用中かどうか</summary>
     public bool IsUsed { get; private set; }
+    /// <summary>ストックしておくターン数</summary>
+    public int StockTurn { get; private set; }
+    public List<Command> ExecuteStockCommand
+    {
+        get
+        {
+            if (StockTurn <= 0)
+                return new List<Command>();
+            StockTurn--;
+            return m_stockCommand;
+        }
+    }
+    public List<Command> ExecuteStockReleaseCommand => m_releaseCommand;
 
     public void Setup(List<Command> command, Sprite sprite, string tooltip)
     {
         m_image.sprite = sprite;
-        m_command = command;
+        command.ForEach(c =>
+        {
+            if (c.IsStockRelease)
+            {
+                c.IsStockRelease = false;
+                m_releaseCommand.Add(c);
+            }
+            else
+            {
+                StockTurn = c.StockTurn;
+                c.StockTurn = -1;
+                m_stockCommand.Add(c);
+            }
+        });
         IsUsed = true;
     }
 
@@ -28,13 +55,10 @@ public class StockItem : MonoBehaviour
         IsUsed = false;
     }
 
-    public List<Command> ExecuteStockCommand()
+    public void Init()
     {
-        return null; //とりあえず
-    }
-
-    public List<Command> ExecuteStockReleaseCommand()
-    {
-        return null; //とりあえず
+        m_stockCommand = new List<Command>();
+        m_releaseCommand = new List<Command>();
+        Setup();
     }
 }
