@@ -15,6 +15,7 @@ public class StockSlot : MonoBehaviour
     [SerializeField] Transform m_stockItemParent;
     [SerializeField] int m_maxSlot;
     private List<StockItem> m_stockItems = new List<StockItem>();
+    public List<StockItem> StockItems => m_stockItems;
 
     public void Setup()
     {

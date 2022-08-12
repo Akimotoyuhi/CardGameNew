@@ -142,6 +142,7 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("ボタンが押された");
         //手札を全て捨てて敵のターンを開始
+        StockCommandExecution(TurnStartOrEnd.End);
         m_hand.ConvartToDiscard();
         m_battleState.Value = BattleState.EnemyFaze;
         await m_charactorManager.TurnEnd(m_currentTurn);
@@ -150,7 +151,7 @@ public class BattleManager : MonoBehaviour
         m_battleState.Value = BattleState.PlayerFaze;
         m_currentTurn++;
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
-        //ここでストック効果の発動
+        StockCommandExecution(TurnStartOrEnd.Start);
         await m_charactorManager.TurnBegin(m_currentTurn);
     }
 
@@ -178,6 +179,32 @@ public class BattleManager : MonoBehaviour
         if (stockCommand.Count > 0)
         {
             m_stockSlot.Add(stockCommand, commandsInfomation.Sprite, commandsInfomation.Tooltip);
+        }
+    }
+
+    private async void StockCommandExecution(TurnStartOrEnd turnStartOrEnd)
+    {
+        switch (turnStartOrEnd)
+        {
+            case TurnStartOrEnd.Start:
+                foreach (var item in m_stockSlot.StockItems)
+                {
+                    CommandsInfomation ci = new CommandsInfomation();
+                    ci.Commands = item.ExecuteStockCommand;
+                    await CommandExecutor(ci);
+                }
+                break;
+            case TurnStartOrEnd.End:
+                foreach (var item in m_stockSlot.StockItems)
+                {
+                    CommandsInfomation ci = new CommandsInfomation();
+                    ci.Commands = item.ExecuteStockReleaseCommand;
+                    //item.Init();
+                    await CommandExecutor(ci);
+                }
+                break;
+            default:
+                throw new System.Exception();
         }
     }
 
@@ -332,12 +359,16 @@ public enum BattleType
     Elite,
     Boss,
 }
-/// <summary>
-/// カードの抽選タイプ
-/// </summary>
+/// <summary>カードの抽選タイプ</summary>
 public enum CardLotteryType
 {
     None,
     IsNoUpgrade,
     Dispose,
+}
+/// <summary>ターンの始まりか終わりか</summary>
+public enum TurnStartOrEnd
+{
+    Start,
+    End,
 }

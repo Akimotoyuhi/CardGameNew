@@ -27,8 +27,15 @@ public class StockItem : MonoBehaviour
             return m_stockCommand;
         }
     }
-    public List<Command> ExecuteStockReleaseCommand => m_releaseCommand;
-
+    public List<Command> ExecuteStockReleaseCommand
+    {
+        get
+        {
+            if (StockTurn <= 0)
+                return m_releaseCommand;
+            return new List<Command>();
+        }
+    }
     public void Setup(List<Command> command, Sprite sprite, string tooltip)
     {
         m_image.sprite = sprite;
