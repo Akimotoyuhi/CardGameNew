@@ -38,7 +38,7 @@ public class StockSlot : MonoBehaviour
         {
             if (!item.IsUsed)
             {
-                item.Setup(command, sprite, tooltip);
+                item.SetCommand(command, sprite, tooltip);
                 return true;
             }
         }
