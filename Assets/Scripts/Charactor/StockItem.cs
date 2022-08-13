@@ -50,7 +50,8 @@ public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                     m_turnTextDisplay.text = i.ToString();
                 else
                     m_turnTextDisplay.text = "";
-            }).AddTo(this);
+            })
+            .AddTo(this);
         m_image.sprite = m_defaultSprite;
         IsUsed = false;
     }

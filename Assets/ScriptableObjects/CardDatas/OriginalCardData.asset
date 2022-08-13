@@ -56,7 +56,7 @@ MonoBehaviour:
       m_name: "\u65AC\u6483"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
       m_cardType: 00000000
@@ -67,7 +67,7 @@ MonoBehaviour:
       m_name: "\u65AC\u6483+"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
       m_cardType: 00000000
@@ -79,7 +79,7 @@ MonoBehaviour:
       m_name: "\u9632\u5FA1"
       m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
       m_cost: 1
-      m_tooltip: "{blk0}\u3092\u5F97\u308B"
+      m_tooltip: "{blk0}\u30D6\u30ED\u30C3\u30AF\u3092\u5F97\u308B"
       m_cardUseType: 0
       m_rarity: 3
       m_cardType: 01000000
@@ -90,7 +90,7 @@ MonoBehaviour:
       m_name: "\u9632\u5FA1+"
       m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
       m_cost: 1
-      m_tooltip: "{blk0}\u3092\u5F97\u308B"
+      m_tooltip: "{blk0}\u30D6\u30ED\u30C3\u30AF\u3092\u5F97\u308B"
       m_cardUseType: 0
       m_rarity: 3
       m_cardType: 01000000
@@ -102,7 +102,7 @@ MonoBehaviour:
       m_name: "\u30BA\u30EB\u3044\u6B66\u5668"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 0
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
       m_cardType: 00000000
@@ -113,7 +113,7 @@ MonoBehaviour:
       m_name: "\u3081\u3063\u3061\u3083\u30BA\u30EB\u3044\u6B66\u5668"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 0
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
       m_cardType: 00000000
@@ -125,7 +125,7 @@ MonoBehaviour:
       m_name: "\u5F37\u6253"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 2
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 1
       m_cardType: 00000000
@@ -136,7 +136,7 @@ MonoBehaviour:
       m_name: "\u5F37\u6253+"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 2
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 1
       m_cardType: 00000000
@@ -148,7 +148,7 @@ MonoBehaviour:
       m_name: "\u9244\u58C1"
       m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
       m_cost: 2
-      m_tooltip: "{blk0}\u3092\u5F97\u308B"
+      m_tooltip: "{blk0}\u30D6\u30ED\u30C3\u30AF\u3092\u5F97\u308B"
       m_cardUseType: 0
       m_rarity: 1
       m_cardType: 01000000
@@ -159,7 +159,7 @@ MonoBehaviour:
       m_name: "\u9244\u58C1+"
       m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
       m_cost: 2
-      m_tooltip: "{blk0}\u3092\u5F97\u308B"
+      m_tooltip: "{blk0}\u30D6\u30ED\u30C3\u30AF\u3092\u5F97\u308B"
       m_cardUseType: 0
       m_rarity: 1
       m_cardType: 01000000
@@ -171,7 +171,7 @@ MonoBehaviour:
       m_name: "\u95A2\u7BC0\u7815\u304D"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u3068\u8131\u529B1\u3092\u4E0E\u3048\u308B"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u3068\u8131\u529B1\u3092\u4E0E\u3048\u308B"
       m_cardUseType: 1
       m_rarity: 0
       m_cardType: 0000000003000000
@@ -183,7 +183,7 @@ MonoBehaviour:
       m_name: "\u95A2\u7BC0\u7815\u304D+"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u3068\u8131\u529B1\u3092\u4E0E\u3048\u308B"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u3068\u8131\u529B1\u3092\u4E0E\u3048\u308B"
       m_cardUseType: 1
       m_rarity: 0
       m_cardType: 0000000003000000
@@ -262,7 +262,7 @@ MonoBehaviour:
       m_name: "\u307E\u304D\u3073\u3057"
       m_icon: {fileID: 21300000, guid: 0a33552f86bdb2246b76d1204087e951, type: 3}
       m_cost: 1
-      m_tooltip: "\u30B9\u30C8\u30C3\u30AF3:\u6575\u5168\u4F532\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
+      m_tooltip: "\u30B9\u30C8\u30C3\u30AF3:\u6575\u5168\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
       m_cardUseType: 1
       m_rarity: 0
       m_cardType: 02000000
@@ -273,7 +273,7 @@ MonoBehaviour:
       m_name: "\u307E\u304D\u3073\u3057+"
       m_icon: {fileID: 21300000, guid: 0a33552f86bdb2246b76d1204087e951, type: 3}
       m_cost: 1
-      m_tooltip: "\u30B9\u30C8\u30C3\u30AF3:\u6575\u5168\u4F533\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
+      m_tooltip: "\u30B9\u30C8\u30C3\u30AF3:\u6575\u5168\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
       m_cardUseType: 1
       m_rarity: 0
       m_cardType: 02000000
