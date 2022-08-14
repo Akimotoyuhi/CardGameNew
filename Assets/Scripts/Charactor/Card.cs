@@ -25,6 +25,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     [SerializeField] float m_endDragMoveDuration;
     private int m_cost;
     private string m_tooltip;
+    /// <summary>廃棄カードフラグ</summary>
+    private bool m_isDiscard;
+    /// <summary>希薄カードフラグ</summary>
+    private bool m_ethereal;
     /// <summary>ドラッグ中フラグ</summary>
     private bool m_isDrag;
     /// <summary>アニメーション中フラグ</summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 手札、山札、捨て札の基底クラス
+/// カードを管理するクラスの基底
 /// </summary>
 public class CardControllerBase : MonoBehaviour
 {

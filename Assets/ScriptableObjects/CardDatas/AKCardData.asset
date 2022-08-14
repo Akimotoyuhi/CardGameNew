@@ -54,9 +54,9 @@ MonoBehaviour:
   - m_label: "\u30B9\u30C8\u30E9\u30A4\u30AF"
     m_database:
       m_name: "\u30B9\u30C8\u30E9\u30A4\u30AF"
-      m_icon: {fileID: 21300000, guid: c4e75932223bc0c439a1b19b1524f6a4, type: 3}
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
       m_cardType: 00000000
@@ -65,9 +65,9 @@ MonoBehaviour:
         - rid: 3443098792831746048
     m_upgradeData:
       m_name: "\u30B9\u30C8\u30E9\u30A4\u30AF+"
-      m_icon: {fileID: 21300000, guid: c4e75932223bc0c439a1b19b1524f6a4, type: 3}
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
       m_cardType: 00000000
@@ -77,7 +77,7 @@ MonoBehaviour:
   - m_label: "\u9632\u5FA1"
     m_database:
       m_name: "\u9632\u5FA1"
-      m_icon: {fileID: 21300000, guid: 9219feb476f26fa4eaa59c63bf9e2274, type: 3}
+      m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
       m_cost: 1
       m_tooltip: "\u81EA\u8EAB\u306B{blk0}\u30D6\u30ED\u30C3\u30AF"
       m_cardUseType: 0
@@ -88,7 +88,7 @@ MonoBehaviour:
         - rid: 3443098792831746052
     m_upgradeData:
       m_name: "\u9632\u5FA1+"
-      m_icon: {fileID: 21300000, guid: 9219feb476f26fa4eaa59c63bf9e2274, type: 3}
+      m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
       m_cost: 1
       m_tooltip: "\u81EA\u8EAB\u306B{blk0}\u30D6\u30ED\u30C3\u30AF"
       m_cardUseType: 0
@@ -100,9 +100,9 @@ MonoBehaviour:
   - m_label: "\u30BF\u30FC\u30DF\u30CD\u30FC\u30C8"
     m_database:
       m_name: "\u30BF\u30FC\u30DF\u30CD\u30FC\u30C8"
-      m_icon: {fileID: 21300000, guid: 0b6881fb082037247a20bde658c444c7, type: 3}
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
       m_cardType: 00000000
@@ -111,9 +111,9 @@ MonoBehaviour:
         - rid: 3443098792831746053
     m_upgradeData:
       m_name: "\u30BF\u30FC\u30DF\u30CD\u30FC\u30C8+"
-      m_icon: {fileID: 21300000, guid: 0b6881fb082037247a20bde658c444c7, type: 3}
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
       m_cardType: 00000000
@@ -123,9 +123,9 @@ MonoBehaviour:
   - m_label: "\u30CF\u30F3\u30DE\u30EA\u30F3\u30B0\u30FB\u30AA\u30F3"
     m_database:
       m_name: "\u30CF\u30F3\u30DE\u30EA\u30F3\u30B0\u30FB\u30AA\u30F3"
-      m_icon: {fileID: 21300000, guid: d3b74373071db0c4fab3f15f95b73ec9, type: 3}
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 2
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 0
       m_cardType: 00000000
@@ -134,9 +134,9 @@ MonoBehaviour:
         - rid: 3443098950917685248
     m_upgradeData:
       m_name: "\u30CF\u30F3\u30DE\u30EA\u30F3\u30B0\u30FB\u30AA\u30F3+"
-      m_icon: {fileID: 21300000, guid: d3b74373071db0c4fab3f15f95b73ec9, type: 3}
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 2
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 0
       m_cardType: 00000000
@@ -146,9 +146,9 @@ MonoBehaviour:
   - m_label: "\u52DD\u6557\u5206\u304B\u3064\u9023\u6483"
     m_database:
       m_name: "\u52DD\u6557\u5206\u304B\u3064\u9023\u6483"
-      m_icon: {fileID: 21300000, guid: fad8fed3f6b4e244baa374ddf332a0fb, type: 3}
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u30922\u56DE\u4E0E\u3048\u308B"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u30922\u56DE\u4E0E\u3048\u308B"
       m_cardUseType: 1
       m_rarity: 2
       m_cardType: 00000000
@@ -160,7 +160,7 @@ MonoBehaviour:
       m_name: "\u52DD\u6557\u5206\u304B\u3064\u9023\u6483+"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: "\u6575\u4E00\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u30922\u56DE\u4E0E\u3048\u308B"
+      m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u30922\u56DE\u4E0E\u3048\u308B"
       m_cardUseType: 1
       m_rarity: 2
       m_cardType: 00000000
@@ -171,7 +171,7 @@ MonoBehaviour:
   - m_label: "\u9396\u92F8\u62E1\u5F35\u30E2\u30B8\u30E5\u30FC\u30EB"
     m_database:
       m_name: "\u9396\u92F8\u62E1\u5F35\u30E2\u30B8\u30E5\u30FC\u30EB"
-      m_icon: {fileID: 21300000, guid: e00808ab97a8c614da12dbe1d938f3fb, type: 3}
+      m_icon: {fileID: 21300000, guid: 60ccf999198195d4da19a9f7090eb371, type: 3}
       m_cost: 2
       m_tooltip: "\u30B9\u30C8\u30C3\u30AF3:\n\u89E3\u653E:\u7B4B\u529B\u3068\u654F\u6377\u30922\u5F97\u308B"
       m_cardUseType: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
         - rid: 3724448610805350401
     m_upgradeData:
       m_name: "\u9396\u92F8\u62E1\u5F35\u30E2\u30B8\u30E5\u30FC\u30EB+"
-      m_icon: {fileID: 21300000, guid: e00808ab97a8c614da12dbe1d938f3fb, type: 3}
+      m_icon: {fileID: 21300000, guid: 60ccf999198195d4da19a9f7090eb371, type: 3}
       m_cost: 
       m_tooltip: "\u30B9\u30C8\u30C3\u30AF3:\n\u89E3\u653E:\u7B4B\u529B\u3068\u654F\u6377\u30923\u5F97\u308B"
       m_cardUseType: 0

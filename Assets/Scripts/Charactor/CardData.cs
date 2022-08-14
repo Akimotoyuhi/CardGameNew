@@ -188,16 +188,22 @@ public class CardDataBase
     string m_tooltip;
     [SerializeField] UseType m_cardUseType = UseType.None;
     [SerializeField] Rarity m_rarity;
+    [SerializeField] bool m_isDiscard;
+    [SerializeField] bool m_ethereal;
     [SerializeField] List<CardType> m_cardType;
     [SerializeField] CommandSelect m_cardCommands;
+    [SerializeField] CardDescription m_cardDescription;
     public string Name => m_name;
     public Sprite Icon => m_icon;
     public string Cost => m_cost;
     public string Tooltip => m_tooltip;
     public UseType CardUseType => m_cardUseType;
     public Rarity Rarity => m_rarity;
+    public bool Discard => m_isDiscard;
+    public bool Ethereal => m_ethereal;
     public List<CardType> CardType => m_cardType;
     public CommandSelect CardCommands => m_cardCommands;
+    public CardDescription CardDescription => m_cardDescription;
     public int ID { get; set; }
     public void SetData(string name, Sprite icon, string cost, string tooltip, UseType useType, Rarity rarity, List<CardType> cardTypes)
     {
@@ -209,6 +215,21 @@ public class CardDataBase
         m_cardUseType = useType;
         m_cardType = cardTypes;
     }
+}
+/// <summary>
+/// カードにカーソルを当てた際に説明を出す項目の設定
+/// </summary>
+[System.Serializable]
+public class CardDescription
+{
+    [SerializeField] bool m_discard;
+    [SerializeField] bool m_ethereal;
+    [SerializeField] bool m_stock;
+    [SerializeField] bool m_release;
+    public bool Discard => m_discard;
+    public bool Ethereal => m_ethereal;
+    public bool Stock => m_stock;
+    public bool Release => m_release;
 }
 
 #region enums

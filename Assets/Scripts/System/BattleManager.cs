@@ -171,6 +171,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
+                //効果を発動させる
                 //この辺でフィールド効果を評価する予定
                 m_charactorManager.CommandExecutor(c);
                 await UniTask.Delay(System.TimeSpan.FromSeconds(c.Duration));
@@ -178,7 +179,14 @@ public class BattleManager : MonoBehaviour
         }
         if (stockCommand.Count > 0)
         {
-            m_stockSlot.Add(stockCommand, commandsInfomation.Sprite, commandsInfomation.Tooltip);
+            if (m_stockSlot.Add(stockCommand, commandsInfomation.Sprite, commandsInfomation.Tooltip))
+            {
+                //追加出来たらカードを除外しない
+            }
+            else
+            {
+                //追加出来ないなら該当カードを除外しない
+            }
         }
     }
 
