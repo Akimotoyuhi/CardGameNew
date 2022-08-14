@@ -129,7 +129,8 @@ public class BattleManager : MonoBehaviour
             c.CardExecute.Subscribe(cmds =>
             {
                 CommandExecutor(cmds).Forget();
-                c.transform.SetParent(m_discard.CardParent, false);
+                c.SetParent(m_discard.CardParent, true);
+                //c.transform.SetParent(m_discard.CardParent, false);
             }).AddTo(c);
             m_currentCard.Add(c);
         });

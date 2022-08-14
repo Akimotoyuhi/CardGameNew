@@ -20,15 +20,18 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     [SerializeField] Text m_costText;
     [SerializeField] List<Image> m_cardTypeImages;
     [SerializeField] RectTransform m_rectTransform;
+    [SerializeField] CardDescriptionInfomation m_cardDescriptionInfomation;
     [SerializeField] float m_releaseDistance;
     [SerializeField] float m_moveYDist;
     [SerializeField] float m_endDragMoveDuration;
     private int m_cost;
     private string m_tooltip;
     /// <summary>廃棄カードフラグ</summary>
-    private bool m_isDiscard;
+    private bool m_isDispose;
     /// <summary>希薄カードフラグ</summary>
-    private bool m_ethereal;
+    private bool m_isEthereal;
+    /// <summary>スタックカードフラグ</summary>
+    private bool m_isStack;
     /// <summary>ドラッグ中フラグ</summary>
     private bool m_isDrag;
     /// <summary>アニメーション中フラグ</summary>
@@ -88,7 +91,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void Init()
     {
-        m_cardCommands = m_database.CardCommands.Execute();
+        //m_cardCommands = m_database.CardCommands.Execute();
+        TranslucentUI(false);
+        m_isDrag = false;
+        m_isAnim = false;
     }
 
     /// <summary>与えられたカードデータを自身に設定する</summary>
@@ -104,6 +110,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_iconColor = m_icon.color;
         m_tooltip = database.Tooltip;
         m_tooltipColor = m_tooltipText.color;
+        m_isDispose = database.Dispose;
+        m_isEthereal = database.Ethereal;
         m_costText.text = database.Cost;
         m_costColor = m_costText.color;
         m_rarity = database.Rarity;
@@ -124,6 +132,14 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         }
         m_useType = database.CardUseType;
         m_cardCommands = database.CardCommands.Execute();
+        foreach (var c in m_cardCommands)
+        {
+            if (c.StockTurn >= 0 || c.IsStockRelease)
+            {
+                m_isStack = true;
+                break;
+            }
+        }
     }
 
     /// <summary>
@@ -194,11 +210,11 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_cardExecute.OnNext(info);
         m_player.EffectExecute(m_commandUsedConditionalParametors);
         //一部変数の初期化
-        TranslucentUI(false);
-        m_isDrag = false;
-        m_isAnim = false;
+        Init();
         //プレイヤーのコストを減らす
         m_player.CurrentCost -= m_cost;
+        if (m_isDispose)
+            Destroy(gameObject);
     }
 
     /// <summary>
@@ -291,6 +307,13 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         }
     }
 
+    public void SetParent(Transform parent, bool isUsed)
+    {
+        if (!isUsed && m_isEthereal)
+            Destroy(gameObject);
+        Init();
+        transform.SetParent(parent, false);
+    }
 
     //以下インターフェース
 

@@ -10,6 +10,8 @@ using DG.Tweening;
 /// </summary>
 public class CardDescriptionInfomation : MonoBehaviour
 {
+    private CardDescription m_cardDescription;
+
     public void Setup()
     {
 

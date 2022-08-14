@@ -199,7 +199,7 @@ public class CardDataBase
     public string Tooltip => m_tooltip;
     public UseType CardUseType => m_cardUseType;
     public Rarity Rarity => m_rarity;
-    public bool Discard => m_isDiscard;
+    public bool Dispose => m_isDiscard;
     public bool Ethereal => m_ethereal;
     public List<CardType> CardType => m_cardType;
     public CommandSelect CardCommands => m_cardCommands;
@@ -222,16 +222,35 @@ public class CardDataBase
 [System.Serializable]
 public class CardDescription
 {
-    [SerializeField] bool m_discard;
+    [SerializeField] bool m_dispose;
     [SerializeField] bool m_ethereal;
     [SerializeField] bool m_stock;
     [SerializeField] bool m_release;
-    public bool Discard => m_discard;
-    public bool Ethereal => m_ethereal;
-    public bool Stock => m_stock;
-    public bool Release => m_release;
+    public CardDescriptionItem CardDescriptionItem
+    {
+        get
+        {
+            CardDescriptionItem ret = new CardDescriptionItem();
+            ret.Setup(m_dispose, m_ethereal, m_stock, m_release);
+            return ret;
+        }
+    }
 }
-
+public struct CardDescriptionItem
+{
+    public bool IsDispose { get; set; }
+    public bool IsEthereal { get; set; }
+    public bool IsStock { get; set; }
+    public int StockTurn { get; set; }
+    public bool isRelease { get; set; }
+    public void Setup(bool dispose, bool ethereal, bool stock, bool release)
+    {
+        IsDispose = dispose;
+        IsEthereal = ethereal;
+        IsStock = stock;
+        isRelease = release;
+    }
+}
 #region enums
 /// <summary>全キャラ共通のカードのID</summary>
 public enum CommonCardID

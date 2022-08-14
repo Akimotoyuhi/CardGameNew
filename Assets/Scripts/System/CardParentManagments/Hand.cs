@@ -13,7 +13,8 @@ public class Hand : CardControllerBase
     {
         for (int i = CardParent.childCount - 1; i >= 0; i--)
         {
-            CardParent.GetChild(i).SetParent(m_discard.CardParent, false);
+            CardParent.GetChild(i).gameObject.GetComponent<Card>().SetParent(m_discard.CardParent, false);
+            //CardParent.GetChild(i).SetParent(m_discard.CardParent, false);
         }
     }
 }
