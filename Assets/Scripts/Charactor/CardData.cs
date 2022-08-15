@@ -242,13 +242,13 @@ public struct CardDescriptionItem
     public bool IsEthereal { get; set; }
     public bool IsStock { get; set; }
     public int StockTurn { get; set; }
-    public bool isRelease { get; set; }
+    public bool IsRelease { get; set; }
     public void Setup(bool dispose, bool ethereal, bool stock, bool release)
     {
         IsDispose = dispose;
         IsEthereal = ethereal;
         IsStock = stock;
-        isRelease = release;
+        IsRelease = release;
     }
 }
 #region enums

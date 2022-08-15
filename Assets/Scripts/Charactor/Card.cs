@@ -30,8 +30,10 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private bool m_isDispose;
     /// <summary>希薄カードフラグ</summary>
     private bool m_isEthereal;
-    /// <summary>スタックカードフラグ</summary>
-    private bool m_isStack;
+    /// <summary>ストックカードフラグ</summary>
+    private bool m_isStock;
+    /// <summary>解放カードフラグ</summary>
+    private bool m_isRelease;
     /// <summary>ドラッグ中フラグ</summary>
     private bool m_isDrag;
     /// <summary>アニメーション中フラグ</summary>
@@ -64,6 +66,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private Vector2 m_defPos;
     /// <summary>マウスクリック位置の保存用</summary>
     private Vector2 m_mouseClickPos;
+    /// <summary>表示するカード詳細項目</summary>
+    private CardDescriptionItem m_cardDescriptionItem;
     private Player m_player;
     private Subject<Unit> m_onClick = new Subject<Unit>();
     private Subject<CommandsInfomation> m_cardExecute = new Subject<CommandsInfomation>();
@@ -95,6 +99,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         TranslucentUI(false);
         m_isDrag = false;
         m_isAnim = false;
+        m_cardDescriptionInfomation.SetActive = false;
     }
 
     /// <summary>与えられたカードデータを自身に設定する</summary>
@@ -120,7 +125,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         {
             m_cardTypeImagesColor.Add(m_cardTypeImages[i].color);
         }
-        //今後コストxとか作りたいので文字列で取れるようにしてある
+        //今後コストxとか作りたいので文字列で取れるようにしとく
         try
         {
             m_cost = int.Parse(database.Cost);
@@ -132,14 +137,18 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         }
         m_useType = database.CardUseType;
         m_cardCommands = database.CardCommands.Execute();
+        m_cardDescriptionInfomation.SetActive = false;
+        //ストック、解放のフラグチェック
         foreach (var c in m_cardCommands)
         {
-            if (c.StockTurn >= 0 || c.IsStockRelease)
-            {
-                m_isStack = true;
+            if (m_isStock && m_isRelease)
                 break;
-            }
+            if (c.StockTurn >= 0)
+                m_isStock = true;
+            if (c.IsStockRelease)
+                m_isRelease = true;
         }
+        SetDescriptionInfo(database.CardDescription.CardDescriptionItem);
     }
 
     /// <summary>
@@ -273,6 +282,21 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         }
         m_commandUsedConditionalParametors = commandUsedConditionalParametors;
         m_tooltipText.text = s;
+        m_cardDescriptionInfomation.Setup(m_cardDescriptionItem, m_cardCommands);
+    }
+
+    private void SetDescriptionInfo(CardDescriptionItem cardDescriptionItem)
+    {
+        m_cardDescriptionItem.Setup(m_isDispose, m_isEthereal, m_isStock, m_isRelease);
+        if (cardDescriptionItem.IsDispose)
+            m_cardDescriptionItem.IsDispose = true;
+        if (cardDescriptionItem.IsEthereal)
+            m_cardDescriptionItem.IsEthereal = true;
+        if (cardDescriptionItem.IsStock)
+            m_cardDescriptionItem.IsStock = true;
+        if (cardDescriptionItem.IsRelease)
+            m_cardDescriptionItem.IsRelease = true;
+
     }
 
     /// <summary>
@@ -319,6 +343,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        m_cardDescriptionInfomation.SetActive = true;
         if (!m_isDrag && CardState == CardState.Play)
         {
             if (!m_isAnim)
@@ -332,6 +357,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        m_cardDescriptionInfomation.SetActive = false;
         if (!m_isDrag && CardState == CardState.Play)
         {
             m_isAnim = true;
