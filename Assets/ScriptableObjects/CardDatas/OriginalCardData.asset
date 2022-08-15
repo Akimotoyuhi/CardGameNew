@@ -59,10 +59,17 @@ MonoBehaviour:
       m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314304
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
     m_upgradeData:
       m_name: "\u65AC\u6483+"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
@@ -70,10 +77,17 @@ MonoBehaviour:
       m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314305
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   - m_label: "\u9632\u5FA1"
     m_database:
       m_name: "\u9632\u5FA1"
@@ -82,10 +96,17 @@ MonoBehaviour:
       m_tooltip: "{blk0}\u30D6\u30ED\u30C3\u30AF\u3092\u5F97\u308B"
       m_cardUseType: 0
       m_rarity: 3
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314306
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
     m_upgradeData:
       m_name: "\u9632\u5FA1+"
       m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
@@ -93,10 +114,17 @@ MonoBehaviour:
       m_tooltip: "{blk0}\u30D6\u30ED\u30C3\u30AF\u3092\u5F97\u308B"
       m_cardUseType: 0
       m_rarity: 3
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314307
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   - m_label: "\u30BA\u30EB\u3044\u6B66\u5668"
     m_database:
       m_name: "\u30BA\u30EB\u3044\u6B66\u5668"
@@ -105,10 +133,17 @@ MonoBehaviour:
       m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314308
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
     m_upgradeData:
       m_name: "\u3081\u3063\u3061\u3083\u30BA\u30EB\u3044\u6B66\u5668"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
@@ -116,10 +151,17 @@ MonoBehaviour:
       m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 3
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314309
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   - m_label: "\u5F37\u6253"
     m_database:
       m_name: "\u5F37\u6253"
@@ -128,10 +170,17 @@ MonoBehaviour:
       m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 1
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639488
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
     m_upgradeData:
       m_name: "\u5F37\u6253+"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
@@ -139,10 +188,17 @@ MonoBehaviour:
       m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8"
       m_cardUseType: 1
       m_rarity: 1
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639489
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   - m_label: "\u9244\u58C1"
     m_database:
       m_name: "\u9244\u58C1"
@@ -151,10 +207,17 @@ MonoBehaviour:
       m_tooltip: "{blk0}\u30D6\u30ED\u30C3\u30AF\u3092\u5F97\u308B"
       m_cardUseType: 0
       m_rarity: 1
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639490
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
     m_upgradeData:
       m_name: "\u9244\u58C1+"
       m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
@@ -162,10 +225,17 @@ MonoBehaviour:
       m_tooltip: "{blk0}\u30D6\u30ED\u30C3\u30AF\u3092\u5F97\u308B"
       m_cardUseType: 0
       m_rarity: 1
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639491
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   - m_label: "\u95A2\u7BC0\u7815\u304D"
     m_database:
       m_name: "\u95A2\u7BC0\u7815\u304D"
@@ -174,11 +244,18 @@ MonoBehaviour:
       m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u3068\u8131\u529B1\u3092\u4E0E\u3048\u308B"
       m_cardUseType: 1
       m_rarity: 0
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 0000000003000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639492
         - rid: 3443099041877458944
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
     m_upgradeData:
       m_name: "\u95A2\u7BC0\u7815\u304D+"
       m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
@@ -186,10 +263,17 @@ MonoBehaviour:
       m_tooltip: "\u65751\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u3068\u8131\u529B1\u3092\u4E0E\u3048\u308B"
       m_cardUseType: 1
       m_rarity: 0
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 0000000003000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639493
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   - m_label: "\u6700\u9AD8\u30EC\u30A2\u30EA\u30C6\u30A3\u30AB\u30FC\u30C9"
     m_database:
       m_name: "\u6700\u9AD8\u30EC\u30A2\u30EA\u30C6\u30A3\u30AB\u30FC\u30C9"
@@ -198,9 +282,16 @@ MonoBehaviour:
       m_tooltip: 
       m_cardUseType: -1
       m_rarity: 2
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 
       m_cardCommands:
         m_commands: []
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
     m_upgradeData:
       m_name: "\u6700\u9AD8\u30EC\u30A2\u30EA\u30C6\u30A3\u30AB\u30FC\u30C9+"
       m_icon: {fileID: 21300000, guid: 0a33552f86bdb2246b76d1204087e951, type: 3}
@@ -208,9 +299,16 @@ MonoBehaviour:
       m_tooltip: 
       m_cardUseType: -1
       m_rarity: 2
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 
       m_cardCommands:
         m_commands: []
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   - m_label: "\u7B4B\u529B\u5F37\u5316"
     m_database:
       m_name: "\u7B4B\u529B\u5F37\u5316"
@@ -219,10 +317,17 @@ MonoBehaviour:
       m_tooltip: "\u7B4B\u529B\u30921\u5F97\u308B\n\u5EC3\u68C4"
       m_cardUseType: 0
       m_rarity: 0
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 02000000
       m_cardCommands:
         m_commands:
         - rid: 3724448452576542720
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
     m_upgradeData:
       m_name: "\u7B4B\u529B\u5F37\u5316"
       m_icon: {fileID: 21300000, guid: 60ccf999198195d4da19a9f7090eb371, type: 3}
@@ -230,10 +335,17 @@ MonoBehaviour:
       m_tooltip: "\u7B4B\u529B\u30922\u5F97\u308B\n\u5EC3\u68C4"
       m_cardUseType: 0
       m_rarity: 0
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 02000000
       m_cardCommands:
         m_commands:
         - rid: 3724448452576542721
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   - m_label: "\u654F\u6377\u5F37\u5316"
     m_database:
       m_name: "\u654F\u6377\u5F37\u5316"
@@ -242,10 +354,17 @@ MonoBehaviour:
       m_tooltip: "\u654F\u6377\u30921\u5F97\u308B\n\u5EC3\u68C4"
       m_cardUseType: 0
       m_rarity: 0
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 02000000
       m_cardCommands:
         m_commands:
         - rid: 3724448452576542722
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
     m_upgradeData:
       m_name: "\u654F\u6377\u5F37\u5316"
       m_icon: {fileID: 21300000, guid: 60ccf999198195d4da19a9f7090eb371, type: 3}
@@ -253,33 +372,54 @@ MonoBehaviour:
       m_tooltip: "\u654F\u6377\u30922\u5F97\u308B\n\u5EC3\u68C4"
       m_cardUseType: 0
       m_rarity: 0
+      m_isDiscard: 0
+      m_ethereal: 0
       m_cardType: 02000000
       m_cardCommands:
         m_commands:
         - rid: 3724448452576542723
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   - m_label: "\u307E\u304D\u3073\u3057"
     m_database:
       m_name: "\u307E\u304D\u3073\u3057"
-      m_icon: {fileID: 21300000, guid: 0a33552f86bdb2246b76d1204087e951, type: 3}
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
       m_tooltip: "\u30B9\u30C8\u30C3\u30AF3:\u6575\u5168\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
       m_cardUseType: 1
       m_rarity: 0
-      m_cardType: 02000000
+      m_isDiscard: 0
+      m_ethereal: 0
+      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3724448561247027200
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
     m_upgradeData:
       m_name: "\u307E\u304D\u3073\u3057+"
-      m_icon: {fileID: 21300000, guid: 0a33552f86bdb2246b76d1204087e951, type: 3}
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
       m_tooltip: "\u30B9\u30C8\u30C3\u30AF3:\u6575\u5168\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
       m_cardUseType: 1
       m_rarity: 0
-      m_cardType: 02000000
+      m_isDiscard: 0
+      m_ethereal: 0
+      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3724448561247027201
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   references:
     version: 2
     RefIds:
