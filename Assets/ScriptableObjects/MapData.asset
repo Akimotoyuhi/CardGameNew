@@ -17,6 +17,8 @@ MonoBehaviour:
     m_mapID: 0
     m_act: 0
     m_maxColumn: 10
+    m_isTerminal: 1
+    m_nextMap: 
     m_chip:
       m_minCellNum: 1
       m_maxCellNum: 3

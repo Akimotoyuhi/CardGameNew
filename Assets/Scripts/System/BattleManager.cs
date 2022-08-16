@@ -64,6 +64,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Hand m_hand;
     [SerializeField] Deck m_deck;
     [SerializeField] Discard m_discard;
+    //[SerializeField] Exclusion m_exception;
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] CardClassDatas m_cardDatas;
     [SerializeField] StockSlot m_stockSlot;
@@ -73,7 +74,6 @@ public class BattleManager : MonoBehaviour
     private List<Card> m_currentCard = new List<Card>();
     /// <summary>戦闘終了を通知する</summary>
     private Subject<Unit> m_battleFinished = new Subject<Unit>();
-    //private Subject<int> m_selectCardIndex = new Subject<int>();
     private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
     /// <summary>現在の戦闘のBattleType</summary>
     private BattleType m_currentBattleType;
@@ -130,7 +130,6 @@ public class BattleManager : MonoBehaviour
             {
                 CommandExecutor(cmds).Forget();
                 c.SetParent(m_discard.CardParent, true);
-                //c.transform.SetParent(m_discard.CardParent, false);
             }).AddTo(c);
             m_currentCard.Add(c);
         });
@@ -180,14 +179,7 @@ public class BattleManager : MonoBehaviour
         }
         if (stockCommand.Count > 0)
         {
-            if (m_stockSlot.Add(stockCommand, commandsInfomation.Sprite, commandsInfomation.Tooltip))
-            {
-                //追加出来たらカードを除外しない
-            }
-            else
-            {
-                //追加出来ないなら該当カードを除外しない
-            }
+            m_stockSlot.Add(stockCommand, commandsInfomation.Sprite, commandsInfomation.Tooltip);
         }
     }
 
@@ -297,9 +289,9 @@ public class BattleManager : MonoBehaviour
     public Card GetCardInstance(HaveCardData haveCardData, CardState state)
     {
         Card card = Instantiate(m_cardPrefab);
-        card.Setup(m_cardDatas.GetDataBase(haveCardData), 
-            m_cardDatas.GetData(haveCardData.CardCalssType).GetRaritySprite, 
-            m_cardDatas.GetData(haveCardData.CardCalssType).GetTypeSprite, 
+        card.Setup(m_cardDatas.GetDataBase(haveCardData),
+            m_cardDatas.GetData(haveCardData.CardCalssType).GetRaritySprite,
+            m_cardDatas.GetData(haveCardData.CardCalssType).GetTypeSprite,
             null);
         card.CardState = state;
         return card;

@@ -34,11 +34,22 @@ public class MapDataBase
     [SerializeField] MapID m_mapID;
     [SerializeField] Act m_act;
     [SerializeField] int m_maxColumn;
+    [SerializeField] bool m_isTerminal;
+    [SerializeField] List<MapID> m_nextMap;
     [SerializeField] MapChip m_chip;
+    /// <summary>マップ名</summary>
     public string Name => m_name;
+    /// <summary>マップID</summary>
     public MapID MapID => m_mapID;
+    /// <summary>所属Act</summary>
     public Act Act => m_act;
+    /// <summary>最大セル数</summary>
     public int MaxColumn => m_maxColumn;
+    /// <summary>終端フラグ</summary>
+    public bool IsTerminal => m_isTerminal;
+    /// <summary>次マップ</summary>
+    public List<MapID> NextMapID => m_nextMap;
+    /// <summary>マップの詳細</summary>
     public MapChip Chip => m_chip;
 }
 [System.Serializable]
