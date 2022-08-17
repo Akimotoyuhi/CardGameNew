@@ -63,4 +63,9 @@ public class MapManager : MonoBehaviour
             m_columns.Add(column);
         }
     }
+
+    public void Init()
+    {
+
+    }
 }

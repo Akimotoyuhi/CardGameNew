@@ -84,48 +84,56 @@ public class GUIManager : MonoBehaviour
         //休憩マス関連
         {
             //休憩ボタン
-            m_restButton.onClick.AddListener(() =>
-            {
-                m_eventManager.OnRest();
-                GameManager.Instance.FloorFinished();
-            });
+            m_restButton.OnClickAsObservable()
+                .ThrottleFirst(System.TimeSpan.FromSeconds(1))
+                .Subscribe(_ =>
+                {
+                    m_eventManager.OnRest();
+                    GameManager.Instance.FloorFinished();
+                });
 
             //カード強化ボタン
-            m_upgradeButton.onClick.AddListener(() =>
-            {
-                m_displayPanel.SetActive(true);
-                m_eventManager.EventType = EventType.Upgrade;
-                CardDisplay(CardDisplayType.List,
-                    m_battleManager.GetCards(CardLotteryType.IsNoUpgrade),
-                    () => m_checkPanel.SetActive(true));
-            });
+            m_upgradeButton.OnClickAsObservable()
+                .ThrottleFirst(System.TimeSpan.FromSeconds(0.1))
+                .Subscribe(_ =>
+                {
+                    m_displayPanel.SetActive(true);
+                    m_eventManager.EventType = EventType.Upgrade;
+                    CardDisplay(CardDisplayType.List,
+                        m_battleManager.GetCards(CardLotteryType.IsNoUpgrade),
+                        () => m_checkPanel.SetActive(true));
+                });
 
             //カード削除ボタン
-            m_cardClearButton.onClick.AddListener(() =>
-            {
-                m_displayPanel.SetActive(true);
-                m_eventManager.EventType = EventType.Dispose;
-                CardDisplay(CardDisplayType.List,
-                    m_battleManager.GetCards(CardLotteryType.Dispose),
-                    () => m_checkPanel.SetActive(true));
-            });
+            m_cardClearButton.OnClickAsObservable()
+                .ThrottleFirst(System.TimeSpan.FromSeconds(0.1))
+                .Subscribe(_ =>
+                {
+                    m_displayPanel.SetActive(true);
+                    m_eventManager.EventType = EventType.Dispose;
+                    CardDisplay(CardDisplayType.List,
+                        m_battleManager.GetCards(CardLotteryType.Dispose),
+                        () => m_checkPanel.SetActive(true));
+                });
 
             //確認画面
             //確定ボタン
-            m_applyButton.onClick.AddListener(() =>
-            {
-                m_eventManager.IsDecision = true;
-                DisposeCardDisplay();
-                GameManager.Instance.FloorFinished();
-            });
+            m_applyButton.OnClickAsObservable()
+                .Subscribe(_ =>
+                {
+                    m_eventManager.IsDecision = true;
+                    DisposeCardDisplay();
+                    GameManager.Instance.FloorFinished();
+                });
 
             //キャンセルボタン
-            m_calcelButton.onClick.AddListener(() =>
-            {
-                m_checkPanel.SetActive(false);
-                m_restEventPanel.SetActive(true);
-                m_eventManager.RetryRest();
-            });
+            m_calcelButton.OnClickAsObservable()
+                .Subscribe(_ =>
+                {
+                    m_checkPanel.SetActive(false);
+                    m_restEventPanel.SetActive(true);
+                    m_eventManager.RetryRest();
+                });
         }
         m_displayPanel.SetActive(false);
         FadeImage = m_fadeImage;

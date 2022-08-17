@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MapData")]
 public class MapData : ScriptableObject
 {
+    [SerializeField] List<MapID> m_firstMapPath;
     [SerializeField] List<MapDataBase> m_mapDataBase;
     public List<MapDataBase> GetDataBases(Act act)
     {
@@ -120,8 +121,8 @@ public enum MapID
     Ruin,
     /// <summary>さわやか川</summary>
     FreshRiver,
-    /// <summary>スーパーエデン</summary>
-    SuperEden,
+    /// <summary>峻嶺山道</summary>
+    SteepMountainRoad,
     /// <summary>アウトエリアX11</summary>
     OutEriaX11,
 }

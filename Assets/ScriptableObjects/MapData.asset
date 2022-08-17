@@ -12,9 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75253930b2d095943ba289bbf0286852, type: 3}
   m_Name: MapData
   m_EditorClassIdentifier: 
+  m_firstMapPath: 00000000
   m_mapDataBase:
-  - m_name: "\u9ED2\u9285\u907A\u8DE1"
+  - m_name: "\u907A\u8DE1"
     m_mapID: 0
+    m_act: 0
+    m_maxColumn: 10
+    m_isTerminal: 1
+    m_nextMap: 
+    m_chip:
+      m_minCellNum: 1
+      m_maxCellNum: 3
+      m_secondHalfIndex: 4
+      m_detailSetting:
+        m_restMinIndex: 1
+        m_restMaxIndex: 9
+        m_restProbability: 40
+        m_restAbsoluteIndex: 5
+        m_eliteMinIndex: 5
+        m_eliteMaxIndex: 9
+        m_eliteProbability: 30
+        m_eliteAbsoluteIndex: -1
+  - m_name: "\u3055\u308F\u3084\u304B\u5DDD"
+    m_mapID: 1
+    m_act: 0
+    m_maxColumn: 10
+    m_isTerminal: 1
+    m_nextMap: 
+    m_chip:
+      m_minCellNum: 1
+      m_maxCellNum: 3
+      m_secondHalfIndex: 4
+      m_detailSetting:
+        m_restMinIndex: 1
+        m_restMaxIndex: 9
+        m_restProbability: 40
+        m_restAbsoluteIndex: 5
+        m_eliteMinIndex: 5
+        m_eliteMaxIndex: 9
+        m_eliteProbability: 30
+        m_eliteAbsoluteIndex: -1
+  - m_name: "\u5CFB\u5DBA\u5C71\u9053"
+    m_mapID: 2
     m_act: 0
     m_maxColumn: 10
     m_isTerminal: 1
