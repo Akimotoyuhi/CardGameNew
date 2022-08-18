@@ -74,6 +74,7 @@ public class BattleManager : MonoBehaviour
     private List<Card> m_currentCard = new List<Card>();
     /// <summary>戦闘終了を通知する</summary>
     private Subject<Unit> m_battleFinished = new Subject<Unit>();
+    private Subject<GameEndType> m_gameFinished = new Subject<GameEndType>();
     private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
     /// <summary>現在の戦闘のBattleType</summary>
     private BattleType m_currentBattleType;
@@ -81,6 +82,8 @@ public class BattleManager : MonoBehaviour
     public System.IObservable<BattleState> BattleStateObservable => m_battleState;
     /// <summary>バトルの終了を通知する</summary>
     public System.IObservable<Unit> BattleFinished => m_battleFinished;
+    /// <summary>クリア/ゲームオーバーを通知する</summary>
+    public System.IObservable<GameEndType> GameFinished => m_gameFinished;
 
     public void Setup()
     {
@@ -264,10 +267,9 @@ public class BattleManager : MonoBehaviour
                 });
                 //表示
                 GameManager.Instance.CardDisplay(CardDisplayType.Reward, cards, () => m_battleFinished.OnNext(Unit.Default));
-                //m_reward.ViewRewrard(objList);
                 break;
             case BattleEndType.Gameover:
-                Debug.Log("ゲームオーバー");
+                m_gameFinished.OnNext(GameEndType.Gameover);
                 return;
             default:
                 break;

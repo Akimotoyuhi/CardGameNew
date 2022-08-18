@@ -12,6 +12,7 @@ using DG.Tweening;
 public class GUIManager : MonoBehaviour
 {
     [Header("共通")]
+    [SerializeField] float m_onClickDuration;
     /// <summary>マップ画面</summary>
     [SerializeField] GameObject m_mapPanel;
     /// <summary>全体情報を表示する画面</summary>
@@ -24,6 +25,12 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Transform m_displayCardParent;
     /// <summary>フェード用パネル</summary>
     [SerializeField] Image m_fadeImage;
+    /// <summary>ゲームリザルト画面</summary>
+    [SerializeField] GameObject m_gameResultPanel;
+    /// <summary>タイトルへボタン</summary>
+    [SerializeField] Button m_toTitleButton;
+    /// <summary>リトライボタン</summary>
+    [SerializeField] Button m_retryButton;
     [Header("戦闘画面")]
     [SerializeField] GameObject m_battlePanel;
     [SerializeField] BattleManager m_battleManager;
@@ -80,6 +87,12 @@ public class GUIManager : MonoBehaviour
         GameManager.Instance.InfoTextUpdate
             .Subscribe(s => SetInfoTextPanels(s)).AddTo(this);
         m_infoPanel.SetActive(false);
+
+
+        m_toTitleButton.OnClickAsObservable()
+            .ThrottleFirst(System.TimeSpan.FromSeconds(m_onClickDuration))
+            .Subscribe(_ => { })
+            .AddTo(this);
 
         //休憩マス関連
         {
