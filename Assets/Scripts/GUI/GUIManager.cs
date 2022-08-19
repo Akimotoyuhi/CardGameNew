@@ -24,7 +24,8 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Transform m_displayCardParent;
     /// <summary>フェード用パネル</summary>
     [SerializeField] Image m_fadeImage;
-    [SerializeField] GameoverScreen m_gameoverScreen;
+    [SerializeField, Header("ゲームオーバー画面")]
+    private GameoverScreen m_gameoverScreen;
     [Header("戦闘画面")]
     [SerializeField] GameObject m_battlePanel;
     [SerializeField] BattleManager m_battleManager;
@@ -84,11 +85,13 @@ public class GUIManager : MonoBehaviour
 
         //ゲームオーバーのイベントを受け取る
         m_battleManager.GameFinished
-            .ThrottleFirst(System.TimeSpan.FromSeconds(5))
-            .Subscribe(type => { })
+            .ThrottleFirst(System.TimeSpan.FromSeconds(m_gameoverScreen.ToGameoverScreenTime))
+            .Subscribe(type => m_gameoverScreen.SetActive(true, type))
             .AddTo(m_battleManager);
 
+        //ゲームオーバー画面のセットアップ
         m_gameoverScreen.Setup(this);
+        m_gameoverScreen.SetActive(false);
 
         //休憩マス関連
         {

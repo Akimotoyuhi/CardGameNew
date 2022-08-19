@@ -35,7 +35,7 @@ MonoBehaviour:
         m_eliteAbsoluteIndex: -1
   - m_name: "\u3055\u308F\u3084\u304B\u5DDD"
     m_mapID: 1
-    m_act: 0
+    m_act: 1
     m_maxColumn: 10
     m_isTerminal: 1
     m_nextMap: 
@@ -54,7 +54,7 @@ MonoBehaviour:
         m_eliteAbsoluteIndex: -1
   - m_name: "\u5CFB\u5DBA\u5C71\u9053"
     m_mapID: 2
-    m_act: 0
+    m_act: 2
     m_maxColumn: 10
     m_isTerminal: 1
     m_nextMap: 

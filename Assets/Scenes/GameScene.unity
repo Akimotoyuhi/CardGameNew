@@ -3367,7 +3367,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -60, y: -260.00006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1260031109
@@ -3694,6 +3694,16 @@ MonoBehaviour:
   m_displayPanel: {fileID: 31114188}
   m_displayCardParent: {fileID: 1379789816}
   m_fadeImage: {fileID: 824232266}
+  m_gameoverScreen:
+    m_toTitleButton: {fileID: 1711615312}
+    m_retryButton: {fileID: 1727496877}
+    m_text: {fileID: 1260031109}
+    m_gameResultPanel: {fileID: 236635111}
+    m_onClickDuration: 3
+    m_textViewDuration: 0.3
+    m_toGameoverScreenTime: 5
+    m_gameoverText: "\u3042\u306A\u305F\u306F\u9053\u4E2D\u3067{cardNum}\u679A\u306E\u30AB\u30FC\u30C9\u3092\u5165\u624B\u3057\u305F\u304C\u3001{mapname}\u3067\u529B\u5C3D\u304D\u3066\u3057\u307E\u3063\u305F\u3002"
+    m_clearText: "\u3042\u306A\u305F\u306F\u9053\u4E2D\u3067{cardNum}\u679A\u306E\u30AB\u30FC\u30C9\u3092\u5165\u624B\u3057\u3001{endMap}\u306B\u305F\u3069\u308A\u7740\u3044\u305F\uFF01"
   m_battlePanel: {fileID: 1519845697}
   m_battleManager: {fileID: 1312891807}
   m_charactorManager: {fileID: 1312891806}

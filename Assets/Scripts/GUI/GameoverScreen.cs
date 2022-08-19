@@ -21,10 +21,14 @@ public class GameoverScreen
     [SerializeField] float m_onClickDuration;
     /// <summary>テキストの表示間隔</summary>
     [SerializeField] float m_textViewDuration;
+    /// <summary>ゲームオーバー画面に移行するまでにかかる時間</summary>
+    [SerializeField] float m_toGameoverScreenTime;
     /// <summary>ゲームオーバー時に表示されるテキスト</summary>
-    [SerializeField] string m_gameoverText;
+    [SerializeField, TextArea] string m_gameoverText;
     /// <summary>ゲームクリア時に表示されるテキスト</summary>
-    [SerializeField] string m_clearText;
+    [SerializeField, TextArea] string m_clearText;
+    /// <summary>ゲームオーバー画面に移行するまでにかかる時間</summary>
+    public float ToGameoverScreenTime => m_toGameoverScreenTime;
 
     public void Setup(Component component)
     {
