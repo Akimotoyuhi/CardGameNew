@@ -44,4 +44,12 @@ public class StockSlot : MonoBehaviour
         }
         return false;
     }
+
+    /// <summary>
+    /// ストック効果の初期化
+    /// </summary>
+    public void Init()
+    {
+        m_stockItems.ForEach(i => i.Init());
+    }
 }

@@ -275,11 +275,14 @@ public class BattleManager : MonoBehaviour
                 break;
         }
 
+        //シーン上にあるカードの削除
         for (int i = m_currentCard.Count - 1; i >= 0; i--)
         {
             Destroy(m_currentCard[i].gameObject);
             m_currentCard.RemoveAt(i);
         }
+
+        m_stockSlot.Init();
         m_battleState.Value = BattleState.Reward;
     }
 

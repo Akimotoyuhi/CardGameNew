@@ -7,6 +7,9 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine.UI;
 
+/// <summary>
+/// ストック中の効果の実体
+/// </summary>
 public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Image m_image;
@@ -16,11 +19,13 @@ public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private List<Command> m_stockCommand = new List<Command>();
     private List<Command> m_releaseCommand = new List<Command>();
     private ReactiveProperty<int> m_turnTextValue = new ReactiveProperty<int>();
+    /// <summary>現在ストック中の効果</summary>
     public List<Command> Command => m_stockCommand;
     /// <summary>使用中かどうか</summary>
     public bool IsUsed { get; private set; }
     /// <summary>ストックしておくターン数</summary>
     public int StockTurn { get => m_turnTextValue.Value; private set => m_turnTextValue.Value = value; }
+    /// <summary>ストック中コマンドの実行</summary>
     public List<Command> ExecuteStockCommand
     {
         get
@@ -31,6 +36,7 @@ public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             return m_stockCommand;
         }
     }
+    /// <summary>解放効果の実行</summary>
     public List<Command> ExecuteStockReleaseCommand
     {
         get
