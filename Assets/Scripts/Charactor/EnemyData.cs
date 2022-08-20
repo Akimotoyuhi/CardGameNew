@@ -47,4 +47,5 @@ public enum EnemyID
     Slime,
     AggressiveEnemy,
     Act1Boss,
+    Act1Elite,
 }

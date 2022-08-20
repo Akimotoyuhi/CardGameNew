@@ -20,5 +20,7 @@ MonoBehaviour:
     m_secondHarfEnemy:
     - m_enemy: 0000000000000000
     - m_enemy: 0100000000000000
-    m_elite: []
-    m_boss: []
+    m_elite:
+    - m_elite: 03000000
+    m_boss:
+    - m_boss: 02000000
