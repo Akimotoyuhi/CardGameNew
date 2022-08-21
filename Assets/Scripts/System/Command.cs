@@ -28,8 +28,10 @@ public struct Command
     public int StockTurn { get; set; }
     /// <summary>ストック終了時に実行される</summary>
     public bool IsStockRelease { get; set; }
-    /// <summary>ストック中に表示する画像</summary>
-    public Sprite StockSprite { get; set; }
+    /// <summary>コマンド実行時に表示するパーティクル</summary>
+    public ParticleID ParticleID { get; set; }
+    /// <summary>コマンド実行時に鳴らすSE</summary>
+    public SEID SEID { get; set; }
     public void SetCommand(ConditionalParametor conditionalParametor)
     {
         switch (conditionalParametor.EvaluationParamType)
@@ -52,7 +54,7 @@ public struct Command
     }
 }
 /// <summary>戦闘中のフィールド効果</summary>
-public struct Field
+public struct FieldEffect
 {
     public int CurrentTurn { get; set; }
 }
@@ -80,25 +82,41 @@ public interface ICommand
     Command Execute();
 }
 
-public class AttackCommand : ICommand
+/// <summary>
+/// 共通するコマンド設定項目を書くとこ
+/// </summary>
+public class CommandBase
 {
-    [SerializeField] UseType m_useType = UseType.None;
-    [SerializeField] int m_power;
-    [SerializeField] bool m_isTrueDamage;
+    [SerializeField] ParticleID m_particleID = ParticleID.None;
+    [SerializeField] SEID m_seID = SEID.None;
     [SerializeField] float m_duration;
-    [SerializeField] bool m_isHideType;
     [SerializeField] int m_stockTurn = -1;
     [SerializeField] bool m_isStockRelease;
+    [SerializeField] UseType m_useType = UseType.None;
+
+    protected void Method(ref Command command)
+    {
+        command.Duration = m_duration;
+        command.StockTurn = m_stockTurn;
+        command.IsStockRelease = m_isStockRelease;
+        command.ParticleID = m_particleID;
+        command.SEID = m_seID;
+        command.UseType = m_useType;
+    }
+}
+
+public class AttackCommand : CommandBase, ICommand
+{
+    [SerializeField] int m_power;
+    [SerializeField] bool m_isTrueDamage;
+    [SerializeField] bool m_isHideType;
 
     public Command Execute()
     {
         Command ret = new Command();
         ret.Power = m_power;
-        ret.UseType = m_useType;
-        ret.Duration = m_duration;
         ret.CommandType = CommandType.Attack;
-        ret.StockTurn = m_stockTurn;
-        ret.IsStockRelease = m_isStockRelease;
+        Method(ref ret);
         if (m_isHideType)
             ret.PlanType = PlanType.Other;
         else
@@ -107,26 +125,19 @@ public class AttackCommand : ICommand
     }
 }
 
-public class BlockCommand : ICommand
+public class BlockCommand : CommandBase, ICommand
 {
-    [SerializeField] UseType m_useType;
     [SerializeField] int m_block;
     [SerializeField] bool isTrueBlock;
-    [SerializeField] float m_duration;
     [SerializeField] bool m_isHideType;
-    [SerializeField] int m_stockTurn = -1;
-    [SerializeField] bool m_isStockRelease;
 
     public Command Execute()
     {
         Command ret = new Command();
         ret.Block = m_block;
-        ret.UseType = m_useType;
-        ret.Duration = m_duration;
         ret.PlanType = PlanType.Block;
         ret.CommandType = CommandType.Block;
-        ret.StockTurn = m_stockTurn;
-        ret.IsStockRelease = m_isStockRelease;
+        Method(ref ret);
         if (m_isHideType)
             ret.PlanType = PlanType.Other;
         else
@@ -134,14 +145,10 @@ public class BlockCommand : ICommand
         return ret;
     }
 }
-public class EffectCommand : ICommand
+public class EffectCommand : CommandBase, ICommand
 {
-    [SerializeField] UseType m_useType;
-    [SerializeField] float m_duration;
     [SerializeField] EffectSelector m_effectSelector;
     [SerializeField] bool m_isHideType;
-    [SerializeField] int m_stockTurn = -1;
-    [SerializeField] bool m_isStockRelease;
     [SerializeField] PlanType m_otherBuffTypeCommandType = PlanType.Other;
     public Command Execute()
     {
@@ -149,10 +156,8 @@ public class EffectCommand : ICommand
         List<EffectBase> effects = new List<EffectBase>();
         effects.Add(m_effectSelector.GetEffect);
         ret.Effect = effects;
-        ret.Duration = m_duration;
         ret.CommandType = CommandType.Effect;
-        ret.StockTurn = m_stockTurn;
-        ret.IsStockRelease = m_isStockRelease;
+        Method(ref ret);
         if (!m_isHideType)
         {
             switch (m_effectSelector.GetEffect.GetBuffType)
@@ -188,7 +193,7 @@ public class Conditional
     /// <summary>
     /// 条件の評価
     /// </summary>
-    public bool Evaluation(Field field, Player player, Enemy enemy)
+    public bool Evaluation(FieldEffect field, Player player, Enemy enemy)
     {
         //抽選確率の評価
         int r = Random.Range(1, 101);
@@ -211,7 +216,7 @@ public class Conditional
 public interface IConditional
 {
     /// <summary>フィールド効果を評価</summary>
-    bool FieldEvaluation(Field field);
+    bool FieldEvaluation(FieldEffect field);
     /// <summary>プレイヤーを評価</summary>
     bool PlayerEvaluation(Player player);
     /// <summary>敵を評価</summary>
@@ -225,7 +230,7 @@ public class EnemyLifeConditional : IConditional
 
     public bool EnemyEvaluation(Enemy enemy) =>
         ConditionalHelper.Evaluation(m_evaluationType, enemy.CurrentLife, m_life);
-    public bool FieldEvaluation(Field field) => true;
+    public bool FieldEvaluation(FieldEffect field) => true;
     public bool PlayerEvaluation(Player player) => true;
 }
 /// <summary>現在のターン数を評価する</summary>
@@ -235,7 +240,7 @@ public class TurnConditional : IConditional
     [SerializeField] EvaluationType m_evaluationType;
 
     public bool EnemyEvaluation(Enemy enemy) => true;
-    public bool FieldEvaluation(Field field) =>
+    public bool FieldEvaluation(FieldEffect field) =>
         ConditionalHelper.Evaluation(m_evaluationType, field.CurrentTurn, m_turn);
     public bool PlayerEvaluation(Player player) => true;
 }

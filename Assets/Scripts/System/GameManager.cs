@@ -35,8 +35,7 @@ public class GameManager : MonoBehaviour
     {
         //バトルマネージャーのセットアップ
         m_battleManager.Setup();
-        m_battleManager.BattleFinished
-            .Subscribe(_ => FloorFinished()).AddTo(m_battleManager);
+        m_battleManager.BattleFinished.Subscribe(_ => FloorFinished()).AddTo(m_battleManager);
 
         //GUIマネージャーのセットアップ
         m_guiManager.Setup();

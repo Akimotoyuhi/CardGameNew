@@ -83,7 +83,7 @@ public class Enemy : Charactor, IDrop
     /// </summary>
     private void SelectActionCommand()
     {
-        m_currentTurnCommand = m_dataBase.Action(new Field(), null, this); //とりあえずこれで
+        m_currentTurnCommand = m_dataBase.Action(new FieldEffect(), null, this); //とりあえずこれで
 
         //エフェクトの評価
         m_currentTurnCommand.ForEach(cmd =>

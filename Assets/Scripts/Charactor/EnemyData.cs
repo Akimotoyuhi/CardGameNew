@@ -22,7 +22,7 @@ public class EnemyDataBase
     /// <summary>
     /// 行動条件を上から順に評価し、成功した行動内容を返す
     /// </summary>
-    public List<Command> Action(Field field, Player player, Enemy enemy)
+    public List<Command> Action(FieldEffect field, Player player, Enemy enemy)
     {
         foreach (var ai in m_enemyAi)
         {
