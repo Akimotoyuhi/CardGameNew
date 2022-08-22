@@ -24,14 +24,14 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Transform m_displayCardParent;
     /// <summary>フェード用パネル</summary>
     [SerializeField] Image m_fadeImage;
-    [SerializeField, Header("ゲームオーバー画面")]
-    private GameoverScreen m_gameoverScreen;
+    [SerializeField, Header("ゲームオーバー画面")] GameoverScreen m_gameoverScreen;
     [Header("戦闘画面")]
     [SerializeField] GameObject m_battlePanel;
     [SerializeField] BattleManager m_battleManager;
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] Button m_turnEndButton;
     [SerializeField] Text m_costText;
+    [SerializeField] BattleAnimationUIController m_battleAnimationUIController;
     [Header("報酬画面")]
     [SerializeField] GameObject m_rewardPanel;
     [SerializeField] Transform m_rewardParent;
@@ -56,9 +56,10 @@ public class GUIManager : MonoBehaviour
     [SerializeField] Transform m_disposeParent;
     [SerializeField] Button m_applyButton;
     [SerializeField] Button m_calcelButton;
-    /// <summary>フェード用シーケンス</summary>
+    /// <summary>フェード用シーケンス<br/>使わんかも</summary>
     private Sequence m_fadeSequence;
     private static Image FadeImage { get; set; }
+    private static BattleAnimationUIController BattleAnimationUIController { get; set; }
 
     public void Setup()
     {
@@ -82,6 +83,9 @@ public class GUIManager : MonoBehaviour
         GameManager.Instance.InfoTextUpdate
             .Subscribe(s => SetInfoTextPanels(s)).AddTo(this);
         m_infoPanel.SetActive(false);
+
+        m_battleAnimationUIController.Setup();
+        BattleAnimationUIController = m_battleAnimationUIController;
 
         //ゲームオーバーのイベントを受け取る
         m_battleManager.GameFinished
@@ -326,6 +330,14 @@ public class GUIManager : MonoBehaviour
                 onCompleate();
         });
     }
+
+    /// <summary>
+    /// 戦闘中のテキストアニメーションの再生
+    /// </summary>
+    /// <param name="animationType"></param>
+    /// <returns></returns>
+    public static async UniTask PlayBattleUIAnimation(BattleAnimationUIMoveTextType animationType) => 
+        await BattleAnimationUIController.ActiveText(animationType);
 }
 
 public enum CardDisplayType

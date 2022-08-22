@@ -74,7 +74,9 @@ public class BattleManager : MonoBehaviour
     private List<Card> m_currentCard = new List<Card>();
     /// <summary>戦闘終了を通知する</summary>
     private Subject<Unit> m_battleFinished = new Subject<Unit>();
+    /// <summary>ゲーム終了を通知する</summary>
     private Subject<GameEndType> m_gameFinished = new Subject<GameEndType>();
+    /// <summary>バトルの状態</summary>
     private ReactiveProperty<BattleState> m_battleState = new ReactiveProperty<BattleState>();
     /// <summary>現在の戦闘のBattleType</summary>
     private BattleType m_currentBattleType;
@@ -147,10 +149,12 @@ public class BattleManager : MonoBehaviour
         //手札を全て捨てて敵のターンを開始
         StockCommandExecution(TurnStartOrEnd.End);
         m_hand.ConvartToDiscard();
+        await GUIManager.PlayBattleUIAnimation(BattleAnimationUIMoveTextType.EnemyFaze);
         m_battleState.Value = BattleState.EnemyFaze;
         await m_charactorManager.TurnEnd(m_currentTurn);
 
         //敵のターンが終わったらターン数を加算しプレイヤーのターンに移る
+        await GUIManager.PlayBattleUIAnimation(BattleAnimationUIMoveTextType.PlayerFaze);
         m_battleState.Value = BattleState.PlayerFaze;
         m_currentTurn++;
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
@@ -216,7 +220,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 戦闘開始
     /// </summary>
-    public void Encount(MapID mapID, CellType cellType)
+    public void BattleStart(MapID mapID, CellType cellType)
     {
         //エンカウントした敵の大まかな種類の判定
         if (cellType == CellType.FirstHalfBattle || cellType == CellType.SecondHalfBattle)

@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
             default:
                 //í“¬ƒ}ƒX‚¾‚Á‚½ê‡
                 m_gameState.Value = GameState.Battle;
-                m_battleManager.Encount(m_mapManager.NowMapID, cellType);
+                m_battleManager.BattleStart(m_mapManager.NowMapID, cellType);
                 break;
         }
     }
