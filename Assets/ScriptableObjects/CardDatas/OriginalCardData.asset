@@ -269,6 +269,7 @@ MonoBehaviour:
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639493
+        - rid: 3724448813238976512
       m_cardDescription:
         m_dispose: 0
         m_ethereal: 0
@@ -426,200 +427,252 @@ MonoBehaviour:
     - rid: 3443098995593314304
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 1
         m_power: 5
         m_isTrueDamage: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443098995593314305
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 1
         m_power: 8
         m_isTrueDamage: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443098995593314306
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 0
         m_block: 5
         isTrueBlock: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443098995593314307
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 0
         m_block: 8
         isTrueBlock: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443098995593314308
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 1
         m_power: 9999
         m_isTrueDamage: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443098995593314309
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 1
         m_power: 9999
         m_isTrueDamage: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443099019064639488
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 1
         m_power: 12
         m_isTrueDamage: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443099019064639489
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 1
         m_power: 18
         m_isTrueDamage: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443099019064639490
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 0
         m_block: 12
         isTrueBlock: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443099019064639491
       type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 0
         m_block: 18
         isTrueBlock: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443099019064639492
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 1
         m_power: 3
         m_isTrueDamage: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443099019064639493
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 1
         m_power: 6
         m_isTrueDamage: 0
-        m_duration: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
     - rid: 3443099041877458944
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 1
-        m_duration: 0
         m_effectSelector:
           m_effectID: 0
           m_turn: 0
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
         m_otherBuffTypeCommandType: 4
     - rid: 3724448452576542720
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 0
-        m_duration: 0.1
         m_effectSelector:
           m_effectID: 2
           m_turn: 1
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
         m_otherBuffTypeCommandType: 4
     - rid: 3724448452576542721
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 0
-        m_duration: 0.1
         m_effectSelector:
           m_effectID: 2
           m_turn: 2
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
         m_otherBuffTypeCommandType: 4
     - rid: 3724448452576542722
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 0
-        m_duration: 0.1
         m_effectSelector:
           m_effectID: 3
           m_turn: 1
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
         m_otherBuffTypeCommandType: 4
     - rid: 3724448452576542723
       type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
         m_useType: 0
-        m_duration: 0.1
         m_effectSelector:
           m_effectID: 3
           m_turn: 2
         m_isHideType: 0
-        m_stockTurn: -1
-        m_isStockRelease: 0
         m_otherBuffTypeCommandType: 4
     - rid: 3724448561247027200
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: 3
+        m_isStockRelease: 0
         m_useType: 2
         m_power: 2
         m_isTrueDamage: 0
-        m_duration: 0.2
         m_isHideType: 0
-        m_stockTurn: 3
-        m_isStockRelease: 0
     - rid: 3724448561247027201
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: 3
+        m_isStockRelease: 0
         m_useType: 2
         m_power: 3
         m_isTrueDamage: 0
-        m_duration: 0.2
         m_isHideType: 0
-        m_stockTurn: 3
+    - rid: 3724448813238976512
+      type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
         m_isStockRelease: 0
+        m_useType: -1
+        m_effectSelector:
+          m_effectID: 0
+          m_turn: 1
+        m_isHideType: 0
+        m_otherBuffTypeCommandType: 4
