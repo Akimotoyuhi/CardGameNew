@@ -12,12 +12,10 @@ public class CardData : ScriptableObject
 {
     [SerializeField, PreviewButton] CardClassType m_cardClassType;
     [SerializeField] List<RaritySprite> m_raritySprite;
-    [SerializeField] List<TypeSprite> m_typeSprite;
     [SerializeField] List<Provality> m_cardRewordProvality;
     [SerializeField] List<CardDataBases> m_dataBases;
     public CardClassType CardClassType => m_cardClassType;
     public List<RaritySprite> GetRaritySprite => m_raritySprite;
-    public List<TypeSprite> GetTypeSprite => m_typeSprite;
     public List<CardDataBases> DataBases => m_dataBases;
 
     public void Setup()
@@ -190,7 +188,6 @@ public class CardDataBase
     [SerializeField] Rarity m_rarity;
     [SerializeField] bool m_isDiscard;
     [SerializeField] bool m_ethereal;
-    [SerializeField] List<CardType> m_cardType;
     [SerializeField] CommandSelect m_cardCommands;
     [SerializeField] CardDescription m_cardDescription;
     public string Name => m_name;
@@ -201,7 +198,6 @@ public class CardDataBase
     public Rarity Rarity => m_rarity;
     public bool Dispose => m_isDiscard;
     public bool Ethereal => m_ethereal;
-    public List<CardType> CardType => m_cardType;
     public CommandSelect CardCommands => m_cardCommands;
     public CardDescription CardDescription => m_cardDescription;
     public int ID { get; set; }
@@ -213,7 +209,6 @@ public class CardDataBase
         m_tooltip = tooltip;
         m_rarity = rarity;
         m_cardUseType = useType;
-        m_cardType = cardTypes;
     }
 }
 /// <summary>

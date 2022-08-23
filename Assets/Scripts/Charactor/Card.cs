@@ -18,7 +18,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     [SerializeField] Image m_icon;
     [SerializeField] Text m_tooltipText;
     [SerializeField] Text m_costText;
-    [SerializeField] List<Image> m_cardTypeImages;
     [SerializeField] RectTransform m_rectTransform;
     [SerializeField] CardDescriptionInfomation m_cardDescriptionInfomation;
     [SerializeField] float m_releaseDistance;
@@ -85,11 +84,11 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     public System.IObservable<CommandsInfomation> CardExecute => m_cardExecute;
     #endregion
 
-    public void Setup(CardDataBase dataBase, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite, Player player)
+    public void Setup(CardDataBase dataBase, List<CardData.RaritySprite> raritySprite, Player player)
     {
         m_player = player;
         SetBaseData(dataBase);
-        SetSprites(raritySprite, typeSprite);
+        SetSprites(raritySprite);
         GetPlayerEffect();
     }
 
@@ -120,11 +119,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         m_costText.text = database.Cost;
         m_costColor = m_costText.color;
         m_rarity = database.Rarity;
-        m_cardType = database.CardType;
-        for (int i = 0; i < m_cardTypeImages.Count; i++)
-        {
-            m_cardTypeImagesColor.Add(m_cardTypeImages[i].color);
-        }
         //今後コストxとか作りたいので文字列で取れるようにしとく
         try
         {
@@ -156,7 +150,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     /// </summary>
     /// <param name="backgroundSprites"></param>
     /// <param name="typeSprites"></param>
-    private void SetSprites(List<CardData.RaritySprite> backgroundSprites, List<CardData.TypeSprite> typeSprites)
+    private void SetSprites(List<CardData.RaritySprite> backgroundSprites)
     {
         //背景画像の設定
         foreach (var b in backgroundSprites)
@@ -169,29 +163,18 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         }
 
         //カードタイプの設定
-        List<Sprite> sprites = new List<Sprite>();
-        foreach (var myType in m_cardType)
-        {
-            foreach (var t in typeSprites)
-            {
-                if (myType == t.CardType)
-                {
-                    sprites.Add(t.Sprite);
-                    continue;
-                }
-            }
-        }
-        for (int i = 0; i < m_cardTypeImages.Count; i++)
-        {
-            if (sprites.Count <= i)
-            {
-                m_cardTypeImages[i].color = Color.clear;
-            }
-            else
-            {
-                m_cardTypeImages[i].sprite = sprites[i];
-            }
-        }
+        //List<Sprite> sprites = new List<Sprite>();
+        //foreach (var myType in m_cardType)
+        //{
+        //    foreach (var t in typeSprites)
+        //    {
+        //        if (myType == t.CardType)
+        //        {
+        //            sprites.Add(t.Sprite);
+        //            continue;
+        //        }
+        //    }
+        //}
     }
 
     /// <summary>
@@ -312,10 +295,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             m_icon.color = m_iconColor - new Color(0, 0, 0, m_iconColor.a / 2);
             m_nameText.color = m_nameTextColor - new Color(0, 0, 0, m_nameTextColor.a / 2);
             m_tooltipText.color = m_tooltipColor - new Color(0, 0, 0, m_tooltipColor.a / 2);
-            for (int i = 0; i < m_cardTypeImages.Count; i++)
-            {
-                m_cardTypeImages[i].color = m_cardTypeImagesColor[i] - new Color(0, 0, 0, m_cardTypeImagesColor[i].a / 2);
-            }
         }
         else
         {
@@ -324,10 +303,6 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             m_icon.color = m_iconColor;
             m_nameText.color = m_nameTextColor;
             m_tooltipText.color = m_tooltipColor;
-            for (int i = 0; i < m_cardTypeImages.Count; i++)
-            {
-                m_cardTypeImages[i].color = m_cardTypeImagesColor[i];
-            }
         }
     }
 

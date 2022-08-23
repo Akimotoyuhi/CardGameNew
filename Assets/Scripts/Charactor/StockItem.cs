@@ -16,7 +16,9 @@ public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] Sprite m_defaultSprite;
     [SerializeField] Text m_turnTextDisplay;
     private string m_tooltip;
+    /// <summary>ストック中のコマンド</summary>
     private List<Command> m_stockCommand = new List<Command>();
+    /// <summary>解放後に実行されるコマンド</summary>
     private List<Command> m_releaseCommand = new List<Command>();
     private ReactiveProperty<int> m_turnTextValue = new ReactiveProperty<int>();
     /// <summary>現在ストック中の効果</summary>

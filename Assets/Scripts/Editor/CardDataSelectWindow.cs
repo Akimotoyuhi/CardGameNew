@@ -63,11 +63,11 @@ public class CardDataSelectWindow : EditorWindow
                         {
                             if (GUILayout.Button("ã≠âªëO"))
                             {
-                                CardCustomWindow.ShowWindow(m_carddata.DataBases[i].CardData, m_carddata.GetRaritySprite, m_carddata.GetTypeSprite);
+                                CardCustomWindow.ShowWindow(m_carddata.DataBases[i].CardData, m_carddata.GetRaritySprite);
                             }
                             if (GUILayout.Button("ã≠âªå„"))
                             {
-                                CardCustomWindow.ShowWindow(m_carddata.DataBases[i].UpgradeData, m_carddata.GetRaritySprite, m_carddata.GetTypeSprite);
+                                CardCustomWindow.ShowWindow(m_carddata.DataBases[i].UpgradeData, m_carddata.GetRaritySprite);
                             }
                             if (GUILayout.Button("çÌèú"))
                             {

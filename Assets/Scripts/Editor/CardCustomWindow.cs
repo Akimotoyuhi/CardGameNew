@@ -24,7 +24,7 @@ public class CardCustomWindow : EditorWindow
     private static Texture2D m_cardBackground;
     private static Texture2D m_background;
     private static Texture2D m_iconTexture;
-    private static int m_cardTypeCount;
+    //private static int m_cardTypeCount;
     private float m_settingAriaWidth = 200;
     private float m_settingAriaHeight = 20;
     private static float m_cardAriaWidth = 180;
@@ -32,13 +32,13 @@ public class CardCustomWindow : EditorWindow
     private static float m_cardViewAriaSizeWidth = 300;
     private static float m_cardViewAriaSizeHeight = 280;
     private Vector2 m_scrollPos;
-    private bool m_commandSettingToggleFlag;
-    private bool m_cardTypeToggleFlag;
+    //private bool m_commandSettingToggleFlag;
+    //private bool m_cardTypeToggleFlag;
 
-    public static void ShowWindow(CardDataBase cardData, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite)
+    public static void ShowWindow(CardDataBase cardData, List<CardData.RaritySprite> raritySprite)
     {
         m_database = cardData;
-        Setup(cardData, raritySprite, typeSprite);
+        Setup(cardData, raritySprite);
         GetWindow(typeof(CardCustomWindow));
     }
 
@@ -163,7 +163,7 @@ public class CardCustomWindow : EditorWindow
         GUILayout.EndArea();
     }
 
-    private static void Setup(CardDataBase database, List<CardData.RaritySprite> raritySprite, List<CardData.TypeSprite> typeSprite)
+    private static void Setup(CardDataBase database, List<CardData.RaritySprite> raritySprite)
     {
         m_name = database.Name;
         m_icon = database.Icon;
@@ -175,19 +175,17 @@ public class CardCustomWindow : EditorWindow
         m_cost = database.Cost;
         m_useType = database.CardUseType;
         m_rarity = database.Rarity;
-        m_cardTypes = database.CardType;
         m_tooltip = database.Tooltip;
         m_raritySprite = raritySprite;
-        m_cardTypes = database.CardType;
-        if (m_cardTypes == null)
-        {
-            m_cardTypes = new List<CardType>();
-        }
-        else
-        {
-            m_cardTypeCount = database.CardType.Count;
-            m_cardTypeCountText = database.CardType.Count.ToString();
-        }
+        //if (m_cardTypes == null)
+        //{
+        //    m_cardTypes = new List<CardType>();
+        //}
+        //else
+        //{
+        //    //m_cardTypeCount = database.CardType.Count;
+        //    m_cardTypeCountText = database.CardType.Count.ToString();
+        //}
         m_cardTypesArray = m_cardTypes.ToArray();
         //var v = AppDomain.CurrentDomain.GetAssemblies()
         //    .SelectMany(s => s.GetType())
@@ -199,7 +197,6 @@ public class CardCustomWindow : EditorWindow
         var t = new Texture2D((int)m_cardViewAriaSizeWidth, (int)m_cardViewAriaSizeHeight);
         t.SetPixel(t.width, t.height, Color.white);
         m_background = t;
-        m_types = typeSprite;
     }
 
     /// <summary>
@@ -228,22 +225,22 @@ public class CardCustomWindow : EditorWindow
         return null;
     }
 
-    private static List<Texture2D> GetTexture(CardType cardType)
-    {
-        List<Texture2D> ret = new List<Texture2D>();
-        foreach (var myType in m_database.CardType)
-        {
-            foreach (var t in m_types)
-            {
-                if (myType == t.CardType)
-                {
-                    ret.Add(t.Sprite.texture);
-                    continue;
-                }
-            }
-        }
-        return ret;
-    }
+    //private static List<Texture2D> GetTexture(CardType cardType)
+    //{
+    //    List<Texture2D> ret = new List<Texture2D>();
+    //    foreach (var myType in m_database.CardType)
+    //    {
+    //        foreach (var t in m_types)
+    //        {
+    //            if (myType == t.CardType)
+    //            {
+    //                ret.Add(t.Sprite.texture);
+    //                continue;
+    //            }
+    //        }
+    //    }
+    //    return ret;
+    //}
 
     /// <summary>
     /// ê›íËäÆóπ

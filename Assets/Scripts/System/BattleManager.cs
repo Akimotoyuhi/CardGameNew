@@ -129,7 +129,6 @@ public class BattleManager : MonoBehaviour
             Card c = Instantiate(m_cardPrefab);
             c.Setup(m_cardDatas.GetDataBase(card),
                 m_cardDatas.GetData(card.CardCalssType).GetRaritySprite,
-                m_cardDatas.GetData(card.CardCalssType).GetTypeSprite,
                 m_charactorManager.CurrentPlayer);
             c.CardExecute.Subscribe(cmds =>
             {
@@ -256,7 +255,6 @@ public class BattleManager : MonoBehaviour
                     Card c = Instantiate(m_cardPrefab);
                     c.Setup(card,
                         m_cardDatas.GetData(m_charactorManager.CardClassType).GetRaritySprite,
-                        m_cardDatas.GetData(m_charactorManager.CardClassType).GetTypeSprite,
                         null);
                     //クリック時の振る舞い設定
                     c.OnClickSubject.Subscribe(_ =>
@@ -300,7 +298,6 @@ public class BattleManager : MonoBehaviour
         Card card = Instantiate(m_cardPrefab);
         card.Setup(m_cardDatas.GetDataBase(haveCardData),
             m_cardDatas.GetData(haveCardData.CardCalssType).GetRaritySprite,
-            m_cardDatas.GetData(haveCardData.CardCalssType).GetTypeSprite,
             null);
         card.CardState = state;
         return card;
