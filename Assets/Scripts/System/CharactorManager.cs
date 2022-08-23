@@ -133,18 +133,21 @@ public class CharactorManager : MonoBehaviour
                     if (!e.IsDead)
                         return;
                 }
+                Init();
                 break;
             default:
                 break;
         }
-        
-        //戦闘終了時に使用した敵データを破棄
+        m_battleEnd.OnNext(battleEndType);
+    }
+
+    public void Init()
+    {
         for (int i = m_currentEnemies.Count - 1; i >= 0; i--)
         {
             Destroy(m_currentEnemies[i].gameObject);
             m_currentEnemies.RemoveAt(i);
         }
-        m_battleEnd.OnNext(battleEndType);
     }
 }
 public enum BattleEndType

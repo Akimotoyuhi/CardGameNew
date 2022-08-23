@@ -97,6 +97,8 @@ public abstract class Charactor : MonoBehaviour
     /// </summary>
     public virtual async UniTask TurnBegin(int turn)
     {
+        if (IsDead)
+            return;
         //ターン開始時にブロック値はリセット
         m_currentBlock.Value = 0;
 
@@ -115,6 +117,8 @@ public abstract class Charactor : MonoBehaviour
     /// </summary>
     public virtual async UniTask TurnEnd(int turn)
     {
+        if (IsDead)
+            return;
         //ターン終了時のエフェクトを評価しにいく
         ConditionalParametor cp = new ConditionalParametor();
         cp.Setup(turn, EvaluationParamType.Turn, EffectTiming.TurnEnd);
@@ -131,6 +135,8 @@ public abstract class Charactor : MonoBehaviour
     /// <param name="cmd"></param>
     public virtual void Damage(Command cmd)
     {
+        if (IsDead)
+            return;
         if (cmd.Effect != null)
             cmd.Effect.ForEach(e => AddEffect(e));
         if (cmd.Power > 0)
@@ -172,11 +178,12 @@ public abstract class Charactor : MonoBehaviour
     }
 
     /// <summary>
-    /// 現在かかっているエフェクトを表示する
+    /// 現在かかっているエフェクトの表示と更新
     /// </summary>
     protected void SetEffectDisplay()
     {
-        for (int i = 0; i < m_effectViewParent.childCount; i++)
+        Debug.Log($"{m_effectViewParent.childCount}");
+        for (int i = m_effectViewParent.childCount - 1; i >= 0; i--)
         {
             Destroy(m_effectViewParent.GetChild(i).gameObject);
         }
@@ -211,6 +218,9 @@ public abstract class Charactor : MonoBehaviour
         return ret;
     }
 
+    /// <summary>
+    /// 現在かかっているエフェクトを削除できるものだけ削除する
+    /// </summary>
     private void EffectRemoveCheck()
     {
         for (int i = m_effects.Count - 1; i >= 0; i--)

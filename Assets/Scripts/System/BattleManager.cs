@@ -156,6 +156,7 @@ public class BattleManager : MonoBehaviour
         await GUIManager.PlayBattleUIAnimation(BattleAnimationUIMoveTextType.PlayerFaze);
         m_battleState.Value = BattleState.PlayerFaze;
         m_currentTurn++;
+        Debug.Log($"現在ターン:{m_currentTurn}");
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
         StockCommandExecution(TurnStartOrEnd.Start);
         await m_charactorManager.TurnBegin(m_currentTurn);
@@ -164,7 +165,6 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// フィールド効果を評価し、一部コマンドを実行する
     /// </summary>
-    /// <param name="cmds"></param>
     private async UniTask CommandExecutor(CommandsInfomation commandsInfomation)
     {
         List<Command> stockCommand = new List<Command>();
@@ -189,6 +189,9 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ストックコマンドの実行
+    /// </summary>
     private async void StockCommandExecution(TurnStartOrEnd turnStartOrEnd)
     {
         switch (turnStartOrEnd)

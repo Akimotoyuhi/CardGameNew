@@ -89,9 +89,13 @@ public class GUIManager : MonoBehaviour
 
         //ゲームオーバーのイベントを受け取る
         m_battleManager.GameFinished
-            .ThrottleFirst(System.TimeSpan.FromSeconds(m_gameoverScreen.ToGameoverScreenTime))
+            .ThrottleFirst(System.TimeSpan.FromSeconds(m_gameoverScreen.ToGameoverScreenTime)) //連続攻撃等で複数回呼ばれないように
             .Subscribe(async type =>
-                await Fade(Color.black, m_gameoverScreen.ToGameoverScreenTime, () => m_gameoverScreen.SetActive(true, type)))
+                await Fade(Color.black, m_gameoverScreen.ToGameoverScreenTime, () =>
+                {
+                    Fade(Color.clear, 0).Forget();
+                    m_gameoverScreen.SetActive(true, type);
+                }))
             .AddTo(m_battleManager);
 
         //ゲームオーバー画面のセットアップ
