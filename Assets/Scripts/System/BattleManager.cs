@@ -219,7 +219,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 戦闘開始
     /// </summary>
-    public void BattleStart(MapID mapID, CellType cellType)
+    public async void BattleStart(MapID mapID, CellType cellType)
     {
         //エンカウントした敵の大まかな種類の判定
         if (cellType == CellType.FirstHalfBattle || cellType == CellType.SecondHalfBattle)
@@ -233,6 +233,7 @@ public class BattleManager : MonoBehaviour
         List<EnemyID> e = m_encountData.GetEncountData(mapID).GetEnemies(cellType);
         m_charactorManager.Create(e);
         Create();
+        await GUIManager.PlayBattleUIAnimation(BattleAnimationUIMoveTextType.BattleStart);
         m_battleState.Value = BattleState.PlayerFaze;
         m_charactorManager.TurnBegin(m_currentTurn).Forget();
     }
