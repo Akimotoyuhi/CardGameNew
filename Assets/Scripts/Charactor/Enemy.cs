@@ -52,18 +52,20 @@ public class Enemy : Charactor, IDrop
         Setup();
     }
 
-    public override async UniTask TurnBegin(int turn)
+    public override async UniTask TurnBegin(FieldEffect fieldEffect)
     {
-        SelectActionCommand();
-        await base.TurnBegin(turn);
+        SelectActionCommand(fieldEffect);
+        await base.TurnBegin(fieldEffect);
     }
 
-    public override async UniTask TurnEnd(int turn)
+    public override async UniTask TurnEnd(FieldEffect fieldEffect)
     {
         EndAction = false;
+        if (fieldEffect.CurrentTurn == 0)
+            SelectActionCommand(fieldEffect);
         await Action();
         await UniTask.WaitUntil(() => EndAction);
-        await base.TurnEnd(turn);
+        await base.TurnEnd(fieldEffect);
     }
 
     /// <summary>
@@ -81,9 +83,10 @@ public class Enemy : Charactor, IDrop
     /// <summary>
     /// このターンの行動を選ぶ
     /// </summary>
-    private void SelectActionCommand()
+    private void SelectActionCommand(FieldEffect fieldEffect)
     {
-        m_currentTurnCommand = m_dataBase.Action(new FieldEffect(), null, this); //とりあえずこれで
+        Debug.Log($"{fieldEffect.CurrentTurn}ターン目の行動");
+        m_currentTurnCommand = m_dataBase.Action(fieldEffect, null, this); //とりあえずこれで
 
         //エフェクトの評価
         m_currentTurnCommand.ForEach(cmd =>
@@ -102,8 +105,9 @@ public class Enemy : Charactor, IDrop
                     cp.Setup(cmd.Block, EvaluationParamType.Block, EffectTiming.Attacked);
                     cps.Add(cp);
                     break;
-                //case CommandType.Effect:
-                //    break;
+                case CommandType.Effect:
+                    //cp.Effect = cmd.Effect;
+                    break;
                 default:
                     break;
             }

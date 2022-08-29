@@ -36,15 +36,15 @@ public class Player : Charactor, IDrop
         m_currentLife.Value = healValue;
     }
 
-    public override async UniTask TurnBegin(int turn)
+    public override async UniTask TurnBegin(FieldEffect fieldEffect)
     {
         m_currentCost.Value = m_maxCost;
-        await base.TurnBegin(turn);
+        await base.TurnBegin(fieldEffect);
     }
 
-    public override async UniTask TurnEnd(int turn)
+    public override async UniTask TurnEnd(FieldEffect fieldEffect)
     {
-        await base.TurnEnd(turn);
+        await base.TurnEnd(fieldEffect);
     }
 
     public override void Damage(Command cmd)

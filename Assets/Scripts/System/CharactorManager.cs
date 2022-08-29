@@ -77,20 +77,20 @@ public class CharactorManager : MonoBehaviour
         });
     }
 
-    public async UniTask TurnBegin(int turn)
+    public async UniTask TurnBegin(FieldEffect fieldEffect)
     {
         Debug.Log("ターン開始");
         foreach (var e in m_currentEnemies)
-            await e.TurnBegin(turn);
-        await CurrentPlayer.TurnBegin(turn);
+            await e.TurnBegin(fieldEffect);
+        await CurrentPlayer.TurnBegin(fieldEffect);
     }
 
-    public async UniTask TurnEnd(int turn)
+    public async UniTask TurnEnd(FieldEffect fieldEffect)
     {
         Debug.Log("ターン終了");
-        await CurrentPlayer.TurnEnd(turn);
+        await CurrentPlayer.TurnEnd(fieldEffect);
         foreach (var e in m_currentEnemies)
-            await e.TurnEnd(turn);
+            await e.TurnEnd(fieldEffect);
     }
 
     /// <summary>

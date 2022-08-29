@@ -69,7 +69,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] CardClassDatas m_cardDatas;
     [SerializeField] StockSlot m_stockSlot;
     [SerializeField] int m_rewardNum;
-    private int m_currentTurn;
+    /// <summary>現在のフィールド効果</summary>
+    private FieldEffect m_currentFieldEffect;
     /// <summary>この戦闘中のカードのインスタンス</summary>
     private List<Card> m_currentCard = new List<Card>();
     /// <summary>戦闘終了を通知する</summary>
@@ -150,16 +151,16 @@ public class BattleManager : MonoBehaviour
         m_hand.ConvartToDiscard();
         await GUIManager.PlayBattleUIAnimation(BattleAnimationUIMoveTextType.EnemyFaze);
         m_battleState.Value = BattleState.EnemyFaze;
-        await m_charactorManager.TurnEnd(m_currentTurn);
+        await m_charactorManager.TurnEnd(m_currentFieldEffect);
 
         //敵のターンが終わったらターン数を加算しプレイヤーのターンに移る
         await GUIManager.PlayBattleUIAnimation(BattleAnimationUIMoveTextType.PlayerFaze);
         m_battleState.Value = BattleState.PlayerFaze;
-        m_currentTurn++;
-        Debug.Log($"現在ターン:{m_currentTurn}");
+        m_currentFieldEffect.CurrentTurn++;
+        Debug.Log($"現在ターン:{m_currentFieldEffect.CurrentTurn}");
         m_deck.Draw(m_charactorManager.CurrentPlayer.DrowNum);
         StockCommandExecution(TurnStartOrEnd.Start);
-        await m_charactorManager.TurnBegin(m_currentTurn);
+        await m_charactorManager.TurnBegin(m_currentFieldEffect);
     }
 
     /// <summary>
@@ -224,6 +225,9 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public async void BattleStart(MapID mapID, CellType cellType)
     {
+        //フィールド効果リセット
+        m_currentFieldEffect = new FieldEffect();
+
         //エンカウントした敵の大まかな種類の判定
         if (cellType == CellType.FirstHalfBattle || cellType == CellType.SecondHalfBattle)
             m_currentBattleType = BattleType.Normal;
@@ -232,13 +236,19 @@ public class BattleManager : MonoBehaviour
         else if (cellType == CellType.Boss)
             m_currentBattleType = BattleType.Boss;
 
-        //エンカウントした敵のデータを取得して、CharactorManagerに渡す
+        //エンカウントした敵のデータを取得して、敵やカードを生成する
         List<EnemyID> e = m_encountData.GetEncountData(mapID).GetEnemies(cellType);
         m_charactorManager.Create(e);
         Create();
+
+        //最初のターンの特別処理
+        m_currentFieldEffect.CurrentTurn = 0;
         await GUIManager.PlayBattleUIAnimation(BattleAnimationUIMoveTextType.BattleStart);
+        m_battleState.Value = BattleState.EnemyFaze;
+        await m_charactorManager.TurnBegin(m_currentFieldEffect);
+        m_currentFieldEffect.CurrentTurn++;
+        await GUIManager.PlayBattleUIAnimation(BattleAnimationUIMoveTextType.PlayerFaze);
         m_battleState.Value = BattleState.PlayerFaze;
-        m_charactorManager.TurnBegin(m_currentTurn).Forget();
     }
 
     /// <summary>

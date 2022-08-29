@@ -95,7 +95,7 @@ public abstract class Charactor : MonoBehaviour
     /// <summary>
     /// ターン開始
     /// </summary>
-    public virtual async UniTask TurnBegin(int turn)
+    public virtual async UniTask TurnBegin(FieldEffect fieldEffect)
     {
         if (IsDead)
             return;
@@ -104,7 +104,7 @@ public abstract class Charactor : MonoBehaviour
 
         //ターン開始時のエフェクトを評価しにいく
         ConditionalParametor cp = new ConditionalParametor();
-        cp.Setup(turn, EvaluationParamType.Turn, EffectTiming.TurnBegin);
+        cp.Setup(fieldEffect.CurrentTurn, EvaluationParamType.Turn, EffectTiming.TurnBegin);
         List<ConditionalParametor> cps = new List<ConditionalParametor>();
         cps.Add(cp);
         EffectExecute(cps);
@@ -115,13 +115,13 @@ public abstract class Charactor : MonoBehaviour
     /// <summary>
     /// ターン終了
     /// </summary>
-    public virtual async UniTask TurnEnd(int turn)
+    public virtual async UniTask TurnEnd(FieldEffect fieldEffect)
     {
         if (IsDead)
             return;
         //ターン終了時のエフェクトを評価しにいく
         ConditionalParametor cp = new ConditionalParametor();
-        cp.Setup(turn, EvaluationParamType.Turn, EffectTiming.TurnEnd);
+        cp.Setup(fieldEffect.CurrentTurn, EvaluationParamType.Turn, EffectTiming.TurnEnd);
         List<ConditionalParametor> cps = new List<ConditionalParametor>();
         cps.Add(cp);
         EffectExecute(cps);
@@ -182,7 +182,7 @@ public abstract class Charactor : MonoBehaviour
     /// </summary>
     protected void SetEffectDisplay()
     {
-        Debug.Log($"{m_effectViewParent.childCount}");
+        //Debug.Log($"{m_effectViewParent.childCount}");
         for (int i = m_effectViewParent.childCount - 1; i >= 0; i--)
         {
             Destroy(m_effectViewParent.GetChild(i).gameObject);

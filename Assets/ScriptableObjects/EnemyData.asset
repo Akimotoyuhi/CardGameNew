@@ -130,10 +130,18 @@ MonoBehaviour:
     - m_conditional:
         m_probability: 100
         m_playNum: -1
+        m_conditionals:
+        - rid: 3724448969978019840
+      m_enemyCommands:
+        m_commands:
+        - rid: 3724448969978019841
+    - m_conditional:
+        m_probability: 100
+        m_playNum: -1
         m_conditionals: []
       m_enemyCommands:
         m_commands:
-        - rid: 3724448769176764423
+        - rid: 3724448969978019842
   references:
     version: 2
     RefIds:
@@ -316,7 +324,26 @@ MonoBehaviour:
           m_turn: 1
         m_isHideType: 0
         m_otherBuffTypeCommandType: 4
-    - rid: 3724448769176764423
+    - rid: 3724448969978019840
+      type: {class: TurnConditional, ns: , asm: Assembly-CSharp}
+      data:
+        m_turn: 0
+        m_evaluationType: 1
+    - rid: 3724448969978019841
+      type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.2
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 0
+        m_effectSelector:
+          m_effectID: 0
+          m_turn: 10
+        m_isHideType: 0
+        m_otherBuffTypeCommandType: 4
+    - rid: 3724448969978019842
       type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
       data:
         m_particleID: -1
