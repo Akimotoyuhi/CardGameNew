@@ -245,7 +245,7 @@ public class BattleManager : MonoBehaviour
         m_currentFieldEffect.CurrentTurn = 0;
         await GUIManager.PlayBattleUIAnimation(BattleAnimationUIMoveTextType.BattleStart);
         m_battleState.Value = BattleState.EnemyFaze;
-        await m_charactorManager.TurnBegin(m_currentFieldEffect);
+        await m_charactorManager.TurnEnd(m_currentFieldEffect);
         m_currentFieldEffect.CurrentTurn++;
         await GUIManager.PlayBattleUIAnimation(BattleAnimationUIMoveTextType.PlayerFaze);
         m_battleState.Value = BattleState.PlayerFaze;

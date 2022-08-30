@@ -86,7 +86,7 @@ public class Enemy : Charactor, IDrop
     private void SelectActionCommand(FieldEffect fieldEffect)
     {
         Debug.Log($"{fieldEffect.CurrentTurn}ターン目の行動");
-        m_currentTurnCommand = m_dataBase.Action(fieldEffect, null, this); //とりあえずこれで
+        m_currentTurnCommand = m_dataBase.Action(fieldEffect, null, this);
 
         //エフェクトの評価
         m_currentTurnCommand.ForEach(cmd =>
@@ -105,9 +105,8 @@ public class Enemy : Charactor, IDrop
                     cp.Setup(cmd.Block, EvaluationParamType.Block, EffectTiming.Attacked);
                     cps.Add(cp);
                     break;
-                case CommandType.Effect:
-                    //cp.Effect = cmd.Effect;
-                    break;
+                //case CommandType.Effect:
+                //    break;
                 default:
                     break;
             }

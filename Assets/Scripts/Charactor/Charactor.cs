@@ -145,6 +145,7 @@ public abstract class Charactor : MonoBehaviour
             DamageText dmgText = Instantiate(m_datageTextPrefab);
             m_damageTexts.Add(dmgText);
             dmgText.transform.SetParent(transform, false);
+            //‰¼”z’u@‚Ì‚¿‚É•Ï‚¦‚é
             dmgText.Setup(dmg, new Vector2(50, 50), 2, DamageTextType.Damage, DG.Tweening.Ease.OutQuad, () =>
             {
                 m_damageTexts.Remove(dmgText);
