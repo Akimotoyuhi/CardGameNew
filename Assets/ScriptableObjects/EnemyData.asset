@@ -150,7 +150,7 @@ MonoBehaviour:
       data:
         m_particleID: -1
         m_seID: -1
-        m_duration: 5
+        m_duration: 0.2
         m_stockTurn: -1
         m_isStockRelease: 0
         m_useType: 1

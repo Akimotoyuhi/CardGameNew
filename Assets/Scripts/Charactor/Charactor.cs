@@ -100,7 +100,8 @@ public abstract class Charactor : MonoBehaviour
         if (IsDead)
             return;
         //ターン開始時にブロック値はリセット
-        m_currentBlock.Value = 0;
+        if (fieldEffect.CurrentTurn != 1) //1ターン目はリセットしない
+            m_currentBlock.Value = 0;
 
         //ターン開始時のエフェクトを評価しにいく
         ConditionalParametor cp = new ConditionalParametor();
