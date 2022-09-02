@@ -102,3 +102,4 @@ MonoBehaviour:
     m_color: {r: 0, g: 0.19761467, b: 1, a: 1}
   - m_textType: 2
     m_color: {r: 0.2646134, g: 1, b: 0, a: 1}
+  m_duration: 2

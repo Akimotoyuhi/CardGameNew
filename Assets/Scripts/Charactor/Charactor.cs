@@ -13,10 +13,16 @@ public abstract class Charactor : MonoBehaviour
     [SerializeField] RectTransform m_rectTransform;
     [SerializeField] Slider m_lifeSlider;
     [SerializeField] Slider m_blockSlider;
-    [SerializeField] Text m_text;
+    /// <summary>体力とブロック値表示用テキスト</summary>
+    [SerializeField] Text m_lifeText;
+    /// <summary>effectViewPrefabの親</summary>
     [SerializeField] Transform m_effectViewParent;
+    /// <summary>現在かかっているエフェクトを表示するプレハブ</summary>
     [SerializeField] EffectDisplay m_effectViewPrefab;
+    /// <summary>ダメージテキストのプレハブ</summary>
     [SerializeField] DamageText m_datageTextPrefab;
+    /// <summary>ダメージ表示テキストの表示位置</summary>
+    [SerializeField] Vector2 m_damageTextPosition;
     protected string m_name;
     protected int m_maxLife;
     protected ReactiveProperty<int> m_currentLife = new ReactiveProperty<int>();
@@ -87,9 +93,9 @@ public abstract class Charactor : MonoBehaviour
     protected virtual void SetText()
     {
         if (m_currentBlock.Value > 0)
-            m_text.text = $"{m_currentLife.Value}+{m_currentBlock} / {m_maxLife}";
+            m_lifeText.text = $"{m_currentLife.Value}+{m_currentBlock} / {m_maxLife}";
         else
-            m_text.text = $"{m_currentLife.Value} / {m_maxLife}";
+            m_lifeText.text = $"{m_currentLife.Value} / {m_maxLife}";
     }
 
     /// <summary>
@@ -138,22 +144,47 @@ public abstract class Charactor : MonoBehaviour
     {
         if (IsDead)
             return;
+
         if (cmd.Effect != null)
             cmd.Effect.ForEach(e => AddEffect(e));
+
         if (cmd.Power > 0)
         {
-            int dmg = m_currentBlock.Value -= cmd.Power;
+            //ブロック値計算
+            int dmg = m_currentBlock.Value - cmd.Power;
+
             DamageText dmgText = Instantiate(m_datageTextPrefab);
             m_damageTexts.Add(dmgText);
             dmgText.transform.SetParent(transform, false);
-            //仮配置　のちに変える
-            dmgText.Setup(dmg, new Vector2(50, 50), 2, DamageTextType.Damage, DG.Tweening.Ease.OutQuad, () =>
+            //ブロック値を超えたダメージを受けた時
+            if (dmg <= 0)
             {
-                m_damageTexts.Remove(dmgText);
-            });
-            m_currentLife.Value += dmg;
-            if (m_currentLife.Value <= 0)
-                m_currentLife.Value = 0;
+                dmgText.Setup(
+                    dmg, 
+                    m_damageTextPosition, 
+                    DamageTextType.Damage, 
+                    DG.Tweening.Ease.OutQuad, 
+                    () => m_damageTexts.Remove(dmgText));
+
+                //ダメージを受ける
+                m_currentLife.Value += dmg;
+                if (m_currentLife.Value <= 0)
+                    m_currentLife.Value = 0;
+            }
+            //ブロック成功
+            else
+            {
+                //int blkDmg = 
+
+                dmgText.Setup(
+                    dmg, 
+                    m_damageTextPosition, 
+                    DamageTextType.Block, 
+                    DG.Tweening.Ease.OutQuad, 
+                    () => m_damageTexts.Remove(dmgText));
+            }
+
+            m_currentBlock.Value -= cmd.Power;
         }
         m_currentBlock.Value += cmd.Block;
     }
