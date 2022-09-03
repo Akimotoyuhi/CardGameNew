@@ -156,32 +156,35 @@ public abstract class Charactor : MonoBehaviour
             DamageText dmgText = Instantiate(m_datageTextPrefab);
             m_damageTexts.Add(dmgText);
             dmgText.transform.SetParent(transform, false);
+            //現在ブロック数が0以上あるならブロック成功値を表示、なければ被ダメージを表示
+            if (m_currentBlock.Value >= 0)
+            {
+                dmgText.Setup(
+                    cmd.Power,
+                    m_damageTextPosition,
+                    DamageTextType.Block,
+                    DG.Tweening.Ease.OutQuad,
+                    () => m_damageTexts.Remove(dmgText));
+            }
+            else
+            {
+                dmgText.Setup(
+                    dmg,
+                    m_damageTextPosition,
+                    DamageTextType.Damage,
+                    DG.Tweening.Ease.OutQuad,
+                    () => m_damageTexts.Remove(dmgText));
+            }
+
             //ブロック値を超えたダメージを受けた時
             if (dmg <= 0)
             {
-                dmgText.Setup(
-                    dmg, 
-                    m_damageTextPosition, 
-                    DamageTextType.Damage, 
-                    DG.Tweening.Ease.OutQuad, 
-                    () => m_damageTexts.Remove(dmgText));
+                
 
                 //ダメージを受ける
                 m_currentLife.Value += dmg;
                 if (m_currentLife.Value <= 0)
                     m_currentLife.Value = 0;
-            }
-            //ブロック成功
-            else
-            {
-                //int blkDmg = 
-
-                dmgText.Setup(
-                    dmg, 
-                    m_damageTextPosition, 
-                    DamageTextType.Block, 
-                    DG.Tweening.Ease.OutQuad, 
-                    () => m_damageTexts.Remove(dmgText));
             }
 
             m_currentBlock.Value -= cmd.Power;
