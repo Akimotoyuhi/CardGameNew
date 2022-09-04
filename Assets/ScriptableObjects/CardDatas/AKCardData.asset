@@ -26,17 +26,6 @@ MonoBehaviour:
     m_sprite: {fileID: 21300000, guid: 5948ff37dbb97cc47899fed8f4454f1c, type: 3}
   - m_rarity: 5
     m_sprite: {fileID: 21300000, guid: 5948ff37dbb97cc47899fed8f4454f1c, type: 3}
-  m_typeSprite:
-  - m_cardType: 0
-    m_sprites: {fileID: 21300000, guid: d7c0e20f42611ba41b14209ce0e2f9cf, type: 3}
-  - m_cardType: 1
-    m_sprites: {fileID: 21300000, guid: 6251154650832404a8d6c4b22e995d23, type: 3}
-  - m_cardType: 2
-    m_sprites: {fileID: 21300000, guid: 39635d7d2da86124abbb721af72cf20c, type: 3}
-  - m_cardType: 3
-    m_sprites: {fileID: 21300000, guid: fe48cbafab0cf82478867ec562ce82c8, type: 3}
-  - m_cardType: 4
-    m_sprites: {fileID: 21300000, guid: 417dea5dcabf20b4ba6f8bcb38af51d3, type: 3}
   m_cardRewordProvality:
   - m_battleType: 0
     m_normalCard: 100
@@ -61,7 +50,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746048
@@ -79,7 +67,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746050
@@ -98,7 +85,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746052
@@ -116,7 +102,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746051
@@ -135,7 +120,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746053
@@ -153,7 +137,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098792831746054
@@ -172,7 +155,6 @@ MonoBehaviour:
       m_rarity: 0
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098950917685248
@@ -190,7 +172,6 @@ MonoBehaviour:
       m_rarity: 0
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098950917685249
@@ -209,7 +190,6 @@ MonoBehaviour:
       m_rarity: 2
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098950917685248
@@ -228,7 +208,6 @@ MonoBehaviour:
       m_rarity: 2
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098950917685249
@@ -248,7 +227,6 @@ MonoBehaviour:
       m_rarity: 1
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 02000000
       m_cardCommands:
         m_commands:
         - rid: 3724448610805350400
@@ -267,11 +245,49 @@ MonoBehaviour:
       m_rarity: 1
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 02000000
       m_cardCommands:
         m_commands:
         - rid: 3724448610805350402
         - rid: 3724448610805350403
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
+  - m_label: "\u7FBD\u5D50"
+    m_database:
+      m_name: "\u7FBD\u5D50"
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
+      m_cost: 1
+      m_tooltip: "{dmg0}\u30C0\u30E1\u30FC\u30B8\u30923\u56DE\u4E0E\u3048\u308B"
+      m_cardUseType: 1
+      m_rarity: 1
+      m_isDiscard: 0
+      m_ethereal: 0
+      m_cardCommands:
+        m_commands:
+        - rid: 8289334812319940608
+        - rid: 8289334812319940609
+        - rid: 8289334812319940610
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
+    m_upgradeData:
+      m_name: "\u7FBD\u5D50"
+      m_icon: {fileID: 0}
+      m_cost: 1
+      m_tooltip: "{dmg0}\u30C0\u30E1\u30FC\u30B8\u30923\u56DE\u4E0E\u3048\u308B"
+      m_cardUseType: 1
+      m_rarity: 1
+      m_isDiscard: 0
+      m_ethereal: 0
+      m_cardCommands:
+        m_commands:
+        - rid: 8289334812319940611
+        - rid: 8289334812319940612
+        - rid: 8289334812319940613
       m_cardDescription:
         m_dispose: 0
         m_ethereal: 0
@@ -456,3 +472,75 @@ MonoBehaviour:
           m_turn: 3
         m_isHideType: 0
         m_otherBuffTypeCommandType: 4
+    - rid: 8289334812319940608
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.3
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 1
+        m_power: 2
+        m_isTrueDamage: 0
+        m_isHideType: 0
+    - rid: 8289334812319940609
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.3
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 1
+        m_power: 2
+        m_isTrueDamage: 0
+        m_isHideType: 0
+    - rid: 8289334812319940610
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.3
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 1
+        m_power: 2
+        m_isTrueDamage: 0
+        m_isHideType: 0
+    - rid: 8289334812319940611
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.3
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 1
+        m_power: 3
+        m_isTrueDamage: 0
+        m_isHideType: 0
+    - rid: 8289334812319940612
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.3
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 1
+        m_power: 3
+        m_isTrueDamage: 0
+        m_isHideType: 0
+    - rid: 8289334812319940613
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0.3
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 1
+        m_power: 3
+        m_isTrueDamage: 0
+        m_isHideType: 0

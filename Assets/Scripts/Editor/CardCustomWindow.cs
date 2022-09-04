@@ -10,7 +10,6 @@ public class CardCustomWindow : EditorWindow
 {
     private static CardDataBase m_database;
     private static List<CardData.RaritySprite> m_raritySprite;
-    private static List<CardData.TypeSprite> m_types;
     private static string m_name;
     private static string m_cost;
     private static string m_tooltip;
@@ -81,36 +80,6 @@ public class CardCustomWindow : EditorWindow
             {
                 Graphics.ConvertTexture(GetTexture(m_rarity), m_cardBackground);
             }
-
-            //GUILayout.Label("カードタイプの設定");
-            //m_cardTypeToggleFlag = EditorGUILayout.Foldout(m_cardTypeToggleFlag, "CardType");
-            //if (m_cardTypeToggleFlag)
-            //{
-            //    HorizontalIndentAria(1, () =>
-            //    {
-            //        //要素数の指定
-            //        EditorGUI.BeginChangeCheck();
-            //        HorizontalIndentAria(1, () => m_cardTypeCountText = GUILayout.TextField(m_cardTypeCountText));
-            //        try
-            //        {
-            //            m_cardTypeCount = int.Parse(m_cardTypeCountText);
-            //            m_cardTypesArray = new CardType[m_cardTypeCount];
-            //        }
-            //        catch { }
-            //        EditorGUI.EndChangeCheck();
-            //    });
-            //    for (int i = 0; i < m_cardTypeCount; i++)
-            //    {
-            //        HorizontalIndentAria(1, () => m_cardTypesArray[i] = (CardType)EditorGUILayout.EnumPopup(m_cardTypesArray[i]));
-            //    }
-            //}
-
-            //GUILayout.Label("効果設定");
-            //m_commandSettingToggleFlag = EditorGUILayout.Foldout(m_commandSettingToggleFlag, "Commands");
-            //if (m_commandSettingToggleFlag)
-            //{
-            //    HorizontalIndentAria(1, () => GUILayout.Label("Level1"));
-            //}
         }
         EditorGUILayout.EndScrollView();
 
@@ -177,21 +146,7 @@ public class CardCustomWindow : EditorWindow
         m_rarity = database.Rarity;
         m_tooltip = database.Tooltip;
         m_raritySprite = raritySprite;
-        //if (m_cardTypes == null)
-        //{
-        //    m_cardTypes = new List<CardType>();
-        //}
-        //else
-        //{
-        //    //m_cardTypeCount = database.CardType.Count;
-        //    m_cardTypeCountText = database.CardType.Count.ToString();
-        //}
-        m_cardTypesArray = m_cardTypes.ToArray();
-        //var v = AppDomain.CurrentDomain.GetAssemblies()
-        //    .SelectMany(s => s.GetType())
-        //    .Where(p => baseType.IsAssignableFrom(p) && p.IsClass && (!monoType.IsAssignableFrom(p)))
-        //    .Prepend(null)
-        //    .ToArray();
+        //m_cardTypesArray = m_cardTypes.ToArray();
         m_cardBackground = new Texture2D((int)m_cardAriaWidth, (int)m_cardAriaHeight);
         Graphics.ConvertTexture(GetTexture(m_rarity), m_cardBackground);
         var t = new Texture2D((int)m_cardViewAriaSizeWidth, (int)m_cardViewAriaSizeHeight);

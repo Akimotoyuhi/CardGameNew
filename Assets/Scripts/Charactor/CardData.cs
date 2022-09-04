@@ -116,15 +116,6 @@ public class CardData : ScriptableObject
         public Rarity Rarity => m_rarity;
         public Sprite Sprite => m_sprite;
     }
-    /// <summary>CardTypeに応じた画像</summary>
-    [System.Serializable]
-    public class TypeSprite
-    {
-        [SerializeField] CardType m_cardType;
-        [SerializeField] Sprite m_sprites;
-        public CardType CardType => m_cardType;
-        public Sprite Sprite => m_sprites;
-    }
     /// <summary>報酬で出る際のレア度毎の出現確率</summary>
     [System.Serializable]
     public class Provality
