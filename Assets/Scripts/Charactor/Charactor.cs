@@ -157,7 +157,7 @@ public abstract class Charactor : MonoBehaviour
             m_damageTexts.Add(dmgText);
             dmgText.transform.SetParent(transform, false);
             //現在ブロック数が0以上あるならブロック成功値を表示、なければ被ダメージを表示
-            if (m_currentBlock.Value >= 0)
+            if (m_currentBlock.Value > 0)
             {
                 dmgText.Setup(
                     cmd.Power,
