@@ -50,6 +50,10 @@ MonoBehaviour:
           m_isUpgrade: 0
         - m_cardid: 1
           m_isUpgrade: 0
+        - m_cardid: 5
+          m_isUpgrade: 0
+        - m_cardid: 7
+          m_isUpgrade: 0
     - rid: 2058801646637940746
       type: {class: OriginalCardClass, ns: , asm: Assembly-CSharp}
       data:

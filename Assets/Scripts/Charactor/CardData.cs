@@ -278,6 +278,16 @@ public enum AKCardID
     TerminationOfTactics,
     /// <summary>ハンマリングオン</summary>
     HammerOn,
+    /// <summary>勝敗分かつ連撃</summary>
+    StrikesOfVictory,
+    /// <summary>鎖鋸拡張モジュール</summary>
+    ChainsawExtensionModule,
+    /// <summary>羽嵐</summary>
+    Reflow,
+    /// <summary>マナスパーク</summary>
+    SpiritualSpark,
+    /// <summary>過集中</summary>
+    FocusOverload,
 }
 /// <summary>レアリティ</summary>
 public enum Rarity
