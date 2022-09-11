@@ -26,17 +26,6 @@ MonoBehaviour:
     m_sprite: {fileID: 21300000, guid: 5948ff37dbb97cc47899fed8f4454f1c, type: 3}
   - m_rarity: 5
     m_sprite: {fileID: 21300000, guid: 5948ff37dbb97cc47899fed8f4454f1c, type: 3}
-  m_typeSprite:
-  - m_cardType: 0
-    m_sprites: {fileID: 21300000, guid: d7c0e20f42611ba41b14209ce0e2f9cf, type: 3}
-  - m_cardType: 1
-    m_sprites: {fileID: 21300000, guid: 6251154650832404a8d6c4b22e995d23, type: 3}
-  - m_cardType: 2
-    m_sprites: {fileID: 21300000, guid: 39635d7d2da86124abbb721af72cf20c, type: 3}
-  - m_cardType: 3
-    m_sprites: {fileID: 21300000, guid: fe48cbafab0cf82478867ec562ce82c8, type: 3}
-  - m_cardType: 4
-    m_sprites: {fileID: 21300000, guid: 417dea5dcabf20b4ba6f8bcb38af51d3, type: 3}
   m_cardRewordProvality:
   - m_battleType: 0
     m_normalCard: 100
@@ -61,7 +50,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314304
@@ -79,7 +67,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314305
@@ -98,7 +85,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314306
@@ -116,7 +102,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314307
@@ -135,7 +120,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314308
@@ -153,7 +137,6 @@ MonoBehaviour:
       m_rarity: 3
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443098995593314309
@@ -172,7 +155,6 @@ MonoBehaviour:
       m_rarity: 1
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639488
@@ -190,7 +172,6 @@ MonoBehaviour:
       m_rarity: 1
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639489
@@ -209,7 +190,6 @@ MonoBehaviour:
       m_rarity: 1
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639490
@@ -227,7 +207,6 @@ MonoBehaviour:
       m_rarity: 1
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 01000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639491
@@ -246,7 +225,6 @@ MonoBehaviour:
       m_rarity: 0
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 0000000003000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639492
@@ -265,7 +243,6 @@ MonoBehaviour:
       m_rarity: 0
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 0000000003000000
       m_cardCommands:
         m_commands:
         - rid: 3443099019064639493
@@ -275,36 +252,38 @@ MonoBehaviour:
         m_ethereal: 0
         m_stock: 0
         m_release: 0
-  - m_label: "\u6700\u9AD8\u30EC\u30A2\u30EA\u30C6\u30A3\u30AB\u30FC\u30C9"
+  - m_label: "\u8150\u98DF\u306E\u938C"
     m_database:
-      m_name: "\u6700\u9AD8\u30EC\u30A2\u30EA\u30C6\u30A3\u30AB\u30FC\u30C9"
-      m_icon: {fileID: 21300000, guid: 0a33552f86bdb2246b76d1204087e951, type: 3}
+      m_name: "\u8150\u98DF\u306E\u938C"
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: 
-      m_cardUseType: -1
+      m_tooltip: "\u6575\u5168\u4F53\u306B{dmg0}\u3092\u4E0E\u3048\u3001\u865A\u5F311\u3092\u4ED8\u4E0E\u3059\u308B"
+      m_cardUseType: 2
       m_rarity: 2
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 
       m_cardCommands:
-        m_commands: []
+        m_commands:
+        - rid: 8289334970893467648
+        - rid: 8289334970893467649
       m_cardDescription:
         m_dispose: 0
         m_ethereal: 0
         m_stock: 0
         m_release: 0
     m_upgradeData:
-      m_name: "\u6700\u9AD8\u30EC\u30A2\u30EA\u30C6\u30A3\u30AB\u30FC\u30C9+"
-      m_icon: {fileID: 21300000, guid: 0a33552f86bdb2246b76d1204087e951, type: 3}
+      m_name: "\u8150\u98DF\u306E\u938C+"
+      m_icon: {fileID: 21300000, guid: 0e5ffde0889543e498120716e7304199, type: 3}
       m_cost: 1
-      m_tooltip: 
-      m_cardUseType: -1
+      m_tooltip: "\u6575\u5168\u4F53\u306B{dmg0}\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u3001\u865A\u5F311\u3092\u4ED8\u4E0E\u3059\u308B"
+      m_cardUseType: 2
       m_rarity: 2
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 
       m_cardCommands:
-        m_commands: []
+        m_commands:
+        - rid: 8289334970893467650
+        - rid: 8289334970893467651
       m_cardDescription:
         m_dispose: 0
         m_ethereal: 0
@@ -320,7 +299,6 @@ MonoBehaviour:
       m_rarity: 0
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 02000000
       m_cardCommands:
         m_commands:
         - rid: 3724448452576542720
@@ -338,7 +316,6 @@ MonoBehaviour:
       m_rarity: 0
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 02000000
       m_cardCommands:
         m_commands:
         - rid: 3724448452576542721
@@ -357,7 +334,6 @@ MonoBehaviour:
       m_rarity: 0
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 02000000
       m_cardCommands:
         m_commands:
         - rid: 3724448452576542722
@@ -375,7 +351,6 @@ MonoBehaviour:
       m_rarity: 0
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 02000000
       m_cardCommands:
         m_commands:
         - rid: 3724448452576542723
@@ -394,7 +369,6 @@ MonoBehaviour:
       m_rarity: 0
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3724448561247027200
@@ -412,7 +386,6 @@ MonoBehaviour:
       m_rarity: 0
       m_isDiscard: 0
       m_ethereal: 0
-      m_cardType: 00000000
       m_cardCommands:
         m_commands:
         - rid: 3724448561247027201
@@ -673,6 +646,58 @@ MonoBehaviour:
         m_useType: -1
         m_effectSelector:
           m_effectID: 0
+          m_turn: 1
+        m_isHideType: 0
+        m_otherBuffTypeCommandType: 4
+    - rid: 8289334970893467648
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 2
+        m_power: 4
+        m_isTrueDamage: 0
+        m_isHideType: 0
+    - rid: 8289334970893467649
+      type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 2
+        m_effectSelector:
+          m_effectID: 1
+          m_turn: 1
+        m_isHideType: 0
+        m_otherBuffTypeCommandType: 4
+    - rid: 8289334970893467650
+      type: {class: AttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 2
+        m_power: 7
+        m_isTrueDamage: 0
+        m_isHideType: 0
+    - rid: 8289334970893467651
+      type: {class: EffectCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 2
+        m_effectSelector:
+          m_effectID: 1
           m_turn: 1
         m_isHideType: 0
         m_otherBuffTypeCommandType: 4
