@@ -365,6 +365,41 @@ MonoBehaviour:
         m_ethereal: 0
         m_stock: 0
         m_release: 0
+  - m_label: "\u9632\u5FA1\u4F53\u5236"
+    m_database:
+      m_name: "\u9632\u5FA1\u4F53\u5236"
+      m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
+      m_cost: 1
+      m_tooltip: "{blk0}\u3092\u5F97\u308B"
+      m_cardUseType: 0
+      m_rarity: 0
+      m_isDiscard: 0
+      m_ethereal: 0
+      m_cardCommands:
+        m_commands:
+        - rid: 8289334994495602688
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
+    m_upgradeData:
+      m_name: "\u9632\u5FA1\u4F53\u5236+"
+      m_icon: {fileID: 21300000, guid: b695331281e02134ebcd98397beb354f, type: 3}
+      m_cost: 1
+      m_tooltip: "{blk0}\u3092\u5F97\u308B"
+      m_cardUseType: 0
+      m_rarity: 0
+      m_isDiscard: 0
+      m_ethereal: 0
+      m_cardCommands:
+        m_commands:
+        - rid: 8289334994495602689
+      m_cardDescription:
+        m_dispose: 0
+        m_ethereal: 0
+        m_stock: 0
+        m_release: 0
   references:
     version: 2
     RefIds:
@@ -696,3 +731,27 @@ MonoBehaviour:
           m_turn: -5
         m_isHideType: 0
         m_otherBuffTypeCommandType: 4
+    - rid: 8289334994495602688
+      type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 0
+        m_block: 6
+        isTrueBlock: 0
+        m_isHideType: 0
+    - rid: 8289334994495602689
+      type: {class: BlockCommand, ns: , asm: Assembly-CSharp}
+      data:
+        m_particleID: -1
+        m_seID: -1
+        m_duration: 0
+        m_stockTurn: -1
+        m_isStockRelease: 0
+        m_useType: 0
+        m_block: 10
+        isTrueBlock: 0
+        m_isHideType: 0
