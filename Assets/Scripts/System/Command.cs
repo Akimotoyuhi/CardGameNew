@@ -237,11 +237,22 @@ public class EnemyLifeConditional : IConditional
 public class TurnConditional : IConditional
 {
     [SerializeField] int m_turn;
+    [SerializeField] bool m_isFirstTurnOnry;
     [SerializeField] EvaluationType m_evaluationType;
 
     public bool EnemyEvaluation(Enemy enemy) => true;
-    public bool FieldEvaluation(FieldEffect field) =>
-        ConditionalHelper.Evaluation(m_evaluationType, field.CurrentTurn, m_turn);
+    public bool FieldEvaluation(FieldEffect field)
+    {
+        if (m_isFirstTurnOnry)
+        {
+            if (field.CurrentTurn == 0)
+                return true;
+            else
+                return false;
+        }
+
+        return ConditionalHelper.Evaluation(m_evaluationType, field.CurrentTurn, m_turn);
+    }
     public bool PlayerEvaluation(Player player) => true;
 }
 /// <summary>値と評価条件から成否をチェックする</summary>

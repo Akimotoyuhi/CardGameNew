@@ -32,7 +32,7 @@ MonoBehaviour:
         m_eliteMinIndex: 5
         m_eliteMaxIndex: 9
         m_eliteProbability: 30
-        m_eliteAbsoluteIndex: -1
+        m_eliteAbsoluteIndex: 0
   - m_name: "\u3055\u308F\u3084\u304B\u5DDD"
     m_mapID: 1
     m_act: 1

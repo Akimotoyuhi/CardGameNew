@@ -27,13 +27,17 @@ public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public bool IsUsed { get; private set; }
     /// <summary>ストックしておくターン数</summary>
     public int StockTurn { get => m_turnTextValue.Value; private set => m_turnTextValue.Value = value; }
+    /// <summary>解放効果を使用可能かのフラグ</summary>
+    public bool CanRelease { get; private set; }
     /// <summary>ストック中コマンドの実行</summary>
     public List<Command> ExecuteStockCommand
     {
         get
         {
             if (StockTurn <= 0)
+            {
                 return new List<Command>();
+            }
             StockTurn--;
             return m_stockCommand;
         }
@@ -44,7 +48,10 @@ public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         get
         {
             if (StockTurn <= 0)
+            {
+                CanRelease = false;
                 return m_releaseCommand;
+            }
             return new List<Command>();
         }
     }
@@ -73,6 +80,7 @@ public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             {
                 c.IsStockRelease = false;
                 m_releaseCommand.Add(c);
+                CanRelease = true;
             }
             else
             {

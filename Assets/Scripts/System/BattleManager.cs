@@ -210,7 +210,7 @@ public class BattleManager : MonoBehaviour
                 {
                     CommandsInfomation ci = new CommandsInfomation();
                     ci.Commands = item.ExecuteStockReleaseCommand;
-                    if (item.StockTurn <= 0)
+                    if (item.StockTurn <= 0 && !item.CanRelease)
                         item.Init();
                     await CommandExecutor(ci);
                 }
