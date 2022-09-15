@@ -80,6 +80,8 @@ public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             {
                 c.IsStockRelease = false;
                 m_releaseCommand.Add(c);
+                StockTurn = c.StockTurn;
+                c.StockTurn = -1;
                 CanRelease = true;
             }
             else

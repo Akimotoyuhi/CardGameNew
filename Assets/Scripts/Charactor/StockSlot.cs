@@ -19,6 +19,7 @@ public class StockSlot : MonoBehaviour
 
     public void Setup()
     {
+        //StockItem‚Ì¶¬
         if (m_stockItems.Count <= 0)
         {
             for (int i = 0; i < m_maxSlot; i++)
@@ -36,6 +37,7 @@ public class StockSlot : MonoBehaviour
     {
         foreach (var item in m_stockItems)
         {
+            //g‚í‚ê‚Ä‚¢‚È‚¢StockItem‚ğ’T‚·
             if (!item.IsUsed)
             {
                 item.SetCommand(command, sprite, tooltip);
