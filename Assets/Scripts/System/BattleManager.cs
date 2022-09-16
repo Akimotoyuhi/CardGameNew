@@ -198,6 +198,7 @@ public class BattleManager : MonoBehaviour
         switch (turnStartOrEnd)
         {
             case TurnStartOrEnd.Start:
+                //ターン開始時の効果発動
                 foreach (var item in m_stockSlot.StockItems)
                 {
                     CommandsInfomation ci = new CommandsInfomation();
@@ -206,6 +207,7 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
             case TurnStartOrEnd.End:
+                //ターン終了時の解放効果発動
                 foreach (var item in m_stockSlot.StockItems)
                 {
                     CommandsInfomation ci = new CommandsInfomation();

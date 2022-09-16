@@ -306,6 +306,8 @@ public class GUIManager : MonoBehaviour
         }
     }
 
+    /// <summary>情報画面の更新</summary>
+    /// <param name="text"></param>
     private void SetInfoTextPanels(string text)
     {
         m_infoText.text = text;
@@ -344,6 +346,9 @@ public class GUIManager : MonoBehaviour
         await BattleAnimationUIController.ActiveText(animationType);
 }
 
+/// <summary>
+/// カード表示のさせ方
+/// </summary>
 public enum CardDisplayType
 {
     List,
