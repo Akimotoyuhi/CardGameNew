@@ -156,7 +156,7 @@ public abstract class Charactor : MonoBehaviour
             DamageText dmgText = Instantiate(m_datageTextPrefab);
             m_damageTexts.Add(dmgText);
             dmgText.transform.SetParent(transform, false);
-            //現在ブロック数が0より大きいならブロック成功値を表示、なければ被ダメージを表示
+            //現在ブロック数が0より大きいならブロック成功値を表示
             if (m_currentBlock.Value > 0)
             {
                 dmgText.Setup(
@@ -166,7 +166,8 @@ public abstract class Charactor : MonoBehaviour
                     DG.Tweening.Ease.OutQuad,
                     () => m_damageTexts.Remove(dmgText));
             }
-            else
+            //受けたダメージを表示
+            if (dmg < 0)
             {
                 dmgText.Setup(
                     dmg * -1,

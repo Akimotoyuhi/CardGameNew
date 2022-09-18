@@ -39,6 +39,7 @@ public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 return new List<Command>();
             }
             StockTurn--;
+            m_stockCommand.AddRange(ExecuteStockReleaseCommand);
             return m_stockCommand;
         }
     }
@@ -69,6 +70,11 @@ public class StockItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             .AddTo(this);
         m_image.sprite = m_defaultSprite;
         IsUsed = false;
+
+
+        List<int> a = new List<int>();
+        List<int> b = new List<int>();
+        a.AddRange(b);
     }
 
     public void SetCommand(List<Command> command, Sprite sprite, string tooltip)
