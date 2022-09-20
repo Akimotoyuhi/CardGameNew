@@ -66,3 +66,5 @@ MonoBehaviour:
           m_isUpgrade: 0
         - m_cardid: 9
           m_isUpgrade: 0
+        - m_cardid: 6
+          m_isUpgrade: 0

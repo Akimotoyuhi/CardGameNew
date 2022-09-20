@@ -128,9 +128,13 @@ public class BattleManager : MonoBehaviour
         m_charactorManager.HaveCard.ForEach(card =>
         {
             Card c = Instantiate(m_cardPrefab);
+            //データを入れる
             c.Setup(m_cardDatas.GetDataBase(card),
                 m_cardDatas.GetData(card.CardCalssType).GetRaritySprite,
                 m_charactorManager.CurrentPlayer);
+            //ドロップ可能な場所をハイライトする為にカードの使用先を受け取る
+            c.OnBeginDragSubject.Subscribe(type => PossibleDropEria(type));
+            //使用した際の効果発動先の設定
             c.CardExecute.Subscribe(cmds =>
             {
                 CommandExecutor(cmds).Forget();
@@ -303,6 +307,14 @@ public class BattleManager : MonoBehaviour
 
         m_stockSlot.Init();
         m_battleState.Value = BattleState.Reward;
+    }
+
+    /// <summary>
+    /// ドロップ可能場所の表示
+    /// </summary>
+    private void PossibleDropEria(UseType useType)
+    {
+        Debug.Log($"{useType}をドラッグ中");
     }
 
     /// <summary>

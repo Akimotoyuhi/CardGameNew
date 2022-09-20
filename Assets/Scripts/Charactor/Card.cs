@@ -69,6 +69,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private CardDescriptionItem m_cardDescriptionItem;
     private Player m_player;
     private Subject<Unit> m_onClick = new Subject<Unit>();
+    private Subject<UseType> m_onBeginDrag = new Subject<UseType>();
     private Subject<CommandsInfomation> m_cardExecute = new Subject<CommandsInfomation>();
     #endregion
     #region Property
@@ -80,6 +81,8 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     public CardState CardState { get; set; }
     /// <summary>ボタンとして表示された際のクリック時イベント</summary>
     public System.IObservable<Unit> OnClickSubject => m_onClick;
+    /// <summary>ドラッグが開始されたことを通知する</summary>
+    public System.IObservable<UseType> OnBeginDragSubject => m_onBeginDrag;
     /// <summary>使用された事を通知する</summary>
     public System.IObservable<CommandsInfomation> CardExecute => m_cardExecute;
     #endregion
@@ -348,6 +351,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         if (CardState == CardState.Play)
         {
             m_isDrag = true;
+            m_onBeginDrag.OnNext(m_useType);
             TranslucentUI();
         }
     }
