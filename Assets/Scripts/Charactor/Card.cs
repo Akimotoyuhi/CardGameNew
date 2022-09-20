@@ -70,6 +70,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     private Player m_player;
     private Subject<Unit> m_onClick = new Subject<Unit>();
     private Subject<UseType> m_onBeginDrag = new Subject<UseType>();
+    private Subject<Unit> m_onEndDrag = new Subject<Unit>();
     private Subject<CommandsInfomation> m_cardExecute = new Subject<CommandsInfomation>();
     #endregion
     #region Property
@@ -83,7 +84,9 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     public System.IObservable<Unit> OnClickSubject => m_onClick;
     /// <summary>ドラッグが開始されたことを通知する</summary>
     public System.IObservable<UseType> OnBeginDragSubject => m_onBeginDrag;
-    /// <summary>使用された事を通知する</summary>
+    /// <summary>ドラッグ終了の通知</summary>
+    public System.IObservable<Unit> OnEndDragSubject => m_onEndDrag;
+    /// <summary>効果の発動を通知する</summary>
     public System.IObservable<CommandsInfomation> CardExecute => m_cardExecute;
     #endregion
 
