@@ -43,7 +43,7 @@ public class EffectSelector
                     break;
                 case EffectID.Strength:
                     ret = new Strength();
-                        break;
+                    break;
                 case EffectID.Agile:
                     ret = new Agile();
                     break;
