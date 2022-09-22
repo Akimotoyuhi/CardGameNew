@@ -197,5 +197,17 @@ public class Enemy : Charactor, IDrop
         return true;
     }
 
-    public UseType GetUseType() => UseType.Enemy;
+    public UseType GetUseType => UseType.Enemy;
+
+    public void ShowDropEria(UseType useType)
+    {
+        if (GetUseType == useType)
+        {
+            m_dropEriaObject.SetActive(true);
+        }
+        else
+        {
+            m_dropEriaObject.SetActive(false);
+        }
+    }
 }

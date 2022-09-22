@@ -64,7 +64,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Hand m_hand;
     [SerializeField] Deck m_deck;
     [SerializeField] Discard m_discard;
-    //[SerializeField] Exclusion m_exception;
+    /// <summary>全体攻撃カードを使用する際にドロップされる対象</summary>
+    [SerializeField] AllEnemiesDropTarget m_allEnemiesDropTarget;
     [SerializeField] CharactorManager m_charactorManager;
     [SerializeField] CardClassDatas m_cardDatas;
     [SerializeField] StockSlot m_stockSlot;
@@ -73,6 +74,8 @@ public class BattleManager : MonoBehaviour
     private FieldEffect m_currentFieldEffect;
     /// <summary>この戦闘中のカードのインスタンス</summary>
     private List<Card> m_currentCard = new List<Card>();
+    /// <summary>カードドロップ可能オブジェクト達</summary>
+    private List<IDrop> m_canDropObjects = new List<IDrop>();
     /// <summary>戦闘終了を通知する</summary>
     private Subject<Unit> m_battleFinished = new Subject<Unit>();
     /// <summary>ゲーム終了を通知する</summary>
@@ -95,12 +98,15 @@ public class BattleManager : MonoBehaviour
         m_cardDatas.GetData(CardClassType.AK).Setup();
         m_cardDatas.GetData(CardClassType.Original).Setup();
 
+        m_allEnemiesDropTarget.Setup();
+
         //キャラクターマネージャーのセットアップと通知の購読
         m_charactorManager.Setup();
         //敵行動イベントの購読
         m_charactorManager.NewEnemyCreateSubject
             .Subscribe(e =>
             {
+                //敵の攻撃通知を受け取る
                 e.ActionSubject
                 .Subscribe(async cmd =>
                 {
@@ -108,6 +114,8 @@ public class BattleManager : MonoBehaviour
                     e.EndAction = true;
                 })
                 .AddTo(e);
+
+                m_canDropObjects.Add(e);
             })
             .AddTo(m_charactorManager);
         //戦闘終了イベントの購読
@@ -132,8 +140,9 @@ public class BattleManager : MonoBehaviour
             c.Setup(m_cardDatas.GetDataBase(card),
                 m_cardDatas.GetData(card.CardCalssType).GetRaritySprite,
                 m_charactorManager.CurrentPlayer);
-            //ドロップ可能な場所をハイライトする為にカードの使用先を受け取る
+            //ドロップ可能な場所をハイライトする為にドラック時に使用先とドラッグ終了タイミングを受け取る
             c.OnBeginDragSubject.Subscribe(type => PossibleDropEria(type));
+            c.OnEndDragSubject.Subscribe(type => PossibleDropEria(UseType.None));
             //使用した際の効果発動先の設定
             c.CardExecute.Subscribe(cmds =>
             {
@@ -231,8 +240,9 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public async void BattleStart(MapID mapID, CellType cellType)
     {
-        //フィールド効果リセット
+        //前戦闘の色々をリセット
         m_currentFieldEffect = new FieldEffect();
+        m_canDropObjects.Clear();
 
         //エンカウントした敵の大まかな種類の判定
         if (cellType == CellType.FirstHalfBattle || cellType == CellType.SecondHalfBattle)
@@ -245,6 +255,7 @@ public class BattleManager : MonoBehaviour
         //エンカウントした敵のデータを取得して、敵やカードを生成する
         List<EnemyID> e = m_encountData.GetEncountData(mapID).GetEnemies(cellType);
         m_charactorManager.Create(e);
+        m_canDropObjects.Add(m_charactorManager.CurrentPlayer);
         Create();
 
         //最初のターンの特別処理
@@ -315,6 +326,10 @@ public class BattleManager : MonoBehaviour
     private void PossibleDropEria(UseType useType)
     {
         Debug.Log($"{useType}をドラッグ中");
+        foreach (var obj in m_canDropObjects)
+        {
+            obj.ShowDropEria(useType);
+        }
     }
 
     /// <summary>

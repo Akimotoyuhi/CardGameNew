@@ -67,5 +67,17 @@ public class Player : Charactor, IDrop
         return true;
     }
 
-    public UseType GetUseType() => UseType.Player;
+    public UseType GetUseType => UseType.Player;
+
+    public void ShowDropEria(UseType useType)
+    {
+        if (GetUseType == useType)
+        {
+            m_dropEriaObject.SetActive(true);
+        }
+        else
+        {
+            m_dropEriaObject.SetActive(false);
+        }
+    }
 }

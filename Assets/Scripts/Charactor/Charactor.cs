@@ -23,6 +23,8 @@ public abstract class Charactor : MonoBehaviour
     [SerializeField] DamageText m_datageTextPrefab;
     /// <summary>ダメージ表示テキストの表示位置</summary>
     [SerializeField] Vector2 m_damageTextPosition;
+    /// <summary>ドロップ対象を強調表示する用</summary>
+    [SerializeField] protected GameObject m_dropEriaObject;
     protected string m_name;
     protected int m_maxLife;
     protected ReactiveProperty<int> m_currentLife = new ReactiveProperty<int>();
@@ -69,6 +71,7 @@ public abstract class Charactor : MonoBehaviour
             SetText();
         }).AddTo(this);
 
+        m_dropEriaObject.SetActive(false);
         m_currentBlock.Value = 0;
         m_isDead = false;
     }

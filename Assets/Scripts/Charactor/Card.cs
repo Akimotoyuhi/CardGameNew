@@ -189,7 +189,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     /// <param name="target"></param>
     private void Execute(IDrop target)
     {
-        UseType ut = target.GetUseType();
+        UseType ut = target.GetUseType;
         //Žg—p‘ÎÛ‚¶‚á‚¯‚ê‚ÎŽg‚¦‚È‚¢
         if (ut != m_useType)
             return;
@@ -373,6 +373,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         {
             m_rectTransform.DOAnchorPos(m_defPos, m_endDragMoveDuration)
                 .OnComplete(() => m_isDrag = false);
+            m_onEndDrag.OnNext(Unit.Default);
             TranslucentUI(false);
         }
     }

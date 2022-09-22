@@ -16,5 +16,9 @@ public interface IDrop
     /// 受付対象のUseTypeを返す
     /// </summary>
     /// <returns></returns>
-    UseType GetUseType();
+    UseType GetUseType { get; }
+    /// <summary>
+    /// ドロップ対象を強調表示させる
+    /// </summary>
+    void ShowDropEria(UseType useType);
 }
