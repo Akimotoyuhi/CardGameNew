@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public struct Command
 {
+    /// <summary>‘Ì—Í</summary>
     public int Life { get; set; }
     /// <summary>UŒ‚—Í’l</summary>
     public int Power { get; set; }

@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// キャラクター毎のカードリストを設定出来るようにするクラス
+/// </summary>
 [System.Serializable]
 public class CardClassSelector
 {
     [SerializeReference, SubclassSelector] ICardClassSelector m_cardClassSelector;
     public List<HaveCardData> HaveCardData => m_cardClassSelector.Execute();
 }
+/// <summary>
+/// どのカードクラスのどのカードかを指定する為の構造体
+/// </summary>
 public struct HaveCardData
 {
     public CardClassType CardCalssType { get; set; }
@@ -103,12 +109,14 @@ public class AKCardClass : ICardClassSelector
         public CardUpGrade CardUpGrade => m_isUpgrade ? CardUpGrade.AsseptUpGrade : CardUpGrade.NoUpGrade;
     }
 }
+/// <summary>カードクラス</summary>
 public enum CardClassType
 {
     Common,
     Original,
     AK,
 }
+/// <summary>アップグレード済みか否か</summary>
 public enum CardUpGrade
 {
     NoUpGrade,

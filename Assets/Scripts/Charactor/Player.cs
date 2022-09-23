@@ -16,6 +16,7 @@ public class Player : Charactor, IDrop
 
     protected override void Setup()
     {
+        //ŠK‘wXVŽž‚Éí“¬‚ðˆø‚«Œp‚ª‚È‚¢’l‚ð‰Šú‰»‚·‚é
         GameManager.Instance.FloorUpdate.Subscribe(_ =>
         {
             m_effects.Clear();
