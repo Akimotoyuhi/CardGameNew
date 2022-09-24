@@ -403,6 +403,7 @@ public class Card : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     public void OnDrop(PointerEventData eventData)
     {
         m_isDrag = false;
+        m_onEndDrag.OnNext(Unit.Default);
         //普通にOnDropで取るとカードの描画が対象の裏に行っちゃうので
         //マウスの位置にRayを飛ばしてインターフェースで判断する
         var result = new List<RaycastResult>();

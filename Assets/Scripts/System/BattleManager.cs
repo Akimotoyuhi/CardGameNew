@@ -243,6 +243,7 @@ public class BattleManager : MonoBehaviour
         //前戦闘の色々をリセット
         m_currentFieldEffect = new FieldEffect();
         m_canDropObjects.Clear();
+        m_canDropObjects.Add(m_allEnemiesDropTarget);
 
         //エンカウントした敵の大まかな種類の判定
         if (cellType == CellType.FirstHalfBattle || cellType == CellType.SecondHalfBattle)

@@ -105,8 +105,8 @@ public class Enemy : Charactor, IDrop
                     cp.Setup(cmd.Block, EvaluationParamType.Block, EffectTiming.Attacked);
                     cps.Add(cp);
                     break;
-                //case CommandType.Effect:
-                //    break;
+                case CommandType.Effect:
+                    break;
                 default:
                     break;
             }
