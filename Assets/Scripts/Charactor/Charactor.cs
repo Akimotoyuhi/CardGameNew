@@ -148,8 +148,6 @@ public abstract class Charactor : MonoBehaviour
         if (IsDead)
             return;
 
-        Debug.Log($"{m_name}にコマンド実行");
-
         if (cmd.Effect != null)
             cmd.Effect.ForEach(e => AddEffect(e));
 

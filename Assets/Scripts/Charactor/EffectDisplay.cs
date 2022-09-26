@@ -34,6 +34,7 @@ public class EffectDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         m_text.text = effect.Turn.ToString();
         m_tooltip = effect.Tooltip;
+        Debug.Log(m_tooltip);
         m_spriteSettings.ForEach(s =>
         {
             if (s.EffectID == effect.GetEffectID)

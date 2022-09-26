@@ -43,6 +43,7 @@ public class Enemy : Charactor, IDrop
         if (dataBase == null)
             return;
         m_dataBase = dataBase;
+        SetData(dataBase.CharactorData);
         m_image.sprite = dataBase.CharactorData.Sprite;
         m_maxLife = dataBase.CharactorData.MaxLife;
         m_currentLife.Value = dataBase.CharactorData.MaxLife;
