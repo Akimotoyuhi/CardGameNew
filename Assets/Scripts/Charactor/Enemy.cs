@@ -97,6 +97,7 @@ public class Enemy : Charactor, IDrop
             switch (cmd.CommandType)
             {
                 case CommandType.Attack:
+                    Debug.Log($"ó^Ç¶ÇÈÉ_ÉÅÅ[ÉW : {cmd.Power}");
                     cp.Parametor = cmd.Power;
                     cp.Setup(cmd.Power, EvaluationParamType.Attack, EffectTiming.Attacked);
                     cps.Add(cp);

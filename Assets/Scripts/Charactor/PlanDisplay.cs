@@ -33,6 +33,8 @@ public class PlanDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("ƒhƒƒbƒv‚³‚ê‚½");
+        Debug.Log("Tooltip " + m_tooltip);
         GameManager.Instance.SetInfoText = m_tooltip;
     }
 

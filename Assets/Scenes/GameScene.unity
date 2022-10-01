@@ -959,16 +959,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4ddd5d813f72944a5a32674fef1a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sample:
-    rid: 3724448789351104514
-  references:
-    version: 2
-    RefIds:
-    - rid: 3724448789351104514
-      type: {class: A, ns: , asm: Assembly-CSharp}
-      data:
-        m_power: 0
-        m_def: 0
 --- !u!1 &356385847
 GameObject:
   m_ObjectHideFlags: 0

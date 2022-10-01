@@ -6,14 +6,25 @@ using Cysharp.Threading.Tasks;
 using UniRx;
 using System;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Sample : MonoBehaviour
+public class Sample : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeReference, SubclassSelector] ISample m_sample;
+    //[SerializeReference, SubclassSelector] ISample m_sample;
 
     private void Start()
     {
-        Debug.Log($"power:{m_sample.Execute().Power}  def:{m_sample.Execute().Block}");
+        //Debug.Log($"power:{m_sample.Execute().Power}  def:{m_sample.Execute().Block}");
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("Enter");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Debug.Log("Exit");
     }
 }
 
