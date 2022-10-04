@@ -12,6 +12,7 @@ public class EffectDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] Image m_image;
     [SerializeField] Text m_text;
     [SerializeField] List<SpriteSetting> m_spriteSettings;
+    /// <summary>かかったエフェクト毎の表示する画像と色を設定するクラス</summary>
     [System.Serializable]
     public class SpriteSetting
     {
@@ -29,6 +30,13 @@ public class EffectDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
     private string m_tooltip;
+
+    public static EffectDisplay Init(EffectDisplay prefab, EffectBase effectBase)
+    {
+        EffectDisplay ret = Instantiate(prefab);
+        ret.Setup(effectBase);
+        return ret;
+    }
 
     public void Setup(EffectBase effect)
     {

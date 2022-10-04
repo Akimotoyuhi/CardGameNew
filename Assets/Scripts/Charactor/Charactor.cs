@@ -229,8 +229,7 @@ public abstract class Charactor : MonoBehaviour
         }
         m_effects.ForEach(e =>
         {
-            EffectDisplay ev = Instantiate(m_effectViewPrefab);
-            ev.Setup(e);
+            EffectDisplay ev = EffectDisplay.Init(m_effectViewPrefab, e);
             ev.transform.SetParent(m_effectViewParent.transform, false);
         });
     }

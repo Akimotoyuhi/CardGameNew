@@ -370,7 +370,7 @@ MonoBehaviour:
         m_useType: 1
         m_effectSelector:
           m_effectID: 4
-          m_turn: 3
+          m_turn: 100
         m_isHideType: 0
         m_otherBuffTypeCommandType: 4
     - rid: 8289334828542984193
